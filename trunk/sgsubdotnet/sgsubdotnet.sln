@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sgsubdotnet", "sgsubdotnet\sgsubdotnet.csproj", "{DF34F3A6-1DD7-4753-9A44-9AD71AA7B97E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Subtitle", "Subtitle\Subtitle.csproj", "{0CBB1C5A-AB92-44D1-A0DA-44C80F8A27B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{DF34F3A6-1DD7-4753-9A44-9AD71AA7B97E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF34F3A6-1DD7-4753-9A44-9AD71AA7B97E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF34F3A6-1DD7-4753-9A44-9AD71AA7B97E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CBB1C5A-AB92-44D1-A0DA-44C80F8A27B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CBB1C5A-AB92-44D1-A0DA-44C80F8A27B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CBB1C5A-AB92-44D1-A0DA-44C80F8A27B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CBB1C5A-AB92-44D1-A0DA-44C80F8A27B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
