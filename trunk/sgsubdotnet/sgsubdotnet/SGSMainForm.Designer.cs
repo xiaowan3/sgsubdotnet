@@ -37,6 +37,7 @@
             this.subtitleGrid = new System.Windows.Forms.DataGridView();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.statusBar = new System.Windows.Forms.StatusStrip();
+            this.button2 = new System.Windows.Forms.Button();
             this.hSpliter.Panel1.SuspendLayout();
             this.hSpliter.Panel2.SuspendLayout();
             this.hSpliter.SuspendLayout();
@@ -79,6 +80,7 @@
             // 
             // vSpliter.Panel2
             // 
+            this.vSpliter.Panel2.Controls.Add(this.button2);
             this.vSpliter.Panel2.Controls.Add(this.button1);
             this.vSpliter.Size = new System.Drawing.Size(734, 328);
             this.vSpliter.SplitterDistance = 382;
@@ -146,6 +148,16 @@
             this.statusBar.TabIndex = 2;
             this.statusBar.Text = "Status";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(67, 173);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // SGSMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -181,6 +193,7 @@
         private System.Windows.Forms.DataGridView subtitleGrid;
         private System.Windows.Forms.SplitContainer smallSpliter;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
