@@ -1,0 +1,4 @@
+﻿1. Parse ass file, Load it to memory.
+2. Load txt file.
+3. Open video file using windows media player control.
+4. Timing hotkeys.
