@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Subtitle
 {
@@ -19,12 +20,10 @@ namespace Subtitle
             m_HeadLines = new List<string>();
         }
 
-        public override string ToString()
+        public void WriteTo(StreamWriter oStream)
         {
-            string str = "";
             foreach (string s in m_HeadLines)
-                str += s;
-            return str;
+                oStream.WriteLine(s);
         }
     }
     public class AssItem
@@ -143,6 +142,11 @@ namespace Subtitle
 
     public class AssLineParser
     {
+        private string m_fmtline = "";
+        public string FmtLine
+        {
+            get { return m_fmtline; }
+        }
         private char[] spliter = new char[12];
         private int formatpos = -1;
         private int markedpos = -1;
@@ -161,6 +165,7 @@ namespace Subtitle
             string seg = "";
             int pos = 0;
             int s = 0;
+            m_fmtline = format;
             format += "#";
             for(int i = 0;i<format.Length;i++)
             {
@@ -254,6 +259,39 @@ namespace Subtitle
             if (textpos != -1) assitem.Text = segs[textpos];
 
             return assitem;
+        }
+
+        public string FormatLine(AssItem line)
+        {
+            string str = "";
+            string[] segs = new string[12];
+            for (int i = 0; i < 12; i++) segs[i] = "";
+
+            if (formatpos != -1) segs[formatpos] = line.Format;
+            if (markedpos != -1) segs[markedpos] = line.Marked;
+            if (layerPos != -1) segs[layerPos] = line.Layer;
+            if (startpos != -1) segs[startpos] = line.StartTime;
+            if (endpos != -1) segs[endpos] = line.EndTime;
+            if (stylepos != -1) segs[stylepos] = line.Style;
+            if (namepos != -1) segs[namepos] = line.Name;
+            if (marginlpos != -1) segs[marginlpos] = line.MarginL.ToString("D4");
+            if (marginrpos != -1) segs[marginrpos] = line.MarginR.ToString("D4");
+            if (marginvpos != -1) segs[marginvpos] = line.MarginV.ToString("D4");
+            if (effectpos != -1) segs[effectpos] = line.Effect;
+            if (textpos != -1) segs[textpos] = line.Text;
+            for (int i = 0; i < 12; i++)
+            {
+                if (spliter[i] != '#')
+                {
+                    str += (segs[i] + spliter[i]);
+                }
+                else
+                {
+                    str += segs[i];
+                    break;
+                }
+            }
+            return str;
         }
 
     }

@@ -45,5 +45,10 @@ namespace sgsubdotnet
             column.DataPropertyName = "Text";
             subtitleGrid.Columns.Add(column);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            sub.WriteAss("E:\\test\\test2.ass");
+        }
     }
 }

@@ -47,12 +47,45 @@ namespace Subtitle
                     break;
                 }
             }
+            if (!eventfound) throw (new Exception("Wrong ass file."));
             line = iStream.ReadLine();
             m_AssParser = new AssLineParser(line);
             while (!iStream.EndOfStream)
             {
                 line = iStream.ReadLine();
                 SubItems.Add(m_AssParser.ParseLine(line));
+            }
+        }
+
+        public void WriteAss(string filename)
+        {
+            FileStream ofile = new FileStream(filename, FileMode.OpenOrCreate);
+            StreamWriter oStream = new StreamWriter(ofile);
+            WriteAss(oStream);
+            oStream.Flush();
+            ofile.Flush();
+            oStream.Close();
+            ofile.Close();
+        }
+
+        public void WriteAss(string filename, Encoding encoding)
+        {
+            FileStream ofile = new FileStream(filename, FileMode.OpenOrCreate);
+            StreamWriter oStream = new StreamWriter(ofile,encoding);
+            WriteAss(oStream);
+            oStream.Flush();
+            ofile.Flush();
+            oStream.Close();
+            ofile.Close();
+        }
+
+        public void WriteAss(StreamWriter oStream)
+        {
+            m_AssHead.WriteTo(oStream);
+            oStream.WriteLine(m_AssParser.FmtLine);
+            foreach (object i in SubItems)
+            {
+                oStream.WriteLine(m_AssParser.FormatLine((AssItem)i));
             }
         }
 
