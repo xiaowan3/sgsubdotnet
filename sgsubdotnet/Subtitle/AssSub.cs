@@ -14,6 +14,10 @@ namespace Subtitle
         private AssLineParser m_AssParser;
         public BindingSource SubItems = new BindingSource();
 
+        /// <summary>
+        /// 读取ass文件
+        /// </summary>
+        /// <param name="filename"></param>
         public void LoadAss(string filename)
         {
             FileStream ifile = new FileStream(filename, FileMode.Open);
@@ -22,6 +26,12 @@ namespace Subtitle
             istream.Close();
             ifile.Close();
         }
+
+        /// <summary>
+        /// 读取ass文件
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="encoding"></param>
         public void LoadAss(string filename, Encoding encoding)
         {
             FileStream ifile = new FileStream(filename, FileMode.Open);
@@ -31,6 +41,10 @@ namespace Subtitle
             ifile.Close();
         }
 
+        /// <summary>
+        /// 读取ass文件
+        /// </summary>
+        /// <param name="iStream"></param>
         public void LoadAss(StreamReader iStream)
         {
             string line;
@@ -59,6 +73,11 @@ namespace Subtitle
             }
         }
 
+
+        /// <summary>
+        /// 保存ass文件
+        /// </summary>
+        /// <param name="filename"></param>
         public void WriteAss(string filename)
         {
             FileStream ofile = new FileStream(filename, FileMode.OpenOrCreate);
@@ -70,6 +89,11 @@ namespace Subtitle
             ofile.Close();
         }
 
+        /// <summary>
+        /// 保存ass文件
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="encoding"></param>
         public void WriteAss(string filename, Encoding encoding)
         {
             FileStream ofile = new FileStream(filename, FileMode.OpenOrCreate);
@@ -81,6 +105,10 @@ namespace Subtitle
             ofile.Close();
         }
 
+        /// <summary>
+        /// 保存ass文件
+        /// </summary>
+        /// <param name="oStream"></param>
         public void WriteAss(StreamWriter oStream)
         {
             m_AssHead.WriteTo(oStream);
@@ -91,31 +119,54 @@ namespace Subtitle
             }
         }
 
+        /// <summary>
+        ///  读取无时间轴的翻译稿
+        /// </summary>
+        /// <param name="filename"></param>
         public void LoadText(string filename)
         {
         }
+
+        /// <summary>
+        ///  读取无时间轴的翻译稿
+        /// </summary>
+        /// <param name="filename"></param>
         public void LoadText(string filename, Encoding encoding)
         {
         }
 
+        /// <summary>
+        /// 为了在播放时能快速找到显示的字幕，定义这么一个索引。
+        /// </summary>
+        private List<AssItem>[] m_AssItemIndex;
 
-        private List<AssItem>[] m_Track;
-        public void CreateTrack(double length)
+
+        /// <summary>
+        /// 建立索引
+        /// </summary>
+        /// <param name="length">视频长度</param>
+        public void CreateIndex(double length)
         {
-            m_Track = new List<AssItem>[(int)Math.Ceiling(length)];
-            for (int i = 0; i < m_Track.Length; i++) m_Track[i] = new List<AssItem>();
+            m_AssItemIndex = new List<AssItem>[(int)Math.Ceiling(length)];
+            for (int i = 0; i < m_AssItemIndex.Length; i++) m_AssItemIndex[i] = new List<AssItem>();
             foreach (AssItem item in SubItems)
             {
                 int a = (int)Math.Floor(item.Start.TimeValue);
                 int b = (int)Math.Ceiling(item.End.TimeValue);
                 for (int i = a; i < b; i++)
                 {
-                    if (i < m_Track.Length)
-                        m_Track[i].Add(item);
+                    if (i < m_AssItemIndex.Length)
+                        m_AssItemIndex[i].Add(item);
                 }
             }
         }
 
+        /// <summary>
+        /// 当Item的起始或终止时间改变时，修改Index
+        /// </summary>
+        /// <param name="item">被改变的Item</param>
+        /// <param name="oldStart">原来的起始时间</param>
+        /// <param name="oldEnd">原来的终止时间</param>
         public void ItemEdited(AssItem item, double oldStart, double oldEnd)
         {
             int olds = (int)Math.Floor(oldStart);
@@ -127,15 +178,15 @@ namespace Subtitle
 
             for (int i = s; i < e; i++)
             {
-                if (i < m_Track.Length)
+                if (i < m_AssItemIndex.Length)
                 {
                     if (i < news || i >= newe)
                     {
-                        if (m_Track[i].Contains(item)) m_Track[i].Remove(item);
+                        if (m_AssItemIndex[i].Contains(item)) m_AssItemIndex[i].Remove(item);
                     }
                     else
                     {
-                        if (!m_Track[i].Contains(item)) m_Track[i].Add(item);
+                        if (!m_AssItemIndex[i].Contains(item)) m_AssItemIndex[i].Add(item);
 
                     }
                 }
@@ -143,12 +194,17 @@ namespace Subtitle
             }
         }
 
+        /// <summary>
+        /// 当间时刻显示的内容
+        /// </summary>
+        /// <param name="time">时间</param>
+        /// <returns></returns>
         public string GetSubtitle(double time)
         {
             string str = "";
-            if (m_Track != null)
+            if (m_AssItemIndex != null)
             {
-                foreach (AssItem t in m_Track[(int)Math.Floor(time)])
+                foreach (AssItem t in m_AssItemIndex[(int)Math.Floor(time)])
                 {
                     if (t.Start.TimeValue <= time && t.End.TimeValue >= time && t.End.TimeValue - t.Start.TimeValue > 0.1)
                         str += t.Text + Environment.NewLine;

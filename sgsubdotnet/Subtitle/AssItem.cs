@@ -6,6 +6,9 @@ using System.IO;
 
 namespace Subtitle
 {
+    /// <summary>
+    /// 文件头
+    /// </summary>
     public class AssHead
     {
         public List<string> m_HeadLines = new List<string>();
@@ -26,9 +29,14 @@ namespace Subtitle
                 oStream.WriteLine(s);
         }
     }
+
+    /// <summary>
+    /// 每一行字幕
+    /// </summary>
     public class AssItem
     {
         //Format: Marked, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+        //全是ass中每一行的东西
         public string Format = "";
 
         public string Marked = "";
@@ -88,6 +96,9 @@ namespace Subtitle
 
     }
 
+    /// <summary>
+    /// 时间
+    /// </summary>
     public class AssTime
     {
         double timeValue;
@@ -149,6 +160,9 @@ namespace Subtitle
     }
     //Format: Marked, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
+    /// <summary>
+    /// 解析每一行
+    /// </summary>
     public class AssLineParser
     {
         private string m_fmtline = "";
@@ -169,6 +183,11 @@ namespace Subtitle
         private int effectpos = -1;
         private int textpos = -1;
         private int layerPos = -1;
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="format">ass [Event]中Format的那一行</param>
         public AssLineParser(string format)
         {
             string seg = "";
@@ -233,6 +252,11 @@ namespace Subtitle
             }
         }
 
+        /// <summary>
+        /// 解析一行
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
         public AssItem ParseLine(string line)
         {
             string[] segs = new string[12];
@@ -273,6 +297,11 @@ namespace Subtitle
             return assitem;
         }
 
+        /// <summary>
+        /// 生成一行的字符串
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
         public string FormatLine(AssItem line)
         {
             string str = "";
