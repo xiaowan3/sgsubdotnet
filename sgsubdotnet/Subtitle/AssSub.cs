@@ -50,10 +50,12 @@ namespace Subtitle
             if (!eventfound) throw (new Exception("Wrong ass file."));
             line = iStream.ReadLine();
             m_AssParser = new AssLineParser(line);
+            SubItems.Clear();
             while (!iStream.EndOfStream)
             {
                 line = iStream.ReadLine();
-                SubItems.Add(m_AssParser.ParseLine(line));
+                AssItem item = m_AssParser.ParseLine(line);
+                if (item != null) SubItems.Add(item);
             }
         }
 
@@ -94,6 +96,64 @@ namespace Subtitle
         }
         public void LoadText(string filename, Encoding encoding)
         {
+        }
+
+
+        private List<AssItem>[] m_Track;
+        public void CreateTrack(double length)
+        {
+            m_Track = new List<AssItem>[(int)Math.Ceiling(length)];
+            for (int i = 0; i < m_Track.Length; i++) m_Track[i] = new List<AssItem>();
+            foreach (AssItem item in SubItems)
+            {
+                int a = (int)Math.Floor(item.Start.TimeValue);
+                int b = (int)Math.Ceiling(item.End.TimeValue);
+                for (int i = a; i < b; i++)
+                {
+                    if (i < m_Track.Length)
+                        m_Track[i].Add(item);
+                }
+            }
+        }
+
+        public void EditTrack(AssItem item, double newStart, double newEnd)
+        {
+            int olds = (int)Math.Floor(item.Start.TimeValue);
+            int olde = (int)Math.Ceiling(item.End.TimeValue);
+            int news = (int)Math.Floor(newStart);
+            int newe = (int)Math.Ceiling(newEnd);
+            int s = Math.Min(news, olds), e = Math.Max(newe, olde);
+            
+            for (int i = s; i < e; i++)
+            {
+                if (i < m_Track.Length)
+                {
+                    if (i < news || i >= newe)
+                    {
+                        if (m_Track[i].Contains(item)) m_Track[i].Remove(item);
+                    }
+                    else
+                    {
+                        if (!m_Track[i].Contains(item)) m_Track[i].Add(item);
+
+                    }
+                }
+
+            }
+        }
+
+        public string GetSubtitle(double time)
+        {
+            string str = "";
+            if (m_Track != null)
+            {
+                foreach (AssItem t in m_Track[(int)Math.Floor(time)])
+                {
+                    if (t.Start.TimeValue <= time && t.End.TimeValue >= time && t.End.TimeValue - t.Start.TimeValue > 0.1)
+                        str += t.Text + Environment.NewLine;
+                }
+            }
+            return str;
         }
     }
 }
