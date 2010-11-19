@@ -54,11 +54,6 @@ namespace sgsubdotnet
 
             m_CurrentSub.LoadAss("E:\\test\\ass.ass");
 
-
-           // OpenFileDialog dlg = new OpenFileDialog();
-           // dlg.ShowDialog();
-           // axWMP.URL = dlg.FileName;
-           // axWMP.Ctlcontrols.play();
             m_SubLoaded = true;
 
         }
@@ -106,6 +101,75 @@ namespace sgsubdotnet
             {
                 m_CurrentSub.LoadAss(dlg.FileName);
                 m_SubLoaded = true;
+            }
+        }
+
+
+        private double oldS = 0, oldE = 0;
+        private void subtitleGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (m_VideoPlaying)
+            {
+                axWMP.Ctlcontrols.pause();
+                if (e.ColumnIndex != 2)
+                {
+                    Subtitle.AssItem item = (Subtitle.AssItem)subtitleGrid.Rows[e.RowIndex].DataBoundItem;
+                    oldS = item.Start.TimeValue;
+                    oldE = item.End.TimeValue;
+                }
+
+            }
+        }
+
+        private void subtitleGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex != 2)
+            {
+                Subtitle.AssItem item = (Subtitle.AssItem)subtitleGrid.Rows[e.RowIndex].DataBoundItem;
+                m_CurrentSub.ItemEdited(item, oldS, oldE);
+            }
+        }
+
+        private bool m_keydown = false;
+
+        private void subtitleGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!m_keydown)
+            {
+                m_keydown = true;
+                if (subtitleGrid.CurrentRow != null)
+                {
+                    int rowindex = subtitleGrid.CurrentRow.Index;
+                    if (m_VideoPlaying && m_TrackLoaded)
+                    {
+                        Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem);
+                        double os = item.Start.TimeValue;
+                        item.Start.TimeValue = axWMP.Ctlcontrols.currentPosition;
+                        m_CurrentSub.ItemEdited(item, os, item.End.TimeValue);
+                        subtitleGrid.CurrentCell = subtitleGrid.CurrentRow.Cells[1];
+                    }
+
+                }
+            }
+
+        }
+
+        private void subtitleGrid_KeyUp(object sender, KeyEventArgs e)
+        {
+            m_keydown = false;
+            if (subtitleGrid.CurrentRow != null)
+            {
+                int rowindex = subtitleGrid.CurrentRow.Index;
+                if (m_VideoPlaying && m_TrackLoaded)
+                {
+                    Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowindex].DataBoundItem);
+                    double oe = item.End.TimeValue;
+                    item.End.TimeValue = axWMP.Ctlcontrols.currentPosition;
+                    m_CurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
+                    if (rowindex < subtitleGrid.Rows.Count - 1)
+                        subtitleGrid.CurrentCell = subtitleGrid.Rows[rowindex + 1].Cells[0];
+                }
+
             }
         }
     }

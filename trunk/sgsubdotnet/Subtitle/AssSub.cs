@@ -116,14 +116,15 @@ namespace Subtitle
             }
         }
 
-        public void EditTrack(AssItem item, double newStart, double newEnd)
+        public void ItemEdited(AssItem item, double oldStart, double oldEnd)
         {
-            int olds = (int)Math.Floor(item.Start.TimeValue);
-            int olde = (int)Math.Ceiling(item.End.TimeValue);
-            int news = (int)Math.Floor(newStart);
-            int newe = (int)Math.Ceiling(newEnd);
+            int olds = (int)Math.Floor(oldStart);
+            int olde = (int)Math.Ceiling(oldEnd);
+
+            int news = (int)Math.Floor(item.Start.TimeValue);
+            int newe = (int)Math.Ceiling(item.End.TimeValue);
             int s = Math.Min(news, olds), e = Math.Max(newe, olde);
-            
+
             for (int i = s; i < e; i++)
             {
                 if (i < m_Track.Length)
