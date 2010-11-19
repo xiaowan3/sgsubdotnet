@@ -112,7 +112,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(140, 238);
+            this.button4.Location = new System.Drawing.Point(24, 77);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 3;
@@ -121,7 +121,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(67, 173);
+            this.button2.Location = new System.Drawing.Point(24, 48);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
@@ -131,7 +131,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(67, 132);
+            this.button1.Location = new System.Drawing.Point(24, 19);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -156,19 +156,19 @@
             // 
             this.smallSpliter.Panel2.Controls.Add(this.subtitleGrid);
             this.smallSpliter.Size = new System.Drawing.Size(734, 228);
-            this.smallSpliter.SplitterDistance = 45;
+            this.smallSpliter.SplitterDistance = 53;
             this.smallSpliter.TabIndex = 1;
             // 
             // subLabel
             // 
             this.subLabel.AutoSize = true;
-            this.subLabel.Font = new System.Drawing.Font("SimSun", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.subLabel.Location = new System.Drawing.Point(43, 12);
+            this.subLabel.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.subLabel.Location = new System.Drawing.Point(50, 9);
             this.subLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.subLabel.Name = "subLabel";
-            this.subLabel.Size = new System.Drawing.Size(69, 19);
+            this.subLabel.Size = new System.Drawing.Size(256, 16);
             this.subLabel.TabIndex = 0;
-            this.subLabel.Text = "label1";
+            this.subLabel.Text = "Subtitle will be diplayed here.";
             // 
             // subtitleGrid
             // 
@@ -178,9 +178,10 @@
             this.subtitleGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.subtitleGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.subtitleGrid.Location = new System.Drawing.Point(0, 0);
+            this.subtitleGrid.MultiSelect = false;
             this.subtitleGrid.Name = "subtitleGrid";
             this.subtitleGrid.RowTemplate.Height = 23;
-            this.subtitleGrid.Size = new System.Drawing.Size(734, 179);
+            this.subtitleGrid.Size = new System.Drawing.Size(734, 171);
             this.subtitleGrid.TabIndex = 0;
             this.subtitleGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.subtitleGrid_CellBeginEdit);
             this.subtitleGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.subtitleGrid_CellEndEdit);

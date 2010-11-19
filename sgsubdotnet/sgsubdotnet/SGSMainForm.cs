@@ -61,7 +61,7 @@ namespace sgsubdotnet
         private void button2_Click(object sender, EventArgs e)
         {
            // sub.WriteAss("E:\\test\\test2.ass");
-            m_CurrentSub.CreateTrack(axWMP.currentMedia.duration);
+            m_CurrentSub.CreateIndex(axWMP.currentMedia.duration);
             timer.Start();
         }
 
@@ -73,7 +73,7 @@ namespace sgsubdotnet
                     m_VideoPlaying = true;
                 if (m_SubLoaded && m_VideoPlaying && (!m_TrackLoaded))
                 {
-                    m_CurrentSub.CreateTrack(axWMP.currentMedia.duration);
+                    m_CurrentSub.CreateIndex(axWMP.currentMedia.duration);
                     m_TrackLoaded = true;
                 }
                 if (m_TrackLoaded)
