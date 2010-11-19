@@ -98,6 +98,10 @@ namespace Subtitle
             {
                 return timeValue;
             }
+            set
+            {
+                timeValue = value;
+            }
         }
 
         public AssTime()
@@ -107,21 +111,26 @@ namespace Subtitle
 
         public AssTime(string time)
         {
-            string[] s = new string[3];
-            int c = 0;
-            for (int i = 0; i < time.Length; i++)
+            string sub;
+            int a = time.Length-1;
+            int b = 0;
+            timeValue = 0;
+            float unit = 1;
+            do
             {
-                if (Char.IsNumber(time[i]) || time[i] == '.')
+                b = time.LastIndexOf(':', a);
+                if (b != -1)
                 {
-                    s[c] += time[i];
+                    sub = time.Substring(b + 1, a - b);
+                    a = b - 1;
                 }
                 else
                 {
-                    if (time[i] == ':')
-                        c++;
+                    sub = time.Substring(0, a + 1);
                 }
-            }
-            timeValue = int.Parse(s[0]) * 3600 + int.Parse(s[1]) * 60 + float.Parse(s[2]);
+                timeValue += float.Parse(sub) * unit;
+                unit *= 60;
+            } while (b != -1);
 
         }
 
