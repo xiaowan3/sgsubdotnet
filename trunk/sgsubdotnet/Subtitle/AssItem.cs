@@ -229,6 +229,9 @@ namespace Subtitle
             string[] segs = new string[12];
             int last = 0;
             int len;
+            string trimed = line.Trim();
+            if (trimed.Length <= 1 || trimed[0] == ';')
+                return null;
             for (int i = 0; i < 12; i++)
             {
                 if (spliter[i] != '#')
