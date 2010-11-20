@@ -78,6 +78,8 @@ namespace Subtitle
 
         public string Name = "";
 
+        public string Actor = "";
+
         public int MarginL = 0;
 
         public int MarginR = 0;
@@ -173,13 +175,14 @@ namespace Subtitle
         {
             get { return m_fmtline; }
         }
-        private char[] spliter = new char[12];
+        private char[] spliter = new char[13];
         private int formatpos = -1;
         private int markedpos = -1;
         private int startpos = -1;
         private int endpos = -1;
         private int stylepos = -1;
         private int namepos = -1;
+        private int actorpos = -1;
         private int marginLpos = -1;
         private int marginRpos = -1;
         private int marginVpos = -1;
@@ -228,6 +231,9 @@ namespace Subtitle
                             case "NAME":
                                 namepos = pos;
                                 break;
+                            case "ACTOR":
+                                actorpos = pos;
+                                break;
                             case "MARGINL":
                                 marginLpos = pos;
                                 break;
@@ -262,7 +268,7 @@ namespace Subtitle
         /// <returns></returns>
         public AssItem ParseLine(string line)
         {
-            string[] segs = new string[12];
+            string[] segs = new string[13];
             int last = 0;
             int len;
             string trimed = line.Trim();
@@ -291,6 +297,7 @@ namespace Subtitle
             if (endpos != -1) assitem.EndTime = segs[endpos];
             if (stylepos != -1) assitem.Style = segs[stylepos];
             if (namepos != -1) assitem.Name = segs[namepos];
+            if (actorpos != -1) assitem.Actor = segs[actorpos];
             if (marginLpos != -1) assitem.MarginL = int.Parse(segs[marginLpos]);
             if (marginRpos != -1) assitem.MarginR = int.Parse(segs[marginRpos]);
             if (marginVpos != -1) assitem.MarginV = int.Parse(segs[marginVpos]);
@@ -318,6 +325,7 @@ namespace Subtitle
             if (endpos != -1) segs[endpos] = line.EndTime;
             if (stylepos != -1) segs[stylepos] = line.Style;
             if (namepos != -1) segs[namepos] = line.Name;
+            if (actorpos != -1) segs[actorpos] = line.Actor;
             if (marginLpos != -1) segs[marginLpos] = line.MarginL.ToString("D4");
             if (marginRpos != -1) segs[marginRpos] = line.MarginR.ToString("D4");
             if (marginVpos != -1) segs[marginVpos] = line.MarginV.ToString("D4");

@@ -14,7 +14,20 @@ namespace Subtitle
         public BindingSource SubItems = new BindingSource();
 
         public AssHead DefaultAssHead;
+        public string DefaultFormatLine;
+        //Format: Marked, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         public string DefaultFormat;
+        public string DefaultMarked;
+        public string DefaultLayer;
+        public double DefaultStart;
+        public double DefaultEnd;
+        public string DefaultStyle;
+        public string DefaultName;
+        public string DefaultActor;
+        public int DefaultMarginL;
+        public int DefaultMarginR;
+        public int DefaultMarginV;
+        public string DefaultEffect;
 
         /// <summary>
         /// 读取ass文件
@@ -127,6 +140,11 @@ namespace Subtitle
         /// <param name="filename"></param>
         public void LoadText(string filename)
         {
+            FileStream ifile = new FileStream(filename, FileMode.Open);
+            StreamReader istream = new StreamReader(ifile);
+            LoadText(istream);
+            istream.Close();
+            ifile.Close();
         }
 
         /// <summary>
@@ -135,6 +153,39 @@ namespace Subtitle
         /// <param name="filename"></param>
         public void LoadText(string filename, Encoding encoding)
         {
+            FileStream ifile = new FileStream(filename, FileMode.Open);
+            StreamReader istream = new StreamReader(ifile, encoding);
+            LoadText(istream);
+            istream.Close();
+            ifile.Close();
+        }
+
+
+        public void LoadText(StreamReader iStream)
+        {
+            m_AssHead = DefaultAssHead;
+            m_AssParser = new AssLineParser(DefaultFormatLine);
+            string line;
+            while (!iStream.EndOfStream)
+            {
+                line = iStream.ReadLine();
+                AssItem item = new AssItem();
+                //Format: Marked, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+                item.Format = DefaultFormat;
+                item.Layer = DefaultLayer;
+                item.Marked = DefaultMarked;
+                item.Start.TimeValue = DefaultStart;
+                item.End.TimeValue = DefaultEnd;
+                item.Style = DefaultStyle;
+                item.Name = DefaultName;
+                item.Actor = DefaultActor;
+                item.MarginL = DefaultMarginL;
+                item.MarginR = DefaultMarginR;
+                item.MarginV = DefaultMarginV;
+                item.Effect = DefaultEffect;
+                item.Text = line;
+                SubItems.Add(item);
+            }
         }
 
         /// <summary>
