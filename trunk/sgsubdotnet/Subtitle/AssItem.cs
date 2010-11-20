@@ -177,9 +177,9 @@ namespace Subtitle
         private int endpos = -1;
         private int stylepos = -1;
         private int namepos = -1;
-        private int marginlpos = -1;
-        private int marginrpos = -1;
-        private int marginvpos = -1;
+        private int marginLpos = -1;
+        private int marginRpos = -1;
+        private int marginVpos = -1;
         private int effectpos = -1;
         private int textpos = -1;
         private int layerPos = -1;
@@ -226,13 +226,13 @@ namespace Subtitle
                                 namepos = pos;
                                 break;
                             case "MARGINL":
-                                marginlpos = pos;
+                                marginLpos = pos;
                                 break;
                             case "MARGINR":
-                                marginrpos = pos;
+                                marginRpos = pos;
                                 break;
                             case "MARGINV":
-                                marginvpos = pos;
+                                marginVpos = pos;
                                 break;
                             case "EFFECT":
                                 effectpos = pos;
@@ -288,9 +288,9 @@ namespace Subtitle
             if (endpos != -1) assitem.EndTime = segs[endpos];
             if (stylepos != -1) assitem.Style = segs[stylepos];
             if (namepos != -1) assitem.Name = segs[namepos];
-            if (marginlpos != -1) assitem.MarginL = int.Parse(segs[marginlpos]);
-            if (marginrpos != -1) assitem.MarginR = int.Parse(segs[marginrpos]);
-            if (marginvpos != -1) assitem.MarginV = int.Parse(segs[marginvpos]);
+            if (marginLpos != -1) assitem.MarginL = int.Parse(segs[marginLpos]);
+            if (marginRpos != -1) assitem.MarginR = int.Parse(segs[marginRpos]);
+            if (marginVpos != -1) assitem.MarginV = int.Parse(segs[marginVpos]);
             if (effectpos != -1) assitem.Effect = segs[effectpos];
             if (textpos != -1) assitem.Text = segs[textpos];
 
@@ -315,9 +315,9 @@ namespace Subtitle
             if (endpos != -1) segs[endpos] = line.EndTime;
             if (stylepos != -1) segs[stylepos] = line.Style;
             if (namepos != -1) segs[namepos] = line.Name;
-            if (marginlpos != -1) segs[marginlpos] = line.MarginL.ToString("D4");
-            if (marginrpos != -1) segs[marginrpos] = line.MarginR.ToString("D4");
-            if (marginvpos != -1) segs[marginvpos] = line.MarginV.ToString("D4");
+            if (marginLpos != -1) segs[marginLpos] = line.MarginL.ToString("D4");
+            if (marginRpos != -1) segs[marginRpos] = line.MarginR.ToString("D4");
+            if (marginVpos != -1) segs[marginVpos] = line.MarginV.ToString("D4");
             if (effectpos != -1) segs[effectpos] = line.Effect;
             if (textpos != -1) segs[textpos] = line.Text;
             for (int i = 0; i < 12; i++)
