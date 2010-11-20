@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Runtime.Serialization;
 
 namespace Subtitle
 {
     /// <summary>
     /// 文件头
     /// </summary>
+    [DataContract(Name ="SGSConfig",Namespace="Config")]
     public class AssHead
     {
+        [DataMember()]
         public List<string> m_HeadLines = new List<string>();
 
         public void AddLine(string line)

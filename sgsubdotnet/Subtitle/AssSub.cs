@@ -10,9 +10,11 @@ namespace Subtitle
     public class AssSub
     {
         private AssHead m_AssHead;
-        private AssHead m_DefaultHead;
         private AssLineParser m_AssParser;
         public BindingSource SubItems = new BindingSource();
+
+        public AssHead DefaultAssHead;
+        public string DefaultFormat;
 
         /// <summary>
         /// 读取ass文件
