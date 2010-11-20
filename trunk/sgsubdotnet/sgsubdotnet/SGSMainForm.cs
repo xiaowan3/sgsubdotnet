@@ -49,13 +49,13 @@ namespace sgsubdotnet
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string formatline = "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text";
-            string linetoparse = "Dialogue: 0,0:01:11.05,0:01:15.23,*Default,NTP,0000,0000,0000,,好吃就行了管他的呢 再来一碗";
-            Subtitle.AssLineParser parser = new Subtitle.AssLineParser(formatline);
-      
-            parser.ParseLine(linetoparse);
 
-            m_CurrentSub.LoadAss("E:\\test\\ass.ass");
+
+            //m_CurrentSub.LoadAss("E:\\test\\55.ass");
+            //m_Config.DefaultAssHead = m_CurrentSub.m_AssHead;
+            //m_Config.DefaultFormatLine = m_CurrentSub.m_AssParser.FmtLine;
+
+            //m_Config.Save(@"E:\test\sgscfg.xml");
 
             m_SubLoaded = true;
 
@@ -152,7 +152,7 @@ namespace sgsubdotnet
                         {
                             Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem);
                             double os = item.Start.TimeValue;
-                            item.Start.TimeValue = axWMP.Ctlcontrols.currentPosition;
+                            item.Start.TimeValue = axWMP.Ctlcontrols.currentPosition + m_Config.StartOffset;
                             m_CurrentSub.ItemEdited(item, os, item.End.TimeValue);
                             subtitleGrid.CurrentCell = subtitleGrid.CurrentRow.Cells[1];
                         }
@@ -179,10 +179,16 @@ namespace sgsubdotnet
                 {
                     if (m_VideoPlaying)
                     {
-                        axWMP.Ctlcontrols.currentPosition -= 1;
+                        axWMP.Ctlcontrols.currentPosition -= m_Config.SeekStep;
                     }
                 }
-
+                else if (e.KeyCode == m_Config.SeekForward)
+                {
+                    if (m_VideoPlaying)
+                    {
+                        axWMP.Ctlcontrols.currentPosition += m_Config.SeekStep;
+                    }
+                }
 
 
             }
@@ -199,7 +205,7 @@ namespace sgsubdotnet
                 {
                     Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowindex].DataBoundItem);
                     double oe = item.End.TimeValue;
-                    item.End.TimeValue = axWMP.Ctlcontrols.currentPosition;
+                    item.End.TimeValue = axWMP.Ctlcontrols.currentPosition + m_Config.EndOffset;
                     m_CurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
                     if (rowindex < subtitleGrid.Rows.Count - 1)
                         subtitleGrid.CurrentCell = subtitleGrid.Rows[rowindex + 1].Cells[0];
@@ -210,5 +216,37 @@ namespace sgsubdotnet
         }
 
         private SGSConfig m_Config = new SGSConfig();
+
+        private void toolStripPause_Click(object sender, EventArgs e)
+        {
+            if (m_VideoPlaying)
+            {
+
+                    axWMP.Ctlcontrols.pause();
+                    m_Paused = true;
+            }
+        }
+
+        private void toolStripPlay_Click(object sender, EventArgs e)
+        {
+            if (m_VideoPlaying)
+            {
+                axWMP.Ctlcontrols.play();
+                m_Paused = false;
+            }
+        }
+
+        private void toolStripJumpto_Click(object sender, EventArgs e)
+        {
+            if (m_VideoPlaying && subtitleGrid.CurrentRow != null)
+            {
+                double position = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem)).Start.TimeValue;
+                if (position < axWMP.currentMedia.duration)
+                {
+                    axWMP.Ctlcontrols.currentPosition = position;
+                }
+                
+            }
+        }
     }
 }
