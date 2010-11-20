@@ -41,26 +41,26 @@
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.subtitleGrid = new System.Windows.Forms.DataGridView();
             this.subToolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripPause = new System.Windows.Forms.ToolStripButton();
+            this.toolStripPlay = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripDuplicate = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripInsertAfter = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripJumpto = new System.Windows.Forms.ToolStripButton();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenSubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenTxtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveSubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveAsSubToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.KeyCfgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.OpenTxtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.KeyCfgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripPause = new System.Windows.Forms.ToolStripButton();
-            this.toolStripPlay = new System.Windows.Forms.ToolStripButton();
-            this.toolStripDuplicate = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripInsertAfter = new System.Windows.Forms.ToolStripButton();
-            this.toolStripJumpto = new System.Windows.Forms.ToolStripButton();
             this.hSpliter.Panel1.SuspendLayout();
             this.hSpliter.Panel2.SuspendLayout();
             this.hSpliter.SuspendLayout();
@@ -132,8 +132,9 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 3;
-            this.button4.Text = "button4";
+            this.button4.Text = "表按我";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button2
             // 
@@ -141,7 +142,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
+            this.button2.Text = "表按我";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -151,7 +152,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
+            this.button1.Text = "表按我";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -241,109 +242,6 @@
             this.subToolStrip.Size = new System.Drawing.Size(24, 161);
             this.subToolStrip.TabIndex = 0;
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(22, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(22, 6);
-            // 
-            // mainMenu
-            // 
-            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.FileToolStripMenuItem,
-            this.设置ToolStripMenuItem,
-            this.关于ToolStripMenuItem});
-            this.mainMenu.Location = new System.Drawing.Point(0, 0);
-            this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(734, 24);
-            this.mainMenu.TabIndex = 1;
-            this.mainMenu.Text = "menuStrip1";
-            // 
-            // FileToolStripMenuItem
-            // 
-            this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.OpenSubToolStripMenuItem,
-            this.OpenTxtToolStripMenuItem,
-            this.OpenVideoToolStripMenuItem,
-            this.SaveSubToolStripMenuItem,
-            this.SaveAsSubToolStripMenuItem1});
-            this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            this.FileToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.FileToolStripMenuItem.Text = "文件";
-            // 
-            // OpenSubToolStripMenuItem
-            // 
-            this.OpenSubToolStripMenuItem.Name = "OpenSubToolStripMenuItem";
-            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.OpenSubToolStripMenuItem.Text = "打开时间轴";
-            this.OpenSubToolStripMenuItem.Click += new System.EventHandler(this.OpenSubToolStripMenuItem_Click);
-            // 
-            // OpenVideoToolStripMenuItem
-            // 
-            this.OpenVideoToolStripMenuItem.Name = "OpenVideoToolStripMenuItem";
-            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.OpenVideoToolStripMenuItem.Text = "打开动画";
-            this.OpenVideoToolStripMenuItem.Click += new System.EventHandler(this.OpenVideoToolStripMenuItem_Click);
-            // 
-            // SaveSubToolStripMenuItem
-            // 
-            this.SaveSubToolStripMenuItem.Name = "SaveSubToolStripMenuItem";
-            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.SaveSubToolStripMenuItem.Text = "保存时间轴";
-            this.SaveSubToolStripMenuItem.Click += new System.EventHandler(this.SaveSubToolStripMenuItem_Click);
-            // 
-            // SaveAsSubToolStripMenuItem1
-            // 
-            this.SaveAsSubToolStripMenuItem1.Name = "SaveAsSubToolStripMenuItem1";
-            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.SaveAsSubToolStripMenuItem1.Text = "另存为时间轴";
-            this.SaveAsSubToolStripMenuItem1.Click += new System.EventHandler(this.SaveAsSubToolStripMenuItem_Click);
-            // 
-            // 设置ToolStripMenuItem
-            // 
-            this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.KeyCfgToolStripMenuItem});
-            this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
-            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.设置ToolStripMenuItem.Text = "设置";
-            // 
-            // 关于ToolStripMenuItem
-            // 
-            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.关于ToolStripMenuItem.Text = "关于";
-            // 
-            // statusBar
-            // 
-            this.statusBar.Location = new System.Drawing.Point(0, 506);
-            this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(734, 22);
-            this.statusBar.TabIndex = 2;
-            this.statusBar.Text = "Status";
-            // 
-            // timer
-            // 
-            this.timer.Interval = 50;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // OpenTxtToolStripMenuItem
-            // 
-            this.OpenTxtToolStripMenuItem.Name = "OpenTxtToolStripMenuItem";
-            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.OpenTxtToolStripMenuItem.Text = "打开翻译文本";
-            this.OpenTxtToolStripMenuItem.Click += new System.EventHandler(this.OpenTxtToolStripMenuItem_Click);
-            // 
-            // KeyCfgToolStripMenuItem
-            // 
-            this.KeyCfgToolStripMenuItem.Name = "KeyCfgToolStripMenuItem";
-            this.KeyCfgToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
-            this.KeyCfgToolStripMenuItem.Text = "按键设置";
-            this.KeyCfgToolStripMenuItem.Click += new System.EventHandler(this.KeyCfgToolStripMenuItem_Click);
-            // 
             // toolStripPause
             // 
             this.toolStripPause.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -363,6 +261,11 @@
             this.toolStripPlay.Size = new System.Drawing.Size(22, 20);
             this.toolStripPlay.Text = "Play";
             this.toolStripPlay.Click += new System.EventHandler(this.toolStripPlay_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(22, 6);
             // 
             // toolStripDuplicate
             // 
@@ -391,6 +294,11 @@
             this.toolStripInsertAfter.Size = new System.Drawing.Size(22, 20);
             this.toolStripInsertAfter.Text = "Insert after";
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(22, 6);
+            // 
             // toolStripJumpto
             // 
             this.toolStripJumpto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -400,6 +308,99 @@
             this.toolStripJumpto.Size = new System.Drawing.Size(22, 20);
             this.toolStripJumpto.Text = "Jump to";
             this.toolStripJumpto.Click += new System.EventHandler(this.toolStripJumpto_Click);
+            // 
+            // mainMenu
+            // 
+            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FileToolStripMenuItem,
+            this.设置ToolStripMenuItem,
+            this.关于ToolStripMenuItem});
+            this.mainMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu.Name = "mainMenu";
+            this.mainMenu.Size = new System.Drawing.Size(734, 24);
+            this.mainMenu.TabIndex = 1;
+            this.mainMenu.Text = "menuStrip1";
+            // 
+            // FileToolStripMenuItem
+            // 
+            this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.OpenSubToolStripMenuItem,
+            this.OpenTxtToolStripMenuItem,
+            this.OpenVideoToolStripMenuItem,
+            this.SaveSubToolStripMenuItem,
+            this.SaveAsSubToolStripMenuItem1});
+            this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.FileToolStripMenuItem.Text = "文件";
+            // 
+            // OpenSubToolStripMenuItem
+            // 
+            this.OpenSubToolStripMenuItem.Name = "OpenSubToolStripMenuItem";
+            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.OpenSubToolStripMenuItem.Text = "打开时间轴";
+            this.OpenSubToolStripMenuItem.Click += new System.EventHandler(this.OpenSubToolStripMenuItem_Click);
+            // 
+            // OpenTxtToolStripMenuItem
+            // 
+            this.OpenTxtToolStripMenuItem.Name = "OpenTxtToolStripMenuItem";
+            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.OpenTxtToolStripMenuItem.Text = "打开翻译文本";
+            this.OpenTxtToolStripMenuItem.Click += new System.EventHandler(this.OpenTxtToolStripMenuItem_Click);
+            // 
+            // OpenVideoToolStripMenuItem
+            // 
+            this.OpenVideoToolStripMenuItem.Name = "OpenVideoToolStripMenuItem";
+            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.OpenVideoToolStripMenuItem.Text = "打开动画";
+            this.OpenVideoToolStripMenuItem.Click += new System.EventHandler(this.OpenVideoToolStripMenuItem_Click);
+            // 
+            // SaveSubToolStripMenuItem
+            // 
+            this.SaveSubToolStripMenuItem.Name = "SaveSubToolStripMenuItem";
+            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.SaveSubToolStripMenuItem.Text = "保存时间轴";
+            this.SaveSubToolStripMenuItem.Click += new System.EventHandler(this.SaveSubToolStripMenuItem_Click);
+            // 
+            // SaveAsSubToolStripMenuItem1
+            // 
+            this.SaveAsSubToolStripMenuItem1.Name = "SaveAsSubToolStripMenuItem1";
+            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.SaveAsSubToolStripMenuItem1.Text = "另存为时间轴";
+            this.SaveAsSubToolStripMenuItem1.Click += new System.EventHandler(this.SaveAsSubToolStripMenuItem_Click);
+            // 
+            // 设置ToolStripMenuItem
+            // 
+            this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.KeyCfgToolStripMenuItem});
+            this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
+            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.设置ToolStripMenuItem.Text = "设置";
+            // 
+            // KeyCfgToolStripMenuItem
+            // 
+            this.KeyCfgToolStripMenuItem.Name = "KeyCfgToolStripMenuItem";
+            this.KeyCfgToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.KeyCfgToolStripMenuItem.Text = "按键设置";
+            this.KeyCfgToolStripMenuItem.Click += new System.EventHandler(this.KeyCfgToolStripMenuItem_Click);
+            // 
+            // 关于ToolStripMenuItem
+            // 
+            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.关于ToolStripMenuItem.Text = "关于";
+            // 
+            // statusBar
+            // 
+            this.statusBar.Location = new System.Drawing.Point(0, 506);
+            this.statusBar.Name = "statusBar";
+            this.statusBar.Size = new System.Drawing.Size(734, 22);
+            this.statusBar.TabIndex = 2;
+            this.statusBar.Text = "Status";
+            // 
+            // timer
+            // 
+            this.timer.Interval = 50;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // SGSMainForm
             // 

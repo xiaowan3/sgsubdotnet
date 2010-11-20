@@ -72,16 +72,16 @@ namespace sgsubdotnet
         private void button1_Click(object sender, EventArgs e)
         {
             //Dialogue: 0,0:00:02.49,0:00:05.71,*Default,NTP,0000,0000,0000,,那么接下来是明天 9月14号的天气
-            m_Config.DefaultFormat = "Dialogue";
-            m_Config.DefaultLayer = "0";
-            m_Config.DefaultMarked = "";
-            m_Config.DefaultStyle = "*Default";
-            m_Config.DefaultName = "NTP";
-            m_Config.DefaultActor = "NTP";
-            m_Config.DefaultMarginL = 0;
-            m_Config.DefaultMarginR = 0;
-            m_Config.DefaultMarginV = 0;
-            m_Config.DefaultEffect = "";
+            //m_Config.DefaultFormat = "Dialogue";
+            //m_Config.DefaultLayer = "0";
+            //m_Config.DefaultMarked = "";
+            //m_Config.DefaultStyle = "*Default";
+            //m_Config.DefaultName = "NTP";
+            //m_Config.DefaultActor = "NTP";
+            //m_Config.DefaultMarginL = 0;
+           // m_Config.DefaultMarginR = 0;
+            //m_Config.DefaultMarginV = 0;
+            //m_Config.DefaultEffect = "";
 
 
             //m_CurrentSub.LoadAss("E:\\test\\55.ass");
@@ -90,14 +90,14 @@ namespace sgsubdotnet
 
             //m_Config.Save(@"E:\test\sgscfg.xml");
 
-            m_SubLoaded = true;
+            //m_SubLoaded = true;
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            m_CurrentSub.CreateIndex(axWMP.currentMedia.duration);
-            timer.Start();
+            //m_CurrentSub.CreateIndex(axWMP.currentMedia.duration);
+            //timer.Start();
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -365,6 +365,11 @@ namespace sgsubdotnet
                     m_CurrentSub.WriteAss(dlg.FileName,Encoding.Unicode);
                 }
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
