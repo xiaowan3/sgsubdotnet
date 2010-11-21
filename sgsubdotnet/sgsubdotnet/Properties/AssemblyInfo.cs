@@ -5,12 +5,20 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("sgsubdotnet")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("SGSUB.Net Reiner Rubin Beta")]
+[assembly: AssemblyDescription("This program is free software: you can redistribute it and/or modify "
+    + " it under the terms of the GNU General Public License as published by the Free Software Foundation, "
+    + "either version 3 of the License, or(at your option) any later version.\r\n\r\n"
+    + "This program is distributed in the hope that it will be useful, "
+    + "but WITHOUT ANY WARRANTY; without even the implied warranty of "
+    + "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
+    + "GNU General Public License for more details.\r\n\r\n"
+    + "You should have received a copy of the GNU General Public License "
+    + "along with this program.  If not, see <http://www.gnu.org/licenses/>.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("SGSUB")]
-[assembly: AssemblyProduct("sgsubdotnet")]
-[assembly: AssemblyCopyright("GPL V3.0")]
+[assembly: AssemblyCompany("http://bbs.sgsub.com")]
+[assembly: AssemblyProduct("SGSUB.Net Reiner Rubin Beta")]
+[assembly: AssemblyCopyright("Copyright (C) 2010 SGSUB Youmu")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
