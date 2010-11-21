@@ -188,7 +188,10 @@ namespace sgsubdotnet
                     if (lastitem.End.TimeValue - item.Start.TimeValue >0 &&
                         lastitem.End.TimeValue - item.Start.TimeValue < Math.Max(Math.Abs(m_Config.StartOffset), Math.Abs(m_Config.EndOffset)))
                         lastitem.End.TimeValue = item.Start.TimeValue - 0.01;
+                    subtitleGrid.UpdateCellValue(1, rowindex - 1);
                 }
+                subtitleGrid.UpdateCellValue(0, rowindex);
+
             }
 
         }
@@ -206,6 +209,7 @@ namespace sgsubdotnet
                     subtitleGrid.CurrentCell = subtitleGrid.Rows[rowindex + 1].Cells[0];
                 if (rowindex - subtitleGrid.FirstDisplayedScrollingRowIndex > m_Config.SelectRowOffset)
                     subtitleGrid.FirstDisplayedScrollingRowIndex = rowindex - m_Config.SelectRowOffset;
+                subtitleGrid.UpdateCellValue(1, rowindex);
             }
 
         }
