@@ -68,6 +68,7 @@ namespace sgsubdotnet
         private bool m_VideoPlaying = false;
         private bool m_SubLoaded = false;
         private bool m_Paused = false;
+        private string m_AssFilename = null;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -132,13 +133,14 @@ namespace sgsubdotnet
             }
         }
 
-        private void OpenSubToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenSub_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 m_CurrentSub.LoadAss(dlg.FileName);
                 m_SubLoaded = true;
+                m_AssFilename = dlg.FileName;
             }
         }
 
@@ -314,9 +316,25 @@ namespace sgsubdotnet
             }
         }
 
-        private void SaveSubToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveSub_Click(object sender, EventArgs e)
         {
 
+            if (m_TrackLoaded)
+            {
+                if (m_AssFilename == null)
+                {
+                    SaveFileDialog dlg = new SaveFileDialog();
+                    if (dlg.ShowDialog() == DialogResult.OK)
+                    {
+                        m_AssFilename = dlg.FileName;
+                    }
+                }
+                if (m_AssFilename != null)
+                {
+                    m_CurrentSub.WriteAss(m_AssFilename, Encoding.Unicode);
+                    
+                }
+            }
         }
 
         private void OpenTxtToolStripMenuItem_Click(object sender, EventArgs e)
@@ -340,6 +358,7 @@ namespace sgsubdotnet
             keycfg.ETKey = m_Config.AddEndTime;
             keycfg.StartTimeOffset = m_Config.StartOffset;
             keycfg.EndTimeOffset = m_Config.EndOffset;
+            keycfg.SeekStep = m_Config.SeekStep;
             if (keycfg.ShowDialog() == DialogResult.OK)
             {
                 m_Config.SeekBackword = keycfg.BWKey;
@@ -350,12 +369,12 @@ namespace sgsubdotnet
                 m_Config.AddEndTime = keycfg.ETKey;
                 m_Config.StartOffset = keycfg.StartTimeOffset;
                 m_Config.EndOffset = keycfg.EndTimeOffset;
-
+                m_Config.SeekStep = keycfg.SeekStep;
                 m_Config.Save();
             }
         }
 
-        private void SaveAsSubToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveAsSub_Click(object sender, EventArgs e)
         {
             if (m_TrackLoaded)
             {
@@ -363,6 +382,7 @@ namespace sgsubdotnet
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     m_CurrentSub.WriteAss(dlg.FileName,Encoding.Unicode);
+                    m_AssFilename = dlg.FileName;
                 }
             }
         }

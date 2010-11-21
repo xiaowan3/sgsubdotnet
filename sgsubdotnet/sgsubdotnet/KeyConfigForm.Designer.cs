@@ -40,8 +40,14 @@
             this.numET = new System.Windows.Forms.NumericUpDown();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numSS = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numST)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numET)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSS)).BeginInit();
             this.SuspendLayout();
             // 
             // btnFF
@@ -116,7 +122,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 153);
+            this.label2.Location = new System.Drawing.Point(12, 153);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 12);
             this.label2.TabIndex = 7;
@@ -196,11 +202,64 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(199, 115);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(17, 12);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "ms";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(199, 153);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(17, 12);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "ms";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 191);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(83, 12);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "前进/后退步长";
+            // 
+            // numSS
+            // 
+            this.numSS.Location = new System.Drawing.Point(119, 189);
+            this.numSS.Name = "numSS";
+            this.numSS.Size = new System.Drawing.Size(74, 21);
+            this.numSS.TabIndex = 15;
+            this.numSS.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(199, 191);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(11, 12);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "s";
+            // 
             // KeyConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(354, 266);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.numSS);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.numET);
@@ -218,6 +277,7 @@
             this.Load += new System.EventHandler(this.KeyConfigForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numST)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numET)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSS)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,5 +297,10 @@
         private System.Windows.Forms.NumericUpDown numET;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown numSS;
+        private System.Windows.Forms.Label label6;
     }
 }
