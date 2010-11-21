@@ -33,9 +33,11 @@
             this.hSpliter = new System.Windows.Forms.SplitContainer();
             this.vSpliter = new System.Windows.Forms.SplitContainer();
             this.axWMP = new AxWMPLib.AxWindowsMediaPlayer();
+            this.toolStripContainer2 = new System.Windows.Forms.ToolStripContainer();
+            this.button1 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.fileToolStrip = new System.Windows.Forms.ToolStrip();
             this.smallSpliter = new System.Windows.Forms.SplitContainer();
             this.subLabel = new System.Windows.Forms.Label();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
@@ -61,6 +63,8 @@
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.stripBtnSaveSub = new System.Windows.Forms.ToolStripButton();
+            this.stripBtnSaveSubAs = new System.Windows.Forms.ToolStripButton();
             this.hSpliter.Panel1.SuspendLayout();
             this.hSpliter.Panel2.SuspendLayout();
             this.hSpliter.SuspendLayout();
@@ -68,6 +72,10 @@
             this.vSpliter.Panel2.SuspendLayout();
             this.vSpliter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axWMP)).BeginInit();
+            this.toolStripContainer2.ContentPanel.SuspendLayout();
+            this.toolStripContainer2.TopToolStripPanel.SuspendLayout();
+            this.toolStripContainer2.SuspendLayout();
+            this.fileToolStrip.SuspendLayout();
             this.smallSpliter.Panel1.SuspendLayout();
             this.smallSpliter.Panel2.SuspendLayout();
             this.smallSpliter.SuspendLayout();
@@ -109,9 +117,7 @@
             // 
             // vSpliter.Panel2
             // 
-            this.vSpliter.Panel2.Controls.Add(this.button4);
-            this.vSpliter.Panel2.Controls.Add(this.button2);
-            this.vSpliter.Panel2.Controls.Add(this.button1);
+            this.vSpliter.Panel2.Controls.Add(this.toolStripContainer2);
             this.vSpliter.Size = new System.Drawing.Size(734, 227);
             this.vSpliter.SplitterDistance = 380;
             this.vSpliter.TabIndex = 0;
@@ -126,9 +132,39 @@
             this.axWMP.Size = new System.Drawing.Size(380, 227);
             this.axWMP.TabIndex = 0;
             // 
+            // toolStripContainer2
+            // 
+            // 
+            // toolStripContainer2.ContentPanel
+            // 
+            this.toolStripContainer2.ContentPanel.Controls.Add(this.button1);
+            this.toolStripContainer2.ContentPanel.Controls.Add(this.button4);
+            this.toolStripContainer2.ContentPanel.Controls.Add(this.button2);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(350, 202);
+            this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
+            this.toolStripContainer2.Name = "toolStripContainer2";
+            this.toolStripContainer2.Size = new System.Drawing.Size(350, 227);
+            this.toolStripContainer2.TabIndex = 0;
+            this.toolStripContainer2.Text = "toolStripContainer2";
+            // 
+            // toolStripContainer2.TopToolStripPanel
+            // 
+            this.toolStripContainer2.TopToolStripPanel.Controls.Add(this.fileToolStrip);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(223, 63);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "表按我";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(24, 77);
+            this.button4.Location = new System.Drawing.Point(47, 63);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 3;
@@ -138,7 +174,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(24, 48);
+            this.button2.Location = new System.Drawing.Point(128, 63);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
@@ -146,15 +182,16 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
+            // fileToolStrip
             // 
-            this.button1.Location = new System.Drawing.Point(24, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "表按我";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.fileToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.fileToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stripBtnSaveSub,
+            this.stripBtnSaveSubAs});
+            this.fileToolStrip.Location = new System.Drawing.Point(3, 0);
+            this.fileToolStrip.Name = "fileToolStrip";
+            this.fileToolStrip.Size = new System.Drawing.Size(58, 25);
+            this.fileToolStrip.TabIndex = 0;
             // 
             // smallSpliter
             // 
@@ -336,37 +373,37 @@
             // OpenSubToolStripMenuItem
             // 
             this.OpenSubToolStripMenuItem.Name = "OpenSubToolStripMenuItem";
-            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.OpenSubToolStripMenuItem.Text = "打开时间轴";
-            this.OpenSubToolStripMenuItem.Click += new System.EventHandler(this.OpenSubToolStripMenuItem_Click);
+            this.OpenSubToolStripMenuItem.Click += new System.EventHandler(this.OpenSub_Click);
             // 
             // OpenTxtToolStripMenuItem
             // 
             this.OpenTxtToolStripMenuItem.Name = "OpenTxtToolStripMenuItem";
-            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.OpenTxtToolStripMenuItem.Text = "打开翻译文本";
             this.OpenTxtToolStripMenuItem.Click += new System.EventHandler(this.OpenTxtToolStripMenuItem_Click);
             // 
             // OpenVideoToolStripMenuItem
             // 
             this.OpenVideoToolStripMenuItem.Name = "OpenVideoToolStripMenuItem";
-            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.OpenVideoToolStripMenuItem.Text = "打开动画";
             this.OpenVideoToolStripMenuItem.Click += new System.EventHandler(this.OpenVideoToolStripMenuItem_Click);
             // 
             // SaveSubToolStripMenuItem
             // 
             this.SaveSubToolStripMenuItem.Name = "SaveSubToolStripMenuItem";
-            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.SaveSubToolStripMenuItem.Text = "保存时间轴";
-            this.SaveSubToolStripMenuItem.Click += new System.EventHandler(this.SaveSubToolStripMenuItem_Click);
+            this.SaveSubToolStripMenuItem.Click += new System.EventHandler(this.SaveSub_Click);
             // 
             // SaveAsSubToolStripMenuItem1
             // 
             this.SaveAsSubToolStripMenuItem1.Name = "SaveAsSubToolStripMenuItem1";
-            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.SaveAsSubToolStripMenuItem1.Text = "另存为时间轴";
-            this.SaveAsSubToolStripMenuItem1.Click += new System.EventHandler(this.SaveAsSubToolStripMenuItem_Click);
+            this.SaveAsSubToolStripMenuItem1.Click += new System.EventHandler(this.SaveAsSub_Click);
             // 
             // 设置ToolStripMenuItem
             // 
@@ -402,6 +439,26 @@
             this.timer.Interval = 50;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // stripBtnSaveSub
+            // 
+            this.stripBtnSaveSub.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.stripBtnSaveSub.Image = ((System.Drawing.Image)(resources.GetObject("stripBtnSaveSub.Image")));
+            this.stripBtnSaveSub.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stripBtnSaveSub.Name = "stripBtnSaveSub";
+            this.stripBtnSaveSub.Size = new System.Drawing.Size(23, 22);
+            this.stripBtnSaveSub.Text = "Save Ass";
+            this.stripBtnSaveSub.Click += new System.EventHandler(this.SaveSub_Click);
+            // 
+            // stripBtnSaveSubAs
+            // 
+            this.stripBtnSaveSubAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.stripBtnSaveSubAs.Image = ((System.Drawing.Image)(resources.GetObject("stripBtnSaveSubAs.Image")));
+            this.stripBtnSaveSubAs.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stripBtnSaveSubAs.Name = "stripBtnSaveSubAs";
+            this.stripBtnSaveSubAs.Size = new System.Drawing.Size(23, 22);
+            this.stripBtnSaveSubAs.Text = "Save Ass as";
+            this.stripBtnSaveSubAs.Click += new System.EventHandler(this.SaveSub_Click);
+            // 
             // SGSMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -419,6 +476,13 @@
             this.vSpliter.Panel2.ResumeLayout(false);
             this.vSpliter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axWMP)).EndInit();
+            this.toolStripContainer2.ContentPanel.ResumeLayout(false);
+            this.toolStripContainer2.TopToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer2.TopToolStripPanel.PerformLayout();
+            this.toolStripContainer2.ResumeLayout(false);
+            this.toolStripContainer2.PerformLayout();
+            this.fileToolStrip.ResumeLayout(false);
+            this.fileToolStrip.PerformLayout();
             this.smallSpliter.Panel1.ResumeLayout(false);
             this.smallSpliter.Panel1.PerformLayout();
             this.smallSpliter.Panel2.ResumeLayout(false);
@@ -471,6 +535,10 @@
         private System.Windows.Forms.ToolStripButton toolStripInsertAfter;
         private System.Windows.Forms.ToolStripMenuItem OpenTxtToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem KeyCfgToolStripMenuItem;
+        private System.Windows.Forms.ToolStripContainer toolStripContainer2;
+        private System.Windows.Forms.ToolStrip fileToolStrip;
+        private System.Windows.Forms.ToolStripButton stripBtnSaveSub;
+        private System.Windows.Forms.ToolStripButton stripBtnSaveSubAs;
     }
 }
 
