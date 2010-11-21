@@ -88,6 +88,27 @@ namespace sgsubdotnet.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap openass {
+            get {
+                object obj = ResourceManager.GetObject("openass", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap opentxt {
+            get {
+                object obj = ResourceManager.GetObject("opentxt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap openvideo {
+            get {
+                object obj = ResourceManager.GetObject("openvideo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Pause {
             get {
                 object obj = ResourceManager.GetObject("Pause", resourceCulture);
@@ -98,6 +119,13 @@ namespace sgsubdotnet.Properties {
         internal static System.Drawing.Bitmap Run {
             get {
                 object obj = ResourceManager.GetObject("Run", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap save {
+            get {
+                object obj = ResourceManager.GetObject("save", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

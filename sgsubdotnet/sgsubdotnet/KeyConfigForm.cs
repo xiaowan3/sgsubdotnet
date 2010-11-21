@@ -44,6 +44,7 @@ namespace sgsubdotnet
             }
         }
         public double SeekStep;
+        public bool AutoOC;
 
         private void KeyConfigForm_Load(object sender, EventArgs e)
         {
@@ -57,6 +58,7 @@ namespace sgsubdotnet
             numET.Value = (decimal)EndTimeOffset * 1000;
             numST.Value = (decimal)StartTimeOffset * 1000;
             numSS.Value = (decimal)SeekStep;
+            checkAOC.Checked = AutoOC;
             
         }
 
@@ -101,6 +103,7 @@ namespace sgsubdotnet
             EndTimeOffset = (double)(numET.Value) / 1000.0;
             StartTimeOffset = (double)(numST.Value) / 1000.0;
             SeekStep = (double)(numSS.Value);
+            AutoOC = checkAOC.Checked;
             DialogResult = DialogResult.OK;
         }
 

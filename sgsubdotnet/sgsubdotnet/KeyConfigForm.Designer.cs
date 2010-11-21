@@ -45,6 +45,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.numSS = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
+            this.checkAOC = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numST)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numET)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSS)).BeginInit();
@@ -184,7 +185,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(185, 220);
+            this.btnOK.Location = new System.Drawing.Point(187, 262);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 34);
             this.btnOK.TabIndex = 10;
@@ -194,7 +195,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(266, 220);
+            this.btnCancel.Location = new System.Drawing.Point(268, 262);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 34);
             this.btnCancel.TabIndex = 11;
@@ -250,11 +251,22 @@
             this.label6.TabIndex = 16;
             this.label6.Text = "s";
             // 
+            // checkAOC
+            // 
+            this.checkAOC.AutoSize = true;
+            this.checkAOC.Location = new System.Drawing.Point(23, 233);
+            this.checkAOC.Name = "checkAOC";
+            this.checkAOC.Size = new System.Drawing.Size(96, 16);
+            this.checkAOC.TabIndex = 17;
+            this.checkAOC.Text = "自动交错修正";
+            this.checkAOC.UseVisualStyleBackColor = true;
+            // 
             // KeyConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 266);
+            this.ClientSize = new System.Drawing.Size(354, 308);
+            this.Controls.Add(this.checkAOC);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.numSS);
             this.Controls.Add(this.label5);
@@ -302,5 +314,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numSS;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox checkAOC;
     }
 }
