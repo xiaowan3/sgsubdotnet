@@ -121,6 +121,9 @@ namespace Config
         [DataMember()]
         public string DefaultEffect { get; set; }
 
+        [DataMember()]
+        public bool AutoOverlapCorrection { get; set; }
+
         public SGSConfig()
         {
             Pause = Keys.Space;

@@ -98,8 +98,12 @@
     <Content Include="Resources\delete.bmp" />
     <None Include="Resources\jumpto.bmp" />
     <None Include="Resources\insertafter.bmp" />
+    <None Include="Resources\opentxt.bmp" />
+    <None Include="Resources\openvideo.bmp" />
+    <None Include="Resources\openass.bmp" />
     <Content Include="Resources\Pause.bmp" />
     <Content Include="Resources\Run.bmp" />
+    <None Include="Resources\save.bmp" />
     <Content Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
