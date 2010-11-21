@@ -98,6 +98,25 @@ namespace Subtitle
         public AssItem()
         {
         }
+        public AssItem Clone()
+        {
+            AssItem ret = new AssItem();
+            ret.Actor = (string)Actor.Clone();
+            ret.Effect = (string)Effect.Clone();
+            ret.End = new AssTime(End.ToString());
+            ret.Format = (string)Format.Clone();
+            ret.Layer = (string)Layer.Clone();
+            ret.m_Text = (string)m_Text.Clone();
+            ret.MarginL = MarginL;
+            ret.MarginR = MarginR;
+            ret.MarginV = MarginV;
+            ret.Marked = (string)Marked.Clone();
+            ret.Name = (string)Name.Clone();
+            ret.Start = new AssTime(Start.ToString());
+            ret.Style = (string)Style.Clone();
+        
+            return ret;
+        }
 
     }
 
@@ -132,21 +151,28 @@ namespace Subtitle
             int b = 0;
             timeValue = 0;
             float unit = 1;
-            do
+            try
             {
-                b = time.LastIndexOf(':', a);
-                if (b != -1)
+                do
                 {
-                    sub = time.Substring(b + 1, a - b);
-                    a = b - 1;
-                }
-                else
-                {
-                    sub = time.Substring(0, a + 1);
-                }
-                timeValue += float.Parse(sub) * unit;
-                unit *= 60;
-            } while (b != -1);
+                    b = time.LastIndexOf(':', a);
+                    if (b != -1)
+                    {
+                        sub = time.Substring(b + 1, a - b);
+                        a = b - 1;
+                    }
+                    else
+                    {
+                        sub = time.Substring(0, a + 1);
+                    }
+                    timeValue += float.Parse(sub) * unit;
+                    unit *= 60;
+                } while (b != -1);
+            }
+            catch (Exception e)
+            {
+                timeValue = 0;
+            }
 
         }
 
@@ -162,6 +188,8 @@ namespace Subtitle
             ms = intTime % 100;
             return h.ToString() + ":" + m.ToString("D2") + ":" + s.ToString("D2") + "." + ms.ToString("D2");
         }
+
+
     }
     //Format: Marked, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
@@ -345,6 +373,7 @@ namespace Subtitle
             }
             return str;
         }
+
 
     }
 

@@ -34,43 +34,41 @@
             this.vSpliter = new System.Windows.Forms.SplitContainer();
             this.axWMP = new AxWMPLib.AxWindowsMediaPlayer();
             this.toolStripContainer2 = new System.Windows.Forms.ToolStripContainer();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.fileToolStrip = new System.Windows.Forms.ToolStrip();
-            this.stripBtnOpenAss = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.stripBtnSaveSub = new System.Windows.Forms.ToolStripButton();
             this.smallSpliter = new System.Windows.Forms.SplitContainer();
             this.subLabel = new System.Windows.Forms.Label();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.subtitleGrid = new System.Windows.Forms.DataGridView();
             this.subToolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.mainMenu = new System.Windows.Forms.MenuStrip();
+            this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.SaveAsSubToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.KeyCfgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusBar = new System.Windows.Forms.StatusStrip();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.AboutSgsubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stripBtnOpenAss = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.stripBtnSaveSub = new System.Windows.Forms.ToolStripButton();
             this.toolStripPause = new System.Windows.Forms.ToolStripButton();
             this.toolStripPlay = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripDuplicate = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripInsertAfter = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripJumpto = new System.Windows.Forms.ToolStripButton();
-            this.mainMenu = new System.Windows.Forms.MenuStrip();
-            this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenSubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenTxtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveSubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SaveAsSubToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.KeyCfgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusBar = new System.Windows.Forms.StatusStrip();
-            this.timer = new System.Windows.Forms.Timer(this.components);
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hSpliter.Panel1.SuspendLayout();
             this.hSpliter.Panel2.SuspendLayout();
             this.hSpliter.SuspendLayout();
@@ -78,7 +76,6 @@
             this.vSpliter.Panel2.SuspendLayout();
             this.vSpliter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axWMP)).BeginInit();
-            this.toolStripContainer2.ContentPanel.SuspendLayout();
             this.toolStripContainer2.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer2.SuspendLayout();
             this.fileToolStrip.SuspendLayout();
@@ -143,9 +140,6 @@
             // 
             // toolStripContainer2.ContentPanel
             // 
-            this.toolStripContainer2.ContentPanel.Controls.Add(this.button1);
-            this.toolStripContainer2.ContentPanel.Controls.Add(this.button4);
-            this.toolStripContainer2.ContentPanel.Controls.Add(this.button2);
             this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(350, 202);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
@@ -157,36 +151,6 @@
             // toolStripContainer2.TopToolStripPanel
             // 
             this.toolStripContainer2.TopToolStripPanel.Controls.Add(this.fileToolStrip);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(223, 63);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "表按我";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(47, 63);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "表按我";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(128, 63);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "表按我";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // fileToolStrip
             // 
@@ -202,50 +166,10 @@
             this.fileToolStrip.Size = new System.Drawing.Size(110, 25);
             this.fileToolStrip.TabIndex = 0;
             // 
-            // stripBtnOpenAss
-            // 
-            this.stripBtnOpenAss.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.stripBtnOpenAss.Image = global::sgsubdotnet.Properties.Resources.openass;
-            this.stripBtnOpenAss.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.stripBtnOpenAss.Name = "stripBtnOpenAss";
-            this.stripBtnOpenAss.Size = new System.Drawing.Size(23, 22);
-            this.stripBtnOpenAss.Text = "Save Ass as";
-            this.stripBtnOpenAss.Click += new System.EventHandler(this.OpenSub_Click);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = global::sgsubdotnet.Properties.Resources.opentxt;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "toolStripOpenTxt";
-            this.toolStripButton2.Click += new System.EventHandler(this.OpenTxt_Click);
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = global::sgsubdotnet.Properties.Resources.openvideo;
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton3.Text = "toolStripOpenVideo";
-            this.toolStripButton3.Click += new System.EventHandler(this.OpenVideo_Click);
-            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // stripBtnSaveSub
-            // 
-            this.stripBtnSaveSub.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.stripBtnSaveSub.Image = global::sgsubdotnet.Properties.Resources.save;
-            this.stripBtnSaveSub.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.stripBtnSaveSub.Name = "stripBtnSaveSub";
-            this.stripBtnSaveSub.Size = new System.Drawing.Size(23, 22);
-            this.stripBtnSaveSub.Text = "Save Ass";
-            this.stripBtnSaveSub.Click += new System.EventHandler(this.SaveSub_Click);
             // 
             // smallSpliter
             // 
@@ -333,6 +257,152 @@
             this.subToolStrip.Size = new System.Drawing.Size(24, 161);
             this.subToolStrip.TabIndex = 0;
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(22, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(22, 6);
+            // 
+            // mainMenu
+            // 
+            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FileToolStripMenuItem,
+            this.设置ToolStripMenuItem,
+            this.AboutToolStripMenuItem});
+            this.mainMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu.Name = "mainMenu";
+            this.mainMenu.Size = new System.Drawing.Size(734, 24);
+            this.mainMenu.TabIndex = 1;
+            this.mainMenu.Text = "menuStrip1";
+            // 
+            // FileToolStripMenuItem
+            // 
+            this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.OpenSubToolStripMenuItem,
+            this.OpenTxtToolStripMenuItem,
+            this.OpenVideoToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.SaveSubToolStripMenuItem,
+            this.SaveAsSubToolStripMenuItem1,
+            this.toolStripSeparator5,
+            this.ExitToolStripMenuItem});
+            this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.FileToolStripMenuItem.Text = "文件";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(139, 6);
+            // 
+            // SaveAsSubToolStripMenuItem1
+            // 
+            this.SaveAsSubToolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SaveAsSubToolStripMenuItem1.Name = "SaveAsSubToolStripMenuItem1";
+            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.SaveAsSubToolStripMenuItem1.Text = "另存为时间轴";
+            this.SaveAsSubToolStripMenuItem1.Click += new System.EventHandler(this.SaveAsSub_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(139, 6);
+            // 
+            // ExitToolStripMenuItem
+            // 
+            this.ExitToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.ExitToolStripMenuItem.Text = "退出";
+            this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            // 
+            // 设置ToolStripMenuItem
+            // 
+            this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.KeyCfgToolStripMenuItem});
+            this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
+            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.设置ToolStripMenuItem.Text = "设置";
+            // 
+            // KeyCfgToolStripMenuItem
+            // 
+            this.KeyCfgToolStripMenuItem.Name = "KeyCfgToolStripMenuItem";
+            this.KeyCfgToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.KeyCfgToolStripMenuItem.Text = "按键设置";
+            this.KeyCfgToolStripMenuItem.Click += new System.EventHandler(this.KeyCfgToolStripMenuItem_Click);
+            // 
+            // AboutToolStripMenuItem
+            // 
+            this.AboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AboutSgsubToolStripMenuItem});
+            this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
+            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.AboutToolStripMenuItem.Text = "关于";
+            // 
+            // statusBar
+            // 
+            this.statusBar.Location = new System.Drawing.Point(0, 506);
+            this.statusBar.Name = "statusBar";
+            this.statusBar.Size = new System.Drawing.Size(734, 22);
+            this.statusBar.TabIndex = 2;
+            this.statusBar.Text = "Status";
+            // 
+            // timer
+            // 
+            this.timer.Interval = 50;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // AboutSgsubToolStripMenuItem
+            // 
+            this.AboutSgsubToolStripMenuItem.Name = "AboutSgsubToolStripMenuItem";
+            this.AboutSgsubToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.AboutSgsubToolStripMenuItem.Text = "关于 SGSUB.Net";
+            this.AboutSgsubToolStripMenuItem.Click += new System.EventHandler(this.AboutSgsubToolStripMenuItem_Click);
+            // 
+            // stripBtnOpenAss
+            // 
+            this.stripBtnOpenAss.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.stripBtnOpenAss.Image = global::sgsubdotnet.Properties.Resources.openass;
+            this.stripBtnOpenAss.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stripBtnOpenAss.Name = "stripBtnOpenAss";
+            this.stripBtnOpenAss.Size = new System.Drawing.Size(23, 22);
+            this.stripBtnOpenAss.Text = "Save Ass as";
+            this.stripBtnOpenAss.Click += new System.EventHandler(this.OpenSub_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = global::sgsubdotnet.Properties.Resources.opentxt;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "toolStripOpenTxt";
+            this.toolStripButton2.Click += new System.EventHandler(this.OpenTxt_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = global::sgsubdotnet.Properties.Resources.openvideo;
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton3.Text = "toolStripOpenVideo";
+            this.toolStripButton3.Click += new System.EventHandler(this.OpenVideo_Click);
+            // 
+            // stripBtnSaveSub
+            // 
+            this.stripBtnSaveSub.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.stripBtnSaveSub.Image = global::sgsubdotnet.Properties.Resources.save;
+            this.stripBtnSaveSub.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stripBtnSaveSub.Name = "stripBtnSaveSub";
+            this.stripBtnSaveSub.Size = new System.Drawing.Size(23, 22);
+            this.stripBtnSaveSub.Text = "Save Ass";
+            this.stripBtnSaveSub.Click += new System.EventHandler(this.SaveSub_Click);
+            // 
             // toolStripPause
             // 
             this.toolStripPause.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -353,11 +423,6 @@
             this.toolStripPlay.Text = "Play";
             this.toolStripPlay.Click += new System.EventHandler(this.toolStripPlay_Click);
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(22, 6);
-            // 
             // toolStripDuplicate
             // 
             this.toolStripDuplicate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -366,6 +431,7 @@
             this.toolStripDuplicate.Name = "toolStripDuplicate";
             this.toolStripDuplicate.Size = new System.Drawing.Size(22, 20);
             this.toolStripDuplicate.Text = "Duplicate";
+            this.toolStripDuplicate.Click += new System.EventHandler(this.toolStripDuplicate_Click);
             // 
             // toolStripButton1
             // 
@@ -375,6 +441,7 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(22, 20);
             this.toolStripButton1.Text = "Delete";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripInsertAfter
             // 
@@ -384,11 +451,7 @@
             this.toolStripInsertAfter.Name = "toolStripInsertAfter";
             this.toolStripInsertAfter.Size = new System.Drawing.Size(22, 20);
             this.toolStripInsertAfter.Text = "Insert after";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(22, 6);
+            this.toolStripInsertAfter.Click += new System.EventHandler(this.toolStripInsertAfter_Click);
             // 
             // toolStripJumpto
             // 
@@ -400,39 +463,12 @@
             this.toolStripJumpto.Text = "Jump to";
             this.toolStripJumpto.Click += new System.EventHandler(this.toolStripJumpto_Click);
             // 
-            // mainMenu
-            // 
-            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.FileToolStripMenuItem,
-            this.设置ToolStripMenuItem,
-            this.关于ToolStripMenuItem});
-            this.mainMenu.Location = new System.Drawing.Point(0, 0);
-            this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(734, 24);
-            this.mainMenu.TabIndex = 1;
-            this.mainMenu.Text = "menuStrip1";
-            // 
-            // FileToolStripMenuItem
-            // 
-            this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.OpenSubToolStripMenuItem,
-            this.OpenTxtToolStripMenuItem,
-            this.OpenVideoToolStripMenuItem,
-            this.toolStripSeparator4,
-            this.SaveSubToolStripMenuItem,
-            this.SaveAsSubToolStripMenuItem1,
-            this.toolStripSeparator5,
-            this.退出ToolStripMenuItem});
-            this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            this.FileToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.FileToolStripMenuItem.Text = "文件";
-            // 
             // OpenSubToolStripMenuItem
             // 
             this.OpenSubToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.openass;
             this.OpenSubToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenSubToolStripMenuItem.Name = "OpenSubToolStripMenuItem";
-            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.OpenSubToolStripMenuItem.Text = "打开时间轴";
             this.OpenSubToolStripMenuItem.Click += new System.EventHandler(this.OpenSub_Click);
             // 
@@ -441,7 +477,7 @@
             this.OpenTxtToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.opentxt;
             this.OpenTxtToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenTxtToolStripMenuItem.Name = "OpenTxtToolStripMenuItem";
-            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.OpenTxtToolStripMenuItem.Text = "打开翻译文本";
             this.OpenTxtToolStripMenuItem.Click += new System.EventHandler(this.OpenTxt_Click);
             // 
@@ -450,7 +486,7 @@
             this.OpenVideoToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.openvideo;
             this.OpenVideoToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenVideoToolStripMenuItem.Name = "OpenVideoToolStripMenuItem";
-            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.OpenVideoToolStripMenuItem.Text = "打开动画";
             this.OpenVideoToolStripMenuItem.Click += new System.EventHandler(this.OpenVideo_Click);
             // 
@@ -459,68 +495,9 @@
             this.SaveSubToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.save;
             this.SaveSubToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SaveSubToolStripMenuItem.Name = "SaveSubToolStripMenuItem";
-            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.SaveSubToolStripMenuItem.Text = "保存时间轴";
             this.SaveSubToolStripMenuItem.Click += new System.EventHandler(this.SaveSub_Click);
-            // 
-            // SaveAsSubToolStripMenuItem1
-            // 
-            this.SaveAsSubToolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.SaveAsSubToolStripMenuItem1.Name = "SaveAsSubToolStripMenuItem1";
-            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.SaveAsSubToolStripMenuItem1.Text = "另存为时间轴";
-            this.SaveAsSubToolStripMenuItem1.Click += new System.EventHandler(this.SaveAsSub_Click);
-            // 
-            // 设置ToolStripMenuItem
-            // 
-            this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.KeyCfgToolStripMenuItem});
-            this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
-            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.设置ToolStripMenuItem.Text = "设置";
-            // 
-            // KeyCfgToolStripMenuItem
-            // 
-            this.KeyCfgToolStripMenuItem.Name = "KeyCfgToolStripMenuItem";
-            this.KeyCfgToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
-            this.KeyCfgToolStripMenuItem.Text = "按键设置";
-            this.KeyCfgToolStripMenuItem.Click += new System.EventHandler(this.KeyCfgToolStripMenuItem_Click);
-            // 
-            // 关于ToolStripMenuItem
-            // 
-            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.关于ToolStripMenuItem.Text = "关于";
-            // 
-            // statusBar
-            // 
-            this.statusBar.Location = new System.Drawing.Point(0, 506);
-            this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(734, 22);
-            this.statusBar.TabIndex = 2;
-            this.statusBar.Text = "Status";
-            // 
-            // timer
-            // 
-            this.timer.Interval = 50;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
-            // 
-            // 退出ToolStripMenuItem
-            // 
-            this.退出ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.退出ToolStripMenuItem.Text = "退出";
             // 
             // SGSMainForm
             // 
@@ -530,8 +507,9 @@
             this.Controls.Add(this.statusBar);
             this.Controls.Add(this.hSpliter);
             this.Controls.Add(this.mainMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SGSMainForm";
-            this.Text = "SGSUB.Net";
+            this.Text = "SGSUB.Net Reiner Rubin Beta";
             this.hSpliter.Panel1.ResumeLayout(false);
             this.hSpliter.Panel2.ResumeLayout(false);
             this.hSpliter.ResumeLayout(false);
@@ -539,7 +517,6 @@
             this.vSpliter.Panel2.ResumeLayout(false);
             this.vSpliter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axWMP)).EndInit();
-            this.toolStripContainer2.ContentPanel.ResumeLayout(false);
             this.toolStripContainer2.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer2.TopToolStripPanel.PerformLayout();
             this.toolStripContainer2.ResumeLayout(false);
@@ -574,8 +551,6 @@
         private AxWMPLib.AxWindowsMediaPlayer axWMP;
         private System.Windows.Forms.DataGridView subtitleGrid;
         private System.Windows.Forms.SplitContainer smallSpliter;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label subLabel;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ToolStripMenuItem FileToolStripMenuItem;
@@ -584,8 +559,7 @@
         private System.Windows.Forms.ToolStripMenuItem SaveSubToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SaveAsSubToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.ToolStrip subToolStrip;
         private System.Windows.Forms.ToolStripButton toolStripPause;
@@ -607,7 +581,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AboutSgsubToolStripMenuItem;
     }
 }
 

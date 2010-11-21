@@ -12,6 +12,7 @@
     <AssemblyName>sgsubdotnet</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>Resources\RR.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="KeyConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +69,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="KeyConfigForm.resx">
       <DependentUpon>KeyConfigForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -102,6 +113,8 @@
     <None Include="Resources\openvideo.bmp" />
     <None Include="Resources\openass.bmp" />
     <Content Include="Resources\Pause.bmp" />
+    <None Include="Resources\RR.ico" />
+    <None Include="Resources\ReinerRubin.bmp" />
     <Content Include="Resources\Run.bmp" />
     <None Include="Resources\save.bmp" />
     <Content Include="TODO.txt" />

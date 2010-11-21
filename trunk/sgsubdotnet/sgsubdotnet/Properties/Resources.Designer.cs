@@ -116,6 +116,20 @@ namespace sgsubdotnet.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ReinerRubin {
+            get {
+                object obj = ResourceManager.GetObject("ReinerRubin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon RR {
+            get {
+                object obj = ResourceManager.GetObject("RR", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Run {
             get {
                 object obj = ResourceManager.GetObject("Run", resourceCulture);
