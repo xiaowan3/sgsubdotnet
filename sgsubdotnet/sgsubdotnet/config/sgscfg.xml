@@ -2,6 +2,7 @@
   <AddEndTime>X</AddEndTime>
   <AddStartTime>Z</AddStartTime>
   <AddTimePoint>A</AddTimePoint>
+  <AutoOverlapCorrection>true</AutoOverlapCorrection>
   <DefaultActor>NTP</DefaultActor>
   <DefaultAssHead>
     <m_HeadLines xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
@@ -42,7 +43,7 @@
   <DefaultName>NTP</DefaultName>
   <DefaultStart>0</DefaultStart>
   <DefaultStyle>*Default</DefaultStyle>
-  <EndOffset>-0.3</EndOffset>
+  <EndOffset>-0.1</EndOffset>
   <Pause>Space</Pause>
   <SeekBackword>Q</SeekBackword>
   <SeekForward>W</SeekForward>
