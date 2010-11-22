@@ -43,6 +43,9 @@ namespace sgsubdotnet
             subtitleGrid.Columns.Add(column);
         }
 
+        /// <summary>
+        /// 把与AssSub有关的参数从m_Config中搬到m_CurrentSub中
+        /// </summary>
         private void SetDefaultValues()
         {
             m_CurrentSub.DefaultAssHead = m_Config.DefaultAssHead;
@@ -61,13 +64,39 @@ namespace sgsubdotnet
             m_CurrentSub.DefaultEffect = m_Config.DefaultEffect;
         }
 
+        /// <summary>
+        /// 字幕
+        /// </summary>
         private Subtitle.AssSub m_CurrentSub = new Subtitle.AssSub();
 
+        /// <summary>
+        /// 字幕的时间索引己生成
+        /// </summary>
         private bool m_TrackLoaded = false;
+
+        /// <summary>
+        /// 视频文件己打开
+        /// </summary>
         private bool m_VideoOpened = false;
+
+        /// <summary>
+        /// 己正常开始播放视频
+        /// </summary>
         private bool m_VideoPlaying = false;
+
+        /// <summary>
+        /// 字幕己读取
+        /// </summary>
         private bool m_SubLoaded = false;
+
+        /// <summary>
+        /// 暂停
+        /// </summary>
         private bool m_Paused = false;
+
+        /// <summary>
+        /// 字幕文件名
+        /// </summary>
         private string m_AssFilename = null;
 
 
@@ -75,19 +104,23 @@ namespace sgsubdotnet
         {
             if (m_VideoOpened)
             {
+                //由于刚打开视频文件时无法读取视频长度，所以在播放0.5秒后把m_VideoPlaying设为true.
                 if (axWMP.Ctlcontrols.currentPosition > 0.5)
                 {
                     m_VideoPlaying = true;
                 }
+                //生成字幕的时间索引
                 if (m_SubLoaded && m_VideoPlaying && (!m_TrackLoaded))
                 {
                     m_CurrentSub.CreateIndex(axWMP.currentMedia.duration);
                     m_TrackLoaded = true;
                 }
+                //显示字幕内容
                 if (m_TrackLoaded)
                     subLabel.Text = m_CurrentSub.GetSubtitle(axWMP.Ctlcontrols.currentPosition);
             }
         }
+
 
         private void OpenVideo_Click(object sender, EventArgs e)
         {
@@ -99,6 +132,7 @@ namespace sgsubdotnet
                 axWMP.Ctlcontrols.play();
                 m_VideoOpened = true;
                 m_VideoPlaying = false;
+                m_TrackLoaded = false;
                 m_Paused = false;
                 timer.Start();
             }
@@ -116,6 +150,29 @@ namespace sgsubdotnet
             }
         }
 
+        private void SaveSub_Click(object sender, EventArgs e)
+        {
+
+            if (m_TrackLoaded)
+            {
+                if (m_AssFilename == null)
+                {
+                    SaveFileDialog dlg = new SaveFileDialog();
+                    dlg.AddExtension = true;
+                    dlg.DefaultExt = "ass";
+                    dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
+                    if (dlg.ShowDialog() == DialogResult.OK)
+                    {
+                        m_AssFilename = dlg.FileName;
+                    }
+                }
+                if (m_AssFilename != null)
+                {
+                    m_CurrentSub.WriteAss(m_AssFilename, Encoding.Unicode);
+
+                }
+            }
+        }
 
         private double oldS = 0, oldE = 0;
         private void subtitleGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
@@ -293,29 +350,7 @@ namespace sgsubdotnet
             }
         }
 
-        private void SaveSub_Click(object sender, EventArgs e)
-        {
 
-            if (m_TrackLoaded)
-            {
-                if (m_AssFilename == null)
-                {
-                    SaveFileDialog dlg = new SaveFileDialog();
-                    dlg.AddExtension = true;
-                    dlg.DefaultExt = "ass";
-                    dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
-                    if (dlg.ShowDialog() == DialogResult.OK)
-                    {
-                        m_AssFilename = dlg.FileName;
-                    }
-                }
-                if (m_AssFilename != null)
-                {
-                    m_CurrentSub.WriteAss(m_AssFilename, Encoding.Unicode);
-                    
-                }
-            }
-        }
 
         private void OpenTxt_Click(object sender, EventArgs e)
         {
