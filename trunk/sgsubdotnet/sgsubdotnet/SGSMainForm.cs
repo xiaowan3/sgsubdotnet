@@ -92,6 +92,7 @@ namespace sgsubdotnet
         private void OpenVideo_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Video File (*.mp4;*.mkv;*.avi;*.mpg)|*.mp4;*.mkv;*.avi;*.mpg|All files (*.*)|*.*||";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 axWMP.URL = dlg.FileName;
@@ -106,6 +107,7 @@ namespace sgsubdotnet
         private void OpenSub_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 m_CurrentSub.LoadAss(dlg.FileName);
@@ -236,7 +238,13 @@ namespace sgsubdotnet
                         axWMP.Ctlcontrols.currentPosition += m_Config.SeekStep;
                     }
                 }
-
+                else if (e.KeyCode == Keys.C && e.Modifiers == Keys.Control)
+                {
+                    if (subtitleGrid.CurrentCell != null)
+                    {
+                        Clipboard.SetText(subtitleGrid.CurrentCell.Value.ToString(), TextDataFormat.Text);
+                    }
+                }
 
             }
 
@@ -293,6 +301,9 @@ namespace sgsubdotnet
                 if (m_AssFilename == null)
                 {
                     SaveFileDialog dlg = new SaveFileDialog();
+                    dlg.AddExtension = true;
+                    dlg.DefaultExt = "ass";
+                    dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
                     if (dlg.ShowDialog() == DialogResult.OK)
                     {
                         m_AssFilename = dlg.FileName;
@@ -309,6 +320,7 @@ namespace sgsubdotnet
         private void OpenTxt_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Text File (*.txt)|*.txt||";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 m_CurrentSub.LoadText(dlg.FileName);
@@ -350,6 +362,9 @@ namespace sgsubdotnet
             if (m_TrackLoaded)
             {
                 SaveFileDialog dlg = new SaveFileDialog();
+                dlg.AddExtension = true;
+                dlg.DefaultExt = "ass";
+                dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     m_CurrentSub.WriteAss(dlg.FileName,Encoding.Unicode);
