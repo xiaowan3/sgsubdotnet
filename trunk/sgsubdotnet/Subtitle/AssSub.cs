@@ -36,7 +36,7 @@ namespace Subtitle
         public void LoadAss(string filename)
         {
             FileStream ifile = new FileStream(filename, FileMode.Open);
-            StreamReader istream = new StreamReader(ifile);
+            StreamReader istream = new StreamReader(ifile, Encoding.Default, true);
             LoadAss(istream);
             istream.Close();
             ifile.Close();
@@ -141,7 +141,8 @@ namespace Subtitle
         public void LoadText(string filename)
         {
             FileStream ifile = new FileStream(filename, FileMode.Open);
-            StreamReader istream = new StreamReader(ifile);
+            StreamReader istream = new StreamReader(ifile, Encoding.Default, true);
+            
             LoadText(istream);
             istream.Close();
             ifile.Close();
