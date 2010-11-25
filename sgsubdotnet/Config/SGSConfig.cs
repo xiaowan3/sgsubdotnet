@@ -137,7 +137,7 @@ namespace Config
         public static SGSConfig FromFile(string filename)
         {
             SGSConfig SGSCfgObject;
-            FileStream fs = new FileStream(filename, FileMode.Open);
+            FileStream fs = new FileStream(filename,FileMode.Open,FileAccess.Read);
 
             XmlDictionaryReader reader =
                 XmlDictionaryReader.CreateTextReader(fs, new XmlDictionaryReaderQuotas());
