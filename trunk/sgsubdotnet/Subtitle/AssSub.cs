@@ -167,6 +167,7 @@ namespace Subtitle
             m_AssHead = DefaultAssHead;
             m_AssParser = new AssLineParser(DefaultFormatLine);
             string line;
+            SubItems.Clear();
             while (!iStream.EndOfStream)
             {
                 line = iStream.ReadLine();

@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
     + "You should have received a copy of the GNU General Public License "
     + "along with this program.  If not, see <http://www.gnu.org/licenses/>.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("http://bbs.sgsub.com")]
+[assembly: AssemblyCompany("SGSUB")]
 [assembly: AssemblyProduct("SGSUB.Net Reiner Rubin Beta")]
 [assembly: AssemblyCopyright("Copyright (C) 2010 SGSUB Youmu")]
 [assembly: AssemblyTrademark("")]

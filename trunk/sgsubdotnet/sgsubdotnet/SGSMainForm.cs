@@ -12,11 +12,31 @@ namespace sgsubdotnet
 {
     public partial class SGSMainForm : Form
     {
+        private string m_Appdata;
         public SGSMainForm()
         {
             InitializeComponent();
-
-            m_Config = SGSConfig.FromFile(Application.StartupPath + @"\config\sgscfg.xml");
+            m_Appdata 
+                = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) 
+                + "\\" + Application.CompanyName;
+            if (!System.IO.Directory.Exists(m_Appdata))
+            {
+                System.IO.Directory.CreateDirectory(m_Appdata);
+            }
+            if (!System.IO.Directory.Exists(m_Appdata+@"\config"))
+            {
+                System.IO.Directory.CreateDirectory(m_Appdata + @"\config");
+            }
+            if (!System.IO.File.Exists(m_Appdata + @"\config\sgscfg.xml"))
+            {
+                m_Config = SGSConfig.FromFile(Application.StartupPath + @"\config\sgscfg.xml");
+                m_Config.Save(m_Appdata + @"\config\sgscfg.xml");
+            }
+            else
+            {
+                m_Config = SGSConfig.FromFile(m_Appdata + @"\config\sgscfg.xml");
+            }
+            
             SetDefaultValues();
 
             DataGridViewColumn column;
@@ -99,6 +119,10 @@ namespace sgsubdotnet
         /// </summary>
         private string m_AssFilename = null;
 
+        /// <summary>
+        /// 字幕被修改
+        /// </summary>
+        private bool m_Edited = false;
 
         private void timer_Tick(object sender, EventArgs e)
         {
@@ -169,6 +193,7 @@ namespace sgsubdotnet
                 if (m_AssFilename != null)
                 {
                     m_CurrentSub.WriteAss(m_AssFilename, Encoding.Unicode);
+                    m_Edited = false;
 
                 }
             }
@@ -196,6 +221,7 @@ namespace sgsubdotnet
             {
                 Subtitle.AssItem item = (Subtitle.AssItem)subtitleGrid.Rows[e.RowIndex].DataBoundItem;
                 m_CurrentSub.ItemEdited(item, oldS, oldE);
+                m_Edited = true;
             }
         }
 
@@ -222,7 +248,7 @@ namespace sgsubdotnet
                         subtitleGrid.UpdateCellValue(1, rowindex - 1);
                     }
                     subtitleGrid.UpdateCellValue(0, rowindex);
-
+                    m_Edited = true;
                 }
             }
         }
@@ -243,6 +269,7 @@ namespace sgsubdotnet
                     if (rowindex - subtitleGrid.FirstDisplayedScrollingRowIndex > m_Config.SelectRowOffset)
                         subtitleGrid.FirstDisplayedScrollingRowIndex = rowindex - m_Config.SelectRowOffset;
                     subtitleGrid.UpdateCellValue(1, rowindex);
+                    m_Edited = true;
                 }
             }
         }
@@ -404,6 +431,7 @@ namespace sgsubdotnet
                 {
                     m_CurrentSub.WriteAss(dlg.FileName,Encoding.Unicode);
                     m_AssFilename = dlg.FileName;
+                    m_Edited = false;
                 }
             }
         }
@@ -415,16 +443,18 @@ namespace sgsubdotnet
                 Subtitle.AssItem i = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem)).Clone();
                 m_CurrentSub.SubItems.Insert(subtitleGrid.CurrentRow.Index + 1, i);
                 subtitleGrid.Refresh();
+                m_Edited = true;
             }
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void toolStripDeleteItem_Click(object sender, EventArgs e)
         {
             if (subtitleGrid.CurrentRow != null)
             {
                 Subtitle.AssItem i = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem));
                 m_CurrentSub.SubItems.Remove(i);
                 subtitleGrid.Refresh();
+                m_Edited = true;
             }
         }
 
@@ -438,6 +468,7 @@ namespace sgsubdotnet
                 i.End.TimeValue = 0;
                 m_CurrentSub.SubItems.Insert(subtitleGrid.CurrentRow.Index + 1, i);
                 subtitleGrid.Refresh();
+                m_Edited = true;
             }
         }
 
@@ -451,5 +482,51 @@ namespace sgsubdotnet
             AboutBox aboutbox = new AboutBox();
             aboutbox.Show();
         }
+
+        private void SGSMainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (m_Edited)
+            {
+                bool saved = false;
+                DialogResult result = MessageBox.Show("当前字幕己修改" + Environment.NewLine + "想保存文件吗",
+                    "SGSUB.Net", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        if (m_TrackLoaded)
+                        {
+                            if (m_AssFilename == null)
+                            {
+                                SaveFileDialog dlg = new SaveFileDialog();
+                                dlg.AddExtension = true;
+                                dlg.DefaultExt = "ass";
+                                dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
+                                if (dlg.ShowDialog() == DialogResult.OK)
+                                {
+                                    m_AssFilename = dlg.FileName;
+                                }
+                            }
+                            if (m_AssFilename != null)
+                            {
+                                m_CurrentSub.WriteAss(m_AssFilename, Encoding.Unicode);
+                                m_Edited = false;
+                                saved = true;
+                            }
+                        }
+                        if (!saved) e.Cancel = true;
+                        break;
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                    default :
+                        e.Cancel = true;
+                        break;
+                }
+            }
+
+        }
+        
     }
 }
