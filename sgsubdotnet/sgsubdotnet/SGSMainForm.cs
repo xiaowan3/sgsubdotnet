@@ -225,7 +225,6 @@ namespace sgsubdotnet
             }
         }
 
-        private bool m_keydown = false;
 
         private void addStartTime()
         {
@@ -273,13 +272,18 @@ namespace sgsubdotnet
                 }
             }
         }
+        private bool m_keydown = false;
 
         private void subtitleGrid_KeyDown(object sender, KeyEventArgs e)
         {
             if (!m_keydown)
             {
                 m_keydown = true;
-                if (e.KeyCode == m_Config.AddTimePoint)
+                if (e.KeyCode == Keys.ControlKey)
+                {
+                    m_keydown = false;
+                }
+                else if (e.KeyCode == m_Config.AddTimePoint)
                 {
                     addStartTime();
                 }
@@ -329,6 +333,42 @@ namespace sgsubdotnet
                         Clipboard.SetText(subtitleGrid.CurrentCell.Value.ToString(), TextDataFormat.Text);
                     }
                 }
+                else if (e.KeyCode == Keys.V && e.Modifiers == Keys.Control)
+                {
+                    if (subtitleGrid.CurrentCell != null && Clipboard.ContainsText())
+                    {
+                        subtitleGrid.CurrentCell.Value = Clipboard.GetText();
+                    }
+                }
+                else if (e.KeyCode == m_Config.GotoCurrent)
+                {
+                    if (m_VideoPlaying && subtitleGrid.CurrentRow != null)
+                    {
+                        double position = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem)).Start.TimeValue;
+                        if (position < axWMP.currentMedia.duration)
+                        {
+                            axWMP.Ctlcontrols.currentPosition = position;
+                        }
+
+                    }
+                }
+                else if (e.KeyCode == m_Config.GotoPrevious)
+                {
+                    if (m_VideoPlaying && subtitleGrid.CurrentRow != null)
+                    {
+                        int rowindex = subtitleGrid.CurrentRow.Index;
+                        double position;
+                        if (rowindex >= 1)
+                        {
+                            position = ((Subtitle.AssItem)(subtitleGrid.Rows[rowindex - 1].DataBoundItem)).Start.TimeValue;
+                            if (position < axWMP.currentMedia.duration && position > 0.01)
+                            {
+                                axWMP.Ctlcontrols.currentPosition = position;
+                            }
+
+                        }
+                    }
+               }
 
             }
 
@@ -403,6 +443,8 @@ namespace sgsubdotnet
             keycfg.EndTimeOffset = m_Config.EndOffset;
             keycfg.SeekStep = m_Config.SeekStep;
             keycfg.AutoOC = m_Config.AutoOverlapCorrection;
+            keycfg.GCKey = m_Config.GotoCurrent;
+            keycfg.GPKey = m_Config.GotoPrevious;
             if (keycfg.ShowDialog() == DialogResult.OK)
             {
                 m_Config.SeekBackword = keycfg.BWKey;
@@ -415,6 +457,8 @@ namespace sgsubdotnet
                 m_Config.EndOffset = keycfg.EndTimeOffset;
                 m_Config.SeekStep = keycfg.SeekStep;
                 m_Config.AutoOverlapCorrection = keycfg.AutoOC;
+                m_Config.GotoCurrent = keycfg.GCKey;
+                m_Config.GotoPrevious = keycfg.GPKey;
                 m_Config.Save();
             }
         }
