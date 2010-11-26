@@ -44,10 +44,12 @@
   <DefaultStart>0</DefaultStart>
   <DefaultStyle>*Default</DefaultStyle>
   <EndOffset>-0.1</EndOffset>
+  <GotoCurrent>E</GotoCurrent>
+  <GotoPrevious>R</GotoPrevious>
   <Pause>Space</Pause>
   <SeekBackword>Q</SeekBackword>
   <SeekForward>W</SeekForward>
-  <SeekStep>2</SeekStep>
+  <SeekStep>3</SeekStep>
   <SelectRowOffset>2</SelectRowOffset>
   <StartOffset>-0.3</StartOffset>
 </SGSConfig>

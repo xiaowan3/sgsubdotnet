@@ -74,6 +74,19 @@ namespace Config
         public Keys SeekBackword { get; set; }
 
         /// <summary>
+        /// 跳至当前行
+        /// </summary>
+        [DataMember()]
+        public Keys GotoCurrent { get; set; }
+
+
+        /// <summary>
+        /// 跳至上一行
+        /// </summary>
+        [DataMember()]
+        public Keys GotoPrevious { get; set; }
+
+        /// <summary>
         /// 默认ass文件头
         /// </summary>
         [DataMember()]

@@ -22,6 +22,8 @@ namespace sgsubdotnet
         public Keys TimeKey;
         public Keys STKey;
         public Keys ETKey;
+        public Keys GCKey;
+        public Keys GPKey;
         private double m_sto;
         public double StartTimeOffset
         {
@@ -54,6 +56,8 @@ namespace sgsubdotnet
             btnT.Text = "插入时间点" + TimeKey.ToString();
             btnST.Text = "插入起始点" + STKey.ToString();
             btnET.Text = "插入终止点" + ETKey.ToString();
+            btnGC.Text = "跳至当前行" + GCKey.ToString();
+            btnGP.Text = "跳至上一行" + GPKey.ToString();
 
             numET.Value = (decimal)EndTimeOffset * 1000;
             numST.Value = (decimal)StartTimeOffset * 1000;
@@ -110,6 +114,18 @@ namespace sgsubdotnet
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void btnGotoCurrent_KeyDown(object sender, KeyEventArgs e)
+        {
+            GCKey = e.KeyCode;
+            btnGC.Text = "跳至当前行" + GCKey.ToString();
+        }
+
+        private void btnGotoPrevious_KeyDown(object sender, KeyEventArgs e)
+        {
+            GPKey = e.KeyCode;
+            btnGP.Text = "跳至上一行" + GPKey.ToString();
         }
     }
 }
