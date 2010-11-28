@@ -216,6 +216,24 @@ namespace Subtitle
             }
         }
 
+
+        public void RefreshIndex()
+        {
+            for (int i = 0; i < m_AssItemIndex.Length; i++)
+            {
+                m_AssItemIndex[i].Clear();
+            }
+            foreach (AssItem item in SubItems)
+            {
+                int a = (int)Math.Floor(item.Start.TimeValue);
+                int b = (int)Math.Ceiling(item.End.TimeValue);
+                for (int i = a; i < b; i++)
+                {
+                    if (i < m_AssItemIndex.Length)
+                        m_AssItemIndex[i].Add(item);
+                }
+            }
+        }
         /// <summary>
         /// 当Item的起始或终止时间改变时，修改Index
         /// </summary>
