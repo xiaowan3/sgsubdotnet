@@ -93,8 +93,7 @@
             // hSpliter
             // 
             this.hSpliter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hSpliter.Location = new System.Drawing.Point(0, 28);
-            this.hSpliter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.hSpliter.Location = new System.Drawing.Point(0, 24);
             this.hSpliter.Name = "hSpliter";
             this.hSpliter.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -105,16 +104,14 @@
             // hSpliter.Panel2
             // 
             this.hSpliter.Panel2.Controls.Add(this.smallSpliter);
-            this.hSpliter.Size = new System.Drawing.Size(989, 731);
-            this.hSpliter.SplitterDistance = 327;
-            this.hSpliter.SplitterWidth = 5;
+            this.hSpliter.Size = new System.Drawing.Size(742, 573);
+            this.hSpliter.SplitterDistance = 256;
             this.hSpliter.TabIndex = 0;
             // 
             // vSpliter
             // 
             this.vSpliter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vSpliter.Location = new System.Drawing.Point(0, 0);
-            this.vSpliter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.vSpliter.Name = "vSpliter";
             // 
             // vSpliter.Panel1
@@ -124,9 +121,8 @@
             // vSpliter.Panel2
             // 
             this.vSpliter.Panel2.Controls.Add(this.toolStripContainer2);
-            this.vSpliter.Size = new System.Drawing.Size(989, 327);
-            this.vSpliter.SplitterDistance = 510;
-            this.vSpliter.SplitterWidth = 5;
+            this.vSpliter.Size = new System.Drawing.Size(742, 256);
+            this.vSpliter.SplitterDistance = 382;
             this.vSpliter.TabIndex = 0;
             // 
             // axWMP
@@ -134,10 +130,9 @@
             this.axWMP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.axWMP.Enabled = true;
             this.axWMP.Location = new System.Drawing.Point(0, 0);
-            this.axWMP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.axWMP.Name = "axWMP";
             this.axWMP.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWMP.OcxState")));
-            this.axWMP.Size = new System.Drawing.Size(510, 327);
+            this.axWMP.Size = new System.Drawing.Size(382, 256);
             this.axWMP.TabIndex = 0;
             // 
             // toolStripContainer2
@@ -145,13 +140,11 @@
             // 
             // toolStripContainer2.ContentPanel
             // 
-            this.toolStripContainer2.ContentPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(474, 302);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(356, 231);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
-            this.toolStripContainer2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.toolStripContainer2.Name = "toolStripContainer2";
-            this.toolStripContainer2.Size = new System.Drawing.Size(474, 327);
+            this.toolStripContainer2.Size = new System.Drawing.Size(356, 256);
             this.toolStripContainer2.TabIndex = 0;
             this.toolStripContainer2.Text = "toolStripContainer2";
             // 
@@ -224,7 +217,6 @@
             this.smallSpliter.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.smallSpliter.IsSplitterFixed = true;
             this.smallSpliter.Location = new System.Drawing.Point(0, 0);
-            this.smallSpliter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.smallSpliter.Name = "smallSpliter";
             this.smallSpliter.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -235,18 +227,18 @@
             // smallSpliter.Panel2
             // 
             this.smallSpliter.Panel2.Controls.Add(this.toolStripContainer1);
-            this.smallSpliter.Size = new System.Drawing.Size(989, 399);
+            this.smallSpliter.Size = new System.Drawing.Size(742, 313);
             this.smallSpliter.SplitterDistance = 53;
-            this.smallSpliter.SplitterWidth = 5;
             this.smallSpliter.TabIndex = 1;
             // 
             // subLabel
             // 
             this.subLabel.AutoSize = true;
             this.subLabel.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.subLabel.Location = new System.Drawing.Point(67, 11);
+            this.subLabel.Location = new System.Drawing.Point(50, 9);
+            this.subLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.subLabel.Name = "subLabel";
-            this.subLabel.Size = new System.Drawing.Size(319, 20);
+            this.subLabel.Size = new System.Drawing.Size(256, 16);
             this.subLabel.TabIndex = 0;
             this.subLabel.Text = "Subtitle will be diplayed here.";
             // 
@@ -256,17 +248,17 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.subtitleGrid);
-            this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(965, 310);
+            this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(718, 236);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // toolStripContainer1.LeftToolStripPanel
             // 
             this.toolStripContainer1.LeftToolStripPanel.Controls.Add(this.subToolStrip);
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
-            this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(989, 341);
+            this.toolStripContainer1.Size = new System.Drawing.Size(742, 256);
             this.toolStripContainer1.TabIndex = 1;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -279,11 +271,9 @@
             this.subtitleGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.subtitleGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.subtitleGrid.Location = new System.Drawing.Point(0, 0);
-            this.subtitleGrid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.subtitleGrid.MultiSelect = false;
             this.subtitleGrid.Name = "subtitleGrid";
             this.subtitleGrid.RowTemplate.Height = 23;
-            this.subtitleGrid.Size = new System.Drawing.Size(965, 310);
+            this.subtitleGrid.Size = new System.Drawing.Size(718, 236);
             this.subtitleGrid.TabIndex = 0;
             this.subtitleGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.subtitleGrid_CellBeginEdit);
             this.subtitleGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.subtitleGrid_CellEndEdit);
@@ -385,8 +375,7 @@
             this.AboutToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.mainMenu.Size = new System.Drawing.Size(989, 28);
+            this.mainMenu.Size = new System.Drawing.Size(742, 24);
             this.mainMenu.TabIndex = 1;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -402,7 +391,7 @@
             this.toolStripSeparator5,
             this.ExitToolStripMenuItem});
             this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            this.FileToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.FileToolStripMenuItem.Text = "文件";
             // 
             // OpenSubToolStripMenuItem
@@ -410,7 +399,7 @@
             this.OpenSubToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.openass;
             this.OpenSubToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenSubToolStripMenuItem.Name = "OpenSubToolStripMenuItem";
-            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.OpenSubToolStripMenuItem.Text = "打开时间轴";
             this.OpenSubToolStripMenuItem.Click += new System.EventHandler(this.OpenSub_Click);
             // 
@@ -419,7 +408,7 @@
             this.OpenTxtToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.opentxt;
             this.OpenTxtToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenTxtToolStripMenuItem.Name = "OpenTxtToolStripMenuItem";
-            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.OpenTxtToolStripMenuItem.Text = "打开翻译文本";
             this.OpenTxtToolStripMenuItem.Click += new System.EventHandler(this.OpenTxt_Click);
             // 
@@ -428,21 +417,21 @@
             this.OpenVideoToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.openvideo;
             this.OpenVideoToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenVideoToolStripMenuItem.Name = "OpenVideoToolStripMenuItem";
-            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.OpenVideoToolStripMenuItem.Text = "打开动画";
             this.OpenVideoToolStripMenuItem.Click += new System.EventHandler(this.OpenVideo_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(165, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(139, 6);
             // 
             // SaveSubToolStripMenuItem
             // 
             this.SaveSubToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.save;
             this.SaveSubToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SaveSubToolStripMenuItem.Name = "SaveSubToolStripMenuItem";
-            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.SaveSubToolStripMenuItem.Text = "保存时间轴";
             this.SaveSubToolStripMenuItem.Click += new System.EventHandler(this.SaveSub_Click);
             // 
@@ -450,20 +439,20 @@
             // 
             this.SaveAsSubToolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SaveAsSubToolStripMenuItem1.Name = "SaveAsSubToolStripMenuItem1";
-            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(168, 24);
+            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
             this.SaveAsSubToolStripMenuItem1.Text = "另存为时间轴";
             this.SaveAsSubToolStripMenuItem1.Click += new System.EventHandler(this.SaveAsSub_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(165, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(139, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.ExitToolStripMenuItem.Text = "退出";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -472,13 +461,13 @@
             this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.KeyCfgToolStripMenuItem});
             this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
-            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.设置ToolStripMenuItem.Text = "设置";
             // 
             // KeyCfgToolStripMenuItem
             // 
             this.KeyCfgToolStripMenuItem.Name = "KeyCfgToolStripMenuItem";
-            this.KeyCfgToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.KeyCfgToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.KeyCfgToolStripMenuItem.Text = "按键设置";
             this.KeyCfgToolStripMenuItem.Click += new System.EventHandler(this.KeyCfgToolStripMenuItem_Click);
             // 
@@ -487,22 +476,21 @@
             this.AboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AboutSgsubToolStripMenuItem});
             this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
-            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.AboutToolStripMenuItem.Text = "关于";
             // 
             // AboutSgsubToolStripMenuItem
             // 
             this.AboutSgsubToolStripMenuItem.Name = "AboutSgsubToolStripMenuItem";
-            this.AboutSgsubToolStripMenuItem.Size = new System.Drawing.Size(192, 24);
+            this.AboutSgsubToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.AboutSgsubToolStripMenuItem.Text = "关于 SGSUB.Net";
             this.AboutSgsubToolStripMenuItem.Click += new System.EventHandler(this.AboutSgsubToolStripMenuItem_Click);
             // 
             // statusBar
             // 
-            this.statusBar.Location = new System.Drawing.Point(0, 737);
+            this.statusBar.Location = new System.Drawing.Point(0, 575);
             this.statusBar.Name = "statusBar";
-            this.statusBar.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusBar.Size = new System.Drawing.Size(989, 22);
+            this.statusBar.Size = new System.Drawing.Size(742, 22);
             this.statusBar.TabIndex = 2;
             this.statusBar.Text = "Status";
             // 
@@ -513,14 +501,13 @@
             // 
             // SGSMainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(989, 759);
+            this.ClientSize = new System.Drawing.Size(742, 597);
             this.Controls.Add(this.statusBar);
             this.Controls.Add(this.hSpliter);
             this.Controls.Add(this.mainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "SGSMainForm";
             this.Text = "SGSUB.Net Reiner Rubin Beta";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SGSMainForm_FormClosing);
