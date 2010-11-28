@@ -219,18 +219,21 @@ namespace Subtitle
 
         public void RefreshIndex()
         {
-            for (int i = 0; i < m_AssItemIndex.Length; i++)
+            if (m_AssItemIndex != null)
             {
-                m_AssItemIndex[i].Clear();
-            }
-            foreach (AssItem item in SubItems)
-            {
-                int a = (int)Math.Floor(item.Start.TimeValue);
-                int b = (int)Math.Ceiling(item.End.TimeValue);
-                for (int i = a; i < b; i++)
+                for (int i = 0; i < m_AssItemIndex.Length; i++)
                 {
-                    if (i < m_AssItemIndex.Length)
-                        m_AssItemIndex[i].Add(item);
+                    m_AssItemIndex[i].Clear();
+                }
+                foreach (AssItem item in SubItems)
+                {
+                    int a = (int)Math.Floor(item.Start.TimeValue);
+                    int b = (int)Math.Ceiling(item.End.TimeValue);
+                    for (int i = a; i < b; i++)
+                    {
+                        if (i < m_AssItemIndex.Length)
+                            m_AssItemIndex[i].Add(item);
+                    }
                 }
             }
         }
@@ -248,22 +251,24 @@ namespace Subtitle
             int news = (int)Math.Floor(item.Start.TimeValue);
             int newe = (int)Math.Ceiling(item.End.TimeValue);
             int s = Math.Min(news, olds), e = Math.Max(newe, olde);
-
-            for (int i = s; i < e; i++)
+            if (m_AssItemIndex != null)
             {
-                if (i < m_AssItemIndex.Length)
+                for (int i = s; i < e; i++)
                 {
-                    if (i < news || i >= newe)
+                    if (i < m_AssItemIndex.Length)
                     {
-                        if (m_AssItemIndex[i].Contains(item)) m_AssItemIndex[i].Remove(item);
-                    }
-                    else
-                    {
-                        if (!m_AssItemIndex[i].Contains(item)) m_AssItemIndex[i].Add(item);
+                        if (i < news || i >= newe)
+                        {
+                            if (m_AssItemIndex[i].Contains(item)) m_AssItemIndex[i].Remove(item);
+                        }
+                        else
+                        {
+                            if (!m_AssItemIndex[i].Contains(item)) m_AssItemIndex[i].Add(item);
 
+                        }
                     }
+
                 }
-
             }
         }
 
