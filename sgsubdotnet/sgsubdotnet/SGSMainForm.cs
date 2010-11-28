@@ -338,6 +338,7 @@ namespace sgsubdotnet
                     if (subtitleGrid.CurrentCell != null && Clipboard.ContainsText())
                     {
                         subtitleGrid.CurrentCell.Value = Clipboard.GetText();
+                        m_CurrentSub.RefreshIndex();
                     }
                 }
                 else if (e.KeyCode == m_Config.GotoCurrent)
@@ -487,6 +488,7 @@ namespace sgsubdotnet
                 Subtitle.AssItem i = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem)).Clone();
                 m_CurrentSub.SubItems.Insert(subtitleGrid.CurrentRow.Index + 1, i);
                 subtitleGrid.Refresh();
+                m_CurrentSub.RefreshIndex();
                 m_Edited = true;
             }
         }
@@ -498,6 +500,7 @@ namespace sgsubdotnet
                 Subtitle.AssItem i = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem));
                 m_CurrentSub.SubItems.Remove(i);
                 subtitleGrid.Refresh();
+                m_CurrentSub.RefreshIndex();
                 m_Edited = true;
             }
         }
