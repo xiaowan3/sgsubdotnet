@@ -63,12 +63,13 @@
             this.SaveAsSubToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.KeyCfgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutSgsubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.mainpanel = new System.Windows.Forms.Panel();
             this.hSpliter.Panel1.SuspendLayout();
             this.hSpliter.Panel2.SuspendLayout();
             this.hSpliter.SuspendLayout();
@@ -88,12 +89,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.subtitleGrid)).BeginInit();
             this.subToolStrip.SuspendLayout();
             this.mainMenu.SuspendLayout();
+            this.mainpanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // hSpliter
             // 
             this.hSpliter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hSpliter.Location = new System.Drawing.Point(0, 24);
+            this.hSpliter.Location = new System.Drawing.Point(0, 0);
             this.hSpliter.Name = "hSpliter";
             this.hSpliter.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -104,8 +106,8 @@
             // hSpliter.Panel2
             // 
             this.hSpliter.Panel2.Controls.Add(this.smallSpliter);
-            this.hSpliter.Size = new System.Drawing.Size(742, 573);
-            this.hSpliter.SplitterDistance = 256;
+            this.hSpliter.Size = new System.Drawing.Size(742, 551);
+            this.hSpliter.SplitterDistance = 246;
             this.hSpliter.TabIndex = 0;
             // 
             // vSpliter
@@ -121,7 +123,7 @@
             // vSpliter.Panel2
             // 
             this.vSpliter.Panel2.Controls.Add(this.toolStripContainer2);
-            this.vSpliter.Size = new System.Drawing.Size(742, 256);
+            this.vSpliter.Size = new System.Drawing.Size(742, 246);
             this.vSpliter.SplitterDistance = 382;
             this.vSpliter.TabIndex = 0;
             // 
@@ -132,7 +134,7 @@
             this.axWMP.Location = new System.Drawing.Point(0, 0);
             this.axWMP.Name = "axWMP";
             this.axWMP.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWMP.OcxState")));
-            this.axWMP.Size = new System.Drawing.Size(382, 256);
+            this.axWMP.Size = new System.Drawing.Size(382, 246);
             this.axWMP.TabIndex = 0;
             // 
             // toolStripContainer2
@@ -140,11 +142,11 @@
             // 
             // toolStripContainer2.ContentPanel
             // 
-            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(356, 231);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(356, 221);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer2.Name = "toolStripContainer2";
-            this.toolStripContainer2.Size = new System.Drawing.Size(356, 256);
+            this.toolStripContainer2.Size = new System.Drawing.Size(356, 246);
             this.toolStripContainer2.TabIndex = 0;
             this.toolStripContainer2.Text = "toolStripContainer2";
             // 
@@ -227,7 +229,7 @@
             // smallSpliter.Panel2
             // 
             this.smallSpliter.Panel2.Controls.Add(this.toolStripContainer1);
-            this.smallSpliter.Size = new System.Drawing.Size(742, 313);
+            this.smallSpliter.Size = new System.Drawing.Size(742, 301);
             this.smallSpliter.SplitterDistance = 53;
             this.smallSpliter.TabIndex = 1;
             // 
@@ -248,17 +250,17 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.subtitleGrid);
-            this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(718, 236);
+            this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(718, 219);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // toolStripContainer1.LeftToolStripPanel
             // 
             this.toolStripContainer1.LeftToolStripPanel.Controls.Add(this.subToolStrip);
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
-            this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(742, 256);
+            this.toolStripContainer1.Size = new System.Drawing.Size(742, 244);
             this.toolStripContainer1.TabIndex = 1;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -273,7 +275,7 @@
             this.subtitleGrid.Location = new System.Drawing.Point(0, 0);
             this.subtitleGrid.Name = "subtitleGrid";
             this.subtitleGrid.RowTemplate.Height = 23;
-            this.subtitleGrid.Size = new System.Drawing.Size(718, 236);
+            this.subtitleGrid.Size = new System.Drawing.Size(718, 219);
             this.subtitleGrid.TabIndex = 0;
             this.subtitleGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.subtitleGrid_CellBeginEdit);
             this.subtitleGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.subtitleGrid_CellEndEdit);
@@ -371,7 +373,7 @@
             // 
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileToolStripMenuItem,
-            this.设置ToolStripMenuItem,
+            this.ConfigToolStripMenuItem,
             this.AboutToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
@@ -399,7 +401,7 @@
             this.OpenSubToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.openass;
             this.OpenSubToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenSubToolStripMenuItem.Name = "OpenSubToolStripMenuItem";
-            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.OpenSubToolStripMenuItem.Text = "打开时间轴";
             this.OpenSubToolStripMenuItem.Click += new System.EventHandler(this.OpenSub_Click);
             // 
@@ -408,7 +410,7 @@
             this.OpenTxtToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.opentxt;
             this.OpenTxtToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenTxtToolStripMenuItem.Name = "OpenTxtToolStripMenuItem";
-            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.OpenTxtToolStripMenuItem.Text = "打开翻译文本";
             this.OpenTxtToolStripMenuItem.Click += new System.EventHandler(this.OpenTxt_Click);
             // 
@@ -417,21 +419,21 @@
             this.OpenVideoToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.openvideo;
             this.OpenVideoToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenVideoToolStripMenuItem.Name = "OpenVideoToolStripMenuItem";
-            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.OpenVideoToolStripMenuItem.Text = "打开动画";
             this.OpenVideoToolStripMenuItem.Click += new System.EventHandler(this.OpenVideo_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(139, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
             // 
             // SaveSubToolStripMenuItem
             // 
             this.SaveSubToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.save;
             this.SaveSubToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SaveSubToolStripMenuItem.Name = "SaveSubToolStripMenuItem";
-            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.SaveSubToolStripMenuItem.Text = "保存时间轴";
             this.SaveSubToolStripMenuItem.Click += new System.EventHandler(this.SaveSub_Click);
             // 
@@ -439,35 +441,35 @@
             // 
             this.SaveAsSubToolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SaveAsSubToolStripMenuItem1.Name = "SaveAsSubToolStripMenuItem1";
-            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.SaveAsSubToolStripMenuItem1.Text = "另存为时间轴";
             this.SaveAsSubToolStripMenuItem1.Click += new System.EventHandler(this.SaveAsSub_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(139, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.ExitToolStripMenuItem.Text = "退出";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
-            // 设置ToolStripMenuItem
+            // ConfigToolStripMenuItem
             // 
-            this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ConfigToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.KeyCfgToolStripMenuItem});
-            this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
-            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.设置ToolStripMenuItem.Text = "设置";
+            this.ConfigToolStripMenuItem.Name = "ConfigToolStripMenuItem";
+            this.ConfigToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.ConfigToolStripMenuItem.Text = "设置";
             // 
             // KeyCfgToolStripMenuItem
             // 
             this.KeyCfgToolStripMenuItem.Name = "KeyCfgToolStripMenuItem";
-            this.KeyCfgToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.KeyCfgToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.KeyCfgToolStripMenuItem.Text = "按键设置";
             this.KeyCfgToolStripMenuItem.Click += new System.EventHandler(this.KeyCfgToolStripMenuItem_Click);
             // 
@@ -499,13 +501,22 @@
             this.timer.Interval = 50;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // mainpanel
+            // 
+            this.mainpanel.Controls.Add(this.hSpliter);
+            this.mainpanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainpanel.Location = new System.Drawing.Point(0, 24);
+            this.mainpanel.Name = "mainpanel";
+            this.mainpanel.Size = new System.Drawing.Size(742, 551);
+            this.mainpanel.TabIndex = 3;
+            // 
             // SGSMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 597);
+            this.Controls.Add(this.mainpanel);
             this.Controls.Add(this.statusBar);
-            this.Controls.Add(this.hSpliter);
             this.Controls.Add(this.mainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SGSMainForm";
@@ -538,6 +549,7 @@
             this.subToolStrip.PerformLayout();
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
+            this.mainpanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -559,7 +571,7 @@
         private System.Windows.Forms.ToolStripMenuItem OpenVideoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SaveSubToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SaveAsSubToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.ToolStrip subToolStrip;
@@ -584,6 +596,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AboutSgsubToolStripMenuItem;
+        private System.Windows.Forms.Panel mainpanel;
     }
 }
 
