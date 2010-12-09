@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 using Config;
 
 namespace sgsubdotnet
@@ -326,18 +327,73 @@ namespace sgsubdotnet
                         axWMP.Ctlcontrols.currentPosition += m_Config.SeekStep;
                     }
                 }
+                //粘贴，支持多个单元格的复制和粘贴
                 else if (e.KeyCode == Keys.C && e.Modifiers == Keys.Control)
                 {
                     if (subtitleGrid.CurrentCell != null)
                     {
-                        Clipboard.SetText(subtitleGrid.CurrentCell.Value.ToString(), TextDataFormat.Text);
+                        //行，列的取值范围
+                        int cmin, cmax, rmin, rmax;
+                        //行，列的个数
+                        int nr, nc;
+                        //内容
+                        string[,] content;
+                        string cb ="";
+                        cmin = subtitleGrid.SelectedCells[0].ColumnIndex;
+                        cmax = cmin;
+                        rmin = subtitleGrid.SelectedCells[0].RowIndex;
+                        rmax = rmin;
+                        foreach (DataGridViewCell cell in subtitleGrid.SelectedCells)
+                        {
+                            if (cell.ColumnIndex < cmin) cmin = cell.ColumnIndex;
+                            if (cell.ColumnIndex > cmax) cmax = cell.ColumnIndex;
+                            if (cell.RowIndex < rmin) rmin = cell.RowIndex;
+                            if (cell.RowIndex > rmax) rmax = cell.RowIndex;
+                        }
+                        nr = rmax - rmin + 1;
+                        nc = cmax - cmin + 1;
+                        content = new string[nr, nc];
+                        foreach (DataGridViewCell cell in subtitleGrid.SelectedCells)
+                        {
+                            content[cell.RowIndex - rmin, cell.ColumnIndex - cmin] = cell.Value.ToString();
+                        }
+                        for (int r = 0; r < nr; r++)
+                        {
+                            for (int c = 0; c < nc; c++)
+                            {
+                                cb += content[r, c];
+                                if (c != nc - 1) cb += "\t";
+                            }
+                            cb += Environment.NewLine;
+                        }
+                        Clipboard.SetText(cb);
                     }
+
                 }
+                //粘贴，支持多个单元格的复制和粘贴
                 else if (e.KeyCode == Keys.V && e.Modifiers == Keys.Control)
                 {
                     if (subtitleGrid.CurrentCell != null && Clipboard.ContainsText())
                     {
-                        subtitleGrid.CurrentCell.Value = Clipboard.GetText();
+                        int cC, cR;
+                        cC = subtitleGrid.CurrentCell.ColumnIndex;
+                        cR = subtitleGrid.CurrentCell.RowIndex;
+                        string[] cells;
+                        char[] spliter = {'\t'};
+                        StringReader strReader = new StringReader(Clipboard.GetText());
+                        string line=strReader.ReadLine();
+                        while (line != null)
+                        {
+                            cells = line.Split(spliter, 3 - cC);
+                            for (int i = 0; i < cells.Length; i++)
+                            {
+                                if (cells[i].Length != 0)
+                                    subtitleGrid.Rows[cR].Cells[cC + i].Value = cells[i];
+                            }
+                            cR++;
+                            if (cR >= subtitleGrid.Rows.Count) break;
+                            line = strReader.ReadLine();
+                        }
                         m_CurrentSub.RefreshIndex();
                     }
                 }
@@ -572,8 +628,6 @@ namespace sgsubdotnet
                         break;
                 }
             }
-
         }
-        
     }
 }
