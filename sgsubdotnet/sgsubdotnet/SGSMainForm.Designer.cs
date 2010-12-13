@@ -401,7 +401,7 @@
             this.OpenSubToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.openass;
             this.OpenSubToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenSubToolStripMenuItem.Name = "OpenSubToolStripMenuItem";
-            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.OpenSubToolStripMenuItem.Text = "打开时间轴";
             this.OpenSubToolStripMenuItem.Click += new System.EventHandler(this.OpenSub_Click);
             // 
@@ -410,7 +410,7 @@
             this.OpenTxtToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.opentxt;
             this.OpenTxtToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenTxtToolStripMenuItem.Name = "OpenTxtToolStripMenuItem";
-            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.OpenTxtToolStripMenuItem.Text = "打开翻译文本";
             this.OpenTxtToolStripMenuItem.Click += new System.EventHandler(this.OpenTxt_Click);
             // 
@@ -419,21 +419,21 @@
             this.OpenVideoToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.openvideo;
             this.OpenVideoToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenVideoToolStripMenuItem.Name = "OpenVideoToolStripMenuItem";
-            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.OpenVideoToolStripMenuItem.Text = "打开动画";
             this.OpenVideoToolStripMenuItem.Click += new System.EventHandler(this.OpenVideo_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(139, 6);
             // 
             // SaveSubToolStripMenuItem
             // 
             this.SaveSubToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.save;
             this.SaveSubToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SaveSubToolStripMenuItem.Name = "SaveSubToolStripMenuItem";
-            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.SaveSubToolStripMenuItem.Text = "保存时间轴";
             this.SaveSubToolStripMenuItem.Click += new System.EventHandler(this.SaveSub_Click);
             // 
@@ -441,20 +441,20 @@
             // 
             this.SaveAsSubToolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SaveAsSubToolStripMenuItem1.Name = "SaveAsSubToolStripMenuItem1";
-            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
             this.SaveAsSubToolStripMenuItem1.Text = "另存为时间轴";
             this.SaveAsSubToolStripMenuItem1.Click += new System.EventHandler(this.SaveAsSub_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(139, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.ExitToolStripMenuItem.Text = "退出";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -469,7 +469,7 @@
             // KeyCfgToolStripMenuItem
             // 
             this.KeyCfgToolStripMenuItem.Name = "KeyCfgToolStripMenuItem";
-            this.KeyCfgToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.KeyCfgToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.KeyCfgToolStripMenuItem.Text = "按键设置";
             this.KeyCfgToolStripMenuItem.Click += new System.EventHandler(this.KeyCfgToolStripMenuItem_Click);
             // 
@@ -520,7 +520,7 @@
             this.Controls.Add(this.mainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SGSMainForm";
-            this.Text = "SGSUB.Net Reiner Rubin Beta";
+            this.Text = "SGSUB.Net Reiner Rubin";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SGSMainForm_FormClosing);
             this.hSpliter.Panel1.ResumeLayout(false);
             this.hSpliter.Panel2.ResumeLayout(false);
