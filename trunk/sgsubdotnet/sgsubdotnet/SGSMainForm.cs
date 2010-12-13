@@ -394,6 +394,7 @@ namespace sgsubdotnet
                             if (cR >= subtitleGrid.Rows.Count) break;
                             line = strReader.ReadLine();
                         }
+                        m_Edited = true;
                         m_CurrentSub.RefreshIndex();
                     }
                 }
