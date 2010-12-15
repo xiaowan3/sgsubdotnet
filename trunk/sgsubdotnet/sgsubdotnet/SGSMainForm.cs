@@ -140,6 +140,8 @@ namespace sgsubdotnet
                     m_CurrentSub.CreateIndex(axWMP.currentMedia.duration);
                     m_TrackLoaded = true;
                 }
+                waveScope.CurrentPosition = axWMP.Ctlcontrols.currentPosition;
+                waveScope.Redraw();
                 //显示字幕内容
                 if (m_TrackLoaded)
                     subLabel.Text = m_CurrentSub.GetSubtitle(axWMP.Ctlcontrols.currentPosition);
@@ -153,6 +155,10 @@ namespace sgsubdotnet
             dlg.Filter = "Video File (*.mp4;*.mkv;*.avi;*.mpg)|*.mp4;*.mkv;*.avi;*.mpg|All files (*.*)|*.*||";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
+                WaveReader.WaveForm.FFmpegpath = @"D:\ffmpeg.exe";
+                WaveReader.WaveForm wf = WaveReader.WaveForm.ExtractWave(dlg.FileName);
+                waveScope.Wave = wf;
+
                 axWMP.URL = dlg.FileName;
                 axWMP.Ctlcontrols.play();
                 m_VideoOpened = true;

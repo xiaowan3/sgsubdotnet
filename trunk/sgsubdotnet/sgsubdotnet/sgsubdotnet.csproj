@@ -147,6 +147,10 @@
       <Project>{0CBB1C5A-AB92-44D1-A0DA-44C80F8A27B6}</Project>
       <Name>Subtitle</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WaveReader\WaveReader.csproj">
+      <Project>{66428FAC-8E3C-4BFF-8268-069398389696}</Project>
+      <Name>WaveReader</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
