@@ -5,7 +5,7 @@
 
 SGSUB.Net 是一个以GPLv3协议发布的ass字幕时间轴编辑软件。
 
-[http://sgsubdotnet.googlecode.com/svn-history/r32/wiki/imgs/screen1_0_5.png]
+[http://sgsubdotnet.googlecode.com/svn-history/r34/wiki/imgs/screen1_0_5.png]
 
 = 运行环境 =
 
