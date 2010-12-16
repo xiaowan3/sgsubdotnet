@@ -114,6 +114,8 @@ namespace WaveReader
                 int value, max=int.MinValue, min=int.MaxValue;
                 for (int s = 0; s < numsplit; s++)
                 {
+                    max = int.MinValue;
+                    min = int.MaxValue;
                     for (int i = split[s]; i < split[s+1]; i += 2)
                     {
                         value = (Int16)((Int16)chunk[i] & 0x00ff | ((Int16)chunk[i + 1] << 8) & 0xff00);
@@ -138,7 +140,7 @@ namespace WaveReader
             wavfm.DeltaT = 0.1 / numsplit;
             for (int i = 0; i < wflist.Count; i++)
             {
-                for (int j = 0; j < 40; j++)
+                for (int j = 0; j < spsec; j++)
                     wavfm.m_waveform[i * spsec + j] = wflist[i][j];
             }
             wavfm.Length = wavfm.m_waveform.Length * wavfm.DeltaT;
