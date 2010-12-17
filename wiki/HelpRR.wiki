@@ -19,3 +19,13 @@ SGSUB.Net Reiner Rubin 使用方法
   * [http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/del.png]  删除当前行
   * [http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/ins.png]  插入空行
   * [http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/jmp.png]  视频跳至当前行的开始时间
+
+= 按键说明 =
+  * 按键设置界面
+[http://sgsubdotnet.googlecode.com/svn-history/r41/wiki/imgs/keycfg.png] 
+
+选中按钮后按相应的按键就可以对快捷键进行设置。
+
+起始和终止反应时间是指插入时间点时的修正值，负数表示提前。前进、后退步长指按一次前时（后退）时视频前进（后退）的时间。
+
+自动重叠修正指当说话人句与句之间停顿很短，上一句的插入终止时间和下一句的起始时间会由于其修正值不相等而发生少量重叠。激活该功能则会以下一句的起始时间为准自动修正上一句的终止时间，避免产生重叠。
