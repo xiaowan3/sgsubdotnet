@@ -1,0 +1,20 @@
+SGSUB.Net Reiner Rubin 使用方法
+
+= 主界面 =
+
+[http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/screen1_0_5.png]
+
+
+= 工具条按钮说明 =
+==文件工具条==
+  * [http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/openass.png]  打开ass字幕文件
+  * [http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/opentxt.png]  打开txt纯文本翻译稿
+  * [http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/openvideo.png]  打开视频文件
+  * [http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/saveass.png]  保存ass字幕文件
+==编辑工具条==
+  * [http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/play.png]  翻放视频
+  * [http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/pause.png]  暂停播放
+  * [http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/dup.png]  重复当前行
+  * [http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/del.png]  删除当前行
+  * [http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/ins.png]  插入空行
+  * [http://sgsubdotnet.googlecode.com/svn-history/r37/wiki/imgs/jmp.png]  视频跳至当前行的开始时间
