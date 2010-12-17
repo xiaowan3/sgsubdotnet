@@ -1,3 +1,4 @@
+#labels Featured
 SGSUB.Net Reiner Rubin 使用方法
 
 = 主界面 =
