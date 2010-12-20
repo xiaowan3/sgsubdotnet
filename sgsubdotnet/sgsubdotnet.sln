@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Subtitle", "Subtitle\Subtit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config", "Config\Config.csproj", "{5CAAC511-8895-4C8F-BFF6-73A912BCFE3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaveReader", "WaveReader\WaveReader.csproj", "{66428FAC-8E3C-4BFF-8268-069398389696}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,10 +25,6 @@ Global
 		{5CAAC511-8895-4C8F-BFF6-73A912BCFE3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CAAC511-8895-4C8F-BFF6-73A912BCFE3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CAAC511-8895-4C8F-BFF6-73A912BCFE3A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66428FAC-8E3C-4BFF-8268-069398389696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66428FAC-8E3C-4BFF-8268-069398389696}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66428FAC-8E3C-4BFF-8268-069398389696}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66428FAC-8E3C-4BFF-8268-069398389696}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

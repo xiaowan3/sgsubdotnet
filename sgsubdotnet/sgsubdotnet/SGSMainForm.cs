@@ -37,8 +37,6 @@ namespace sgsubdotnet
             {
                 m_Config = SGSConfig.FromFile(m_Appdata + @"\config\sgscfg.xml");
             }
-
-            WaveReader.WaveForm.FFmpegpath = Application.StartupPath + @"\ffmpeg.exe";
             
             SetDefaultValues();
 
@@ -142,8 +140,6 @@ namespace sgsubdotnet
                     m_CurrentSub.CreateIndex(axWMP.currentMedia.duration);
                     m_TrackLoaded = true;
                 }
-                waveScope.CurrentPosition = axWMP.Ctlcontrols.currentPosition;
-                waveScope.Redraw();
                 //显示字幕内容
                 if (m_TrackLoaded)
                     subLabel.Text = m_CurrentSub.GetSubtitle(axWMP.Ctlcontrols.currentPosition);
@@ -157,9 +153,6 @@ namespace sgsubdotnet
             dlg.Filter = "Video File (*.mp4;*.mkv;*.avi;*.mpg)|*.mp4;*.mkv;*.avi;*.mpg|All files (*.*)|*.*||";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                
-                WaveReader.WaveForm wf = WaveReader.WaveForm.ExtractWave(dlg.FileName);
-                waveScope.Wave = wf;
                 axWMP.URL = dlg.FileName;
                 axWMP.Ctlcontrols.play();
                 m_VideoOpened = true;
@@ -636,64 +629,6 @@ namespace sgsubdotnet
                         break;
                 }
             }
-        }
-
-        private void subtitleGrid_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
-        {
-
-            if (subtitleGrid.CurrentRow != null)
-            {
-                Subtitle.AssItem i = (Subtitle.AssItem)(subtitleGrid.Rows[e.Cell.RowIndex].DataBoundItem);
-                waveScope.Start = i.Start.TimeValue;
-                waveScope.End = i.End.TimeValue;
-                if (e.Cell.RowIndex > 0)
-                {
-                    i = (Subtitle.AssItem)(subtitleGrid.Rows[e.Cell.RowIndex - 1].DataBoundItem);
-                    waveScope.LastStart = i.Start.TimeValue;
-                    waveScope.LastEnd = i.End.TimeValue;
-                }
-            }
-        }
-
-        private void waveScope_WSMouseDown(object sender, WaveReader.WFMouseEventArgs e)
-        {
-            if (subtitleGrid.CurrentRow != null)
-            {
-                int rowindex = subtitleGrid.CurrentRow.Index;
-                Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowindex].DataBoundItem);
-                if (e.Button == MouseButtons.Left)
-                {
-                    double os = item.Start.TimeValue;
-                    item.Start.TimeValue = e.Time;
-                    m_CurrentSub.ItemEdited(item, os, item.End.TimeValue);
-                    subtitleGrid.UpdateCellValue(0, rowindex);
-                    m_Edited = true;
-                }
-                if (e.Button == MouseButtons.Right)
-                {
-                    double oe = item.End.TimeValue;
-                    item.End.TimeValue = e.Time;
-                    m_CurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
-                    subtitleGrid.UpdateCellValue(1, rowindex);
-                    m_Edited = true;
-
-                    if (rowindex < subtitleGrid.Rows.Count - 1)
-                    {
-                        subtitleGrid.CurrentCell = subtitleGrid.Rows[rowindex + 1].Cells[0];
-                        rowindex++;
-                    }
-                }
-                item = (Subtitle.AssItem)(subtitleGrid.Rows[rowindex].DataBoundItem);
-                waveScope.Start = item.Start.TimeValue;
-                waveScope.End = item.End.TimeValue;
-                if (rowindex > 0)
-                {
-                    item = (Subtitle.AssItem)(subtitleGrid.Rows[rowindex - 1].DataBoundItem);
-                    waveScope.LastStart = item.Start.TimeValue;
-                    waveScope.LastEnd = item.End.TimeValue;
-                }
-            }
-            subtitleGrid.Focus();
         }
     }
 }

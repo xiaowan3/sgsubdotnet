@@ -34,8 +34,6 @@
             this.vSpliter = new System.Windows.Forms.SplitContainer();
             this.axWMP = new AxWMPLib.AxWindowsMediaPlayer();
             this.toolStripContainer2 = new System.Windows.Forms.ToolStripContainer();
-            this.spliterSoundbar = new System.Windows.Forms.SplitContainer();
-            this.waveScope = new WaveReader.WaveScope();
             this.fileToolStrip = new System.Windows.Forms.ToolStrip();
             this.tsBtnOpenAss = new System.Windows.Forms.ToolStripButton();
             this.tsBtnOpenTxt = new System.Windows.Forms.ToolStripButton();
@@ -79,11 +77,8 @@
             this.vSpliter.Panel2.SuspendLayout();
             this.vSpliter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axWMP)).BeginInit();
-            this.toolStripContainer2.ContentPanel.SuspendLayout();
             this.toolStripContainer2.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer2.SuspendLayout();
-            this.spliterSoundbar.Panel1.SuspendLayout();
-            this.spliterSoundbar.SuspendLayout();
             this.fileToolStrip.SuspendLayout();
             this.smallSpliter.Panel1.SuspendLayout();
             this.smallSpliter.Panel2.SuspendLayout();
@@ -112,7 +107,7 @@
             // 
             this.hSpliter.Panel2.Controls.Add(this.smallSpliter);
             this.hSpliter.Size = new System.Drawing.Size(742, 551);
-            this.hSpliter.SplitterDistance = 244;
+            this.hSpliter.SplitterDistance = 246;
             this.hSpliter.TabIndex = 0;
             // 
             // vSpliter
@@ -128,8 +123,8 @@
             // vSpliter.Panel2
             // 
             this.vSpliter.Panel2.Controls.Add(this.toolStripContainer2);
-            this.vSpliter.Size = new System.Drawing.Size(742, 244);
-            this.vSpliter.SplitterDistance = 380;
+            this.vSpliter.Size = new System.Drawing.Size(742, 246);
+            this.vSpliter.SplitterDistance = 382;
             this.vSpliter.TabIndex = 0;
             // 
             // axWMP
@@ -139,7 +134,7 @@
             this.axWMP.Location = new System.Drawing.Point(0, 0);
             this.axWMP.Name = "axWMP";
             this.axWMP.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWMP.OcxState")));
-            this.axWMP.Size = new System.Drawing.Size(380, 244);
+            this.axWMP.Size = new System.Drawing.Size(382, 246);
             this.axWMP.TabIndex = 0;
             // 
             // toolStripContainer2
@@ -147,49 +142,17 @@
             // 
             // toolStripContainer2.ContentPanel
             // 
-            this.toolStripContainer2.ContentPanel.Controls.Add(this.spliterSoundbar);
-            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(358, 219);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(356, 221);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer2.Name = "toolStripContainer2";
-            this.toolStripContainer2.Size = new System.Drawing.Size(358, 244);
+            this.toolStripContainer2.Size = new System.Drawing.Size(356, 246);
             this.toolStripContainer2.TabIndex = 0;
             this.toolStripContainer2.Text = "toolStripContainer2";
             // 
             // toolStripContainer2.TopToolStripPanel
             // 
             this.toolStripContainer2.TopToolStripPanel.Controls.Add(this.fileToolStrip);
-            // 
-            // spliterSoundbar
-            // 
-            this.spliterSoundbar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spliterSoundbar.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.spliterSoundbar.IsSplitterFixed = true;
-            this.spliterSoundbar.Location = new System.Drawing.Point(0, 0);
-            this.spliterSoundbar.Margin = new System.Windows.Forms.Padding(2);
-            this.spliterSoundbar.Name = "spliterSoundbar";
-            this.spliterSoundbar.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // spliterSoundbar.Panel1
-            // 
-            this.spliterSoundbar.Panel1.Controls.Add(this.waveScope);
-            this.spliterSoundbar.Size = new System.Drawing.Size(358, 219);
-            this.spliterSoundbar.SplitterDistance = 121;
-            this.spliterSoundbar.SplitterWidth = 3;
-            this.spliterSoundbar.TabIndex = 0;
-            // 
-            // waveScope
-            // 
-            this.waveScope.CurrentPosition = 0;
-            this.waveScope.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.waveScope.Location = new System.Drawing.Point(0, 0);
-            this.waveScope.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.waveScope.MaximumSize = new System.Drawing.Size(0, 120);
-            this.waveScope.MinimumSize = new System.Drawing.Size(0, 120);
-            this.waveScope.Name = "waveScope";
-            this.waveScope.Size = new System.Drawing.Size(358, 120);
-            this.waveScope.TabIndex = 0;
-            this.waveScope.WSMouseDown += new System.EventHandler<WaveReader.WFMouseEventArgs>(this.waveScope_WSMouseDown);
             // 
             // fileToolStrip
             // 
@@ -202,7 +165,7 @@
             this.tsBtnSaveSub});
             this.fileToolStrip.Location = new System.Drawing.Point(5, 0);
             this.fileToolStrip.Name = "fileToolStrip";
-            this.fileToolStrip.Size = new System.Drawing.Size(141, 25);
+            this.fileToolStrip.Size = new System.Drawing.Size(110, 25);
             this.fileToolStrip.TabIndex = 0;
             // 
             // tsBtnOpenAss
@@ -266,7 +229,7 @@
             // smallSpliter.Panel2
             // 
             this.smallSpliter.Panel2.Controls.Add(this.toolStripContainer1);
-            this.smallSpliter.Size = new System.Drawing.Size(742, 303);
+            this.smallSpliter.Size = new System.Drawing.Size(742, 301);
             this.smallSpliter.SplitterDistance = 53;
             this.smallSpliter.TabIndex = 1;
             // 
@@ -288,7 +251,7 @@
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.subtitleGrid);
             this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(2);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(718, 221);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(718, 219);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // toolStripContainer1.LeftToolStripPanel
@@ -297,7 +260,7 @@
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(742, 246);
+            this.toolStripContainer1.Size = new System.Drawing.Size(742, 244);
             this.toolStripContainer1.TabIndex = 1;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -312,10 +275,9 @@
             this.subtitleGrid.Location = new System.Drawing.Point(0, 0);
             this.subtitleGrid.Name = "subtitleGrid";
             this.subtitleGrid.RowTemplate.Height = 23;
-            this.subtitleGrid.Size = new System.Drawing.Size(718, 221);
+            this.subtitleGrid.Size = new System.Drawing.Size(718, 219);
             this.subtitleGrid.TabIndex = 0;
             this.subtitleGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.subtitleGrid_CellBeginEdit);
-            this.subtitleGrid.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.subtitleGrid_CellStateChanged);
             this.subtitleGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.subtitleGrid_CellEndEdit);
             this.subtitleGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.subtitleGrid_KeyDown);
             this.subtitleGrid.KeyUp += new System.Windows.Forms.KeyEventHandler(this.subtitleGrid_KeyUp);
@@ -567,13 +529,10 @@
             this.vSpliter.Panel2.ResumeLayout(false);
             this.vSpliter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axWMP)).EndInit();
-            this.toolStripContainer2.ContentPanel.ResumeLayout(false);
             this.toolStripContainer2.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer2.TopToolStripPanel.PerformLayout();
             this.toolStripContainer2.ResumeLayout(false);
             this.toolStripContainer2.PerformLayout();
-            this.spliterSoundbar.Panel1.ResumeLayout(false);
-            this.spliterSoundbar.ResumeLayout(false);
             this.fileToolStrip.ResumeLayout(false);
             this.fileToolStrip.PerformLayout();
             this.smallSpliter.Panel1.ResumeLayout(false);
@@ -638,8 +597,6 @@
         private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AboutSgsubToolStripMenuItem;
         private System.Windows.Forms.Panel mainpanel;
-        private System.Windows.Forms.SplitContainer spliterSoundbar;
-        private WaveReader.WaveScope waveScope;
     }
 }
 
