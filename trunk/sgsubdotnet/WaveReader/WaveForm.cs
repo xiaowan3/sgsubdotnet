@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Threading;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace WaveReader
 {
@@ -31,9 +32,10 @@ namespace WaveReader
         public static WaveForm ExtractWave(string videofilename)
         {
             //ffmpeg -i <infile> -f wav -ac 1 -vn -y <outfile.wav>
+            IntPtr fftbuf = fft.CreateFFTBuffer(960);
             WaveForm wavfm = new WaveForm();
-            List<double[]> wflist = new List<double[]>();
-            double[] asec;
+            List<Byte[][]> wflist = new List<Byte[][]>();
+            Byte[][] asec;
             Process ffmpegprocess = new Process();
             ffmpegprocess.StartInfo.FileName = FFmpegpath;
             ffmpegprocess.StartInfo.Arguments = "-i \"" + videofilename + "\" -f wav -ac 1 -vn -y -";
@@ -89,7 +91,8 @@ namespace WaveReader
             int timecount = 0;
             int numsplit = 5; //每0.1秒所分的段数
             int spsec = numsplit * 10; //每秒采样点数
-            asec = new double[spsec];
+            asec = new Byte[spsec][];
+            for (int i = 0; i < spsec; i++) asec[i] = new Byte[100];
             
             int[] split = new int[numsplit + 1];
             for (int i = 0; i < numsplit + 1; i++)
@@ -110,19 +113,12 @@ namespace WaveReader
                     offset += read;
                     left = samplelen - offset;
                 } while (left > 0);
-                //取每一段(wavfm.DeltaT s)音频的振幅
-                int value, max=int.MinValue, min=int.MaxValue;
+                //取每一段(wavfm.DeltaT s)音频的##
                 for (int s = 0; s < numsplit; s++)
                 {
-                    max = int.MinValue;
-                    min = int.MaxValue;
-                    for (int i = split[s]; i < split[s+1]; i += 2)
-                    {
-                        value = (Int16)((Int16)chunk[i] & 0x00ff | ((Int16)chunk[i + 1] << 8) & 0xff00);
-                        if (value > max) max = value;
-                        if (value < min) min = value;
-                    }
-                    asec[timecount] = ((double)max - (double)min) / 65536;
+                    byte[] bb = asec[timecount];
+                    //byte[] bb = new byte[100];
+                    fft.DoFFT(fftbuf, chunk, (split[s + 1] - split[s])/2, split[s]/2, bb);
                     timecount++;
                 }
 
@@ -130,13 +126,15 @@ namespace WaveReader
                 if (timecount >= spsec)
                 {
                     wflist.Add(asec);
-                    asec = new double[spsec];
+                    asec = new Byte[spsec][];
+                    for (int i = 0; i < spsec; i++) asec[i] = new Byte[100];
                     timecount = 0;
                 }
 
             } while (read > 0);
             //保存波形信息
-            wavfm.m_waveform = new double[wflist.Count * spsec];
+            wavfm.m_waveform = new byte[wflist.Count * spsec][];
+
             wavfm.DeltaT = 0.1 / numsplit;
             for (int i = 0; i < wflist.Count; i++)
             {
@@ -205,13 +203,14 @@ namespace WaveReader
         /// </summary>
         /// <param name="time">时间</param>
         /// <returns>响度值</returns>
-        public double ValueAt(double time)
+        public Byte[] ValueAt(double time)
         {
             int l = (int)(time / DeltaT);
-            if (l < 0 || l >= m_waveform.Length) return 0;
+            if (l < 0 || l >= m_waveform.Length) return m_nullwave;
             return m_waveform[l];
         }
-        private double[] m_waveform;
+        private Byte[][] m_waveform;
+        private Byte[] m_nullwave = new Byte[100];
     }
     class wavinfo
     {
@@ -221,8 +220,14 @@ namespace WaveReader
         public UInt32 BitPerSample = 0;
         public UInt32 ByteRate = 0;
         public UInt32 BlockAlign = 0;
-        
 
+    }
+    class fft
+    {
+        [DllImport("fftsupport.dll")]
+        public static extern IntPtr CreateFFTBuffer(Int32 len);
 
+        [DllImport("fftsupport.dll")]
+        public static extern void DoFFT(IntPtr fftbuf, [MarshalAs(UnmanagedType.LPArray)]Byte[] input, int inlen, int inoffset, [MarshalAs(UnmanagedType.LPArray)] Byte[] output);
     }
 }
