@@ -36,6 +36,11 @@
             this.toolStripContainer2 = new System.Windows.Forms.ToolStripContainer();
             this.spliterSoundbar = new System.Windows.Forms.SplitContainer();
             this.waveScope = new WaveReader.WaveScope();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.labellastline = new System.Windows.Forms.Label();
+            this.labelcurrent = new System.Windows.Forms.Label();
+            this.labelnextline = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.fileToolStrip = new System.Windows.Forms.ToolStrip();
             this.tsBtnOpenAss = new System.Windows.Forms.ToolStripButton();
             this.tsBtnOpenTxt = new System.Windows.Forms.ToolStripButton();
@@ -83,7 +88,9 @@
             this.toolStripContainer2.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer2.SuspendLayout();
             this.spliterSoundbar.Panel1.SuspendLayout();
+            this.spliterSoundbar.Panel2.SuspendLayout();
             this.spliterSoundbar.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.fileToolStrip.SuspendLayout();
             this.smallSpliter.Panel1.SuspendLayout();
             this.smallSpliter.Panel2.SuspendLayout();
@@ -99,6 +106,7 @@
             // 
             // hSpliter
             // 
+            this.hSpliter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.hSpliter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.hSpliter.Location = new System.Drawing.Point(0, 0);
             this.hSpliter.Name = "hSpliter";
@@ -117,6 +125,7 @@
             // 
             // vSpliter
             // 
+            this.vSpliter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.vSpliter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vSpliter.Location = new System.Drawing.Point(0, 0);
             this.vSpliter.Name = "vSpliter";
@@ -139,7 +148,7 @@
             this.axWMP.Location = new System.Drawing.Point(0, 0);
             this.axWMP.Name = "axWMP";
             this.axWMP.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWMP.OcxState")));
-            this.axWMP.Size = new System.Drawing.Size(380, 244);
+            this.axWMP.Size = new System.Drawing.Size(376, 240);
             this.axWMP.TabIndex = 0;
             // 
             // toolStripContainer2
@@ -148,11 +157,11 @@
             // toolStripContainer2.ContentPanel
             // 
             this.toolStripContainer2.ContentPanel.Controls.Add(this.spliterSoundbar);
-            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(358, 219);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(354, 215);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer2.Name = "toolStripContainer2";
-            this.toolStripContainer2.Size = new System.Drawing.Size(358, 244);
+            this.toolStripContainer2.Size = new System.Drawing.Size(354, 240);
             this.toolStripContainer2.TabIndex = 0;
             this.toolStripContainer2.Text = "toolStripContainer2";
             // 
@@ -173,7 +182,11 @@
             // spliterSoundbar.Panel1
             // 
             this.spliterSoundbar.Panel1.Controls.Add(this.waveScope);
-            this.spliterSoundbar.Size = new System.Drawing.Size(358, 219);
+            // 
+            // spliterSoundbar.Panel2
+            // 
+            this.spliterSoundbar.Panel2.Controls.Add(this.tableLayoutPanel1);
+            this.spliterSoundbar.Size = new System.Drawing.Size(354, 215);
             this.spliterSoundbar.SplitterDistance = 121;
             this.spliterSoundbar.SplitterWidth = 3;
             this.spliterSoundbar.TabIndex = 0;
@@ -187,9 +200,74 @@
             this.waveScope.MaximumSize = new System.Drawing.Size(0, 120);
             this.waveScope.MinimumSize = new System.Drawing.Size(0, 120);
             this.waveScope.Name = "waveScope";
-            this.waveScope.Size = new System.Drawing.Size(358, 120);
+            this.waveScope.Size = new System.Drawing.Size(354, 120);
             this.waveScope.TabIndex = 0;
             this.waveScope.WSMouseDown += new System.EventHandler<WaveReader.WFMouseEventArgs>(this.waveScope_WSMouseDown);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 280F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.labellastline, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelcurrent, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.labelnextline, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(354, 91);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // labellastline
+            // 
+            this.labellastline.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labellastline.AutoSize = true;
+            this.labellastline.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labellastline.ForeColor = System.Drawing.Color.DimGray;
+            this.labellastline.Location = new System.Drawing.Point(177, 0);
+            this.labellastline.Name = "labellastline";
+            this.labellastline.Size = new System.Drawing.Size(0, 16);
+            this.labellastline.TabIndex = 0;
+            // 
+            // labelcurrent
+            // 
+            this.labelcurrent.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelcurrent.AutoSize = true;
+            this.labelcurrent.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelcurrent.ForeColor = System.Drawing.Color.Black;
+            this.labelcurrent.Location = new System.Drawing.Point(177, 22);
+            this.labelcurrent.Name = "labelcurrent";
+            this.labelcurrent.Size = new System.Drawing.Size(0, 16);
+            this.labelcurrent.TabIndex = 1;
+            // 
+            // labelnextline
+            // 
+            this.labelnextline.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelnextline.AutoSize = true;
+            this.labelnextline.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelnextline.ForeColor = System.Drawing.Color.DarkGreen;
+            this.labelnextline.Location = new System.Drawing.Point(177, 44);
+            this.labelnextline.Name = "labelnextline";
+            this.labelnextline.Size = new System.Drawing.Size(0, 16);
+            this.labelnextline.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(10, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(24, 16);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "->";
             // 
             // fileToolStrip
             // 
@@ -202,7 +280,7 @@
             this.tsBtnSaveSub});
             this.fileToolStrip.Location = new System.Drawing.Point(5, 0);
             this.fileToolStrip.Name = "fileToolStrip";
-            this.fileToolStrip.Size = new System.Drawing.Size(141, 25);
+            this.fileToolStrip.Size = new System.Drawing.Size(110, 25);
             this.fileToolStrip.TabIndex = 0;
             // 
             // tsBtnOpenAss
@@ -266,7 +344,7 @@
             // smallSpliter.Panel2
             // 
             this.smallSpliter.Panel2.Controls.Add(this.toolStripContainer1);
-            this.smallSpliter.Size = new System.Drawing.Size(742, 303);
+            this.smallSpliter.Size = new System.Drawing.Size(738, 299);
             this.smallSpliter.SplitterDistance = 53;
             this.smallSpliter.TabIndex = 1;
             // 
@@ -288,7 +366,7 @@
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.subtitleGrid);
             this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(2);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(718, 221);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(714, 217);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // toolStripContainer1.LeftToolStripPanel
@@ -297,7 +375,7 @@
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(742, 246);
+            this.toolStripContainer1.Size = new System.Drawing.Size(738, 242);
             this.toolStripContainer1.TabIndex = 1;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -312,7 +390,7 @@
             this.subtitleGrid.Location = new System.Drawing.Point(0, 0);
             this.subtitleGrid.Name = "subtitleGrid";
             this.subtitleGrid.RowTemplate.Height = 23;
-            this.subtitleGrid.Size = new System.Drawing.Size(718, 221);
+            this.subtitleGrid.Size = new System.Drawing.Size(714, 217);
             this.subtitleGrid.TabIndex = 0;
             this.subtitleGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.subtitleGrid_CellBeginEdit);
             this.subtitleGrid.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.subtitleGrid_CellStateChanged);
@@ -573,7 +651,10 @@
             this.toolStripContainer2.ResumeLayout(false);
             this.toolStripContainer2.PerformLayout();
             this.spliterSoundbar.Panel1.ResumeLayout(false);
+            this.spliterSoundbar.Panel2.ResumeLayout(false);
             this.spliterSoundbar.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.fileToolStrip.ResumeLayout(false);
             this.fileToolStrip.PerformLayout();
             this.smallSpliter.Panel1.ResumeLayout(false);
@@ -640,6 +721,11 @@
         private System.Windows.Forms.Panel mainpanel;
         private System.Windows.Forms.SplitContainer spliterSoundbar;
         private WaveReader.WaveScope waveScope;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label labellastline;
+        private System.Windows.Forms.Label labelcurrent;
+        private System.Windows.Forms.Label labelnextline;
+        private System.Windows.Forms.Label label1;
     }
 }
 
