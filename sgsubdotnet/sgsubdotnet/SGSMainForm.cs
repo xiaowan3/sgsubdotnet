@@ -646,11 +646,26 @@ namespace sgsubdotnet
                 Subtitle.AssItem i = (Subtitle.AssItem)(subtitleGrid.Rows[e.Cell.RowIndex].DataBoundItem);
                 waveScope.Start = i.Start.TimeValue;
                 waveScope.End = i.End.TimeValue;
+                labelcurrent.Text = i.Text;
                 if (e.Cell.RowIndex > 0)
                 {
                     i = (Subtitle.AssItem)(subtitleGrid.Rows[e.Cell.RowIndex - 1].DataBoundItem);
                     waveScope.LastStart = i.Start.TimeValue;
                     waveScope.LastEnd = i.End.TimeValue;
+                    labellastline.Text = i.Text;
+                }
+                else
+                {
+                    labellastline.Text = "";
+                }
+                if (e.Cell.RowIndex < subtitleGrid.Rows.Count - 1)
+                {
+                    i = (Subtitle.AssItem)(subtitleGrid.Rows[e.Cell.RowIndex + 1].DataBoundItem);
+                    labelnextline.Text = i.Text;
+                }
+                else
+                {
+                    labelnextline.Text = "";
                 }
             }
         }
@@ -664,7 +679,7 @@ namespace sgsubdotnet
                 if (e.Button == MouseButtons.Left)
                 {
                     double os = item.Start.TimeValue;
-                    item.Start.TimeValue = e.Time;
+                    item.Start.TimeValue = e.Time > 0 ? e.Time : 0;
                     m_CurrentSub.ItemEdited(item, os, item.End.TimeValue);
                     subtitleGrid.UpdateCellValue(0, rowindex);
                     m_Edited = true;
@@ -672,7 +687,7 @@ namespace sgsubdotnet
                 if (e.Button == MouseButtons.Right)
                 {
                     double oe = item.End.TimeValue;
-                    item.End.TimeValue = e.Time;
+                    item.End.TimeValue = e.Time > 0 ? e.Time : 0; ;
                     m_CurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
                     subtitleGrid.UpdateCellValue(1, rowindex);
                     m_Edited = true;
