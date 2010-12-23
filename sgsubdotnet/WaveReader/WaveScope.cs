@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
 
 namespace WaveReader
 {
@@ -85,17 +86,30 @@ namespace WaveReader
             Graphics g1 = CreateGraphics();
             BufferedGraphicsContext b = new BufferedGraphicsContext();
             BufferedGraphics bg = b.Allocate(g1, new Rectangle(0, 0, Width, Height));
-
+            Bitmap img = new Bitmap(Width,100);
             Graphics g = bg.Graphics;
             g.Clear(Color.Black);
             if (Wave != null)
             {
+                BitmapData bd = img.LockBits(new Rectangle(0,0,Width,100),ImageLockMode.ReadWrite,PixelFormat.Format24bppRgb); 
+                int pitch = Math.Abs(bd.Stride);
+                Byte[] imgbyte = new byte[100 * pitch];
                 for (int i = 0; i < Width; i++)
                 {
-                    int v = (int)(50 * Wave.ValueAt((i - startpos) * Wave.DeltaT + CurrentPosition));
-                    g.DrawLine(linePen, i, 50 - v, i, 50 + v);
+                    Byte[] v = Wave.ValueAt((i - startpos) * Wave.DeltaT + CurrentPosition);
+                    for (int j = 0; j < 100; j++)
+                    {
+                        imgbyte[j * pitch + i* 3] = v[j];
+                        imgbyte[j * pitch + i * 3 + 1] = v[j];
+                        imgbyte[j * pitch + i * 3 + 2] = v[j];
+                    }
+
+                 //   
 
                 }
+                System.Runtime.InteropServices.Marshal.Copy(imgbyte, 0, bd.Scan0, 100 * pitch);
+                img.UnlockBits(bd);
+                g.DrawImage(img, 0, 0);
                 g.DrawLine(linePen, 0, 50, Width, 50);
                 int lasts = (int)((LastStart - CurrentPosition) / Wave.DeltaT) + startpos;
                 int laste = (int)((LastEnd - CurrentPosition) / Wave.DeltaT) + startpos;
