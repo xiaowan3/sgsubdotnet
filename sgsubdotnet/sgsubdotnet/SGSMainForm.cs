@@ -158,8 +158,7 @@ namespace sgsubdotnet
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 
-                WaveReader.WaveForm wf = WaveReader.WaveForm.ExtractWave(dlg.FileName);
-                waveScope.Wave = wf;
+
                 axWMP.URL = dlg.FileName;
                 axWMP.Ctlcontrols.play();
                 m_VideoOpened = true;
@@ -710,5 +709,87 @@ namespace sgsubdotnet
             }
             subtitleGrid.Focus();
         }
+
+        private void tsBtnFFT_Click(object sender, EventArgs e)
+        {
+            if (m_VideoPlaying)
+            {
+                axWMP.Ctlcontrols.pause();
+                WaveReader.WaveForm wf = WaveReader.WaveForm.ExtractWave(axWMP.currentMedia.sourceURL);
+                waveScope.Wave = wf;
+            }
+        }
+
+        private enum TimeCheckStatus { OK = 0, OVERLAP, ERROR};
+        /// <summary>
+        /// 时间轴重叠和错误检查
+        /// </summary>
+        private void tsBtnOLScan_Click(object sender, EventArgs e)
+        {
+            if (m_SubLoaded)
+            {
+                bool overlap = false;
+                bool timeerror = false;
+
+                TimeCheckStatus[] itemStatus = new TimeCheckStatus[subtitleGrid.Rows.Count];
+
+                subtitleGrid.Rows[0].Cells[0].Style.ForeColor = Color.Red;
+                for (int i = 0; i < subtitleGrid.Rows.Count - 1; i++)
+                {
+                    Subtitle.AssItem itema = (Subtitle.AssItem)(subtitleGrid.Rows[i].DataBoundItem);
+                    if (itema.Start.TimeValue > itema.End.TimeValue)
+                    {
+                        itemStatus[i] = TimeCheckStatus.ERROR;
+                        continue;
+                    }
+                    for (int j = i + 1; j < subtitleGrid.Rows.Count; j++)
+                    {
+                        Subtitle.AssItem itemb = (Subtitle.AssItem)(subtitleGrid.Rows[j].DataBoundItem);
+                        if (itemb.Start.TimeValue > itemb.End.TimeValue)
+                        {
+                            itemStatus[j] = TimeCheckStatus.ERROR;
+                            continue;
+                        }
+                        if (
+                            itema.End.TimeValue > itemb.Start.TimeValue && itema.Start.TimeValue < itemb.Start.TimeValue ||
+                            itemb.End.TimeValue > itema.Start.TimeValue && itemb.Start.TimeValue < itema.Start.TimeValue
+                        )
+                        {
+                            itemStatus[i] = TimeCheckStatus.OVERLAP;
+                            itemStatus[j] = TimeCheckStatus.OVERLAP;
+                        }
+                    }
+
+                }
+                for (int i = 0; i < subtitleGrid.Rows.Count - 1; i++)
+                {
+                    switch (itemStatus[i])
+                    {
+                        case TimeCheckStatus.OVERLAP:
+                            subtitleGrid.Rows[i].Cells[0].Style.ForeColor = Color.Red;
+                            subtitleGrid.Rows[i].Cells[1].Style.ForeColor = Color.Red;
+                            overlap = true;
+                            break;
+                        case TimeCheckStatus.OK:
+                            subtitleGrid.Rows[i].Cells[0].Style.ForeColor = Color.Black;
+                            subtitleGrid.Rows[i].Cells[1].Style.ForeColor = Color.Black;
+                            break;
+                        case TimeCheckStatus.ERROR:
+                            subtitleGrid.Rows[i].Cells[0].Style.ForeColor = Color.Blue;
+                            subtitleGrid.Rows[i].Cells[1].Style.ForeColor = Color.Blue;
+                            timeerror = true;
+                            break;
+                    }
+                }
+                string msg =
+                    timeerror && overlap ? "发现时间轴重叠和错误时间点" :
+                    timeerror && !overlap ? "发现错误时间点" :
+                    !timeerror && overlap ? "发现时间轴重叠" : "未发现时间轴重叠和错误时间点";
+
+                MessageBox.Show(msg, "时间轴检查");
+
+            }
+        }
+        
     }
 }

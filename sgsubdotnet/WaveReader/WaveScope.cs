@@ -104,13 +104,10 @@ namespace WaveReader
                         imgbyte[j * pitch + i * 3 + 2] = v[j];
                     }
 
-                 //   
-
                 }
                 System.Runtime.InteropServices.Marshal.Copy(imgbyte, 0, bd.Scan0, 100 * pitch);
                 img.UnlockBits(bd);
                 g.DrawImage(img, 0, 0);
-                g.DrawLine(linePen, 0, 50, Width, 50);
                 int lasts = (int)((LastStart - CurrentPosition) / Wave.DeltaT) + startpos;
                 int laste = (int)((LastEnd - CurrentPosition) / Wave.DeltaT) + startpos;
                 int st = (int)((Start - CurrentPosition) / Wave.DeltaT) + startpos;

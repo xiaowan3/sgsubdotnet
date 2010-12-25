@@ -7,8 +7,8 @@
 #include <fstream>
 #include <cmath>
 typedef struct {
-	double input[1024];
-	double output[1024];
+	double* input;
+	double* output;
 	int len;
 	fftw_plan plan;
 	std::ofstream* ofs;
@@ -17,34 +17,43 @@ typedef struct {
 extern "C" __declspec( dllexport ) FFTBUF* CreateFFTBuffer(int len)
 {
 	FFTBUF* r = new FFTBUF();
-	r->plan = fftw_plan_r2r_1d(len,r->input,r->output,FFTW_DHT,FFTW_ESTIMATE);
-	r->ofs = new std::ofstream("E:\\test.txt");
+	r->input = new double[len * 2];
+	r->output = new double[len * 2];
+	r->len = len;
+	r->plan = fftw_plan_r2r_1d(len * 2,r->input,r->output,FFTW_DHT,FFTW_MEASURE);
+	r->ofs = new std::ofstream("E:\\test\\test.txt");
+	memset(r->input,0,len * 2 * sizeof(double));
 	return r;
 }
 
 extern "C" __declspec(dllexport) void DoFFT(FFTBUF* fftbuf, Int16 input[], int inlen,int inoffset ,UInt8 out[])
 {
-	
 	double max = 0, t;
 	for(int i = 0;i<inlen;i++)
 	{
-		fftbuf->input[i] = input[i+inoffset] / 65536.0;
+		fftbuf->input[i + fftbuf->len] = input[i+inoffset] / 65536.0;
 	}
 	
 	fftw_execute(fftbuf->plan);
-	
+
+
+	memcpy(	fftbuf->input,
+			fftbuf->input + fftbuf->len,
+			fftbuf->len * sizeof(double));
+
 	for(int i = 1 ; i < 101 ; i++)
 	{
-		t = log(abs(fftbuf->output[i]));
+		t = abs(fftbuf->output[i]);
 		fftbuf->output[i] = t;
 		if(t > max) max = t;
 	}
 	(*(fftbuf->ofs))<<max<<std::endl;
 
 	max /= 255;
+	if(max<0.1) max = 0.1;
 	for(int i = 0 ; i < 100;i++)
 	{
-		t = fftbuf->output[i/2+1]*63;
-			out[i] = (UInt8)(t<=255?t:255);
+		t = (fftbuf->output[i+1]/2+fftbuf->output[i+2]+fftbuf->output[i+3]/2)/max;
+			out[99-i] = (UInt8)(t<=255?t:255);
 	}
 }
