@@ -50,6 +50,12 @@ namespace Config
         public Keys AddTimePoint { get; set; }
 
         /// <summary>
+        /// 连续插入时间点（插入结束时间点和下一行开始时间点）
+        /// </summary>
+        [DataMember()]
+        public Keys AddContTimePoint { get; set; }
+
+        /// <summary>
         /// 插入起始时间点按键
         /// </summary>
         [DataMember()]

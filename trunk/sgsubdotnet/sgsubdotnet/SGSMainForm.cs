@@ -157,8 +157,8 @@ namespace sgsubdotnet
             dlg.Filter = "Video File (*.mp4;*.mkv;*.avi;*.mpg)|*.mp4;*.mkv;*.avi;*.mpg|All files (*.*)|*.*||";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                
 
+                waveScope.Wave = null;
                 axWMP.URL = dlg.FileName;
                 axWMP.Ctlcontrols.play();
                 m_VideoOpened = true;
@@ -433,6 +433,14 @@ namespace sgsubdotnet
                         }
                     }
                }
+                else if (e.KeyCode == m_Config.AddContTimePoint)
+                {
+                    addEndTime();
+                    if (subtitleGrid.CurrentRow.Index < subtitleGrid.Rows.Count - 1)
+                    {
+                        addStartTime();
+                    }
+                }
 
             }
 
@@ -509,6 +517,7 @@ namespace sgsubdotnet
             keycfg.AutoOC = m_Config.AutoOverlapCorrection;
             keycfg.GCKey = m_Config.GotoCurrent;
             keycfg.GPKey = m_Config.GotoPrevious;
+            keycfg.CTimeKey = m_Config.AddContTimePoint;
             if (keycfg.ShowDialog() == DialogResult.OK)
             {
                 m_Config.SeekBackword = keycfg.BWKey;
@@ -523,6 +532,7 @@ namespace sgsubdotnet
                 m_Config.AutoOverlapCorrection = keycfg.AutoOC;
                 m_Config.GotoCurrent = keycfg.GCKey;
                 m_Config.GotoPrevious = keycfg.GPKey;
+                m_Config.AddContTimePoint = keycfg.CTimeKey;
                 m_Config.Save();
             }
         }

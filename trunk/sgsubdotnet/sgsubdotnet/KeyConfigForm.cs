@@ -20,6 +20,7 @@ namespace sgsubdotnet
         public Keys FFKey;
         public Keys PauseKey;
         public Keys TimeKey;
+        public Keys CTimeKey;
         public Keys STKey;
         public Keys ETKey;
         public Keys GCKey;
@@ -58,6 +59,7 @@ namespace sgsubdotnet
             btnET.Text = "插入终止点" + ETKey.ToString();
             btnGC.Text = "跳至当前行" + GCKey.ToString();
             btnGP.Text = "跳至上一行" + GPKey.ToString();
+            btnCT.Text = "连续插入时间" + CTimeKey.ToString();
 
             numET.Value = (decimal)EndTimeOffset * 1000;
             numST.Value = (decimal)StartTimeOffset * 1000;
@@ -126,6 +128,12 @@ namespace sgsubdotnet
         {
             GPKey = e.KeyCode;
             btnGP.Text = "跳至上一行" + GPKey.ToString();
+        }
+
+        private void btnCT_KeyDown(object sender, KeyEventArgs e)
+        {
+            CTimeKey = e.KeyCode;
+            btnCT.Text = "连续插入时间" + CTimeKey.ToString();
         }
     }
 }
