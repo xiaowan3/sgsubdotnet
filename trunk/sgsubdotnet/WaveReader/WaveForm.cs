@@ -32,13 +32,12 @@ namespace WaveReader
         public static WaveForm ExtractWave(string videofilename)
         {
             //ffmpeg -i <infile> -f wav -ac 1 -vn -y <outfile.wav>
-            IntPtr fftbuf = fft.CreateFFTBuffer(960);
             WaveForm wavfm = new WaveForm();
             List<Byte[][]> wflist = new List<Byte[][]>();
             Byte[][] asec;
             Process ffmpegprocess = new Process();
             ffmpegprocess.StartInfo.FileName = FFmpegpath;
-            ffmpegprocess.StartInfo.Arguments = "-i \"" + videofilename + "\" -f wav -ac 1 -vn -y -";
+            ffmpegprocess.StartInfo.Arguments = "-i \"" + videofilename + "\" -f wav -ac 1 -ar 48000 -vn -y -";
             ffmpegprocess.StartInfo.CreateNoWindow = true;
             ffmpegprocess.StartInfo.RedirectStandardOutput = true;
             ffmpegprocess.StartInfo.UseShellExecute = false;
@@ -85,12 +84,19 @@ namespace WaveReader
             {
                 throw new Exception("Please report bug: 8 bit wav");
             }
+            if (wavinf.Frequency != 48000)
+            {
+                throw new Exception("Please report bug: Unsupported Frequency");
+            }
 
-            int samplelen = (int)(wavinf.Frequency / 5); //0.1 秒音频的数据
+            int samplelen = (int)(wavinf.Frequency / 5); //0.1 秒音频的数据(字节数，所以是除以5)
             chunk = new byte[samplelen];
             int timecount = 0;
             int numsplit = 5; //每0.1秒所分的段数
-            int spsec = numsplit * 10; //每秒采样点数
+            int spsec = numsplit * 10; //每秒数据点数
+            int nSamples = samplelen / 10;//每个FFT周期的采样个数
+            IntPtr fftbuf = fft.CreateFFTBuffer(nSamples);
+
             asec = new Byte[spsec][];
             for (int i = 0; i < spsec; i++) asec[i] = new Byte[100];
             
@@ -116,9 +122,7 @@ namespace WaveReader
                 //取每一段(wavfm.DeltaT s)音频的##
                 for (int s = 0; s < numsplit; s++)
                 {
-                    byte[] bb = asec[timecount];
-                    //byte[] bb = new byte[100];
-                    fft.DoFFT(fftbuf, chunk, (split[s + 1] - split[s])/2, split[s]/2, bb);
+                    fft.DoFFT(fftbuf, chunk, (split[s + 1] - split[s]) / 2, split[s] / 2, asec[timecount]);
                     timecount++;
                 }
 
@@ -199,10 +203,10 @@ namespace WaveReader
 
 
         /// <summary>
-        /// 读取当前时间的响度
+        /// 读取当前时间的频谱
         /// </summary>
         /// <param name="time">时间</param>
-        /// <returns>响度值</returns>
+        /// <returns>频谱</returns>
         public Byte[] ValueAt(double time)
         {
             int l = (int)(time / DeltaT);

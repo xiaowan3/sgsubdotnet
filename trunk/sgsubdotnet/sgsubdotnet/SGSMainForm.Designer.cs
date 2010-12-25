@@ -47,6 +47,8 @@
             this.tsBtnOpenVideo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsBtnSaveSub = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsBtnFFT = new System.Windows.Forms.ToolStripButton();
             this.smallSpliter = new System.Windows.Forms.SplitContainer();
             this.subLabel = new System.Windows.Forms.Label();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
@@ -54,12 +56,13 @@
             this.subToolStrip = new System.Windows.Forms.ToolStrip();
             this.tsBtnPause = new System.Windows.Forms.ToolStripButton();
             this.tsBtnPlay = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnJumpto = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsBtnDuplicate = new System.Windows.Forms.ToolStripButton();
             this.tsBtnDelItem = new System.Windows.Forms.ToolStripButton();
             this.tsBtnInsAfter = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsBtnJumpto = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnOLScan = new System.Windows.Forms.ToolStripButton();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenSubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -207,9 +210,9 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 280F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.labellastline, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelcurrent, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelnextline, 1, 2);
@@ -231,7 +234,7 @@
             this.labellastline.AutoSize = true;
             this.labellastline.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labellastline.ForeColor = System.Drawing.Color.DimGray;
-            this.labellastline.Location = new System.Drawing.Point(177, 0);
+            this.labellastline.Location = new System.Drawing.Point(182, 0);
             this.labellastline.Name = "labellastline";
             this.labellastline.Size = new System.Drawing.Size(0, 16);
             this.labellastline.TabIndex = 0;
@@ -242,7 +245,7 @@
             this.labelcurrent.AutoSize = true;
             this.labelcurrent.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelcurrent.ForeColor = System.Drawing.Color.Black;
-            this.labelcurrent.Location = new System.Drawing.Point(177, 22);
+            this.labelcurrent.Location = new System.Drawing.Point(182, 22);
             this.labelcurrent.Name = "labelcurrent";
             this.labelcurrent.Size = new System.Drawing.Size(0, 16);
             this.labelcurrent.TabIndex = 1;
@@ -253,7 +256,7 @@
             this.labelnextline.AutoSize = true;
             this.labelnextline.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelnextline.ForeColor = System.Drawing.Color.DarkGreen;
-            this.labelnextline.Location = new System.Drawing.Point(177, 44);
+            this.labelnextline.Location = new System.Drawing.Point(182, 44);
             this.labelnextline.Name = "labelnextline";
             this.labelnextline.Size = new System.Drawing.Size(0, 16);
             this.labelnextline.TabIndex = 2;
@@ -263,7 +266,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(10, 25);
+            this.label1.Location = new System.Drawing.Point(3, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(24, 16);
             this.label1.TabIndex = 3;
@@ -277,10 +280,12 @@
             this.tsBtnOpenTxt,
             this.tsBtnOpenVideo,
             this.toolStripSeparator3,
-            this.tsBtnSaveSub});
+            this.tsBtnSaveSub,
+            this.toolStripSeparator6,
+            this.tsBtnFFT});
             this.fileToolStrip.Location = new System.Drawing.Point(5, 0);
             this.fileToolStrip.Name = "fileToolStrip";
-            this.fileToolStrip.Size = new System.Drawing.Size(110, 25);
+            this.fileToolStrip.Size = new System.Drawing.Size(139, 25);
             this.fileToolStrip.TabIndex = 0;
             // 
             // tsBtnOpenAss
@@ -327,6 +332,21 @@
             this.tsBtnSaveSub.Size = new System.Drawing.Size(23, 22);
             this.tsBtnSaveSub.Text = "Save ASS";
             this.tsBtnSaveSub.Click += new System.EventHandler(this.SaveSub_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsBtnFFT
+            // 
+            this.tsBtnFFT.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnFFT.Image = global::sgsubdotnet.Properties.Resources.fft;
+            this.tsBtnFFT.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnFFT.Name = "tsBtnFFT";
+            this.tsBtnFFT.Size = new System.Drawing.Size(23, 22);
+            this.tsBtnFFT.Text = "Initialize FFT";
+            this.tsBtnFFT.Click += new System.EventHandler(this.tsBtnFFT_Click);
             // 
             // smallSpliter
             // 
@@ -404,15 +424,16 @@
             this.subToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsBtnPause,
             this.tsBtnPlay,
+            this.tsBtnJumpto,
             this.toolStripSeparator1,
             this.tsBtnDuplicate,
             this.tsBtnDelItem,
             this.tsBtnInsAfter,
             this.toolStripSeparator2,
-            this.tsBtnJumpto});
+            this.tsBtnOLScan});
             this.subToolStrip.Location = new System.Drawing.Point(0, 3);
             this.subToolStrip.Name = "subToolStrip";
-            this.subToolStrip.Size = new System.Drawing.Size(24, 161);
+            this.subToolStrip.Size = new System.Drawing.Size(24, 184);
             this.subToolStrip.TabIndex = 0;
             // 
             // tsBtnPause
@@ -434,6 +455,16 @@
             this.tsBtnPlay.Size = new System.Drawing.Size(22, 20);
             this.tsBtnPlay.Text = "Play";
             this.tsBtnPlay.Click += new System.EventHandler(this.toolStripPlay_Click);
+            // 
+            // tsBtnJumpto
+            // 
+            this.tsBtnJumpto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnJumpto.Image = global::sgsubdotnet.Properties.Resources.jumpto;
+            this.tsBtnJumpto.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnJumpto.Name = "tsBtnJumpto";
+            this.tsBtnJumpto.Size = new System.Drawing.Size(22, 20);
+            this.tsBtnJumpto.Text = "Jump to";
+            this.tsBtnJumpto.Click += new System.EventHandler(this.toolStripJumpto_Click);
             // 
             // toolStripSeparator1
             // 
@@ -475,15 +506,15 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(22, 6);
             // 
-            // tsBtnJumpto
+            // tsBtnOLScan
             // 
-            this.tsBtnJumpto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsBtnJumpto.Image = global::sgsubdotnet.Properties.Resources.jumpto;
-            this.tsBtnJumpto.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsBtnJumpto.Name = "tsBtnJumpto";
-            this.tsBtnJumpto.Size = new System.Drawing.Size(22, 20);
-            this.tsBtnJumpto.Text = "Jump to";
-            this.tsBtnJumpto.Click += new System.EventHandler(this.toolStripJumpto_Click);
+            this.tsBtnOLScan.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnOLScan.Image = global::sgsubdotnet.Properties.Resources.olscan;
+            this.tsBtnOLScan.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnOLScan.Name = "tsBtnOLScan";
+            this.tsBtnOLScan.Size = new System.Drawing.Size(22, 20);
+            this.tsBtnOLScan.Text = "Overlap Scan";
+            this.tsBtnOLScan.Click += new System.EventHandler(this.tsBtnOLScan_Click);
             // 
             // mainMenu
             // 
@@ -726,6 +757,9 @@
         private System.Windows.Forms.Label labelcurrent;
         private System.Windows.Forms.Label labelnextline;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripButton tsBtnFFT;
+        private System.Windows.Forms.ToolStripButton tsBtnOLScan;
     }
 }
 

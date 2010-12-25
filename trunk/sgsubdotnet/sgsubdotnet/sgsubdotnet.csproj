@@ -129,6 +129,8 @@
     <None Include="Resources\openvideo.bmp" />
     <None Include="Resources\openass.bmp" />
     <None Include="Resources\keybd.ico" />
+    <None Include="Resources\fft.bmp" />
+    <None Include="Resources\olscan.bmp" />
     <Content Include="Resources\Pause.bmp" />
     <None Include="Resources\RR.ico" />
     <None Include="Resources\ReinerRubin.bmp" />
