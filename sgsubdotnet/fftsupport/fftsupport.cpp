@@ -3,15 +3,12 @@
 
 #include "stdafx.h"
 #include <fftw3.h>
-#include <iostream>
-#include <fstream>
 #include <cmath>
 typedef struct {
 	double* input;
 	double* output;
 	int len;
 	fftw_plan plan;
-	std::ofstream* ofs;
 } FFTBUF;
 
 extern "C" __declspec( dllexport ) FFTBUF* CreateFFTBuffer(int len)
@@ -21,7 +18,6 @@ extern "C" __declspec( dllexport ) FFTBUF* CreateFFTBuffer(int len)
 	r->output = new double[len * 2];
 	r->len = len;
 	r->plan = fftw_plan_r2r_1d(len * 2,r->input,r->output,FFTW_DHT,FFTW_MEASURE);
-	r->ofs = new std::ofstream("E:\\test\\test.txt");
 	memset(r->input,0,len * 2 * sizeof(double));
 	return r;
 }
@@ -47,7 +43,6 @@ extern "C" __declspec(dllexport) void DoFFT(FFTBUF* fftbuf, Int16 input[], int i
 		fftbuf->output[i] = t;
 		if(t > max) max = t;
 	}
-	(*(fftbuf->ofs))<<max<<std::endl;
 
 	max /= 255;
 	if(max<0.1) max = 0.1;
