@@ -139,24 +139,6 @@
     <Content Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="AxWMPLib">
-      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>aximp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="WMPLib">
-      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Config\Config.csproj">
       <Project>{5CAAC511-8895-4C8F-BFF6-73A912BCFE3A}</Project>
       <Name>Config</Name>
@@ -164,6 +146,10 @@
     <ProjectReference Include="..\Subtitle\Subtitle.csproj">
       <Project>{0CBB1C5A-AB92-44D1-A0DA-44C80F8A27B6}</Project>
       <Name>Subtitle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VideoPlayer\VideoPlayer.csproj">
+      <Project>{919513CF-DF3A-4F66-8BAC-2988EF98EB97}</Project>
+      <Name>VideoPlayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\WaveReader\WaveReader.csproj">
       <Project>{66428FAC-8E3C-4BFF-8268-069398389696}</Project>
