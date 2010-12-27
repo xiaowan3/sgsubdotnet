@@ -132,21 +132,21 @@ namespace sgsubdotnet
             if (m_VideoOpened)
             {
                 //由于刚打开视频文件时无法读取视频长度，所以在播放0.5秒后把m_VideoPlaying设为true.
-                if (axWMP.Ctlcontrols.currentPosition > 0.5)
+                if (dxVideoPlayer.CurrentPosition > 0.5)
                 {
                     m_VideoPlaying = true;
                 }
                 //生成字幕的时间索引
                 if (m_SubLoaded && m_VideoPlaying && (!m_TrackLoaded))
                 {
-                    m_CurrentSub.CreateIndex(axWMP.currentMedia.duration);
+                    m_CurrentSub.CreateIndex(dxVideoPlayer.Duration);
                     m_TrackLoaded = true;
                 }
-                waveScope.CurrentPosition = axWMP.Ctlcontrols.currentPosition;
+                waveScope.CurrentPosition = dxVideoPlayer.CurrentPosition;
                 waveScope.Redraw();
                 //显示字幕内容
                 if (m_TrackLoaded)
-                    subLabel.Text = m_CurrentSub.GetSubtitle(axWMP.Ctlcontrols.currentPosition);
+                    subLabel.Text = m_CurrentSub.GetSubtitle(dxVideoPlayer.CurrentPosition);
             }
         }
 
@@ -159,8 +159,8 @@ namespace sgsubdotnet
             {
 
                 waveScope.Wave = null;
-                axWMP.URL = dlg.FileName;
-                axWMP.Ctlcontrols.play();
+                dxVideoPlayer.OpenVideo(dlg.FileName);
+                dxVideoPlayer.Play();
                 m_VideoOpened = true;
                 m_VideoPlaying = false;
                 m_TrackLoaded = false;
@@ -212,7 +212,7 @@ namespace sgsubdotnet
             if (m_VideoPlaying)
             {
                 m_Paused = true;
-                axWMP.Ctlcontrols.pause();
+                dxVideoPlayer.Pause();
                 if (e.ColumnIndex != 2)
                 {
                     Subtitle.AssItem item = (Subtitle.AssItem)subtitleGrid.Rows[e.RowIndex].DataBoundItem;
@@ -242,7 +242,7 @@ namespace sgsubdotnet
                 {
                     Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem);
                     double os = item.Start.TimeValue;
-                    item.Start.TimeValue = axWMP.Ctlcontrols.currentPosition + m_Config.StartOffset;
+                    item.Start.TimeValue = dxVideoPlayer.CurrentPosition + m_Config.StartOffset;
                     m_CurrentSub.ItemEdited(item, os, item.End.TimeValue);
                     subtitleGrid.CurrentCell = subtitleGrid.CurrentRow.Cells[1];
                     if (m_Config.AutoOverlapCorrection && rowindex > 0)
@@ -268,7 +268,7 @@ namespace sgsubdotnet
                 {
                     Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowindex].DataBoundItem);
                     double oe = item.End.TimeValue;
-                    item.End.TimeValue = axWMP.Ctlcontrols.currentPosition + m_Config.EndOffset;
+                    item.End.TimeValue = dxVideoPlayer.CurrentPosition + m_Config.EndOffset;
                     m_CurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
                     if (rowindex < subtitleGrid.Rows.Count - 1)
                         subtitleGrid.CurrentCell = subtitleGrid.Rows[rowindex + 1].Cells[0];
@@ -308,12 +308,12 @@ namespace sgsubdotnet
                     {
                         if (m_Paused)
                         {
-                            axWMP.Ctlcontrols.play();
+                            dxVideoPlayer.Play();
                             m_Paused = false;
                         }
                         else
                         {
-                            axWMP.Ctlcontrols.pause();
+                            dxVideoPlayer.Pause();
                             m_Paused = true;
                         }
 
@@ -323,14 +323,14 @@ namespace sgsubdotnet
                 {
                     if (m_VideoPlaying)
                     {
-                        axWMP.Ctlcontrols.currentPosition -= m_Config.SeekStep;
+                        dxVideoPlayer.CurrentPosition -= m_Config.SeekStep;
                     }
                 }
                 else if (e.KeyCode == m_Config.SeekForward)
                 {
                     if (m_VideoPlaying)
                     {
-                        axWMP.Ctlcontrols.currentPosition += m_Config.SeekStep;
+                        dxVideoPlayer.CurrentPosition += m_Config.SeekStep;
                     }
                 }
                 //粘贴，支持多个单元格的复制和粘贴
@@ -409,10 +409,8 @@ namespace sgsubdotnet
                     if (m_VideoPlaying && subtitleGrid.CurrentRow != null)
                     {
                         double position = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem)).Start.TimeValue;
-                        if (position < axWMP.currentMedia.duration)
-                        {
-                            axWMP.Ctlcontrols.currentPosition = position;
-                        }
+                        dxVideoPlayer.CurrentPosition = position;
+
 
                     }
                 }
@@ -425,14 +423,10 @@ namespace sgsubdotnet
                         if (rowindex >= 1)
                         {
                             position = ((Subtitle.AssItem)(subtitleGrid.Rows[rowindex - 1].DataBoundItem)).Start.TimeValue;
-                            if (position < axWMP.currentMedia.duration && position > 0.01)
-                            {
-                                axWMP.Ctlcontrols.currentPosition = position;
-                            }
-
+                            dxVideoPlayer.CurrentPosition = position;
                         }
                     }
-               }
+                }
                 else if (e.KeyCode == m_Config.AddContTimePoint)
                 {
                     addEndTime();
@@ -462,8 +456,8 @@ namespace sgsubdotnet
             if (m_VideoPlaying)
             {
 
-                    axWMP.Ctlcontrols.pause();
-                    m_Paused = true;
+                dxVideoPlayer.Pause();
+                m_Paused = true;
             }
         }
 
@@ -471,7 +465,7 @@ namespace sgsubdotnet
         {
             if (m_VideoPlaying)
             {
-                axWMP.Ctlcontrols.play();
+                dxVideoPlayer.Play();
                 m_Paused = false;
             }
         }
@@ -481,11 +475,7 @@ namespace sgsubdotnet
             if (m_VideoPlaying && subtitleGrid.CurrentRow != null)
             {
                 double position = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem)).Start.TimeValue;
-                if (position < axWMP.currentMedia.duration)
-                {
-                    axWMP.Ctlcontrols.currentPosition = position;
-                }
-                
+                dxVideoPlayer.CurrentPosition = position;
             }
         }
 
@@ -724,8 +714,8 @@ namespace sgsubdotnet
         {
             if (m_VideoPlaying)
             {
-                axWMP.Ctlcontrols.pause();
-                WaveReader.WaveForm wf = WaveReader.WaveForm.ExtractWave(axWMP.currentMedia.sourceURL);
+                dxVideoPlayer.Pause();
+                WaveReader.WaveForm wf = WaveReader.WaveForm.ExtractWave(dxVideoPlayer.Filename);
                 waveScope.Wave = wf;
             }
         }
