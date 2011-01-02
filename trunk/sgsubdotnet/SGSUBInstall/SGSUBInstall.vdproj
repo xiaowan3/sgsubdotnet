@@ -15,12 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_012A2B9445D9480CBBA292501B2A45EE"
-        "OwnerKey" = "8:_A08ACE1898274DF5A09FD96C8248A2DC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_0BC0285B0F3DA7C9A35CA7FDA47CBDE7"
         "OwnerKey" = "8:_D75F02C61FAC482B8A2E274E121EEE08"
         "MsmSig" = "8:_UNDEFINED"
@@ -41,6 +35,12 @@
         {
         "MsmKey" = "8:_4BADEB774F7E4CD6A86F9FA5966207A2"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4CD2D04D43F2477F94DCD623F91EF111"
+        "OwnerKey" = "8:_C1E46684B95C4B83A76FDF1BE776AA3C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -99,8 +99,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C853027687CE4816AD31325C8868B8F7"
-        "OwnerKey" = "8:_012A2B9445D9480CBBA292501B2A45EE"
+        "MsmKey" = "8:_C1E46684B95C4B83A76FDF1BE776AA3C"
+        "OwnerKey" = "8:_A08ACE1898274DF5A09FD96C8248A2DC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -113,6 +113,12 @@
         {
         "MsmKey" = "8:_EB7B365BCEAD12BF3736AAFE1DAA1F9E"
         "OwnerKey" = "8:_D75F02C61FAC482B8A2E274E121EEE08"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F7894D1EA6F44D3D87092045648BA098"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -136,7 +142,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0BC0285B0F3DA7C9A35CA7FDA47CBDE7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_EB7B365BCEAD12BF3736AAFE1DAA1F9E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_AF2368F40034B8E1203E14D4A8ABD739"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_FAC8AF1EE7D0C25C6CA67BD9BB20E9B1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -155,24 +179,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_9EAFEDCEFEB1311CD60A70AC9CFC49EE"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0BC0285B0F3DA7C9A35CA7FDA47CBDE7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AF2368F40034B8E1203E14D4A8ABD739"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FAC8AF1EE7D0C25C6CA67BD9BB20E9B1"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -200,6 +206,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5"
+                    {
+                    "Name" = "8:.NET Framework 3.5"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -224,6 +243,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5"
+                    {
+                    "Name" = "8:.NET Framework 3.5"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
     }
@@ -500,6 +532,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F7894D1EA6F44D3D87092045648BA098"
+            {
+            "SourcePath" = "8:..\\sgsubdotnet\\config\\sgscfg.xml"
+            "TargetName" = "8:sgscfg.xml"
+            "Tag" = "8:"
+            "Folder" = "8:_C9E0D5B69CF7467096DE191A25E9A6DA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FAC8AF1EE7D0C25C6CA67BD9BB20E9B1"
             {
             "AssemblyRegister" = "3:1"
@@ -547,6 +599,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_C9E0D5B69CF7467096DE191A25E9A6DA"
+                    {
+                    "Name" = "8:config"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_77A0457E6CDD401F9E7CA2B90FEB140A"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_CB39751AF81A4725B5AD7D3A82E2593B"
@@ -588,7 +651,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SGSUB.Net"
         "ProductCode" = "8:{DE0EABC5-2B51-475D-ACCF-CAB7751FACC1}"
-        "PackageCode" = "8:{53DA73C9-59E7-429B-86C2-289BCFDD73B4}"
+        "PackageCode" = "8:{9AAD02D0-BD3F-497B-B0A2-0E5E8A54D5DD}"
         "UpgradeCode" = "8:{6FBABC1C-0EAD-4DE5-BB4A-7494BDBEC8F6}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
@@ -1117,11 +1180,11 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_012A2B9445D9480CBBA292501B2A45EE"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_4CD2D04D43F2477F94DCD623F91EF111"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:policy_9_0_Microsoft_VC90_CRT_x86.msm"
+            "SourcePath" = "8:microsoft_vc90_crt_x86.msm"
                 "Properties"
                 {
                 }
@@ -1131,11 +1194,11 @@
             "Feature" = "8:"
             "IsolateTo" = "8:"
             }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_C853027687CE4816AD31325C8868B8F7"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_C1E46684B95C4B83A76FDF1BE776AA3C"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
-            "SourcePath" = "8:microsoft_vc90_crt_x86.msm"
+            "SourcePath" = "8:policy_9_0_Microsoft_VC90_CRT_x86.msm"
                 "Properties"
                 {
                 }
