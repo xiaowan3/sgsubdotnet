@@ -169,40 +169,110 @@ namespace sgsubdotnet
             }
         }
 
+        /// <summary>
+        /// 打开ass文件按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenSub_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
+            if (m_Edited)
+            {
+                DialogResult result = MessageBox.Show("当前字幕己修改" + Environment.NewLine + "想保存文件吗",
+                    "SGSUB.Net", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        if(!SaveAssSub()) return;
+                        break;
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Cancel:
+                        return;
+                    default:
+                        return;
+                }
+            }
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 m_CurrentSub.LoadAss(dlg.FileName);
                 m_SubLoaded = true;
                 m_AssFilename = dlg.FileName;
+                m_Edited = false;
             }
+        }
+
+        /// <summary>
+        /// 打开TXT文件按钮。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenTxt_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Text File (*.txt)|*.txt||";
+
+            if (m_Edited)
+            {
+                DialogResult result = MessageBox.Show("当前字幕己修改" + Environment.NewLine + "想保存文件吗",
+                    "SGSUB.Net", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        if (!SaveAssSub()) return;
+                        break;
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Cancel:
+                        return;
+                    default:
+                        return;
+                }
+            }
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                m_CurrentSub.LoadText(dlg.FileName);
+                m_SubLoaded = true;
+                m_AssFilename = null;
+                m_Edited = false;
+            }
+        }
+
+        /// <summary>
+        /// 保存字幕文件，如果之前未保存过，提示用户输入文件名
+        /// </summary>
+        /// <returns>是否保存 true为保存 false为cancel</returns>
+        private bool SaveAssSub()
+        {
+            if (m_AssFilename == null)
+            {
+                SaveFileDialog dlg = new SaveFileDialog();
+                dlg.AddExtension = true;
+                dlg.DefaultExt = "ass";
+                dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    m_AssFilename = dlg.FileName;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            m_CurrentSub.WriteAss(m_AssFilename, Encoding.Unicode);
+            m_Edited = false;
+            return true;
         }
 
         private void SaveSub_Click(object sender, EventArgs e)
         {
 
-            if (m_TrackLoaded)
+            if (m_SubLoaded)
             {
-                if (m_AssFilename == null)
-                {
-                    SaveFileDialog dlg = new SaveFileDialog();
-                    dlg.AddExtension = true;
-                    dlg.DefaultExt = "ass";
-                    dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
-                    if (dlg.ShowDialog() == DialogResult.OK)
-                    {
-                        m_AssFilename = dlg.FileName;
-                    }
-                }
-                if (m_AssFilename != null)
-                {
-                    m_CurrentSub.WriteAss(m_AssFilename, Encoding.Unicode);
-                    m_Edited = false;
-
-                }
+                SaveAssSub();
             }
         }
 
@@ -228,8 +298,8 @@ namespace sgsubdotnet
             {
                 Subtitle.AssItem item = (Subtitle.AssItem)subtitleGrid.Rows[e.RowIndex].DataBoundItem;
                 m_CurrentSub.ItemEdited(item, oldS, oldE);
-                m_Edited = true;
             }
+            m_Edited = true;
         }
 
 
@@ -481,16 +551,6 @@ namespace sgsubdotnet
 
 
 
-        private void OpenTxt_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Text File (*.txt)|*.txt||";
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                m_CurrentSub.LoadText(dlg.FileName);
-                m_SubLoaded = true;
-            }
-        }
 
         private void KeyCfgToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -529,7 +589,7 @@ namespace sgsubdotnet
 
         private void SaveAsSub_Click(object sender, EventArgs e)
         {
-            if (m_TrackLoaded)
+            if (m_SubLoaded)
             {
                 SaveFileDialog dlg = new SaveFileDialog();
                 dlg.AddExtension = true;
@@ -603,25 +663,9 @@ namespace sgsubdotnet
                 switch (result)
                 {
                     case DialogResult.Yes:
-                        if (m_TrackLoaded)
+                        if (m_SubLoaded)
                         {
-                            if (m_AssFilename == null)
-                            {
-                                SaveFileDialog dlg = new SaveFileDialog();
-                                dlg.AddExtension = true;
-                                dlg.DefaultExt = "ass";
-                                dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
-                                if (dlg.ShowDialog() == DialogResult.OK)
-                                {
-                                    m_AssFilename = dlg.FileName;
-                                }
-                            }
-                            if (m_AssFilename != null)
-                            {
-                                m_CurrentSub.WriteAss(m_AssFilename, Encoding.Unicode);
-                                m_Edited = false;
-                                saved = true;
-                            }
+                            SaveAssSub();
                         }
                         if (!saved) e.Cancel = true;
                         break;

@@ -14,6 +14,4 @@
 typedef __int16 Int16;
 typedef unsigned __int8 UInt8;
 
-//#define abs(x) ((x > 0)?x:(-x))
-
 // TODO: reference additional headers your program requires here
