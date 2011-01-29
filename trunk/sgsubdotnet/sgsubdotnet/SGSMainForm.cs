@@ -131,17 +131,7 @@ namespace sgsubdotnet
         {
             if (m_VideoOpened)
             {
-                //由于刚打开视频文件时无法读取视频长度，所以在播放0.5秒后把m_VideoPlaying设为true.
-                if (dxVideoPlayer.CurrentPosition > 0.5)
-                {
-                    m_VideoPlaying = true;
-                }
-                //生成字幕的时间索引
-                if (m_SubLoaded && m_VideoPlaying && (!m_TrackLoaded))
-                {
-                    m_CurrentSub.CreateIndex(dxVideoPlayer.Duration);
-                    m_TrackLoaded = true;
-                }
+             
                 waveScope.CurrentPosition = dxVideoPlayer.CurrentPosition;
                 waveScope.Redraw();
                 //显示字幕内容
@@ -157,15 +147,28 @@ namespace sgsubdotnet
             dlg.Filter = "Video File (*.mp4;*.mkv;*.avi;*.mpg)|*.mp4;*.mkv;*.avi;*.mpg|All files (*.*)|*.*||";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-
+ 
                 waveScope.Wave = null;
-                dxVideoPlayer.OpenVideo(dlg.FileName);
-                dxVideoPlayer.Play();
-                m_VideoOpened = true;
-                m_VideoPlaying = false;
-                m_TrackLoaded = false;
-                m_Paused = false;
-                timer.Start();
+                try
+                {
+                    dxVideoPlayer.OpenVideo(dlg.FileName);
+                    //生成字幕的时间索引
+                    m_TrackLoaded = false;
+                    if (m_SubLoaded)
+                    {
+                        m_CurrentSub.CreateIndex(dxVideoPlayer.Duration);
+                        m_TrackLoaded = true;
+                    }
+                    dxVideoPlayer.Play();
+                    m_VideoOpened = true;
+                    m_VideoPlaying = true;
+                    m_Paused = false;
+                    timer.Start();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
             }
         }
 
@@ -201,6 +204,11 @@ namespace sgsubdotnet
                 m_SubLoaded = true;
                 m_AssFilename = dlg.FileName;
                 m_Edited = false;
+                if (m_VideoOpened)
+                {
+                    m_CurrentSub.CreateIndex(dxVideoPlayer.Duration);
+                    m_TrackLoaded = true;
+                }
             }
         }
 
@@ -238,6 +246,11 @@ namespace sgsubdotnet
                 m_SubLoaded = true;
                 m_AssFilename = null;
                 m_Edited = false;
+                if (m_VideoOpened)
+                {
+                    m_CurrentSub.CreateIndex(dxVideoPlayer.Duration);
+                    m_TrackLoaded = true;
+                }
             }
         }
 
@@ -277,23 +290,32 @@ namespace sgsubdotnet
         }
 
         private double oldS = 0, oldE = 0;
+        private string oldString;
         private void subtitleGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
+            oldString = subtitleGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
             if (m_VideoPlaying)
             {
                 m_Paused = true;
                 dxVideoPlayer.Pause();
-                if (e.ColumnIndex != 2)
-                {
-                    Subtitle.AssItem item = (Subtitle.AssItem)subtitleGrid.Rows[e.RowIndex].DataBoundItem;
-                    oldS = item.Start.TimeValue;
-                    oldE = item.End.TimeValue;
-                }
             }
+            if (e.ColumnIndex != 2)
+            {
+                Subtitle.AssItem item = (Subtitle.AssItem)subtitleGrid.Rows[e.RowIndex].DataBoundItem;
+                oldS = item.Start.TimeValue;
+                oldE = item.End.TimeValue;
+            }
+
         }
 
         private void subtitleGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+            string newString = subtitleGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            if (!oldString.Equals(newString))
+            {
+                m_undoRec.Edit(e.RowIndex, e.ColumnIndex, oldString);//比较单元格内容，如改变，记录undo
+            }
+
             if (e.ColumnIndex != 2)
             {
                 Subtitle.AssItem item = (Subtitle.AssItem)subtitleGrid.Rows[e.RowIndex].DataBoundItem;
@@ -307,10 +329,12 @@ namespace sgsubdotnet
         {
             if (subtitleGrid.CurrentRow != null)
             {
+                
                 int rowindex = subtitleGrid.CurrentRow.Index;
                 if (m_VideoPlaying && m_TrackLoaded)
                 {
                     Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem);
+                    m_undoRec.Edit(rowindex, 0, item.StartTime);//记录Undo
                     double os = item.Start.TimeValue;
                     item.Start.TimeValue = dxVideoPlayer.CurrentPosition + m_Config.StartOffset;
                     m_CurrentSub.ItemEdited(item, os, item.End.TimeValue);
@@ -337,6 +361,7 @@ namespace sgsubdotnet
                 if (m_VideoPlaying && m_TrackLoaded)
                 {
                     Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowindex].DataBoundItem);
+                    m_undoRec.Edit(rowindex, 1, item.EndTime);//记录Undo
                     double oe = item.End.TimeValue;
                     item.End.TimeValue = dxVideoPlayer.CurrentPosition + m_Config.EndOffset;
                     m_CurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
@@ -621,6 +646,7 @@ namespace sgsubdotnet
             if (subtitleGrid.CurrentRow != null)
             {
                 Subtitle.AssItem i = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem));
+                m_undoRec.DeleteRow(subtitleGrid.CurrentRow.Index, subtitleGrid.CurrentRow);//记录删除操作
                 m_CurrentSub.SubItems.Remove(i);
                 subtitleGrid.Refresh();
                 m_CurrentSub.RefreshIndex();
@@ -637,6 +663,7 @@ namespace sgsubdotnet
                 i.Start.TimeValue = 0;
                 i.End.TimeValue = 0;
                 m_CurrentSub.SubItems.Insert(subtitleGrid.CurrentRow.Index + 1, i);
+                m_undoRec.InsertRow(subtitleGrid.CurrentRow.Index + 1);
                 subtitleGrid.Refresh();
                 m_Edited = true;
             }
@@ -833,6 +860,15 @@ namespace sgsubdotnet
                 MessageBox.Show(msg, "时间轴检查");
 
             }
+        }
+
+        private UndoRecord m_undoRec = new UndoRecord();
+
+        private void tsBtnUndo_Click(object sender, EventArgs e)
+        {
+            m_undoRec.Undo(m_CurrentSub);
+            subtitleGrid.Refresh();
+            m_CurrentSub.RefreshIndex();
         }
         
     }

@@ -63,6 +63,7 @@
             this.tsBtnInsAfter = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsBtnOLScan = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnUndo = new System.Windows.Forms.ToolStripButton();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenSubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -387,7 +388,7 @@
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.subtitleGrid);
             this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(2);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(714, 218);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(706, 218);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // toolStripContainer1.LeftToolStripPanel
@@ -411,7 +412,7 @@
             this.subtitleGrid.Location = new System.Drawing.Point(0, 0);
             this.subtitleGrid.Name = "subtitleGrid";
             this.subtitleGrid.RowTemplate.Height = 23;
-            this.subtitleGrid.Size = new System.Drawing.Size(714, 218);
+            this.subtitleGrid.Size = new System.Drawing.Size(706, 218);
             this.subtitleGrid.TabIndex = 0;
             this.subtitleGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.subtitleGrid_CellBeginEdit);
             this.subtitleGrid.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.subtitleGrid_CellStateChanged);
@@ -431,10 +432,11 @@
             this.tsBtnDelItem,
             this.tsBtnInsAfter,
             this.toolStripSeparator2,
-            this.tsBtnOLScan});
+            this.tsBtnOLScan,
+            this.tsBtnUndo});
             this.subToolStrip.Location = new System.Drawing.Point(0, 3);
             this.subToolStrip.Name = "subToolStrip";
-            this.subToolStrip.Size = new System.Drawing.Size(24, 184);
+            this.subToolStrip.Size = new System.Drawing.Size(32, 215);
             this.subToolStrip.TabIndex = 0;
             // 
             // tsBtnPause
@@ -443,7 +445,7 @@
             this.tsBtnPause.Image = global::sgsubdotnet.Properties.Resources.Pause;
             this.tsBtnPause.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnPause.Name = "tsBtnPause";
-            this.tsBtnPause.Size = new System.Drawing.Size(22, 20);
+            this.tsBtnPause.Size = new System.Drawing.Size(30, 20);
             this.tsBtnPause.Text = "Pause";
             this.tsBtnPause.Click += new System.EventHandler(this.toolStripPause_Click);
             // 
@@ -453,7 +455,7 @@
             this.tsBtnPlay.Image = global::sgsubdotnet.Properties.Resources.Run;
             this.tsBtnPlay.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnPlay.Name = "tsBtnPlay";
-            this.tsBtnPlay.Size = new System.Drawing.Size(22, 20);
+            this.tsBtnPlay.Size = new System.Drawing.Size(30, 20);
             this.tsBtnPlay.Text = "Play";
             this.tsBtnPlay.Click += new System.EventHandler(this.toolStripPlay_Click);
             // 
@@ -463,14 +465,14 @@
             this.tsBtnJumpto.Image = global::sgsubdotnet.Properties.Resources.jumpto;
             this.tsBtnJumpto.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnJumpto.Name = "tsBtnJumpto";
-            this.tsBtnJumpto.Size = new System.Drawing.Size(22, 20);
+            this.tsBtnJumpto.Size = new System.Drawing.Size(30, 20);
             this.tsBtnJumpto.Text = "Jump to";
             this.tsBtnJumpto.Click += new System.EventHandler(this.toolStripJumpto_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(22, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(30, 6);
             // 
             // tsBtnDuplicate
             // 
@@ -478,7 +480,7 @@
             this.tsBtnDuplicate.Image = global::sgsubdotnet.Properties.Resources.copy;
             this.tsBtnDuplicate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDuplicate.Name = "tsBtnDuplicate";
-            this.tsBtnDuplicate.Size = new System.Drawing.Size(22, 20);
+            this.tsBtnDuplicate.Size = new System.Drawing.Size(30, 20);
             this.tsBtnDuplicate.Text = "Duplicate";
             this.tsBtnDuplicate.Click += new System.EventHandler(this.toolStripDuplicate_Click);
             // 
@@ -488,7 +490,7 @@
             this.tsBtnDelItem.Image = global::sgsubdotnet.Properties.Resources.delete;
             this.tsBtnDelItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelItem.Name = "tsBtnDelItem";
-            this.tsBtnDelItem.Size = new System.Drawing.Size(22, 20);
+            this.tsBtnDelItem.Size = new System.Drawing.Size(30, 20);
             this.tsBtnDelItem.Text = "Delete";
             this.tsBtnDelItem.Click += new System.EventHandler(this.toolStripDeleteItem_Click);
             // 
@@ -498,14 +500,14 @@
             this.tsBtnInsAfter.Image = global::sgsubdotnet.Properties.Resources.insertafter;
             this.tsBtnInsAfter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnInsAfter.Name = "tsBtnInsAfter";
-            this.tsBtnInsAfter.Size = new System.Drawing.Size(22, 20);
+            this.tsBtnInsAfter.Size = new System.Drawing.Size(30, 20);
             this.tsBtnInsAfter.Text = "Insert after";
             this.tsBtnInsAfter.Click += new System.EventHandler(this.toolStripInsertAfter_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(22, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(30, 6);
             // 
             // tsBtnOLScan
             // 
@@ -513,9 +515,19 @@
             this.tsBtnOLScan.Image = global::sgsubdotnet.Properties.Resources.olscan;
             this.tsBtnOLScan.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnOLScan.Name = "tsBtnOLScan";
-            this.tsBtnOLScan.Size = new System.Drawing.Size(22, 20);
+            this.tsBtnOLScan.Size = new System.Drawing.Size(30, 20);
             this.tsBtnOLScan.Text = "Overlap Scan";
             this.tsBtnOLScan.Click += new System.EventHandler(this.tsBtnOLScan_Click);
+            // 
+            // tsBtnUndo
+            // 
+            this.tsBtnUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnUndo.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnUndo.Image")));
+            this.tsBtnUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnUndo.Name = "tsBtnUndo";
+            this.tsBtnUndo.Size = new System.Drawing.Size(23, 20);
+            this.tsBtnUndo.Text = "toolStripButton1";
+            this.tsBtnUndo.Click += new System.EventHandler(this.tsBtnUndo_Click);
             // 
             // mainMenu
             // 
@@ -760,6 +772,7 @@
         private System.Windows.Forms.ToolStripButton tsBtnFFT;
         private System.Windows.Forms.ToolStripButton tsBtnOLScan;
         private VideoPlayer.DXVideoPlayer dxVideoPlayer;
+        private System.Windows.Forms.ToolStripButton tsBtnUndo;
     }
 }
 
