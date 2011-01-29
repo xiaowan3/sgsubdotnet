@@ -24,6 +24,15 @@ namespace sgsubdotnet
         }
 
         UndoStep m_multicells = null;
+
+        /// <summary>
+        /// 重置多单元格的操作
+        /// </summary>
+        public void BeginMultiCells()
+        {
+            m_multicells = null;
+        }
+
         /// <summary>
         /// 一步操作多个单元格
         /// </summary>
