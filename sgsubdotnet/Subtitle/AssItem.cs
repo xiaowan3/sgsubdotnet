@@ -169,7 +169,7 @@ namespace Subtitle
                     unit *= 60;
                 } while (b != -1);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 timeValue = 0;
             }
