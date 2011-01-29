@@ -34,7 +34,7 @@ namespace sgsubdotnet
         }
 
         /// <summary>
-        /// 一步操作多个单元格
+        /// 操作多个单元格中的一个
         /// </summary>
         /// <param name="row">行</param>
         /// <param name="col">列</param>
@@ -80,6 +80,10 @@ namespace sgsubdotnet
             AddStep(step);
         }
 
+        /// <summary>
+        /// Undo
+        /// </summary>
+        /// <param name="sub"></param>
         public void Undo(Subtitle.AssSub sub)
         {
             if (m_undo.Count > 0)
@@ -126,6 +130,14 @@ namespace sgsubdotnet
         {
             m_undo.Add(step);
             if (m_undo.Count > m_maxSteps) m_undo.RemoveAt(0);
+        }
+
+        /// <summary>
+        /// 清空undo记录
+        /// </summary>
+        public void Reset()
+        {
+            m_undo = new List<UndoStep>();
         }
 
 

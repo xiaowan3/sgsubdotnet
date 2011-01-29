@@ -209,6 +209,7 @@ namespace sgsubdotnet
                     m_CurrentSub.CreateIndex(dxVideoPlayer.Duration);
                     m_TrackLoaded = true;
                 }
+                m_undoRec.Reset();
             }
         }
 
@@ -251,6 +252,7 @@ namespace sgsubdotnet
                     m_CurrentSub.CreateIndex(dxVideoPlayer.Duration);
                     m_TrackLoaded = true;
                 }
+                m_undoRec.Reset();
             }
         }
 
