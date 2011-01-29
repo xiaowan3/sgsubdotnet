@@ -467,7 +467,7 @@ namespace sgsubdotnet
                         dxVideoPlayer.CurrentPosition += m_Config.SeekStep;
                     }
                 }
-                //粘贴，支持多个单元格的复制和粘贴
+                //复制，支持多个单元格的复制和粘贴
                 else if (e.KeyCode == Keys.C && e.Modifiers == Keys.Control)
                 {
                     if (subtitleGrid.CurrentCell != null)
@@ -522,18 +522,23 @@ namespace sgsubdotnet
                         char[] spliter = {'\t'};
                         StringReader strReader = new StringReader(Clipboard.GetText());
                         string line=strReader.ReadLine();
+                        m_undoRec.BeginMultiCells();
                         while (line != null)
                         {
                             cells = line.Split(spliter, 3 - cC);
                             for (int i = 0; i < cells.Length; i++)
                             {
                                 if (cells[i].Length != 0)
+                                {
+                                    m_undoRec.EditMultiCells(cR, cC + i, subtitleGrid.Rows[cR].Cells[cC + i].Value.ToString());
                                     subtitleGrid.Rows[cR].Cells[cC + i].Value = cells[i];
+                                }
                             }
                             cR++;
                             if (cR >= subtitleGrid.Rows.Count) break;
                             line = strReader.ReadLine();
                         }
+                        m_undoRec.EndEditMultiCells();
                         m_Edited = true;
                         m_CurrentSub.RefreshIndex();
                     }
@@ -903,6 +908,7 @@ namespace sgsubdotnet
             m_undoRec.Undo(m_CurrentSub);
             subtitleGrid.Refresh();
             m_CurrentSub.RefreshIndex();
+            m_Edited = true;
         }
         
     }
