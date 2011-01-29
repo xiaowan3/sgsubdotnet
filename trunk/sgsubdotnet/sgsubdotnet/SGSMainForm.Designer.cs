@@ -522,11 +522,11 @@
             // tsBtnUndo
             // 
             this.tsBtnUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsBtnUndo.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnUndo.Image")));
+            this.tsBtnUndo.Image = global::sgsubdotnet.Properties.Resources.undo;
             this.tsBtnUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnUndo.Name = "tsBtnUndo";
             this.tsBtnUndo.Size = new System.Drawing.Size(23, 20);
-            this.tsBtnUndo.Text = "toolStripButton1";
+            this.tsBtnUndo.Text = "Undo";
             this.tsBtnUndo.Click += new System.EventHandler(this.tsBtnUndo_Click);
             // 
             // mainMenu

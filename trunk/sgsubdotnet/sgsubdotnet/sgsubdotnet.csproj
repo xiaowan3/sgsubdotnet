@@ -137,6 +137,7 @@
     <None Include="Resources\ReinerRubin.bmp" />
     <Content Include="Resources\Run.bmp" />
     <None Include="Resources\save.bmp" />
+    <None Include="Resources\undo.bmp" />
     <Content Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
