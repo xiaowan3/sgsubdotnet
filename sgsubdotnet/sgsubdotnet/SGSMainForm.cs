@@ -333,47 +333,86 @@ namespace sgsubdotnet
                 int rowindex = subtitleGrid.CurrentRow.Index;
                 if (m_VideoPlaying && m_TrackLoaded)
                 {
-                    Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem);
-                    m_undoRec.Edit(rowindex, 0, item.StartTime);//记录Undo
-                    double os = item.Start.TimeValue;
-                    item.Start.TimeValue = dxVideoPlayer.CurrentPosition + m_Config.StartOffset;
-                    m_CurrentSub.ItemEdited(item, os, item.End.TimeValue);
+                    double time = dxVideoPlayer.CurrentPosition + m_Config.StartOffset;
+                    addStartTimeToRow(rowindex, dxVideoPlayer.CurrentPosition + m_Config.StartOffset);
                     subtitleGrid.CurrentCell = subtitleGrid.CurrentRow.Cells[1];
                     if (m_Config.AutoOverlapCorrection && rowindex > 0)
                     {
                         Subtitle.AssItem lastitem = ((Subtitle.AssItem)(subtitleGrid.Rows[rowindex - 1].DataBoundItem));
-                        if (lastitem.End.TimeValue - item.Start.TimeValue > 0 &&
-                            lastitem.End.TimeValue - item.Start.TimeValue < Math.Max(Math.Abs(m_Config.StartOffset), Math.Abs(m_Config.EndOffset)))
-                            lastitem.End.TimeValue = item.Start.TimeValue - 0.01;
-                        subtitleGrid.UpdateCellValue(1, rowindex - 1);
+                        if (lastitem.End.TimeValue - time > 0 &&
+                            lastitem.End.TimeValue - time < Math.Max(Math.Abs(m_Config.StartOffset), Math.Abs(m_Config.EndOffset)))
+                        {
+                            addEndTimeToRow(rowindex - 1, time - 0.01);
+                        }
                     }
-                    subtitleGrid.UpdateCellValue(0, rowindex);
                     m_Edited = true;
                 }
             }
         }
+
 
         private void addEndTime()
         {
             if (subtitleGrid.CurrentRow != null)
             {
                 int rowindex = subtitleGrid.CurrentRow.Index;
-                if (m_VideoPlaying && m_TrackLoaded)
+                if (m_VideoOpened && m_TrackLoaded)
                 {
-                    Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowindex].DataBoundItem);
-                    m_undoRec.Edit(rowindex, 1, item.EndTime);//记录Undo
-                    double oe = item.End.TimeValue;
-                    item.End.TimeValue = dxVideoPlayer.CurrentPosition + m_Config.EndOffset;
-                    m_CurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
+                    double time = dxVideoPlayer.CurrentPosition + m_Config.EndOffset;
+                    addEndTimeToRow(rowindex, time);
+
                     if (rowindex < subtitleGrid.Rows.Count - 1)
                         subtitleGrid.CurrentCell = subtitleGrid.Rows[rowindex + 1].Cells[0];
                     if (rowindex - subtitleGrid.FirstDisplayedScrollingRowIndex > m_Config.SelectRowOffset)
                         subtitleGrid.FirstDisplayedScrollingRowIndex = rowindex - m_Config.SelectRowOffset;
-                    subtitleGrid.UpdateCellValue(1, rowindex);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 编辑某行的起始时间
+        /// </summary>
+        /// <param name="time"></param>
+        private void addStartTimeToRow(int rowIndex, double time)
+        {
+            if (subtitleGrid.CurrentRow != null)
+            {
+                if (m_VideoOpened && m_TrackLoaded)
+                {
+                    Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowIndex].DataBoundItem);
+                    m_undoRec.Edit(rowIndex, 0, item.StartTime);//记录Undo
+                    double os = item.Start.TimeValue;
+                    item.Start.TimeValue = time > 0 ? time : 0;
+                    m_CurrentSub.ItemEdited(item, os, item.End.TimeValue);
+                    subtitleGrid.UpdateCellValue(0, rowIndex);
+                    m_Edited = true;
+                  
+                }
+            }
+        }
+
+        /// <summary>
+        /// 编辑某行的结束时间
+        /// </summary>
+        /// <param name="time"></param>
+        private void addEndTimeToRow(int rowIndex, double time)
+        {
+            if (subtitleGrid.CurrentRow != null)
+            {
+                if (m_VideoPlaying && m_TrackLoaded)
+                {
+                    
+                    Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowIndex].DataBoundItem);
+                    m_undoRec.Edit(rowIndex, 1, item.EndTime);//记录Undo
+                    double oe = item.End.TimeValue;
+                    item.End.TimeValue = time > 0 ? time : 0; ;
+                    m_CurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
+                    subtitleGrid.UpdateCellValue(1, rowIndex);
                     m_Edited = true;
                 }
             }
         }
+
         private bool m_keydown = false;
 
         private void subtitleGrid_KeyDown(object sender, KeyEventArgs e)
@@ -635,6 +674,7 @@ namespace sgsubdotnet
             {
                 Subtitle.AssItem i = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem)).Clone();
                 m_CurrentSub.SubItems.Insert(subtitleGrid.CurrentRow.Index + 1, i);
+                m_undoRec.InsertRow(subtitleGrid.CurrentRow.Index + 1);//记录插入操作
                 subtitleGrid.Refresh();
                 m_CurrentSub.RefreshIndex();
                 m_Edited = true;
@@ -663,7 +703,7 @@ namespace sgsubdotnet
                 i.Start.TimeValue = 0;
                 i.End.TimeValue = 0;
                 m_CurrentSub.SubItems.Insert(subtitleGrid.CurrentRow.Index + 1, i);
-                m_undoRec.InsertRow(subtitleGrid.CurrentRow.Index + 1);
+                m_undoRec.InsertRow(subtitleGrid.CurrentRow.Index + 1);//记录插入操作
                 subtitleGrid.Refresh();
                 m_Edited = true;
             }
@@ -748,19 +788,13 @@ namespace sgsubdotnet
                 Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowindex].DataBoundItem);
                 if (e.Button == MouseButtons.Left)
                 {
-                    double os = item.Start.TimeValue;
-                    item.Start.TimeValue = e.Time > 0 ? e.Time : 0;
-                    m_CurrentSub.ItemEdited(item, os, item.End.TimeValue);
-                    subtitleGrid.UpdateCellValue(0, rowindex);
-                    m_Edited = true;
+
+                    addStartTimeToRow(subtitleGrid.CurrentRow.Index, e.Time);
+
                 }
                 if (e.Button == MouseButtons.Right)
                 {
-                    double oe = item.End.TimeValue;
-                    item.End.TimeValue = e.Time > 0 ? e.Time : 0; ;
-                    m_CurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
-                    subtitleGrid.UpdateCellValue(1, rowindex);
-                    m_Edited = true;
+                    addEndTimeToRow(subtitleGrid.CurrentRow.Index, e.Time);
 
                     if (rowindex < subtitleGrid.Rows.Count - 1)
                     {
