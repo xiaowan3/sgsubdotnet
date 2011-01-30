@@ -53,6 +53,9 @@
             this.subLabel = new System.Windows.Forms.Label();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.subtitleGrid = new System.Windows.Forms.DataGridView();
+            this.dataGridMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.selectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unselectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subToolStrip = new System.Windows.Forms.ToolStrip();
             this.tsBtnPause = new System.Windows.Forms.ToolStripButton();
             this.tsBtnPlay = new System.Windows.Forms.ToolStripButton();
@@ -64,6 +67,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsBtnOLScan = new System.Windows.Forms.ToolStripButton();
             this.tsBtnUndo = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnSelect = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnUnselectAll = new System.Windows.Forms.ToolStripButton();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenSubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,9 +104,10 @@
             this.smallSpliter.Panel2.SuspendLayout();
             this.smallSpliter.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
-            this.toolStripContainer1.LeftToolStripPanel.SuspendLayout();
+            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subtitleGrid)).BeginInit();
+            this.dataGridMenuStrip.SuspendLayout();
             this.subToolStrip.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.mainpanel.SuspendLayout();
@@ -388,12 +394,8 @@
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.subtitleGrid);
             this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(2);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(706, 218);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(738, 218);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // toolStripContainer1.LeftToolStripPanel
-            // 
-            this.toolStripContainer1.LeftToolStripPanel.Controls.Add(this.subToolStrip);
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.toolStripContainer1.Name = "toolStripContainer1";
@@ -401,24 +403,51 @@
             this.toolStripContainer1.TabIndex = 1;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
+            // toolStripContainer1.TopToolStripPanel
+            // 
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.subToolStrip);
+            // 
             // subtitleGrid
             // 
             this.subtitleGrid.AllowUserToAddRows = false;
             this.subtitleGrid.AllowUserToDeleteRows = false;
             this.subtitleGrid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.subtitleGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.subtitleGrid.ContextMenuStrip = this.dataGridMenuStrip;
             this.subtitleGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.subtitleGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.subtitleGrid.Location = new System.Drawing.Point(0, 0);
             this.subtitleGrid.Name = "subtitleGrid";
             this.subtitleGrid.RowTemplate.Height = 23;
-            this.subtitleGrid.Size = new System.Drawing.Size(706, 218);
+            this.subtitleGrid.Size = new System.Drawing.Size(738, 218);
             this.subtitleGrid.TabIndex = 0;
             this.subtitleGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.subtitleGrid_CellBeginEdit);
             this.subtitleGrid.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.subtitleGrid_CellStateChanged);
             this.subtitleGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.subtitleGrid_CellEndEdit);
             this.subtitleGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.subtitleGrid_KeyDown);
             this.subtitleGrid.KeyUp += new System.Windows.Forms.KeyEventHandler(this.subtitleGrid_KeyUp);
+            // 
+            // dataGridMenuStrip
+            // 
+            this.dataGridMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectToolStripMenuItem,
+            this.unselectToolStripMenuItem});
+            this.dataGridMenuStrip.Name = "dataGridMenuStrip";
+            this.dataGridMenuStrip.Size = new System.Drawing.Size(119, 48);
+            // 
+            // selectToolStripMenuItem
+            // 
+            this.selectToolStripMenuItem.Name = "selectToolStripMenuItem";
+            this.selectToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.selectToolStripMenuItem.Text = "Select";
+            this.selectToolStripMenuItem.Click += new System.EventHandler(this.SelectCell_Click);
+            // 
+            // unselectToolStripMenuItem
+            // 
+            this.unselectToolStripMenuItem.Name = "unselectToolStripMenuItem";
+            this.unselectToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.unselectToolStripMenuItem.Text = "Unselect";
+            this.unselectToolStripMenuItem.Click += new System.EventHandler(this.DeselectCell_Click);
             // 
             // subToolStrip
             // 
@@ -433,10 +462,12 @@
             this.tsBtnInsAfter,
             this.toolStripSeparator2,
             this.tsBtnOLScan,
-            this.tsBtnUndo});
-            this.subToolStrip.Location = new System.Drawing.Point(0, 3);
+            this.tsBtnUndo,
+            this.tsBtnSelect,
+            this.tsBtnUnselectAll});
+            this.subToolStrip.Location = new System.Drawing.Point(3, 0);
             this.subToolStrip.Name = "subToolStrip";
-            this.subToolStrip.Size = new System.Drawing.Size(32, 215);
+            this.subToolStrip.Size = new System.Drawing.Size(254, 25);
             this.subToolStrip.TabIndex = 0;
             // 
             // tsBtnPause
@@ -445,7 +476,7 @@
             this.tsBtnPause.Image = global::sgsubdotnet.Properties.Resources.Pause;
             this.tsBtnPause.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnPause.Name = "tsBtnPause";
-            this.tsBtnPause.Size = new System.Drawing.Size(30, 20);
+            this.tsBtnPause.Size = new System.Drawing.Size(23, 22);
             this.tsBtnPause.Text = "Pause";
             this.tsBtnPause.Click += new System.EventHandler(this.toolStripPause_Click);
             // 
@@ -455,7 +486,7 @@
             this.tsBtnPlay.Image = global::sgsubdotnet.Properties.Resources.Run;
             this.tsBtnPlay.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnPlay.Name = "tsBtnPlay";
-            this.tsBtnPlay.Size = new System.Drawing.Size(30, 20);
+            this.tsBtnPlay.Size = new System.Drawing.Size(23, 22);
             this.tsBtnPlay.Text = "Play";
             this.tsBtnPlay.Click += new System.EventHandler(this.toolStripPlay_Click);
             // 
@@ -465,14 +496,14 @@
             this.tsBtnJumpto.Image = global::sgsubdotnet.Properties.Resources.jumpto;
             this.tsBtnJumpto.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnJumpto.Name = "tsBtnJumpto";
-            this.tsBtnJumpto.Size = new System.Drawing.Size(30, 20);
+            this.tsBtnJumpto.Size = new System.Drawing.Size(23, 22);
             this.tsBtnJumpto.Text = "Jump to";
             this.tsBtnJumpto.Click += new System.EventHandler(this.toolStripJumpto_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(30, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // tsBtnDuplicate
             // 
@@ -480,7 +511,7 @@
             this.tsBtnDuplicate.Image = global::sgsubdotnet.Properties.Resources.copy;
             this.tsBtnDuplicate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDuplicate.Name = "tsBtnDuplicate";
-            this.tsBtnDuplicate.Size = new System.Drawing.Size(30, 20);
+            this.tsBtnDuplicate.Size = new System.Drawing.Size(23, 22);
             this.tsBtnDuplicate.Text = "Duplicate";
             this.tsBtnDuplicate.Click += new System.EventHandler(this.toolStripDuplicate_Click);
             // 
@@ -490,7 +521,7 @@
             this.tsBtnDelItem.Image = global::sgsubdotnet.Properties.Resources.delete;
             this.tsBtnDelItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelItem.Name = "tsBtnDelItem";
-            this.tsBtnDelItem.Size = new System.Drawing.Size(30, 20);
+            this.tsBtnDelItem.Size = new System.Drawing.Size(23, 22);
             this.tsBtnDelItem.Text = "Delete";
             this.tsBtnDelItem.Click += new System.EventHandler(this.toolStripDeleteItem_Click);
             // 
@@ -500,14 +531,14 @@
             this.tsBtnInsAfter.Image = global::sgsubdotnet.Properties.Resources.insertafter;
             this.tsBtnInsAfter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnInsAfter.Name = "tsBtnInsAfter";
-            this.tsBtnInsAfter.Size = new System.Drawing.Size(30, 20);
+            this.tsBtnInsAfter.Size = new System.Drawing.Size(23, 22);
             this.tsBtnInsAfter.Text = "Insert after";
             this.tsBtnInsAfter.Click += new System.EventHandler(this.toolStripInsertAfter_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(30, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // tsBtnOLScan
             // 
@@ -515,7 +546,7 @@
             this.tsBtnOLScan.Image = global::sgsubdotnet.Properties.Resources.olscan;
             this.tsBtnOLScan.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnOLScan.Name = "tsBtnOLScan";
-            this.tsBtnOLScan.Size = new System.Drawing.Size(30, 20);
+            this.tsBtnOLScan.Size = new System.Drawing.Size(23, 22);
             this.tsBtnOLScan.Text = "Overlap Scan";
             this.tsBtnOLScan.Click += new System.EventHandler(this.tsBtnOLScan_Click);
             // 
@@ -525,9 +556,29 @@
             this.tsBtnUndo.Image = global::sgsubdotnet.Properties.Resources.undo;
             this.tsBtnUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnUndo.Name = "tsBtnUndo";
-            this.tsBtnUndo.Size = new System.Drawing.Size(23, 20);
+            this.tsBtnUndo.Size = new System.Drawing.Size(23, 22);
             this.tsBtnUndo.Text = "Undo";
             this.tsBtnUndo.Click += new System.EventHandler(this.tsBtnUndo_Click);
+            // 
+            // tsBtnSelect
+            // 
+            this.tsBtnSelect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnSelect.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnSelect.Image")));
+            this.tsBtnSelect.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnSelect.Name = "tsBtnSelect";
+            this.tsBtnSelect.Size = new System.Drawing.Size(23, 22);
+            this.tsBtnSelect.Text = "toolStripButton1";
+            this.tsBtnSelect.Click += new System.EventHandler(this.SelectCell_Click);
+            // 
+            // tsBtnUnselectAll
+            // 
+            this.tsBtnUnselectAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnUnselectAll.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnUnselectAll.Image")));
+            this.tsBtnUnselectAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnUnselectAll.Name = "tsBtnUnselectAll";
+            this.tsBtnUnselectAll.Size = new System.Drawing.Size(23, 22);
+            this.tsBtnUnselectAll.Text = "toolStripButton1";
+            this.tsBtnUnselectAll.Click += new System.EventHandler(this.tsBtnDeselectAll_Click);
             // 
             // mainMenu
             // 
@@ -672,6 +723,7 @@
             // 
             // SGSMainForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 597);
@@ -705,11 +757,12 @@
             this.smallSpliter.Panel2.ResumeLayout(false);
             this.smallSpliter.ResumeLayout(false);
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
-            this.toolStripContainer1.LeftToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer1.LeftToolStripPanel.PerformLayout();
+            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subtitleGrid)).EndInit();
+            this.dataGridMenuStrip.ResumeLayout(false);
             this.subToolStrip.ResumeLayout(false);
             this.subToolStrip.PerformLayout();
             this.mainMenu.ResumeLayout(false);
@@ -773,6 +826,11 @@
         private System.Windows.Forms.ToolStripButton tsBtnOLScan;
         private VideoPlayer.DXVideoPlayer dxVideoPlayer;
         private System.Windows.Forms.ToolStripButton tsBtnUndo;
+        private System.Windows.Forms.ToolStripButton tsBtnSelect;
+        private System.Windows.Forms.ContextMenuStrip dataGridMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem selectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unselectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton tsBtnUnselectAll;
     }
 }
 

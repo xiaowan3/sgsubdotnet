@@ -64,6 +64,8 @@ namespace sgsubdotnet
             column.DataPropertyName = "Text";
             column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             subtitleGrid.Columns.Add(column);
+
+            m_selectCells.Rows = subtitleGrid.Rows;
         }
 
         /// <summary>
@@ -210,6 +212,7 @@ namespace sgsubdotnet
                     m_TrackLoaded = true;
                 }
                 m_undoRec.Reset();
+                m_selectCells.Reset();
             }
         }
 
@@ -253,6 +256,7 @@ namespace sgsubdotnet
                     m_TrackLoaded = true;
                 }
                 m_undoRec.Reset();
+                m_selectCells.Reset();
             }
         }
 
@@ -524,7 +528,7 @@ namespace sgsubdotnet
                         char[] spliter = {'\t'};
                         StringReader strReader = new StringReader(Clipboard.GetText());
                         string line=strReader.ReadLine();
-                        m_undoRec.BeginMultiCells();
+                        m_undoRec.BeginMultiCells(); //开始Undo记录
                         while (line != null)
                         {
                             cells = line.Split(spliter, 3 - cC);
@@ -540,7 +544,7 @@ namespace sgsubdotnet
                             if (cR >= subtitleGrid.Rows.Count) break;
                             line = strReader.ReadLine();
                         }
-                        m_undoRec.EndEditMultiCells();
+                        m_undoRec.EndEditMultiCells();//结束Undo记录
                         m_Edited = true;
                         m_CurrentSub.RefreshIndex();
                     }
@@ -681,7 +685,8 @@ namespace sgsubdotnet
             {
                 Subtitle.AssItem i = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem)).Clone();
                 m_CurrentSub.SubItems.Insert(subtitleGrid.CurrentRow.Index + 1, i);
-                m_undoRec.InsertRow(subtitleGrid.CurrentRow.Index + 1);//记录插入操作
+                m_undoRec.InsertRow(subtitleGrid.CurrentRow.Index + 1);//为Undo记录插入操作
+                m_selectCells.Reset(); //清空选中的单元格
                 subtitleGrid.Refresh();
                 m_CurrentSub.RefreshIndex();
                 m_Edited = true;
@@ -693,8 +698,9 @@ namespace sgsubdotnet
             if (subtitleGrid.CurrentRow != null)
             {
                 Subtitle.AssItem i = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem));
-                m_undoRec.DeleteRow(subtitleGrid.CurrentRow.Index, subtitleGrid.CurrentRow);//记录删除操作
+                m_undoRec.DeleteRow(subtitleGrid.CurrentRow.Index, subtitleGrid.CurrentRow);//为Undo记录删除操作
                 m_CurrentSub.SubItems.Remove(i);
+                m_selectCells.Reset(); //清空选中的单元格
                 subtitleGrid.Refresh();
                 m_CurrentSub.RefreshIndex();
                 m_Edited = true;
@@ -710,7 +716,8 @@ namespace sgsubdotnet
                 i.Start.TimeValue = 0;
                 i.End.TimeValue = 0;
                 m_CurrentSub.SubItems.Insert(subtitleGrid.CurrentRow.Index + 1, i);
-                m_undoRec.InsertRow(subtitleGrid.CurrentRow.Index + 1);//记录插入操作
+                m_undoRec.InsertRow(subtitleGrid.CurrentRow.Index + 1);//为Undo记录插入操作
+                m_selectCells.Reset(); //清空选中的单元格
                 subtitleGrid.Refresh();
                 m_Edited = true;
             }
@@ -911,6 +918,35 @@ namespace sgsubdotnet
             subtitleGrid.Refresh();
             m_CurrentSub.RefreshIndex();
             m_Edited = true;
+        }
+
+        SelectCells m_selectCells = new SelectCells();
+
+        private void SelectCell_Click(object sender, EventArgs e)
+        {
+            if (subtitleGrid.SelectedCells != null)
+            {
+                foreach (DataGridViewCell cell in subtitleGrid.SelectedCells)
+                {
+                    m_selectCells.SelectCell(cell.ColumnIndex, cell.RowIndex);
+                }
+            }
+        }
+
+        private void tsBtnDeselectAll_Click(object sender, EventArgs e)
+        {
+            m_selectCells.DeselectAll();
+        }
+
+        private void DeselectCell_Click(object sender, EventArgs e)
+        {
+            if (subtitleGrid.SelectedCells != null)
+            {
+                foreach (DataGridViewCell cell in subtitleGrid.SelectedCells)
+                {
+                    m_selectCells.Deselect(cell.ColumnIndex, cell.RowIndex);
+                }
+            }
         }
         
     }
