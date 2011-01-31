@@ -89,7 +89,7 @@ namespace VideoPlayer
                 m_filename = filename;
                 m_aspectRatio = (double)m_movie.Size.Width / (double)m_movie.Size.Height;
                 resizeScreen(splitContainer1.Panel1.Width, splitContainer1.Panel1.Height);
-                m_movie.Audio.Volume = -10000 + (int)(m_soundvolume * 10000);
+                m_movie.Audio.Volume = ConvertVolume(m_soundvolume);
                 m_videoname = m_filename.Substring(m_filename.LastIndexOf('\\') + 1);
             }
             catch (Exception exception)
@@ -219,10 +219,18 @@ namespace VideoPlayer
                 m_sndarea.X = splitContainer1.Panel2.Width - 71 + (int)(58 * m_soundvolume);
                 if (m_movie != null)
                 {
-                    m_movie.Audio.Volume = -10000 + (int)(m_soundvolume * 10000);
+                    m_movie.Audio.Volume = ConvertVolume(m_soundvolume); ;
                 }
                 redrawtrackbar();
             }
+        }
+
+        private int ConvertVolume(double volume)
+        {
+            int v = -(int)(Math.Pow(10, (1 - volume))) * 1000 + 1000;
+            if (v >= 0) v = 0;
+            if (v <= -10000) v = -10000;
+            return v;
         }
 
 
