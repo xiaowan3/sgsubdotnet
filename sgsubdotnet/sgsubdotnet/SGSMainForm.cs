@@ -580,7 +580,7 @@ namespace sgsubdotnet
                         addStartTime();
                     }
                 }
-                else if (e.KeyCode == Keys.F2)
+                else if (e.KeyCode == m_Config.EnterEditMode)
                 {
                     if (subtitleGrid.CurrentCell != null)
                     {

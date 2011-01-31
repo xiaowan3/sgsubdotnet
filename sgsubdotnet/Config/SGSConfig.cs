@@ -93,6 +93,12 @@ namespace Config
         public Keys GotoPrevious { get; set; }
 
         /// <summary>
+        /// 进入编辑模式
+        /// </summary>
+        [DataMember()]
+        public Keys EnterEditMode { get; set; }
+
+        /// <summary>
         /// 默认ass文件头
         /// </summary>
         [DataMember()]
