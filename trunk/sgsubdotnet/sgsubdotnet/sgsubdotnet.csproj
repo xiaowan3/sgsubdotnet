@@ -143,12 +143,15 @@
     <None Include="Resources\keybd.ico" />
     <None Include="Resources\fft.bmp" />
     <None Include="Resources\olscan.bmp" />
+    <None Include="Resources\mark.bmp" />
     <Content Include="Resources\Pause.bmp" />
     <None Include="Resources\RR.ico" />
     <None Include="Resources\ReinerRubin.bmp" />
     <Content Include="Resources\Run.bmp" />
     <None Include="Resources\save.bmp" />
     <None Include="Resources\undo.bmp" />
+    <None Include="Resources\unmark.bmp" />
+    <None Include="Resources\timeoffset.bmp" />
     <Content Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>

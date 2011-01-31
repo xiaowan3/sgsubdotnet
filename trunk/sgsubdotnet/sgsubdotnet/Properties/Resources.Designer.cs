@@ -102,6 +102,13 @@ namespace sgsubdotnet.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap mark {
+            get {
+                object obj = ResourceManager.GetObject("mark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap olscan {
             get {
                 object obj = ResourceManager.GetObject("olscan", resourceCulture);
@@ -165,9 +172,23 @@ namespace sgsubdotnet.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap timeoffset {
+            get {
+                object obj = ResourceManager.GetObject("timeoffset", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap undo {
             get {
                 object obj = ResourceManager.GetObject("undo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap unmark {
+            get {
+                object obj = ResourceManager.GetObject("unmark", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
