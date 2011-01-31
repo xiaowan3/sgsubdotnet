@@ -69,6 +69,7 @@
             this.tsBtnUndo = new System.Windows.Forms.ToolStripButton();
             this.tsBtnSelect = new System.Windows.Forms.ToolStripButton();
             this.tsBtnUnselectAll = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnTimeoffset = new System.Windows.Forms.ToolStripButton();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenSubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -464,10 +465,11 @@
             this.tsBtnOLScan,
             this.tsBtnUndo,
             this.tsBtnSelect,
-            this.tsBtnUnselectAll});
+            this.tsBtnUnselectAll,
+            this.tsBtnTimeoffset});
             this.subToolStrip.Location = new System.Drawing.Point(3, 0);
             this.subToolStrip.Name = "subToolStrip";
-            this.subToolStrip.Size = new System.Drawing.Size(254, 25);
+            this.subToolStrip.Size = new System.Drawing.Size(277, 25);
             this.subToolStrip.TabIndex = 0;
             // 
             // tsBtnPause
@@ -579,6 +581,16 @@
             this.tsBtnUnselectAll.Size = new System.Drawing.Size(23, 22);
             this.tsBtnUnselectAll.Text = "toolStripButton1";
             this.tsBtnUnselectAll.Click += new System.EventHandler(this.tsBtnDeselectAll_Click);
+            // 
+            // tsBtnTimeoffset
+            // 
+            this.tsBtnTimeoffset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnTimeoffset.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnTimeoffset.Image")));
+            this.tsBtnTimeoffset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnTimeoffset.Name = "tsBtnTimeoffset";
+            this.tsBtnTimeoffset.Size = new System.Drawing.Size(23, 22);
+            this.tsBtnTimeoffset.Text = "Time Offset";
+            this.tsBtnTimeoffset.Click += new System.EventHandler(this.TimeOffset_Click);
             // 
             // mainMenu
             // 
@@ -831,6 +843,7 @@
         private System.Windows.Forms.ToolStripMenuItem selectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unselectToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton tsBtnUnselectAll;
+        private System.Windows.Forms.ToolStripButton tsBtnTimeoffset;
     }
 }
 
