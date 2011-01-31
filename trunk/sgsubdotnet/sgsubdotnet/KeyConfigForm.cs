@@ -29,6 +29,7 @@ namespace sgsubdotnet
             GCKey = m_Config.GotoCurrent;
             GPKey = m_Config.GotoPrevious;
             CTimeKey = m_Config.AddContTimePoint;
+            EEMKey = m_Config.EnterEditMode;
 
         }
 
@@ -43,6 +44,7 @@ namespace sgsubdotnet
         public Keys ETKey;
         public Keys GCKey;
         public Keys GPKey;
+        public Keys EEMKey;
         private double m_sto;
         public double StartTimeOffset
         {
@@ -78,6 +80,7 @@ namespace sgsubdotnet
             btnGC.Text = "跳至当前行" + GCKey.ToString();
             btnGP.Text = "跳至上一行" + GPKey.ToString();
             btnCT.Text = "连续插入时间" + CTimeKey.ToString();
+            btnEEM.Text = "编辑模式" + EEMKey.ToString();
 
             numET.Value = (decimal)EndTimeOffset * 1000;
             numST.Value = (decimal)StartTimeOffset * 1000;
@@ -142,6 +145,7 @@ namespace sgsubdotnet
             m_Config.GotoCurrent = GCKey;
             m_Config.GotoPrevious = GPKey;
             m_Config.AddContTimePoint = CTimeKey;
+            m_Config.EnterEditMode = EEMKey;
 
             DialogResult = DialogResult.OK;
         }
@@ -167,6 +171,12 @@ namespace sgsubdotnet
         {
             CTimeKey = e.KeyCode;
             btnCT.Text = "连续插入时间" + CTimeKey.ToString();
+        }
+
+        private void btnEEM_KeyDown(object sender, KeyEventArgs e)
+        {
+            EEMKey = e.KeyCode;
+            btnEEM.Text = "编辑模式" + EEMKey.ToString();
         }
     }
 }
