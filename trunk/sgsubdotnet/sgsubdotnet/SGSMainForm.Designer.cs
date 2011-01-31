@@ -746,6 +746,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SGSMainForm";
             this.Text = "SGSUB.Net Reiner Rubin";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.SGSMainForm_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.SGSMainForm_DragEnter);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SGSMainForm_FormClosing);
             this.hSpliter.Panel1.ResumeLayout(false);
             this.hSpliter.Panel2.ResumeLayout(false);
