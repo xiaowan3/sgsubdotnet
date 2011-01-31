@@ -566,27 +566,27 @@
             // tsBtnSelect
             // 
             this.tsBtnSelect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsBtnSelect.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnSelect.Image")));
+            this.tsBtnSelect.Image = global::sgsubdotnet.Properties.Resources.mark;
             this.tsBtnSelect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnSelect.Name = "tsBtnSelect";
             this.tsBtnSelect.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnSelect.Text = "toolStripButton1";
+            this.tsBtnSelect.Text = "Mark Selected Cells";
             this.tsBtnSelect.Click += new System.EventHandler(this.SelectCell_Click);
             // 
             // tsBtnUnselectAll
             // 
             this.tsBtnUnselectAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsBtnUnselectAll.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnUnselectAll.Image")));
+            this.tsBtnUnselectAll.Image = global::sgsubdotnet.Properties.Resources.unmark;
             this.tsBtnUnselectAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnUnselectAll.Name = "tsBtnUnselectAll";
             this.tsBtnUnselectAll.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnUnselectAll.Text = "toolStripButton1";
+            this.tsBtnUnselectAll.Text = "Unmark All";
             this.tsBtnUnselectAll.Click += new System.EventHandler(this.tsBtnDeselectAll_Click);
             // 
             // tsBtnTimeoffset
             // 
             this.tsBtnTimeoffset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsBtnTimeoffset.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnTimeoffset.Image")));
+            this.tsBtnTimeoffset.Image = global::sgsubdotnet.Properties.Resources.timeoffset;
             this.tsBtnTimeoffset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnTimeoffset.Name = "tsBtnTimeoffset";
             this.tsBtnTimeoffset.Size = new System.Drawing.Size(23, 22);
