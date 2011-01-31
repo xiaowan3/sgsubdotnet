@@ -948,6 +948,16 @@ namespace sgsubdotnet
                 }
             }
         }
+
+        private void TimeOffset_Click(object sender, EventArgs e)
+        {
+            TimeOffsetDialog toDlg = new TimeOffsetDialog();
+            if (toDlg.ShowDialog() == DialogResult.OK)
+            {
+                m_selectCells.TimeOffset(toDlg.TimeOffset, m_undoRec);
+                subtitleGrid.Refresh();
+            }
+        }
         
     }
 }

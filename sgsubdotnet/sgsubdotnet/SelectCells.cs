@@ -23,6 +23,11 @@ namespace sgsubdotnet
             Rows = null;
         }
 
+        /// <summary>
+        /// 标记指定的单元格
+        /// </summary>
+        /// <param name="Col">列</param>
+        /// <param name="Row">行</param>
         public void SelectCell(int Col, int Row)
         {
             CellPos cell = new CellPos(Col, Row);
@@ -32,6 +37,11 @@ namespace sgsubdotnet
 
         }
 
+        /// <summary>
+        /// 取消标记指定的单元格
+        /// </summary>
+        /// <param name="Col">列</param>
+        /// <param name="Row">行</param>
         public void Deselect(int Col, int Row)
         {
             if (Rows != null)
@@ -43,6 +53,9 @@ namespace sgsubdotnet
                 }
         }
 
+        /// <summary>
+        /// 取消所有标记
+        /// </summary>
         public void DeselectAll()
         {
             foreach (CellPos cell in m_SelectedCells)
@@ -57,6 +70,9 @@ namespace sgsubdotnet
 
         }
 
+        /// <summary>
+        /// 重置
+        /// </summary>
         public void Reset()
         {
             m_SelectedCells = new List<CellPos>();
@@ -71,7 +87,42 @@ namespace sgsubdotnet
             }
         }
 
+        /// <summary>
+        /// 时间平移
+        /// </summary>
+        /// <param name="timeOffset">增量</param>
+        /// <param name="undo">记录Undo</param>
+        public void TimeOffset(double timeOffset,UndoRecord undo)
+        {
+            bool edited = false;
+            if (Rows != null)
+            {
+                if (undo != null) undo.BeginMultiCells();
+                foreach (CellPos cell in m_SelectedCells)
+                {
+                    if (cell.Row < Rows.Count)
+                    {
+                        Subtitle.AssItem item = (Subtitle.AssItem)(Rows[cell.Row].DataBoundItem);
+                        if (cell.Col == 0)
+                        {
+                            if (undo != null) undo.EditMultiCells(cell.Row, cell.Col, item.StartTime);
+                            item.Start.TimeValue += timeOffset;
+                            edited = true;
+                        }
+                        if (cell.Col == 1)
+                        {
+                            if (undo != null) undo.EditMultiCells(cell.Row, cell.Col, item.EndTime);
+                            item.End.TimeValue += timeOffset;
+                            edited = true;
+                        }
+                    }
+                }
+                if (edited && undo != null) undo.EndEditMultiCells(); 
+            }
+        }
+
     }
+
 
     class CellPos : IComparable<CellPos>,IEquatable<CellPos>
     {
