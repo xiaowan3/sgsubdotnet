@@ -143,34 +143,66 @@ namespace sgsubdotnet
         }
 
 
+        /// <summary>
+        /// 如果字幕己修改，询问是否保存
+        /// </summary>
+        /// <returns>true:正常, false:取消操作</returns>
+        private bool AskSave()
+        {
+            if (m_Edited && m_SubLoaded)
+            {
+                DialogResult result = MessageBox.Show("当前字幕己修改" + Environment.NewLine + "想保存文件吗",
+                    "SGSUB.Net", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        return SaveAssSub();
+                    case DialogResult.No:
+                        return true;
+                    case DialogResult.Cancel:
+                        return false;
+                    default:
+                        return false;
+                }
+            }
+            return true;
+        }
+        
         private void OpenVideo_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Video File (*.mp4;*.mkv;*.avi;*.mpg)|*.mp4;*.mkv;*.avi;*.mpg|All files (*.*)|*.*||";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
- 
-                waveScope.Wave = null;
-                try
+                OpenVideo(dlg.FileName);
+            }
+        }
+        /// <summary>
+        /// 打开视频
+        /// </summary>
+        /// <param name="file"></param>
+        private void OpenVideo(string filename)
+        {
+            waveScope.Wave = null;
+            try
+            {
+                dxVideoPlayer.OpenVideo(filename);
+                //生成字幕的时间索引
+                m_TrackLoaded = false;
+                if (m_SubLoaded)
                 {
-                    dxVideoPlayer.OpenVideo(dlg.FileName);
-                    //生成字幕的时间索引
-                    m_TrackLoaded = false;
-                    if (m_SubLoaded)
-                    {
-                        m_CurrentSub.CreateIndex(dxVideoPlayer.Duration);
-                        m_TrackLoaded = true;
-                    }
-                    dxVideoPlayer.Play();
-                    m_VideoOpened = true;
-                    m_VideoPlaying = true;
-                    m_Paused = false;
-                    timer.Start();
+                    m_CurrentSub.CreateIndex(dxVideoPlayer.Duration);
+                    m_TrackLoaded = true;
                 }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.Message);
-                }
+                dxVideoPlayer.Play();
+                m_VideoOpened = true;
+                m_VideoPlaying = true;
+                m_Paused = false;
+                timer.Start();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
             }
         }
 
@@ -183,36 +215,9 @@ namespace sgsubdotnet
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
-            if (m_Edited)
+            if (AskSave() && dlg.ShowDialog() == DialogResult.OK)
             {
-                DialogResult result = MessageBox.Show("当前字幕己修改" + Environment.NewLine + "想保存文件吗",
-                    "SGSUB.Net", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                switch (result)
-                {
-                    case DialogResult.Yes:
-                        if(!SaveAssSub()) return;
-                        break;
-                    case DialogResult.No:
-                        break;
-                    case DialogResult.Cancel:
-                        return;
-                    default:
-                        return;
-                }
-            }
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                m_CurrentSub.LoadAss(dlg.FileName);
-                m_SubLoaded = true;
-                m_AssFilename = dlg.FileName;
-                m_Edited = false;
-                if (m_VideoOpened)
-                {
-                    m_CurrentSub.CreateIndex(dxVideoPlayer.Duration);
-                    m_TrackLoaded = true;
-                }
-                m_undoRec.Reset();
-                m_selectCells.Reset();
+                OpenAss(dlg.FileName);
             }
         }
 
@@ -226,37 +231,9 @@ namespace sgsubdotnet
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Text File (*.txt)|*.txt||";
 
-            if (m_Edited)
+            if (AskSave() && dlg.ShowDialog() == DialogResult.OK)
             {
-                DialogResult result = MessageBox.Show("当前字幕己修改" + Environment.NewLine + "想保存文件吗",
-                    "SGSUB.Net", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                switch (result)
-                {
-                    case DialogResult.Yes:
-                        if (!SaveAssSub()) return;
-                        break;
-                    case DialogResult.No:
-                        break;
-                    case DialogResult.Cancel:
-                        return;
-                    default:
-                        return;
-                }
-            }
-
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                m_CurrentSub.LoadText(dlg.FileName);
-                m_SubLoaded = true;
-                m_AssFilename = null;
-                m_Edited = false;
-                if (m_VideoOpened)
-                {
-                    m_CurrentSub.CreateIndex(dxVideoPlayer.Duration);
-                    m_TrackLoaded = true;
-                }
-                m_undoRec.Reset();
-                m_selectCells.Reset();
+                OpenTxt(dlg.FileName);
             }
         }
 
@@ -285,6 +262,45 @@ namespace sgsubdotnet
             m_Edited = false;
             return true;
         }
+
+        /// <summary>
+        /// 打开ASS文件
+        /// </summary>
+        /// <param name="filename"></param>
+        private void OpenAss(string filename)
+        {
+            m_CurrentSub.LoadAss(filename);
+            m_SubLoaded = true;
+            m_AssFilename = filename;
+            m_Edited = false;
+            if (m_VideoOpened)
+            {
+                m_CurrentSub.CreateIndex(dxVideoPlayer.Duration);
+                m_TrackLoaded = true;
+            }
+            m_undoRec.Reset();
+            m_selectCells.Reset();
+        }
+
+        /// <summary>
+        /// 打开TXT文件
+        /// </summary>
+        /// <param name="filename"></param>
+        private void OpenTxt(string filename)
+        {
+            m_CurrentSub.LoadText(filename);
+            m_SubLoaded = true;
+            m_AssFilename = null;
+            m_Edited = false;
+            if (m_VideoOpened)
+            {
+                m_CurrentSub.CreateIndex(dxVideoPlayer.Duration);
+                m_TrackLoaded = true;
+            }
+            m_undoRec.Reset();
+            m_selectCells.Reset();
+        }
+
 
         private void SaveSub_Click(object sender, EventArgs e)
         {
@@ -381,19 +397,17 @@ namespace sgsubdotnet
         /// <param name="time"></param>
         private void addStartTimeToRow(int rowIndex, double time)
         {
-            if (subtitleGrid.CurrentRow != null)
+
+            if (subtitleGrid.CurrentRow != null && m_VideoOpened && m_TrackLoaded)
             {
-                if (m_VideoOpened && m_TrackLoaded)
-                {
-                    Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowIndex].DataBoundItem);
-                    m_undoRec.Edit(rowIndex, 0, item.StartTime);//记录Undo
-                    double os = item.Start.TimeValue;
-                    item.Start.TimeValue = time > 0 ? time : 0;
-                    m_CurrentSub.ItemEdited(item, os, item.End.TimeValue);
-                    subtitleGrid.UpdateCellValue(0, rowIndex);
-                    m_Edited = true;
-                  
-                }
+                Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowIndex].DataBoundItem);
+                m_undoRec.Edit(rowIndex, 0, item.StartTime);//记录Undo
+                double os = item.Start.TimeValue;
+                item.Start.TimeValue = time > 0 ? time : 0;
+                m_CurrentSub.ItemEdited(item, os, item.End.TimeValue);
+                subtitleGrid.UpdateCellValue(0, rowIndex);
+                m_Edited = true;
+
             }
         }
 
@@ -403,19 +417,17 @@ namespace sgsubdotnet
         /// <param name="time"></param>
         private void addEndTimeToRow(int rowIndex, double time)
         {
-            if (subtitleGrid.CurrentRow != null)
+
+            if (subtitleGrid.CurrentRow != null && m_VideoPlaying && m_TrackLoaded)
             {
-                if (m_VideoPlaying && m_TrackLoaded)
-                {
-                    
-                    Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowIndex].DataBoundItem);
-                    m_undoRec.Edit(rowIndex, 1, item.EndTime);//记录Undo
-                    double oe = item.End.TimeValue;
-                    item.End.TimeValue = time > 0 ? time : 0; ;
-                    m_CurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
-                    subtitleGrid.UpdateCellValue(1, rowIndex);
-                    m_Edited = true;
-                }
+
+                Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowIndex].DataBoundItem);
+                m_undoRec.Edit(rowIndex, 1, item.EndTime);//记录Undo
+                double oe = item.End.TimeValue;
+                item.End.TimeValue = time > 0 ? time : 0; ;
+                m_CurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
+                subtitleGrid.UpdateCellValue(1, rowIndex);
+                m_Edited = true;
             }
         }
 
@@ -734,30 +746,12 @@ namespace sgsubdotnet
 
         private void SGSMainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (m_Edited)
+
+            if (!AskSave())
             {
-                bool saved = false;
-                DialogResult result = MessageBox.Show("当前字幕己修改" + Environment.NewLine + "想保存文件吗",
-                    "SGSUB.Net", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                switch (result)
-                {
-                    case DialogResult.Yes:
-                        if (m_SubLoaded)
-                        {
-                            SaveAssSub();
-                        }
-                        if (!saved) e.Cancel = true;
-                        break;
-                    case DialogResult.No:
-                        break;
-                    case DialogResult.Cancel:
-                        e.Cancel = true;
-                        break;
-                    default :
-                        e.Cancel = true;
-                        break;
-                }
+                e.Cancel = true;
             }
+           
         }
 
         private void subtitleGrid_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
@@ -967,6 +961,58 @@ namespace sgsubdotnet
             if (subtitleGrid.CurrentCell != null)
             {
                 subtitleGrid.BeginEdit(true);
+            }
+        }
+        private string[] allowedexts = { "avi", "mkv", "mp4", "rmvb", "wmv", "ass", "txt" };
+
+        private void SGSMainForm_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])(e.Data.GetData(DataFormats.FileDrop));
+                if (files.Length == 1)
+                {
+                    string ext = (files[0].Substring(files[0].LastIndexOf('.') + 1)).ToLower();
+                    if (allowedexts.Contains(ext))
+                    {
+                    e.Effect = DragDropEffects.Copy;
+                    }
+                }
+            }
+        }
+
+
+        private void SGSMainForm_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])(e.Data.GetData(DataFormats.FileDrop));
+                if (files.Length == 1)
+                {
+                    string ext = (files[0].Substring(files[0].LastIndexOf('.') + 1)).ToLower();
+                    switch (ext)
+                    {
+                        case "txt":
+                            if (AskSave())
+                            {
+                                OpenTxt(files[0]);
+                            }
+                            break;
+                        case "ass":
+                            if (AskSave())
+                            {
+                                OpenAss(files[0]);
+                            }
+                            break;
+                        default:
+                            OpenVideo(files[0]);
+                            break;
+                    }
+                    if (allowedexts.Contains(ext))
+                    {
+                        e.Effect = DragDropEffects.Copy;
+                    }
+                }
             }
         }
         
