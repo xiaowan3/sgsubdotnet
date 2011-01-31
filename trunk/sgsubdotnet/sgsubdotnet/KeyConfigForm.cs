@@ -11,10 +11,28 @@ namespace sgsubdotnet
 {
     public partial class KeyConfigForm : Form
     {
-        public KeyConfigForm()
+        public KeyConfigForm(Config.SGSConfig config)
         {
             InitializeComponent();
+            m_Config = config;
+
+            BWKey = m_Config.SeekBackword;
+            FFKey = m_Config.SeekForward;
+            PauseKey = m_Config.Pause;
+            TimeKey = m_Config.AddTimePoint;
+            STKey = m_Config.AddStartTime;
+            ETKey = m_Config.AddEndTime;
+            StartTimeOffset = m_Config.StartOffset;
+            EndTimeOffset = m_Config.EndOffset;
+            SeekStep = m_Config.SeekStep;
+            AutoOC = m_Config.AutoOverlapCorrection;
+            GCKey = m_Config.GotoCurrent;
+            GPKey = m_Config.GotoPrevious;
+            CTimeKey = m_Config.AddContTimePoint;
+
         }
+
+        public Config.SGSConfig m_Config;
 
         public Keys BWKey;
         public Keys FFKey;
@@ -110,6 +128,21 @@ namespace sgsubdotnet
             StartTimeOffset = (double)(numST.Value) / 1000.0;
             SeekStep = (double)(numSS.Value);
             AutoOC = checkAOC.Checked;
+
+            m_Config.SeekBackword = BWKey;
+            m_Config.SeekForward = FFKey;
+            m_Config.Pause = PauseKey;
+            m_Config.AddTimePoint = TimeKey;
+            m_Config.AddStartTime = STKey;
+            m_Config.AddEndTime = ETKey;
+            m_Config.StartOffset = StartTimeOffset;
+            m_Config.EndOffset = EndTimeOffset;
+            m_Config.SeekStep = SeekStep;
+            m_Config.AutoOverlapCorrection = AutoOC;
+            m_Config.GotoCurrent = GCKey;
+            m_Config.GotoPrevious = GPKey;
+            m_Config.AddContTimePoint = CTimeKey;
+
             DialogResult = DialogResult.OK;
         }
 

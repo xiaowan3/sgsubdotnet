@@ -416,13 +416,14 @@
             this.subtitleGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.subtitleGrid.ContextMenuStrip = this.dataGridMenuStrip;
             this.subtitleGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.subtitleGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
+            this.subtitleGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.subtitleGrid.Location = new System.Drawing.Point(0, 0);
             this.subtitleGrid.Name = "subtitleGrid";
             this.subtitleGrid.RowTemplate.Height = 23;
             this.subtitleGrid.Size = new System.Drawing.Size(738, 218);
             this.subtitleGrid.TabIndex = 0;
             this.subtitleGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.subtitleGrid_CellBeginEdit);
+            this.subtitleGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.subtitleGrid_CellDoubleClick);
             this.subtitleGrid.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.subtitleGrid_CellStateChanged);
             this.subtitleGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.subtitleGrid_CellEndEdit);
             this.subtitleGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.subtitleGrid_KeyDown);

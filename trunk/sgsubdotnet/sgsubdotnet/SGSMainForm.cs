@@ -580,6 +580,28 @@ namespace sgsubdotnet
                         addStartTime();
                     }
                 }
+                else if (e.KeyCode == Keys.F2)
+                {
+                    if (subtitleGrid.CurrentCell != null)
+                    {
+                        subtitleGrid.BeginEdit(true);
+                        m_keydown = false;
+                    }
+                }
+                else if (e.KeyCode == Keys.Delete)
+                {
+                    if (subtitleGrid.SelectedCells.Count != 0)
+                    {
+                        m_undoRec.BeginMultiCells(); //开始Undo记录
+                        foreach (DataGridViewCell cell in subtitleGrid.SelectedCells)
+                        {
+                            m_undoRec.EditMultiCells(cell.RowIndex, cell.ColumnIndex, cell.Value.ToString());
+                            subtitleGrid.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Value = "";
+                        }
+                        m_undoRec.EndEditMultiCells();
+                        m_Edited = true;
+                    }
+                }
 
             }
 
@@ -629,35 +651,11 @@ namespace sgsubdotnet
 
         private void KeyCfgToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            KeyConfigForm keycfg = new KeyConfigForm();
-            keycfg.BWKey = m_Config.SeekBackword;
-            keycfg.FFKey = m_Config.SeekForward;
-            keycfg.PauseKey = m_Config.Pause;
-            keycfg.TimeKey = m_Config.AddTimePoint;
-            keycfg.STKey = m_Config.AddStartTime;
-            keycfg.ETKey = m_Config.AddEndTime;
-            keycfg.StartTimeOffset = m_Config.StartOffset;
-            keycfg.EndTimeOffset = m_Config.EndOffset;
-            keycfg.SeekStep = m_Config.SeekStep;
-            keycfg.AutoOC = m_Config.AutoOverlapCorrection;
-            keycfg.GCKey = m_Config.GotoCurrent;
-            keycfg.GPKey = m_Config.GotoPrevious;
-            keycfg.CTimeKey = m_Config.AddContTimePoint;
+            KeyConfigForm keycfg = new KeyConfigForm(m_Config);
+          
             if (keycfg.ShowDialog() == DialogResult.OK)
             {
-                m_Config.SeekBackword = keycfg.BWKey;
-                m_Config.SeekForward = keycfg.FFKey;
-                m_Config.Pause = keycfg.PauseKey;
-                m_Config.AddTimePoint = keycfg.TimeKey;
-                m_Config.AddStartTime = keycfg.STKey;
-                m_Config.AddEndTime = keycfg.ETKey;
-                m_Config.StartOffset = keycfg.StartTimeOffset;
-                m_Config.EndOffset = keycfg.EndTimeOffset;
-                m_Config.SeekStep = keycfg.SeekStep;
-                m_Config.AutoOverlapCorrection = keycfg.AutoOC;
-                m_Config.GotoCurrent = keycfg.GCKey;
-                m_Config.GotoPrevious = keycfg.GPKey;
-                m_Config.AddContTimePoint = keycfg.CTimeKey;
+
                 m_Config.Save();
             }
         }
@@ -956,6 +954,19 @@ namespace sgsubdotnet
             {
                 m_selectCells.TimeOffset(toDlg.TimeOffset, m_undoRec);
                 subtitleGrid.Refresh();
+            }
+        }
+
+        /// <summary>
+        /// 双击单元格
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void subtitleGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (subtitleGrid.CurrentCell != null)
+            {
+                subtitleGrid.BeginEdit(true);
             }
         }
         
