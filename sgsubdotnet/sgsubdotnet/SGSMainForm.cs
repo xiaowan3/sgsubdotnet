@@ -346,7 +346,7 @@ namespace sgsubdotnet
             m_Edited = true;
         }
 
-
+        
         private void addStartTime()
         {
             if (subtitleGrid.CurrentRow != null)
@@ -664,10 +664,8 @@ namespace sgsubdotnet
         private void KeyCfgToolStripMenuItem_Click(object sender, EventArgs e)
         {
             KeyConfigForm keycfg = new KeyConfigForm(m_Config);
-          
             if (keycfg.ShowDialog() == DialogResult.OK)
             {
-
                 m_Config.Save();
             }
         }
@@ -756,7 +754,6 @@ namespace sgsubdotnet
 
         private void subtitleGrid_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
         {
-
             if (subtitleGrid.CurrentRow != null)
             {
                 Subtitle.AssItem i = (Subtitle.AssItem)(subtitleGrid.Rows[e.Cell.RowIndex].DataBoundItem);
@@ -794,9 +791,7 @@ namespace sgsubdotnet
                 Subtitle.AssItem item = (Subtitle.AssItem)(subtitleGrid.Rows[rowindex].DataBoundItem);
                 if (e.Button == MouseButtons.Left)
                 {
-
                     addStartTimeToRow(subtitleGrid.CurrentRow.Index, e.Time);
-
                 }
                 if (e.Button == MouseButtons.Right)
                 {
@@ -841,9 +836,7 @@ namespace sgsubdotnet
             {
                 bool overlap = false;
                 bool timeerror = false;
-
                 TimeCheckStatus[] itemStatus = new TimeCheckStatus[subtitleGrid.Rows.Count];
-
                 subtitleGrid.Rows[0].Cells[0].Style.ForeColor = Color.Red;
                 for (int i = 0; i < subtitleGrid.Rows.Count - 1; i++)
                 {
