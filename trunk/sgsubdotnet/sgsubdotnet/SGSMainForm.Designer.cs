@@ -67,6 +67,7 @@
             this.tsBtnDuplicate = new System.Windows.Forms.ToolStripButton();
             this.tsBtnDelItem = new System.Windows.Forms.ToolStripButton();
             this.tsBtnInsAfter = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnInsBefore = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsBtnOLScan = new System.Windows.Forms.ToolStripButton();
             this.tsBtnUndo = new System.Windows.Forms.ToolStripButton();
@@ -90,7 +91,6 @@
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.mainpanel = new System.Windows.Forms.Panel();
-            this.tsBtnInsBefore = new System.Windows.Forms.ToolStripButton();
             this.hSpliter.Panel1.SuspendLayout();
             this.hSpliter.Panel2.SuspendLayout();
             this.hSpliter.SuspendLayout();
@@ -579,6 +579,16 @@
             this.tsBtnInsAfter.Text = "Insert After";
             this.tsBtnInsAfter.Click += new System.EventHandler(this.toolStripInsertAfter_Click);
             // 
+            // tsBtnInsBefore
+            // 
+            this.tsBtnInsBefore.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnInsBefore.Image = global::sgsubdotnet.Properties.Resources.insertbefore;
+            this.tsBtnInsBefore.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnInsBefore.Name = "tsBtnInsBefore";
+            this.tsBtnInsBefore.Size = new System.Drawing.Size(23, 22);
+            this.tsBtnInsBefore.Text = "Insert Before";
+            this.tsBtnInsBefore.Click += new System.EventHandler(this.tsBtnInsBefore_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -774,16 +784,6 @@
             this.mainpanel.Name = "mainpanel";
             this.mainpanel.Size = new System.Drawing.Size(742, 551);
             this.mainpanel.TabIndex = 3;
-            // 
-            // tsBtnInsBefore
-            // 
-            this.tsBtnInsBefore.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsBtnInsBefore.Image = global::sgsubdotnet.Properties.Resources.insertbefore;
-            this.tsBtnInsBefore.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsBtnInsBefore.Name = "tsBtnInsBefore";
-            this.tsBtnInsBefore.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnInsBefore.Text = "Insert Before";
-            this.tsBtnInsBefore.Click += new System.EventHandler(this.tsBtnInsBefore_Click);
             // 
             // SGSMainForm
             // 

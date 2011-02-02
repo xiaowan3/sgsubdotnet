@@ -79,7 +79,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\fftsupport\bin\fftsupport.dll">
+    <Content Include="..\fftsupport\bin\$(ConfigurationName)\fftsupport.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\fftsupport\libs\bin\libfftw3-3.dll">
