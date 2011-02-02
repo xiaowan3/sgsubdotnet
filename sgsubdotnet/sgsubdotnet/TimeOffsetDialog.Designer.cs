@@ -73,6 +73,7 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.maskedTextTimeOffset);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "TimeOffsetDialog";
             this.Text = "Time Offset";
             this.ResumeLayout(false);

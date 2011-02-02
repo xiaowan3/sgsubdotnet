@@ -88,6 +88,13 @@ namespace sgsubdotnet.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap insertbefore {
+            get {
+                object obj = ResourceManager.GetObject("insertbefore", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap jumpto {
             get {
                 object obj = ResourceManager.GetObject("jumpto", resourceCulture);
