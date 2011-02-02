@@ -90,6 +90,7 @@
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.mainpanel = new System.Windows.Forms.Panel();
+            this.tsBtnInsBefore = new System.Windows.Forms.ToolStripButton();
             this.hSpliter.Panel1.SuspendLayout();
             this.hSpliter.Panel2.SuspendLayout();
             this.hSpliter.SuspendLayout();
@@ -331,7 +332,7 @@
             this.tsBtnSaveSub,
             this.toolStripSeparator6,
             this.tsBtnFFT});
-            this.fileToolStrip.Location = new System.Drawing.Point(5, 0);
+            this.fileToolStrip.Location = new System.Drawing.Point(3, 0);
             this.fileToolStrip.Name = "fileToolStrip";
             this.fileToolStrip.Size = new System.Drawing.Size(139, 25);
             this.fileToolStrip.TabIndex = 0;
@@ -501,6 +502,7 @@
             this.tsBtnDuplicate,
             this.tsBtnDelItem,
             this.tsBtnInsAfter,
+            this.tsBtnInsBefore,
             this.toolStripSeparator2,
             this.tsBtnOLScan,
             this.tsBtnUndo,
@@ -509,7 +511,7 @@
             this.tsBtnTimeoffset});
             this.subToolStrip.Location = new System.Drawing.Point(3, 0);
             this.subToolStrip.Name = "subToolStrip";
-            this.subToolStrip.Size = new System.Drawing.Size(277, 25);
+            this.subToolStrip.Size = new System.Drawing.Size(331, 25);
             this.subToolStrip.TabIndex = 0;
             // 
             // tsBtnPause
@@ -574,7 +576,7 @@
             this.tsBtnInsAfter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnInsAfter.Name = "tsBtnInsAfter";
             this.tsBtnInsAfter.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnInsAfter.Text = "Insert after";
+            this.tsBtnInsAfter.Text = "Insert After";
             this.tsBtnInsAfter.Click += new System.EventHandler(this.toolStripInsertAfter_Click);
             // 
             // toolStripSeparator2
@@ -773,6 +775,16 @@
             this.mainpanel.Size = new System.Drawing.Size(742, 551);
             this.mainpanel.TabIndex = 3;
             // 
+            // tsBtnInsBefore
+            // 
+            this.tsBtnInsBefore.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBtnInsBefore.Image = global::sgsubdotnet.Properties.Resources.insertbefore;
+            this.tsBtnInsBefore.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnInsBefore.Name = "tsBtnInsBefore";
+            this.tsBtnInsBefore.Size = new System.Drawing.Size(23, 22);
+            this.tsBtnInsBefore.Text = "Insert Before";
+            this.tsBtnInsBefore.Click += new System.EventHandler(this.tsBtnInsBefore_Click);
+            // 
             // SGSMainForm
             // 
             this.AllowDrop = true;
@@ -889,6 +901,7 @@
         private System.Windows.Forms.Label labelLastDuration;
         private System.Windows.Forms.Label labelThisDuration;
         private System.Windows.Forms.Label labelNextDuration;
+        private System.Windows.Forms.ToolStripButton tsBtnInsBefore;
     }
 }
 

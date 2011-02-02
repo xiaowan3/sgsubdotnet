@@ -600,7 +600,7 @@ namespace sgsubdotnet
                         m_keydown = false;
                     }
                 }
-                else if (e.KeyCode == Keys.Delete)
+                else if (e.KeyCode == Keys.Delete && e.Modifiers != Keys.Control)
                 {
                     if (subtitleGrid.SelectedCells.Count != 0)
                     {
@@ -612,6 +612,22 @@ namespace sgsubdotnet
                         }
                         m_undoRec.EndEditMultiCells();
                         m_Edited = true;
+                    }
+                }
+                else if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control)
+                {
+                    if (subtitleGrid.CurrentRow != null)
+                    {
+                        List<DataGridViewRow> deleteRow = new List<DataGridViewRow>();
+                        foreach (DataGridViewCell cell in subtitleGrid.SelectedCells)
+                        {
+                            if (!deleteRow.Contains(subtitleGrid.Rows[cell.RowIndex])) 
+                                deleteRow.Add(subtitleGrid.Rows[cell.RowIndex]);
+                        }
+                        foreach (DataGridViewRow row in deleteRow)
+                        {
+                            DeleteRow(row);
+                        }
                     }
                 }
 
@@ -705,29 +721,39 @@ namespace sgsubdotnet
         {
             if (subtitleGrid.CurrentRow != null)
             {
-                Subtitle.AssItem i = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem));
-                m_undoRec.DeleteRow(subtitleGrid.CurrentRow.Index, subtitleGrid.CurrentRow);//为Undo记录删除操作
-                m_CurrentSub.SubItems.Remove(i);
-                m_selectCells.Reset(); //清空选中的单元格
-                subtitleGrid.Refresh();
-                m_CurrentSub.RefreshIndex();
-                m_Edited = true;
+                DeleteRow(subtitleGrid.CurrentRow);
             }
+        }
+
+        private void DeleteRow(DataGridViewRow row)
+        {
+            m_undoRec.DeleteRow(row.Index, row);//为Undo记录删除操作
+            Subtitle.AssItem i = ((Subtitle.AssItem)(row.DataBoundItem));
+            m_CurrentSub.SubItems.Remove(i);
+            m_selectCells.Reset(); //清空选中的单元格
+            subtitleGrid.Refresh();
+            m_CurrentSub.RefreshIndex();
+            m_Edited = true;
+        }
+
+        private void InsertNewRow(int index, DataGridViewRow currentRow)
+        {
+            Subtitle.AssItem i = ((Subtitle.AssItem)(currentRow.DataBoundItem)).Clone();
+            i.Text = "";
+            i.Start.TimeValue = 0;
+            i.End.TimeValue = 0;
+            m_CurrentSub.SubItems.Insert(index, i);
+            m_undoRec.InsertRow(index);//为Undo记录插入操作
+            m_selectCells.Reset(); //清空选中的单元格
+            subtitleGrid.Refresh();
+            m_Edited = true;
         }
 
         private void toolStripInsertAfter_Click(object sender, EventArgs e)
         {
             if (subtitleGrid.CurrentRow != null)
             {
-                Subtitle.AssItem i = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem)).Clone();
-                i.Text = "";
-                i.Start.TimeValue = 0;
-                i.End.TimeValue = 0;
-                m_CurrentSub.SubItems.Insert(subtitleGrid.CurrentRow.Index + 1, i);
-                m_undoRec.InsertRow(subtitleGrid.CurrentRow.Index + 1);//为Undo记录插入操作
-                m_selectCells.Reset(); //清空选中的单元格
-                subtitleGrid.Refresh();
-                m_Edited = true;
+                InsertNewRow(subtitleGrid.CurrentRow.Index + 1, subtitleGrid.CurrentRow);
             }
         }
 
@@ -1018,6 +1044,14 @@ namespace sgsubdotnet
                         e.Effect = DragDropEffects.Copy;
                     }
                 }
+            }
+        }
+
+        private void tsBtnInsBefore_Click(object sender, EventArgs e)
+        {
+            if (subtitleGrid.CurrentRow != null)
+            {
+                InsertNewRow(subtitleGrid.CurrentRow.Index, subtitleGrid.CurrentRow);
             }
         }
         

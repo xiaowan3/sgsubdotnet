@@ -144,6 +144,7 @@
     <None Include="Resources\fft.bmp" />
     <None Include="Resources\olscan.bmp" />
     <None Include="Resources\mark.bmp" />
+    <None Include="Resources\insertbefore.bmp" />
     <Content Include="Resources\Pause.bmp" />
     <None Include="Resources\RR.ico" />
     <None Include="Resources\ReinerRubin.bmp" />
