@@ -760,25 +760,37 @@ namespace sgsubdotnet
                 waveScope.Start = i.Start.TimeValue;
                 waveScope.End = i.End.TimeValue;
                 labelcurrent.Text = i.Text;
+                Subtitle.AssTime time = new Subtitle.AssTime();
+                time.TimeValue = i.End.TimeValue - i.Start.TimeValue;
+                if (time.TimeValue >= 0) labelThisDuration.Text = time.ToString();
+                    else labelThisDuration.Text = "Error";
                 if (e.Cell.RowIndex > 0)
                 {
                     i = (Subtitle.AssItem)(subtitleGrid.Rows[e.Cell.RowIndex - 1].DataBoundItem);
                     waveScope.LastStart = i.Start.TimeValue;
                     waveScope.LastEnd = i.End.TimeValue;
                     labellastline.Text = i.Text;
+                    time.TimeValue = i.End.TimeValue - i.Start.TimeValue;
+                    if (time.TimeValue >= 0) labelLastDuration.Text = time.ToString();
+                    else labelLastDuration.Text = "Error";
                 }
                 else
                 {
                     labellastline.Text = "";
+                    labelLastDuration.Text = "-:--:--.--";
                 }
                 if (e.Cell.RowIndex < subtitleGrid.Rows.Count - 1)
                 {
                     i = (Subtitle.AssItem)(subtitleGrid.Rows[e.Cell.RowIndex + 1].DataBoundItem);
                     labelnextline.Text = i.Text;
+                    time.TimeValue = i.End.TimeValue - i.Start.TimeValue;
+                    if (time.TimeValue >= 0) labelNextDuration.Text = time.ToString();
+                    else labelNextDuration.Text = "Error";
                 }
                 else
                 {
                     labelnextline.Text = "";
+                    labelNextDuration.Text = "-:--:--.--";
                 }
             }
         }

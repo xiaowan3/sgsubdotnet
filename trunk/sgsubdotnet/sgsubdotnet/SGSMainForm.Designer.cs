@@ -41,6 +41,9 @@
             this.labelcurrent = new System.Windows.Forms.Label();
             this.labelnextline = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.labelLastDuration = new System.Windows.Forms.Label();
+            this.labelThisDuration = new System.Windows.Forms.Label();
+            this.labelNextDuration = new System.Windows.Forms.Label();
             this.fileToolStrip = new System.Windows.Forms.ToolStrip();
             this.tsBtnOpenAss = new System.Windows.Forms.ToolStripButton();
             this.tsBtnOpenTxt = new System.Windows.Forms.ToolStripButton();
@@ -221,11 +224,14 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tableLayoutPanel1.Controls.Add(this.labellastline, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelcurrent, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelnextline, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.labelLastDuration, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelThisDuration, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.labelNextDuration, 2, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -243,7 +249,7 @@
             this.labellastline.AutoSize = true;
             this.labellastline.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labellastline.ForeColor = System.Drawing.Color.DimGray;
-            this.labellastline.Location = new System.Drawing.Point(182, 0);
+            this.labellastline.Location = new System.Drawing.Point(155, 0);
             this.labellastline.Name = "labellastline";
             this.labellastline.Size = new System.Drawing.Size(0, 16);
             this.labellastline.TabIndex = 0;
@@ -254,7 +260,7 @@
             this.labelcurrent.AutoSize = true;
             this.labelcurrent.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelcurrent.ForeColor = System.Drawing.Color.Black;
-            this.labelcurrent.Location = new System.Drawing.Point(182, 22);
+            this.labelcurrent.Location = new System.Drawing.Point(155, 22);
             this.labelcurrent.Name = "labelcurrent";
             this.labelcurrent.Size = new System.Drawing.Size(0, 16);
             this.labelcurrent.TabIndex = 1;
@@ -265,7 +271,7 @@
             this.labelnextline.AutoSize = true;
             this.labelnextline.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelnextline.ForeColor = System.Drawing.Color.DarkGreen;
-            this.labelnextline.Location = new System.Drawing.Point(182, 44);
+            this.labelnextline.Location = new System.Drawing.Point(155, 44);
             this.labelnextline.Name = "labelnextline";
             this.labelnextline.Size = new System.Drawing.Size(0, 16);
             this.labelnextline.TabIndex = 2;
@@ -280,6 +286,39 @@
             this.label1.Size = new System.Drawing.Size(24, 16);
             this.label1.TabIndex = 3;
             this.label1.Text = "->";
+            // 
+            // labelLastDuration
+            // 
+            this.labelLastDuration.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelLastDuration.AutoSize = true;
+            this.labelLastDuration.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelLastDuration.Location = new System.Drawing.Point(283, 5);
+            this.labelLastDuration.Name = "labelLastDuration";
+            this.labelLastDuration.Size = new System.Drawing.Size(65, 12);
+            this.labelLastDuration.TabIndex = 4;
+            this.labelLastDuration.Text = "-:--:--.--";
+            // 
+            // labelThisDuration
+            // 
+            this.labelThisDuration.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelThisDuration.AutoSize = true;
+            this.labelThisDuration.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelThisDuration.Location = new System.Drawing.Point(283, 27);
+            this.labelThisDuration.Name = "labelThisDuration";
+            this.labelThisDuration.Size = new System.Drawing.Size(65, 12);
+            this.labelThisDuration.TabIndex = 5;
+            this.labelThisDuration.Text = "-:--:--.--";
+            // 
+            // labelNextDuration
+            // 
+            this.labelNextDuration.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelNextDuration.AutoSize = true;
+            this.labelNextDuration.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelNextDuration.Location = new System.Drawing.Point(283, 49);
+            this.labelNextDuration.Name = "labelNextDuration";
+            this.labelNextDuration.Size = new System.Drawing.Size(65, 12);
+            this.labelNextDuration.TabIndex = 6;
+            this.labelNextDuration.Text = "-:--:--.--";
             // 
             // fileToolStrip
             // 
@@ -847,6 +886,9 @@
         private System.Windows.Forms.ToolStripMenuItem unselectToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton tsBtnUnselectAll;
         private System.Windows.Forms.ToolStripButton tsBtnTimeoffset;
+        private System.Windows.Forms.Label labelLastDuration;
+        private System.Windows.Forms.Label labelThisDuration;
+        private System.Windows.Forms.Label labelNextDuration;
     }
 }
 
