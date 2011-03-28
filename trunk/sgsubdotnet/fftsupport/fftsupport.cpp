@@ -41,14 +41,14 @@ extern "C" __declspec(dllexport) void DoFFT(FFTBUF* fftbuf, Int16 input[], int i
 	{
 		t = abs(fftbuf->output[i]);
 		fftbuf->output[i] = t;
-		if(t > max) max = t;
+		if(t > max && i < 80) max = t;
 	}
 
 	max /= 255;
 	if(max<0.1) max = 0.1;
 	for(int i = 0 ; i < 100;i++)
 	{
-		t = (fftbuf->output[i+1]/2+fftbuf->output[i+2]+fftbuf->output[i+3]/2)/max;
+		t = (fftbuf->output[i+1]/2+fftbuf->output[i+2]+fftbuf->output[i+3]/2)/(2*max);
 			out[99-i] = (UInt8)(t<=255?t:255);
 	}
 }

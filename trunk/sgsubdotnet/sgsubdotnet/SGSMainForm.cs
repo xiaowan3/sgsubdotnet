@@ -346,7 +346,9 @@ namespace sgsubdotnet
             m_Edited = true;
         }
 
-        
+        /// <summary>
+        /// 插入开始时间，并移动当前单元格
+        /// </summary>
         private void addStartTime()
         {
             if (subtitleGrid.CurrentRow != null)
@@ -372,7 +374,9 @@ namespace sgsubdotnet
             }
         }
 
-
+        /// <summary>
+        /// 插入结束时间，并移动当前单元格
+        /// </summary>
         private void addEndTime()
         {
             if (subtitleGrid.CurrentRow != null)
@@ -592,6 +596,17 @@ namespace sgsubdotnet
                         addStartTime();
                     }
                 }
+                else if (e.KeyCode == m_Config.AddCellTime)
+                {
+                    if (subtitleGrid.CurrentCell.ColumnIndex == 0)
+                    {
+                        addStartTime();
+                    }
+                    else if (subtitleGrid.CurrentCell.ColumnIndex == 1)
+                    {
+                        addEndTime();
+                    }
+                }
                 else if (e.KeyCode == m_Config.EnterEditMode)
                 {
                     if (subtitleGrid.CurrentCell != null)
@@ -621,7 +636,7 @@ namespace sgsubdotnet
                         List<DataGridViewRow> deleteRow = new List<DataGridViewRow>();
                         foreach (DataGridViewCell cell in subtitleGrid.SelectedCells)
                         {
-                            if (!deleteRow.Contains(subtitleGrid.Rows[cell.RowIndex])) 
+                            if (!deleteRow.Contains(subtitleGrid.Rows[cell.RowIndex]))
                                 deleteRow.Add(subtitleGrid.Rows[cell.RowIndex]);
                         }
                         foreach (DataGridViewRow row in deleteRow)

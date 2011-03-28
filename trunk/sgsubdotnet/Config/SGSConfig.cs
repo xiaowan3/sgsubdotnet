@@ -50,6 +50,12 @@ namespace Config
         public Keys AddTimePoint { get; set; }
 
         /// <summary>
+        /// 插入单元格时间点按键（按下插入当前时间）
+        /// </summary>
+        [DataMember()]
+        public Keys AddCellTime { get; set; }
+
+        /// <summary>
         /// 连续插入时间点（插入结束时间点和下一行开始时间点）
         /// </summary>
         [DataMember()]
