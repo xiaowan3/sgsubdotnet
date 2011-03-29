@@ -511,7 +511,7 @@
             this.tsBtnTimeoffset});
             this.subToolStrip.Location = new System.Drawing.Point(3, 0);
             this.subToolStrip.Name = "subToolStrip";
-            this.subToolStrip.Size = new System.Drawing.Size(331, 25);
+            this.subToolStrip.Size = new System.Drawing.Size(300, 25);
             this.subToolStrip.TabIndex = 0;
             // 
             // tsBtnPause

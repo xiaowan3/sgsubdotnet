@@ -65,6 +65,8 @@
             this.label17 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.btnSaveAss = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numST)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numET)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSS)).BeginInit();
@@ -93,7 +95,7 @@
             // 
             // btnT
             // 
-            this.btnT.Location = new System.Drawing.Point(169, 131);
+            this.btnT.Location = new System.Drawing.Point(169, 126);
             this.btnT.Name = "btnT";
             this.btnT.Size = new System.Drawing.Size(53, 28);
             this.btnT.TabIndex = 2;
@@ -103,7 +105,7 @@
             // 
             // btnST
             // 
-            this.btnST.Location = new System.Drawing.Point(372, 131);
+            this.btnST.Location = new System.Drawing.Point(372, 126);
             this.btnST.Name = "btnST";
             this.btnST.Size = new System.Drawing.Size(53, 28);
             this.btnST.TabIndex = 3;
@@ -113,7 +115,7 @@
             // 
             // btnET
             // 
-            this.btnET.Location = new System.Drawing.Point(372, 165);
+            this.btnET.Location = new System.Drawing.Point(372, 160);
             this.btnET.Name = "btnET";
             this.btnET.Size = new System.Drawing.Size(53, 28);
             this.btnET.TabIndex = 4;
@@ -303,7 +305,7 @@
             // 
             // btnCT
             // 
-            this.btnCT.Location = new System.Drawing.Point(169, 199);
+            this.btnCT.Location = new System.Drawing.Point(169, 194);
             this.btnCT.Name = "btnCT";
             this.btnCT.Size = new System.Drawing.Size(53, 28);
             this.btnCT.TabIndex = 20;
@@ -313,7 +315,7 @@
             // 
             // btnEEM
             // 
-            this.btnEEM.Location = new System.Drawing.Point(169, 249);
+            this.btnEEM.Location = new System.Drawing.Point(169, 240);
             this.btnEEM.Name = "btnEEM";
             this.btnEEM.Size = new System.Drawing.Size(53, 28);
             this.btnEEM.TabIndex = 21;
@@ -369,7 +371,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(40, 139);
+            this.label12.Location = new System.Drawing.Point(40, 134);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(113, 12);
             this.label12.TabIndex = 27;
@@ -378,7 +380,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(28, 173);
+            this.label13.Location = new System.Drawing.Point(28, 168);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(125, 12);
             this.label13.TabIndex = 28;
@@ -387,7 +389,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(40, 207);
+            this.label14.Location = new System.Drawing.Point(40, 202);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(113, 12);
             this.label14.TabIndex = 29;
@@ -395,7 +397,7 @@
             // 
             // btnCellT
             // 
-            this.btnCellT.Location = new System.Drawing.Point(169, 165);
+            this.btnCellT.Location = new System.Drawing.Point(169, 160);
             this.btnCellT.Name = "btnCellT";
             this.btnCellT.Size = new System.Drawing.Size(53, 28);
             this.btnCellT.TabIndex = 30;
@@ -406,7 +408,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(263, 139);
+            this.label15.Location = new System.Drawing.Point(263, 134);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(89, 12);
             this.label15.TabIndex = 31;
@@ -415,7 +417,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(263, 173);
+            this.label16.Location = new System.Drawing.Point(263, 168);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(89, 12);
             this.label16.TabIndex = 32;
@@ -424,7 +426,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(76, 257);
+            this.label17.Location = new System.Drawing.Point(76, 248);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(77, 12);
             this.label17.TabIndex = 33;
@@ -434,9 +436,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(253, 257);
+            this.groupBox1.Location = new System.Drawing.Point(253, 296);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(193, 177);
+            this.groupBox1.Size = new System.Drawing.Size(193, 152);
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "说明";
@@ -444,20 +446,41 @@
             // textBox1
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(24, 31);
+            this.textBox1.Location = new System.Drawing.Point(24, 20);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(148, 140);
+            this.textBox1.Size = new System.Drawing.Size(148, 121);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = "插入时间（按行）：按下时插入开始时间，释放时插入结束时间。\r\n\r\n插入时间（单元格）：按下时插入当前单元格的时间。\r\n\r\n插入时间（连续）：按下时插入当前行的结束" +
                 "时间和下一行的开始时间。";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(287, 248);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(65, 12);
+            this.label18.TabIndex = 35;
+            this.label18.Text = "保存字幕：";
+            // 
+            // btnSaveAss
+            // 
+            this.btnSaveAss.Location = new System.Drawing.Point(372, 240);
+            this.btnSaveAss.Name = "btnSaveAss";
+            this.btnSaveAss.Size = new System.Drawing.Size(53, 28);
+            this.btnSaveAss.TabIndex = 36;
+            this.btnSaveAss.Text = "编辑";
+            this.btnSaveAss.UseVisualStyleBackColor = true;
+            this.btnSaveAss.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnSaveAss_KeyDown);
             // 
             // KeyConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(458, 500);
+            this.Controls.Add(this.btnSaveAss);
+            this.Controls.Add(this.label18);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
@@ -545,5 +568,7 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button btnSaveAss;
     }
 }
