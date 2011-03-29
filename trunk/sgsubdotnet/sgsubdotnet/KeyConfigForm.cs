@@ -31,6 +31,7 @@ namespace sgsubdotnet
             CTimeKey = m_Config.AddContTimePoint;
             EEMKey = m_Config.EnterEditMode;
             CellTimeKey = m_Config.AddCellTime;
+            SaveAssKey = m_Config.SaveAss;
 
         }
 
@@ -47,6 +48,7 @@ namespace sgsubdotnet
         public Keys GPKey;
         public Keys EEMKey;
         public Keys CellTimeKey;
+        public Keys SaveAssKey;
         private double m_sto;
         public double StartTimeOffset
         {
@@ -84,6 +86,7 @@ namespace sgsubdotnet
             btnCT.Text =  CTimeKey.ToString();
             btnEEM.Text =  EEMKey.ToString();
             btnCellT.Text = CellTimeKey.ToString();
+            btnSaveAss.Text = SaveAssKey.ToString();
 
             numET.Value = (decimal)EndTimeOffset * 1000;
             numST.Value = (decimal)StartTimeOffset * 1000;
@@ -150,6 +153,7 @@ namespace sgsubdotnet
             m_Config.AddContTimePoint = CTimeKey;
             m_Config.EnterEditMode = EEMKey;
             m_Config.AddCellTime = CellTimeKey;
+            m_Config.SaveAss = SaveAssKey;
 
             DialogResult = DialogResult.OK;
         }
@@ -187,6 +191,12 @@ namespace sgsubdotnet
         {
             CellTimeKey = e.KeyCode;
             btnCellT.Text = CellTimeKey.ToString();
+        }
+
+        private void btnSaveAss_KeyDown(object sender, KeyEventArgs e)
+        {
+            SaveAssKey = e.KeyCode;
+            btnSaveAss.Text = SaveAssKey.ToString();
         }
     }
 }

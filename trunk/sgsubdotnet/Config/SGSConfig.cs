@@ -104,6 +104,9 @@ namespace Config
         [DataMember()]
         public Keys EnterEditMode { get; set; }
 
+
+        [DataMember()]
+        public Keys SaveAss { get; set; }
         /// <summary>
         /// 默认ass文件头
         /// </summary>

@@ -435,30 +435,49 @@ namespace sgsubdotnet
             }
         }
 
-        private bool m_keydown = false;
-
+        /// <summary>
+        /// Record Key Status
+        /// </summary>
+        private bool[] m_keyhold = new bool[256];
         private void subtitleGrid_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!m_keydown)
+            if ((int)e.KeyCode >= 0 && (int)e.KeyCode < 256)
             {
-                m_keydown = true;
-                if (e.KeyCode == Keys.ControlKey)
-                {
-                    m_keydown = false;
-                }
-                else if (e.KeyCode == m_Config.AddTimePoint)
+                #region Timeing Keys
+                if (e.KeyCode == m_Config.AddTimePoint && !m_keyhold[(int)e.KeyCode])
                 {
                     addStartTime();
                 }
-                else if (e.KeyCode == m_Config.AddStartTime)
+                else if (e.KeyCode == m_Config.AddStartTime && !m_keyhold[(int)e.KeyCode])
                 {
                     addStartTime();
                 }
-                else if (e.KeyCode == m_Config.AddEndTime)
+                else if (e.KeyCode == m_Config.AddEndTime && !m_keyhold[(int)e.KeyCode])
                 {
                     addEndTime();
                 }
-                else if (e.KeyCode == m_Config.Pause)
+                else if (e.KeyCode == m_Config.AddContTimePoint && !m_keyhold[(int)e.KeyCode])
+                {
+                    addEndTime();
+                    if (subtitleGrid.CurrentRow.Index < subtitleGrid.Rows.Count - 1)
+                    {
+                        addStartTime();
+                    }
+                }
+                else if (e.KeyCode == m_Config.AddCellTime && !m_keyhold[(int)e.KeyCode])
+                {
+                    if (subtitleGrid.CurrentCell.ColumnIndex == 0)
+                    {
+                        addStartTime();
+                    }
+                    else if (subtitleGrid.CurrentCell.ColumnIndex == 1)
+                    {
+                        addEndTime();
+                    }
+                }
+                #endregion
+                #region Seek Keys
+                else if (e.KeyCode == m_Config.Pause && !m_keyhold[(int)e.KeyCode])
                 {
                     if (m_VideoPlaying)
                     {
@@ -475,22 +494,48 @@ namespace sgsubdotnet
 
                     }
                 }
-                else if (e.KeyCode == m_Config.SeekBackword)
+                else if (e.KeyCode == m_Config.SeekBackword && !m_keyhold[(int)e.KeyCode])
                 {
                     if (m_VideoPlaying)
                     {
                         dxVideoPlayer.CurrentPosition -= m_Config.SeekStep;
                     }
                 }
-                else if (e.KeyCode == m_Config.SeekForward)
+                else if (e.KeyCode == m_Config.SeekForward && !m_keyhold[(int)e.KeyCode])
                 {
                     if (m_VideoPlaying)
                     {
                         dxVideoPlayer.CurrentPosition += m_Config.SeekStep;
                     }
                 }
+                else if (e.KeyCode == m_Config.GotoCurrent && !m_keyhold[(int)e.KeyCode])
+                {
+                    if (m_VideoPlaying && subtitleGrid.CurrentRow != null)
+                    {
+                        double position = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem)).Start.TimeValue;
+                        dxVideoPlayer.CurrentPosition = position;
+
+
+                    }
+                }
+                else if (e.KeyCode == m_Config.GotoPrevious && !m_keyhold[(int)e.KeyCode])
+                {
+                    if (m_VideoPlaying && subtitleGrid.CurrentRow != null)
+                    {
+                        int rowindex = subtitleGrid.CurrentRow.Index;
+                        double position;
+                        if (rowindex >= 1)
+                        {
+                            position = ((Subtitle.AssItem)(subtitleGrid.Rows[rowindex - 1].DataBoundItem)).Start.TimeValue;
+                            dxVideoPlayer.CurrentPosition = position;
+                        }
+                    }
+                }
+
+                #endregion
+                #region Edit Keys
                 //复制，支持多个单元格的复制和粘贴
-                else if (e.KeyCode == Keys.C && e.Modifiers == Keys.Control)
+                else if (e.KeyCode == Keys.C && e.Modifiers == Keys.Control && !m_keyhold[(int)e.KeyCode])
                 {
                     if (subtitleGrid.CurrentCell != null)
                     {
@@ -500,7 +545,7 @@ namespace sgsubdotnet
                         int nr, nc;
                         //内容
                         string[,] content;
-                        string cb ="";
+                        string cb = "";
                         cmin = subtitleGrid.SelectedCells[0].ColumnIndex;
                         cmax = cmin;
                         rmin = subtitleGrid.SelectedCells[0].RowIndex;
@@ -533,7 +578,7 @@ namespace sgsubdotnet
 
                 }
                 //粘贴，支持多个单元格的复制和粘贴
-                else if (e.KeyCode == Keys.V && e.Modifiers == Keys.Control)
+                else if (e.KeyCode == Keys.V && e.Modifiers == Keys.Control && !m_keyhold[(int)e.KeyCode])
                 {
                     if (subtitleGrid.CurrentCell != null && Clipboard.ContainsText())
                     {
@@ -541,9 +586,9 @@ namespace sgsubdotnet
                         cC = subtitleGrid.CurrentCell.ColumnIndex;
                         cR = subtitleGrid.CurrentCell.RowIndex;
                         string[] cells;
-                        char[] spliter = {'\t'};
+                        char[] spliter = { '\t' };
                         StringReader strReader = new StringReader(Clipboard.GetText());
-                        string line=strReader.ReadLine();
+                        string line = strReader.ReadLine();
                         m_undoRec.BeginMultiCells(); //开始Undo记录
                         while (line != null)
                         {
@@ -565,57 +610,15 @@ namespace sgsubdotnet
                         m_CurrentSub.RefreshIndex();
                     }
                 }
-                else if (e.KeyCode == m_Config.GotoCurrent)
-                {
-                    if (m_VideoPlaying && subtitleGrid.CurrentRow != null)
-                    {
-                        double position = ((Subtitle.AssItem)(subtitleGrid.CurrentRow.DataBoundItem)).Start.TimeValue;
-                        dxVideoPlayer.CurrentPosition = position;
 
-
-                    }
-                }
-                else if (e.KeyCode == m_Config.GotoPrevious)
-                {
-                    if (m_VideoPlaying && subtitleGrid.CurrentRow != null)
-                    {
-                        int rowindex = subtitleGrid.CurrentRow.Index;
-                        double position;
-                        if (rowindex >= 1)
-                        {
-                            position = ((Subtitle.AssItem)(subtitleGrid.Rows[rowindex - 1].DataBoundItem)).Start.TimeValue;
-                            dxVideoPlayer.CurrentPosition = position;
-                        }
-                    }
-                }
-                else if (e.KeyCode == m_Config.AddContTimePoint)
-                {
-                    addEndTime();
-                    if (subtitleGrid.CurrentRow.Index < subtitleGrid.Rows.Count - 1)
-                    {
-                        addStartTime();
-                    }
-                }
-                else if (e.KeyCode == m_Config.AddCellTime)
-                {
-                    if (subtitleGrid.CurrentCell.ColumnIndex == 0)
-                    {
-                        addStartTime();
-                    }
-                    else if (subtitleGrid.CurrentCell.ColumnIndex == 1)
-                    {
-                        addEndTime();
-                    }
-                }
                 else if (e.KeyCode == m_Config.EnterEditMode)
                 {
                     if (subtitleGrid.CurrentCell != null)
                     {
                         subtitleGrid.BeginEdit(true);
-                        m_keydown = false;
                     }
                 }
-                else if (e.KeyCode == Keys.Delete && e.Modifiers != Keys.Control)
+                else if (e.KeyCode == Keys.Delete && e.Modifiers != Keys.Control && !m_keyhold[(int)e.KeyCode])
                 {
                     if (subtitleGrid.SelectedCells.Count != 0)
                     {
@@ -629,7 +632,7 @@ namespace sgsubdotnet
                         m_Edited = true;
                     }
                 }
-                else if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control)
+                else if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control && !m_keyhold[(int)e.KeyCode])
                 {
                     if (subtitleGrid.CurrentRow != null)
                     {
@@ -645,17 +648,30 @@ namespace sgsubdotnet
                         }
                     }
                 }
-
+                #endregion
+                #region File Keys
+                else if (e.KeyCode == m_Config.SaveAss && !m_keyhold[(int)e.KeyCode])
+                {
+                    if (m_SubLoaded)
+                    {
+                        SaveAssSub();
+                    }
+                }
+                #endregion
+                m_keyhold[(int)e.KeyCode] = true;
             }
 
         }
 
         private void subtitleGrid_KeyUp(object sender, KeyEventArgs e)
         {
-            m_keydown = false;
             if (e.KeyCode==m_Config.AddTimePoint)
             {
                 addEndTime();
+            }
+            if ((int)e.KeyCode >= 0 && (int)e.KeyCode < 256)
+            {
+                m_keyhold[(int)e.KeyCode] = false;
             }
         }
 
