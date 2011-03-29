@@ -344,7 +344,7 @@
             this.tsBtnOpenAss.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnOpenAss.Name = "tsBtnOpenAss";
             this.tsBtnOpenAss.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnOpenAss.Text = "Open ASS File";
+            this.tsBtnOpenAss.Text = "打开ASS字幕";
             this.tsBtnOpenAss.Click += new System.EventHandler(this.OpenSub_Click);
             // 
             // tsBtnOpenTxt
@@ -354,7 +354,7 @@
             this.tsBtnOpenTxt.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnOpenTxt.Name = "tsBtnOpenTxt";
             this.tsBtnOpenTxt.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnOpenTxt.Text = "Open TXT File";
+            this.tsBtnOpenTxt.Text = "打开TXT翻译文本";
             this.tsBtnOpenTxt.Click += new System.EventHandler(this.OpenTxt_Click);
             // 
             // tsBtnOpenVideo
@@ -364,7 +364,7 @@
             this.tsBtnOpenVideo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnOpenVideo.Name = "tsBtnOpenVideo";
             this.tsBtnOpenVideo.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnOpenVideo.Text = "Open Video";
+            this.tsBtnOpenVideo.Text = "打开视频";
             this.tsBtnOpenVideo.Click += new System.EventHandler(this.OpenVideo_Click);
             // 
             // toolStripSeparator3
@@ -379,7 +379,7 @@
             this.tsBtnSaveSub.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnSaveSub.Name = "tsBtnSaveSub";
             this.tsBtnSaveSub.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnSaveSub.Text = "Save ASS";
+            this.tsBtnSaveSub.Text = "保存ASS字幕";
             this.tsBtnSaveSub.Click += new System.EventHandler(this.SaveSub_Click);
             // 
             // toolStripSeparator6
@@ -394,7 +394,7 @@
             this.tsBtnFFT.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnFFT.Name = "tsBtnFFT";
             this.tsBtnFFT.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnFFT.Text = "Initialize FFT";
+            this.tsBtnFFT.Text = "读取FFT频谱信息";
             this.tsBtnFFT.Click += new System.EventHandler(this.tsBtnFFT_Click);
             // 
             // smallSpliter
@@ -424,9 +424,9 @@
             this.subLabel.Location = new System.Drawing.Point(50, 9);
             this.subLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.subLabel.Name = "subLabel";
-            this.subLabel.Size = new System.Drawing.Size(256, 16);
+            this.subLabel.Size = new System.Drawing.Size(152, 16);
             this.subLabel.TabIndex = 0;
-            this.subLabel.Text = "Subtitle will be diplayed here.";
+            this.subLabel.Text = "字幕将显示在这里。";
             // 
             // toolStripContainer1
             // 
@@ -481,14 +481,14 @@
             // 
             this.selectToolStripMenuItem.Name = "selectToolStripMenuItem";
             this.selectToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
-            this.selectToolStripMenuItem.Text = "Select";
+            this.selectToolStripMenuItem.Text = "标记";
             this.selectToolStripMenuItem.Click += new System.EventHandler(this.SelectCell_Click);
             // 
             // unselectToolStripMenuItem
             // 
             this.unselectToolStripMenuItem.Name = "unselectToolStripMenuItem";
             this.unselectToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
-            this.unselectToolStripMenuItem.Text = "Unselect";
+            this.unselectToolStripMenuItem.Text = "取消标记";
             this.unselectToolStripMenuItem.Click += new System.EventHandler(this.DeselectCell_Click);
             // 
             // subToolStrip
@@ -521,7 +521,7 @@
             this.tsBtnPause.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnPause.Name = "tsBtnPause";
             this.tsBtnPause.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnPause.Text = "Pause";
+            this.tsBtnPause.Text = "暂停";
             this.tsBtnPause.Click += new System.EventHandler(this.toolStripPause_Click);
             // 
             // tsBtnPlay
@@ -531,7 +531,7 @@
             this.tsBtnPlay.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnPlay.Name = "tsBtnPlay";
             this.tsBtnPlay.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnPlay.Text = "Play";
+            this.tsBtnPlay.Text = "播放";
             this.tsBtnPlay.Click += new System.EventHandler(this.toolStripPlay_Click);
             // 
             // tsBtnJumpto
@@ -541,7 +541,7 @@
             this.tsBtnJumpto.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnJumpto.Name = "tsBtnJumpto";
             this.tsBtnJumpto.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnJumpto.Text = "Jump to";
+            this.tsBtnJumpto.Text = "跳至当前行";
             this.tsBtnJumpto.Click += new System.EventHandler(this.toolStripJumpto_Click);
             // 
             // toolStripSeparator1
@@ -556,7 +556,7 @@
             this.tsBtnDuplicate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDuplicate.Name = "tsBtnDuplicate";
             this.tsBtnDuplicate.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnDuplicate.Text = "Duplicate";
+            this.tsBtnDuplicate.Text = "重复当前行";
             this.tsBtnDuplicate.Click += new System.EventHandler(this.toolStripDuplicate_Click);
             // 
             // tsBtnDelItem
@@ -566,7 +566,7 @@
             this.tsBtnDelItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelItem.Name = "tsBtnDelItem";
             this.tsBtnDelItem.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnDelItem.Text = "Delete";
+            this.tsBtnDelItem.Text = "删除当前行";
             this.tsBtnDelItem.Click += new System.EventHandler(this.toolStripDeleteItem_Click);
             // 
             // tsBtnInsAfter
@@ -576,7 +576,7 @@
             this.tsBtnInsAfter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnInsAfter.Name = "tsBtnInsAfter";
             this.tsBtnInsAfter.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnInsAfter.Text = "Insert After";
+            this.tsBtnInsAfter.Text = "插入空行于之后";
             this.tsBtnInsAfter.Click += new System.EventHandler(this.toolStripInsertAfter_Click);
             // 
             // tsBtnInsBefore
@@ -586,7 +586,7 @@
             this.tsBtnInsBefore.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnInsBefore.Name = "tsBtnInsBefore";
             this.tsBtnInsBefore.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnInsBefore.Text = "Insert Before";
+            this.tsBtnInsBefore.Text = "插入空行于之前";
             this.tsBtnInsBefore.Click += new System.EventHandler(this.tsBtnInsBefore_Click);
             // 
             // toolStripSeparator2
@@ -601,7 +601,7 @@
             this.tsBtnOLScan.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnOLScan.Name = "tsBtnOLScan";
             this.tsBtnOLScan.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnOLScan.Text = "Overlap Scan";
+            this.tsBtnOLScan.Text = "时间轴检查";
             this.tsBtnOLScan.Click += new System.EventHandler(this.tsBtnOLScan_Click);
             // 
             // tsBtnUndo
@@ -611,7 +611,7 @@
             this.tsBtnUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnUndo.Name = "tsBtnUndo";
             this.tsBtnUndo.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnUndo.Text = "Undo";
+            this.tsBtnUndo.Text = "撤消";
             this.tsBtnUndo.Click += new System.EventHandler(this.tsBtnUndo_Click);
             // 
             // tsBtnSelect
@@ -621,7 +621,7 @@
             this.tsBtnSelect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnSelect.Name = "tsBtnSelect";
             this.tsBtnSelect.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnSelect.Text = "Mark Selected Cells";
+            this.tsBtnSelect.Text = "标记选中的单元格";
             this.tsBtnSelect.Click += new System.EventHandler(this.SelectCell_Click);
             // 
             // tsBtnUnselectAll
@@ -631,7 +631,7 @@
             this.tsBtnUnselectAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnUnselectAll.Name = "tsBtnUnselectAll";
             this.tsBtnUnselectAll.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnUnselectAll.Text = "Unmark All";
+            this.tsBtnUnselectAll.Text = "取消标记";
             this.tsBtnUnselectAll.Click += new System.EventHandler(this.tsBtnDeselectAll_Click);
             // 
             // tsBtnTimeoffset
@@ -641,7 +641,7 @@
             this.tsBtnTimeoffset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnTimeoffset.Name = "tsBtnTimeoffset";
             this.tsBtnTimeoffset.Size = new System.Drawing.Size(23, 22);
-            this.tsBtnTimeoffset.Text = "Time Offset";
+            this.tsBtnTimeoffset.Text = "时间轴平移";
             this.tsBtnTimeoffset.Click += new System.EventHandler(this.TimeOffset_Click);
             // 
             // mainMenu
@@ -654,7 +654,7 @@
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Size = new System.Drawing.Size(742, 24);
             this.mainMenu.TabIndex = 1;
-            this.mainMenu.Text = "menuStrip1";
+            this.mainMenu.Text = "主菜单";
             // 
             // FileToolStripMenuItem
             // 
