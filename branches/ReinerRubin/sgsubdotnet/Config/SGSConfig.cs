@@ -50,6 +50,18 @@ namespace Config
         public Keys AddTimePoint { get; set; }
 
         /// <summary>
+        /// 插入单元格时间点按键（按下插入当前时间）
+        /// </summary>
+        [DataMember()]
+        public Keys AddCellTime { get; set; }
+
+        /// <summary>
+        /// 连续插入时间点（插入结束时间点和下一行开始时间点）
+        /// </summary>
+        [DataMember()]
+        public Keys AddContTimePoint { get; set; }
+
+        /// <summary>
         /// 插入起始时间点按键
         /// </summary>
         [DataMember()]
@@ -86,6 +98,15 @@ namespace Config
         [DataMember()]
         public Keys GotoPrevious { get; set; }
 
+        /// <summary>
+        /// 进入编辑模式
+        /// </summary>
+        [DataMember()]
+        public Keys EnterEditMode { get; set; }
+
+
+        [DataMember()]
+        public Keys SaveAss { get; set; }
         /// <summary>
         /// 默认ass文件头
         /// </summary>

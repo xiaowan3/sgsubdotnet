@@ -95,7 +95,7 @@ namespace Subtitle
         /// <param name="filename"></param>
         public void WriteAss(string filename)
         {
-            FileStream ofile = new FileStream(filename, FileMode.OpenOrCreate);
+            FileStream ofile = new FileStream(filename, FileMode.Create);
             StreamWriter oStream = new StreamWriter(ofile);
             WriteAss(oStream);
             oStream.Flush();
@@ -111,7 +111,7 @@ namespace Subtitle
         /// <param name="encoding"></param>
         public void WriteAss(string filename, Encoding encoding)
         {
-            FileStream ofile = new FileStream(filename, FileMode.OpenOrCreate);
+            FileStream ofile = new FileStream(filename, FileMode.Create);
             StreamWriter oStream = new StreamWriter(ofile,encoding);
             WriteAss(oStream);
             oStream.Flush();
