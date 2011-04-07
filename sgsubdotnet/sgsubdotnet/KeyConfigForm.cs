@@ -11,19 +11,44 @@ namespace sgsubdotnet
 {
     public partial class KeyConfigForm : Form
     {
-        public KeyConfigForm()
+        public KeyConfigForm(Config.SGSConfig config)
         {
             InitializeComponent();
+            m_Config = config;
+
+            BWKey = m_Config.SeekBackword;
+            FFKey = m_Config.SeekForward;
+            PauseKey = m_Config.Pause;
+            TimeKey = m_Config.AddTimePoint;
+            STKey = m_Config.AddStartTime;
+            ETKey = m_Config.AddEndTime;
+            StartTimeOffset = m_Config.StartOffset;
+            EndTimeOffset = m_Config.EndOffset;
+            SeekStep = m_Config.SeekStep;
+            AutoOC = m_Config.AutoOverlapCorrection;
+            GCKey = m_Config.GotoCurrent;
+            GPKey = m_Config.GotoPrevious;
+            CTimeKey = m_Config.AddContTimePoint;
+            EEMKey = m_Config.EnterEditMode;
+            CellTimeKey = m_Config.AddCellTime;
+            SaveAssKey = m_Config.SaveAss;
+
         }
+
+        public Config.SGSConfig m_Config;
 
         public Keys BWKey;
         public Keys FFKey;
         public Keys PauseKey;
         public Keys TimeKey;
+        public Keys CTimeKey;
         public Keys STKey;
         public Keys ETKey;
         public Keys GCKey;
         public Keys GPKey;
+        public Keys EEMKey;
+        public Keys CellTimeKey;
+        public Keys SaveAssKey;
         private double m_sto;
         public double StartTimeOffset
         {
@@ -50,14 +75,18 @@ namespace sgsubdotnet
 
         private void KeyConfigForm_Load(object sender, EventArgs e)
         {
-            btnBW.Text = "后退" + BWKey.ToString();
-            btnFF.Text = "前进" + FFKey.ToString();
-            btnP.Text = "暂停" + PauseKey.ToString();
-            btnT.Text = "插入时间点" + TimeKey.ToString();
-            btnST.Text = "插入起始点" + STKey.ToString();
-            btnET.Text = "插入终止点" + ETKey.ToString();
-            btnGC.Text = "跳至当前行" + GCKey.ToString();
-            btnGP.Text = "跳至上一行" + GPKey.ToString();
+            btnBW.Text = BWKey.ToString();
+            btnFF.Text = FFKey.ToString();
+            btnP.Text = PauseKey.ToString();
+            btnT.Text =  TimeKey.ToString();
+            btnST.Text =  STKey.ToString();
+            btnET.Text =  ETKey.ToString();
+            btnGC.Text = GCKey.ToString();
+            btnGP.Text =  GPKey.ToString();
+            btnCT.Text =  CTimeKey.ToString();
+            btnEEM.Text =  EEMKey.ToString();
+            btnCellT.Text = CellTimeKey.ToString();
+            btnSaveAss.Text = SaveAssKey.ToString();
 
             numET.Value = (decimal)EndTimeOffset * 1000;
             numST.Value = (decimal)StartTimeOffset * 1000;
@@ -69,37 +98,37 @@ namespace sgsubdotnet
         private void btnBW_KeyDown(object sender, KeyEventArgs e)
         {
             BWKey = e.KeyCode;
-            btnBW.Text = "后退" + BWKey.ToString();
+            btnBW.Text = BWKey.ToString();
         }
 
         private void btnFF_KeyDown(object sender, KeyEventArgs e)
         {
             FFKey = e.KeyCode;
-            btnFF.Text = "前进" + FFKey.ToString();
+            btnFF.Text = FFKey.ToString();
         }
 
         private void btnP_KeyDown(object sender, KeyEventArgs e)
         {
             PauseKey = e.KeyCode;
-            btnP.Text = "暂停" + PauseKey.ToString();
+            btnP.Text = PauseKey.ToString();
         }
 
         private void btnT_KeyDown(object sender, KeyEventArgs e)
         {
             TimeKey = e.KeyCode;
-            btnT.Text = "插入时间点" + TimeKey.ToString();
+            btnT.Text =  TimeKey.ToString();
         }
 
         private void btnST_KeyDown(object sender, KeyEventArgs e)
         {
             STKey = e.KeyCode;
-            btnST.Text = "插入起始点" + STKey.ToString();
+            btnST.Text = STKey.ToString();
         }
 
         private void btnET_KeyDown(object sender, KeyEventArgs e)
         {
             ETKey = e.KeyCode;
-            btnET.Text = "插入终止点" + ETKey.ToString();
+            btnET.Text =  ETKey.ToString();
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -108,6 +137,24 @@ namespace sgsubdotnet
             StartTimeOffset = (double)(numST.Value) / 1000.0;
             SeekStep = (double)(numSS.Value);
             AutoOC = checkAOC.Checked;
+
+            m_Config.SeekBackword = BWKey;
+            m_Config.SeekForward = FFKey;
+            m_Config.Pause = PauseKey;
+            m_Config.AddTimePoint = TimeKey;
+            m_Config.AddStartTime = STKey;
+            m_Config.AddEndTime = ETKey;
+            m_Config.StartOffset = StartTimeOffset;
+            m_Config.EndOffset = EndTimeOffset;
+            m_Config.SeekStep = SeekStep;
+            m_Config.AutoOverlapCorrection = AutoOC;
+            m_Config.GotoCurrent = GCKey;
+            m_Config.GotoPrevious = GPKey;
+            m_Config.AddContTimePoint = CTimeKey;
+            m_Config.EnterEditMode = EEMKey;
+            m_Config.AddCellTime = CellTimeKey;
+            m_Config.SaveAss = SaveAssKey;
+
             DialogResult = DialogResult.OK;
         }
 
@@ -119,13 +166,37 @@ namespace sgsubdotnet
         private void btnGotoCurrent_KeyDown(object sender, KeyEventArgs e)
         {
             GCKey = e.KeyCode;
-            btnGC.Text = "跳至当前行" + GCKey.ToString();
+            btnGC.Text = GCKey.ToString();
         }
 
         private void btnGotoPrevious_KeyDown(object sender, KeyEventArgs e)
         {
             GPKey = e.KeyCode;
-            btnGP.Text = "跳至上一行" + GPKey.ToString();
+            btnGP.Text =  GPKey.ToString();
+        }
+
+        private void btnCT_KeyDown(object sender, KeyEventArgs e)
+        {
+            CTimeKey = e.KeyCode;
+            btnCT.Text =  CTimeKey.ToString();
+        }
+
+        private void btnEEM_KeyDown(object sender, KeyEventArgs e)
+        {
+            EEMKey = e.KeyCode;
+            btnEEM.Text = EEMKey.ToString();
+        }
+
+        private void btnCellT_KeyDown(object sender, KeyEventArgs e)
+        {
+            CellTimeKey = e.KeyCode;
+            btnCellT.Text = CellTimeKey.ToString();
+        }
+
+        private void btnSaveAss_KeyDown(object sender, KeyEventArgs e)
+        {
+            SaveAssKey = e.KeyCode;
+            btnSaveAss.Text = SaveAssKey.ToString();
         }
     }
 }
