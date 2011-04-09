@@ -61,12 +61,14 @@
             // 
             // labelSub
             // 
-            this.labelSub.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelSub.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.labelSub.AutoSize = true;
             this.labelSub.Font = new System.Drawing.Font("SimSun", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelSub.Location = new System.Drawing.Point(21, 12);
+            this.labelSub.Location = new System.Drawing.Point(13, 9);
+            this.labelSub.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSub.Name = "labelSub";
-            this.labelSub.Size = new System.Drawing.Size(69, 20);
+            this.labelSub.Size = new System.Drawing.Size(90, 25);
             this.labelSub.TabIndex = 0;
             this.labelSub.Text = "label1";
             // 
