@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BDFF0BC9-EE7E-4378-A319-D0CAF96E2CA1}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{1A4FC202-FBE8-4752-AA83-1FEC1171318D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SGSControls</RootNamespace>
-    <AssemblyName>SGSControls</AssemblyName>
+    <RootNamespace>test</RootNamespace>
+    <AssemblyName>test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -47,7 +47,6 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.DirectX.AudioVideoPlayback, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -59,105 +58,51 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WaveReader, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WaveReader\bin\x86\Release\WaveReader.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubEditor.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubEditor.Designer.cs">
-      <DependentUpon>SubEditor.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WaveFormViewer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WaveFormViewer.Designer.cs">
-      <DependentUpon>WaveFormViewer.cs</DependentUpon>
-    </Compile>
-    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
-  </ItemGroup>
-  <ItemGroup>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubEditor.resx">
-      <DependentUpon>SubEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WaveFormViewer.resx">
-      <DependentUpon>WaveFormViewer.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VideoPlayer\VideoPlayer.csproj">
-      <Project>{919513CF-DF3A-4F66-8BAC-2988EF98EB97}</Project>
-      <Name>VideoPlayer</Name>
+    <ProjectReference Include="..\SGSControls\SGSControls.csproj">
+      <Project>{BDFF0BC9-EE7E-4378-A319-D0CAF96E2CA1}</Project>
+      <Name>SGSControls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WaveReader\WaveReader.csproj">
-      <Project>{66428FAC-8E3C-4BFF-8268-069398389696}</Project>
-      <Name>WaveReader</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\Pause.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\Run.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\save.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\timeoffset.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\undo.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\unmark.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\copy.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\delete.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\fft.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\insertafter.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\insertbefore.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\jumpto.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\mark.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\olscan.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\openass.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\opentxt.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\openvideo.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
