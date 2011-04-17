@@ -99,6 +99,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Config\Config.csproj">
+      <Project>{5CAAC511-8895-4C8F-BFF6-73A912BCFE3A}</Project>
+      <Name>Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VideoPlayer\VideoPlayer.csproj">
       <Project>{919513CF-DF3A-4F66-8BAC-2988EF98EB97}</Project>
       <Name>VideoPlayer</Name>
