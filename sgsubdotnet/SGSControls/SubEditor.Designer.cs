@@ -118,6 +118,9 @@
             this.dataGridSubtitles.RowTemplate.Height = 23;
             this.dataGridSubtitles.Size = new System.Drawing.Size(456, 341);
             this.dataGridSubtitles.TabIndex = 0;
+            this.dataGridSubtitles.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridSubtitles_CellBeginEdit);
+            this.dataGridSubtitles.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridSubtitles_UserAddedRow);
+            this.dataGridSubtitles.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridSubtitles_CellEndEdit);
             // 
             // toolStrip1
             // 
@@ -232,11 +235,12 @@
             // tsbtnUndo
             // 
             this.tsbtnUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnUndo.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnUndo.Image")));
+            this.tsbtnUndo.Image = global::SGSControls.Properties.Resources.undo;
             this.tsbtnUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnUndo.Name = "tsbtnUndo";
             this.tsbtnUndo.Size = new System.Drawing.Size(23, 22);
             this.tsbtnUndo.Text = "toolStripButton9";
+            this.tsbtnUndo.Click += new System.EventHandler(this.tsbtnUndo_Click);
             // 
             // toolStripButton10
             // 
