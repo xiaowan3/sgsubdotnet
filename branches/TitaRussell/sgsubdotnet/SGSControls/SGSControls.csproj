@@ -76,6 +76,7 @@
       <DependentUpon>SubEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UndoRecord.cs" />
     <Compile Include="WaveFormViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
