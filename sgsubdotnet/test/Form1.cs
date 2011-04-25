@@ -15,5 +15,33 @@ namespace test
         {
             InitializeComponent();
         }
+        private Subtitle.AssSub m_CurrentSub = new Subtitle.AssSub();
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                OpenAss(dlg.FileName);
+                subEditor1.CurrentSub = m_CurrentSub;
+                subEditor1.VideoLength = 600;
+            }
+        }
+
+        private void OpenAss(string filename)
+        {
+            m_CurrentSub.LoadAss(filename);
+        }
+
+        private void subEditor1_Seek(object sender, SGSControls.SeekEventArgs e)
+        {
+            debugMessage.Text += "Seek Event, " + e.SeekDirection.ToString() + " " + e.SeekOffset.ToString() + Environment.NewLine;
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            subEditor1.DisplayTime(trackBar1.Value);
+        }
     }
 }
