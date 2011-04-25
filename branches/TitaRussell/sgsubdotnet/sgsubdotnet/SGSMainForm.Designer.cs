@@ -123,7 +123,6 @@
             this.hSpliter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.hSpliter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.hSpliter.Location = new System.Drawing.Point(0, 0);
-            this.hSpliter.Margin = new System.Windows.Forms.Padding(4);
             this.hSpliter.Name = "hSpliter";
             this.hSpliter.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -134,9 +133,8 @@
             // hSpliter.Panel2
             // 
             this.hSpliter.Panel2.Controls.Add(this.smallSpliter);
-            this.hSpliter.Size = new System.Drawing.Size(989, 696);
-            this.hSpliter.SplitterDistance = 306;
-            this.hSpliter.SplitterWidth = 5;
+            this.hSpliter.Size = new System.Drawing.Size(742, 551);
+            this.hSpliter.SplitterDistance = 242;
             this.hSpliter.TabIndex = 0;
             // 
             // vSpliter
@@ -144,7 +142,6 @@
             this.vSpliter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.vSpliter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vSpliter.Location = new System.Drawing.Point(0, 0);
-            this.vSpliter.Margin = new System.Windows.Forms.Padding(4);
             this.vSpliter.Name = "vSpliter";
             // 
             // vSpliter.Panel1
@@ -154,9 +151,8 @@
             // vSpliter.Panel2
             // 
             this.vSpliter.Panel2.Controls.Add(this.toolStripContainer2);
-            this.vSpliter.Size = new System.Drawing.Size(989, 306);
-            this.vSpliter.SplitterDistance = 505;
-            this.vSpliter.SplitterWidth = 5;
+            this.vSpliter.Size = new System.Drawing.Size(742, 242);
+            this.vSpliter.SplitterDistance = 378;
             this.vSpliter.TabIndex = 0;
             // 
             // dxVideoPlayer
@@ -166,9 +162,9 @@
             this.dxVideoPlayer.CurrentPosition = 0;
             this.dxVideoPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dxVideoPlayer.Location = new System.Drawing.Point(0, 0);
-            this.dxVideoPlayer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dxVideoPlayer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dxVideoPlayer.Name = "dxVideoPlayer";
-            this.dxVideoPlayer.Size = new System.Drawing.Size(501, 302);
+            this.dxVideoPlayer.Size = new System.Drawing.Size(374, 238);
             this.dxVideoPlayer.TabIndex = 0;
             // 
             // toolStripContainer2
@@ -177,13 +173,11 @@
             // toolStripContainer2.ContentPanel
             // 
             this.toolStripContainer2.ContentPanel.Controls.Add(this.spliterSoundbar);
-            this.toolStripContainer2.ContentPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(475, 277);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(356, 213);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
-            this.toolStripContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.toolStripContainer2.Name = "toolStripContainer2";
-            this.toolStripContainer2.Size = new System.Drawing.Size(475, 302);
+            this.toolStripContainer2.Size = new System.Drawing.Size(356, 238);
             this.toolStripContainer2.TabIndex = 0;
             this.toolStripContainer2.Text = "toolStripContainer2";
             // 
@@ -197,7 +191,7 @@
             this.spliterSoundbar.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.spliterSoundbar.IsSplitterFixed = true;
             this.spliterSoundbar.Location = new System.Drawing.Point(0, 0);
-            this.spliterSoundbar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.spliterSoundbar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.spliterSoundbar.Name = "spliterSoundbar";
             this.spliterSoundbar.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -208,8 +202,9 @@
             // spliterSoundbar.Panel2
             // 
             this.spliterSoundbar.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.spliterSoundbar.Size = new System.Drawing.Size(475, 277);
+            this.spliterSoundbar.Size = new System.Drawing.Size(356, 213);
             this.spliterSoundbar.SplitterDistance = 121;
+            this.spliterSoundbar.SplitterWidth = 3;
             this.spliterSoundbar.TabIndex = 0;
             // 
             // waveScope
@@ -217,20 +212,20 @@
             this.waveScope.CurrentPosition = 0;
             this.waveScope.Dock = System.Windows.Forms.DockStyle.Fill;
             this.waveScope.Location = new System.Drawing.Point(0, 0);
-            this.waveScope.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.waveScope.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.waveScope.MaximumSize = new System.Drawing.Size(0, 120);
             this.waveScope.MinimumSize = new System.Drawing.Size(0, 120);
             this.waveScope.Name = "waveScope";
-            this.waveScope.Size = new System.Drawing.Size(475, 120);
+            this.waveScope.Size = new System.Drawing.Size(356, 120);
             this.waveScope.TabIndex = 0;
             this.waveScope.WSMouseDown += new System.EventHandler<WaveReader.WFMouseEventArgs>(this.waveScope_WSMouseDown);
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tableLayoutPanel1.Controls.Add(this.labellastline, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelcurrent, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelnextline, 1, 2);
@@ -240,14 +235,13 @@
             this.tableLayoutPanel1.Controls.Add(this.labelNextDuration, 2, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(475, 152);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(356, 89);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labellastline
@@ -256,10 +250,9 @@
             this.labellastline.AutoSize = true;
             this.labellastline.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labellastline.ForeColor = System.Drawing.Color.DimGray;
-            this.labellastline.Location = new System.Drawing.Point(207, 0);
-            this.labellastline.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labellastline.Location = new System.Drawing.Point(155, 0);
             this.labellastline.Name = "labellastline";
-            this.labellastline.Size = new System.Drawing.Size(0, 20);
+            this.labellastline.Size = new System.Drawing.Size(0, 16);
             this.labellastline.TabIndex = 0;
             // 
             // labelcurrent
@@ -268,10 +261,9 @@
             this.labelcurrent.AutoSize = true;
             this.labelcurrent.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelcurrent.ForeColor = System.Drawing.Color.Black;
-            this.labelcurrent.Location = new System.Drawing.Point(207, 28);
-            this.labelcurrent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelcurrent.Location = new System.Drawing.Point(155, 22);
             this.labelcurrent.Name = "labelcurrent";
-            this.labelcurrent.Size = new System.Drawing.Size(0, 20);
+            this.labelcurrent.Size = new System.Drawing.Size(0, 16);
             this.labelcurrent.TabIndex = 1;
             // 
             // labelnextline
@@ -280,10 +272,9 @@
             this.labelnextline.AutoSize = true;
             this.labelnextline.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelnextline.ForeColor = System.Drawing.Color.DarkGreen;
-            this.labelnextline.Location = new System.Drawing.Point(207, 56);
-            this.labelnextline.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelnextline.Location = new System.Drawing.Point(155, 44);
             this.labelnextline.Name = "labelnextline";
-            this.labelnextline.Size = new System.Drawing.Size(0, 20);
+            this.labelnextline.Size = new System.Drawing.Size(0, 16);
             this.labelnextline.TabIndex = 2;
             // 
             // label1
@@ -291,10 +282,9 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(7, 32);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(3, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 20);
+            this.label1.Size = new System.Drawing.Size(24, 16);
             this.label1.TabIndex = 3;
             this.label1.Text = "->";
             // 
@@ -303,10 +293,9 @@
             this.labelLastDuration.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelLastDuration.AutoSize = true;
             this.labelLastDuration.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelLastDuration.Location = new System.Drawing.Point(379, 6);
-            this.labelLastDuration.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelLastDuration.Location = new System.Drawing.Point(284, 5);
             this.labelLastDuration.Name = "labelLastDuration";
-            this.labelLastDuration.Size = new System.Drawing.Size(87, 15);
+            this.labelLastDuration.Size = new System.Drawing.Size(65, 12);
             this.labelLastDuration.TabIndex = 4;
             this.labelLastDuration.Text = "-:--:--.--";
             // 
@@ -315,10 +304,9 @@
             this.labelThisDuration.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelThisDuration.AutoSize = true;
             this.labelThisDuration.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelThisDuration.Location = new System.Drawing.Point(379, 34);
-            this.labelThisDuration.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelThisDuration.Location = new System.Drawing.Point(284, 27);
             this.labelThisDuration.Name = "labelThisDuration";
-            this.labelThisDuration.Size = new System.Drawing.Size(87, 15);
+            this.labelThisDuration.Size = new System.Drawing.Size(65, 12);
             this.labelThisDuration.TabIndex = 5;
             this.labelThisDuration.Text = "-:--:--.--";
             // 
@@ -327,10 +315,9 @@
             this.labelNextDuration.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelNextDuration.AutoSize = true;
             this.labelNextDuration.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelNextDuration.Location = new System.Drawing.Point(379, 62);
-            this.labelNextDuration.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelNextDuration.Location = new System.Drawing.Point(284, 49);
             this.labelNextDuration.Name = "labelNextDuration";
-            this.labelNextDuration.Size = new System.Drawing.Size(87, 15);
+            this.labelNextDuration.Size = new System.Drawing.Size(65, 12);
             this.labelNextDuration.TabIndex = 6;
             this.labelNextDuration.Text = "-:--:--.--";
             // 
@@ -416,7 +403,6 @@
             this.smallSpliter.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.smallSpliter.IsSplitterFixed = true;
             this.smallSpliter.Location = new System.Drawing.Point(0, 0);
-            this.smallSpliter.Margin = new System.Windows.Forms.Padding(4);
             this.smallSpliter.Name = "smallSpliter";
             this.smallSpliter.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -427,18 +413,18 @@
             // smallSpliter.Panel2
             // 
             this.smallSpliter.Panel2.Controls.Add(this.toolStripContainer1);
-            this.smallSpliter.Size = new System.Drawing.Size(985, 381);
+            this.smallSpliter.Size = new System.Drawing.Size(738, 301);
             this.smallSpliter.SplitterDistance = 53;
-            this.smallSpliter.SplitterWidth = 5;
             this.smallSpliter.TabIndex = 1;
             // 
             // subLabel
             // 
             this.subLabel.AutoSize = true;
             this.subLabel.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.subLabel.Location = new System.Drawing.Point(67, 11);
+            this.subLabel.Location = new System.Drawing.Point(50, 9);
+            this.subLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.subLabel.Name = "subLabel";
-            this.subLabel.Size = new System.Drawing.Size(189, 20);
+            this.subLabel.Size = new System.Drawing.Size(152, 16);
             this.subLabel.TabIndex = 0;
             this.subLabel.Text = "字幕将显示在这里。";
             // 
@@ -448,13 +434,13 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.subtitleGrid);
-            this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(985, 298);
+            this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(738, 219);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
-            this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(985, 323);
+            this.toolStripContainer1.Size = new System.Drawing.Size(738, 244);
             this.toolStripContainer1.TabIndex = 1;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -472,10 +458,9 @@
             this.subtitleGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.subtitleGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.subtitleGrid.Location = new System.Drawing.Point(0, 0);
-            this.subtitleGrid.Margin = new System.Windows.Forms.Padding(4);
             this.subtitleGrid.Name = "subtitleGrid";
             this.subtitleGrid.RowTemplate.Height = 23;
-            this.subtitleGrid.Size = new System.Drawing.Size(985, 298);
+            this.subtitleGrid.Size = new System.Drawing.Size(738, 219);
             this.subtitleGrid.TabIndex = 0;
             this.subtitleGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.subtitleGrid_CellBeginEdit);
             this.subtitleGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.subtitleGrid_CellDoubleClick);
@@ -490,19 +475,19 @@
             this.selectToolStripMenuItem,
             this.unselectToolStripMenuItem});
             this.dataGridMenuStrip.Name = "dataGridMenuStrip";
-            this.dataGridMenuStrip.Size = new System.Drawing.Size(139, 52);
+            this.dataGridMenuStrip.Size = new System.Drawing.Size(119, 48);
             // 
             // selectToolStripMenuItem
             // 
             this.selectToolStripMenuItem.Name = "selectToolStripMenuItem";
-            this.selectToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.selectToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.selectToolStripMenuItem.Text = "标记";
             this.selectToolStripMenuItem.Click += new System.EventHandler(this.SelectCell_Click);
             // 
             // unselectToolStripMenuItem
             // 
             this.unselectToolStripMenuItem.Name = "unselectToolStripMenuItem";
-            this.unselectToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.unselectToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.unselectToolStripMenuItem.Text = "取消标记";
             this.unselectToolStripMenuItem.Click += new System.EventHandler(this.DeselectCell_Click);
             // 
@@ -667,8 +652,7 @@
             this.AboutToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.mainMenu.Size = new System.Drawing.Size(989, 28);
+            this.mainMenu.Size = new System.Drawing.Size(742, 24);
             this.mainMenu.TabIndex = 1;
             this.mainMenu.Text = "主菜单";
             // 
@@ -684,7 +668,7 @@
             this.toolStripSeparator5,
             this.ExitToolStripMenuItem});
             this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            this.FileToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.FileToolStripMenuItem.Text = "文件";
             // 
             // OpenSubToolStripMenuItem
@@ -692,7 +676,7 @@
             this.OpenSubToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.openass;
             this.OpenSubToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenSubToolStripMenuItem.Name = "OpenSubToolStripMenuItem";
-            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.OpenSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.OpenSubToolStripMenuItem.Text = "打开时间轴";
             this.OpenSubToolStripMenuItem.Click += new System.EventHandler(this.OpenSub_Click);
             // 
@@ -701,7 +685,7 @@
             this.OpenTxtToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.opentxt;
             this.OpenTxtToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenTxtToolStripMenuItem.Name = "OpenTxtToolStripMenuItem";
-            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.OpenTxtToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.OpenTxtToolStripMenuItem.Text = "打开翻译文本";
             this.OpenTxtToolStripMenuItem.Click += new System.EventHandler(this.OpenTxt_Click);
             // 
@@ -710,21 +694,21 @@
             this.OpenVideoToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.openvideo;
             this.OpenVideoToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenVideoToolStripMenuItem.Name = "OpenVideoToolStripMenuItem";
-            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.OpenVideoToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.OpenVideoToolStripMenuItem.Text = "打开动画";
             this.OpenVideoToolStripMenuItem.Click += new System.EventHandler(this.OpenVideo_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(165, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(139, 6);
             // 
             // SaveSubToolStripMenuItem
             // 
             this.SaveSubToolStripMenuItem.Image = global::sgsubdotnet.Properties.Resources.save;
             this.SaveSubToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SaveSubToolStripMenuItem.Name = "SaveSubToolStripMenuItem";
-            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.SaveSubToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.SaveSubToolStripMenuItem.Text = "保存时间轴";
             this.SaveSubToolStripMenuItem.Click += new System.EventHandler(this.SaveSub_Click);
             // 
@@ -732,20 +716,20 @@
             // 
             this.SaveAsSubToolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SaveAsSubToolStripMenuItem1.Name = "SaveAsSubToolStripMenuItem1";
-            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(168, 24);
+            this.SaveAsSubToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
             this.SaveAsSubToolStripMenuItem1.Text = "另存为时间轴";
             this.SaveAsSubToolStripMenuItem1.Click += new System.EventHandler(this.SaveAsSub_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(165, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(139, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.ExitToolStripMenuItem.Text = "退出";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -754,13 +738,13 @@
             this.ConfigToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.KeyCfgToolStripMenuItem});
             this.ConfigToolStripMenuItem.Name = "ConfigToolStripMenuItem";
-            this.ConfigToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.ConfigToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.ConfigToolStripMenuItem.Text = "设置";
             // 
             // KeyCfgToolStripMenuItem
             // 
             this.KeyCfgToolStripMenuItem.Name = "KeyCfgToolStripMenuItem";
-            this.KeyCfgToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.KeyCfgToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.KeyCfgToolStripMenuItem.Text = "按键设置";
             this.KeyCfgToolStripMenuItem.Click += new System.EventHandler(this.KeyCfgToolStripMenuItem_Click);
             // 
@@ -769,22 +753,21 @@
             this.AboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AboutSgsubToolStripMenuItem});
             this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
-            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.AboutToolStripMenuItem.Text = "关于";
             // 
             // AboutSgsubToolStripMenuItem
             // 
             this.AboutSgsubToolStripMenuItem.Name = "AboutSgsubToolStripMenuItem";
-            this.AboutSgsubToolStripMenuItem.Size = new System.Drawing.Size(192, 24);
+            this.AboutSgsubToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.AboutSgsubToolStripMenuItem.Text = "关于 SGSUB.Net";
             this.AboutSgsubToolStripMenuItem.Click += new System.EventHandler(this.AboutSgsubToolStripMenuItem_Click);
             // 
             // statusBar
             // 
-            this.statusBar.Location = new System.Drawing.Point(0, 724);
+            this.statusBar.Location = new System.Drawing.Point(0, 575);
             this.statusBar.Name = "statusBar";
-            this.statusBar.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusBar.Size = new System.Drawing.Size(989, 22);
+            this.statusBar.Size = new System.Drawing.Size(742, 22);
             this.statusBar.TabIndex = 2;
             this.statusBar.Text = "Status";
             // 
@@ -797,23 +780,21 @@
             // 
             this.mainpanel.Controls.Add(this.hSpliter);
             this.mainpanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainpanel.Location = new System.Drawing.Point(0, 28);
-            this.mainpanel.Margin = new System.Windows.Forms.Padding(4);
+            this.mainpanel.Location = new System.Drawing.Point(0, 24);
             this.mainpanel.Name = "mainpanel";
-            this.mainpanel.Size = new System.Drawing.Size(989, 696);
+            this.mainpanel.Size = new System.Drawing.Size(742, 551);
             this.mainpanel.TabIndex = 3;
             // 
             // SGSMainForm
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(989, 746);
+            this.ClientSize = new System.Drawing.Size(742, 597);
             this.Controls.Add(this.mainpanel);
             this.Controls.Add(this.statusBar);
             this.Controls.Add(this.mainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SGSMainForm";
             this.Text = "SGSUB.Net Reiner Rubin";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.SGSMainForm_DragDrop);
