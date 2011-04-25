@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubEditor));
             this.subeditorSpliter = new System.Windows.Forms.SplitContainer();
             this.labelSub = new System.Windows.Forms.Label();
             this.subEditorToolStrip = new System.Windows.Forms.ToolStripContainer();
@@ -45,9 +44,9 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtnTimeLineScan = new System.Windows.Forms.ToolStripButton();
             this.tsbtnUndo = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnMarkCells = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnUnmarkAll = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnTimeOffset = new System.Windows.Forms.ToolStripButton();
             this.subeditorSpliter.Panel1.SuspendLayout();
             this.subeditorSpliter.Panel2.SuspendLayout();
             this.subeditorSpliter.SuspendLayout();
@@ -87,7 +86,7 @@
             this.labelSub.Location = new System.Drawing.Point(13, 9);
             this.labelSub.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSub.Name = "labelSub";
-            this.labelSub.Size = new System.Drawing.Size(90, 25);
+            this.labelSub.Size = new System.Drawing.Size(69, 20);
             this.labelSub.TabIndex = 0;
             this.labelSub.Text = "label1";
             // 
@@ -137,9 +136,9 @@
             this.toolStripSeparator2,
             this.tsbtnTimeLineScan,
             this.tsbtnUndo,
-            this.toolStripButton10,
-            this.toolStripButton11,
-            this.toolStripButton12});
+            this.tsbtnMarkCells,
+            this.tsbtnUnmarkAll,
+            this.tsbtnTimeOffset});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(331, 25);
@@ -226,11 +225,12 @@
             // tsbtnTimeLineScan
             // 
             this.tsbtnTimeLineScan.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnTimeLineScan.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnTimeLineScan.Image")));
+            this.tsbtnTimeLineScan.Image = global::SGSControls.Properties.Resources.olscan;
             this.tsbtnTimeLineScan.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnTimeLineScan.Name = "tsbtnTimeLineScan";
             this.tsbtnTimeLineScan.Size = new System.Drawing.Size(23, 22);
             this.tsbtnTimeLineScan.Text = "toolStripButton8";
+            this.tsbtnTimeLineScan.Click += new System.EventHandler(this.tsbtnTimeLineScan_Click);
             // 
             // tsbtnUndo
             // 
@@ -242,32 +242,35 @@
             this.tsbtnUndo.Text = "toolStripButton9";
             this.tsbtnUndo.Click += new System.EventHandler(this.tsbtnUndo_Click);
             // 
-            // toolStripButton10
+            // tsbtnMarkCells
             // 
-            this.toolStripButton10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton10.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton10.Image")));
-            this.toolStripButton10.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton10.Name = "toolStripButton10";
-            this.toolStripButton10.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton10.Text = "toolStripButton10";
+            this.tsbtnMarkCells.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnMarkCells.Image = global::SGSControls.Properties.Resources.mark;
+            this.tsbtnMarkCells.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnMarkCells.Name = "tsbtnMarkCells";
+            this.tsbtnMarkCells.Size = new System.Drawing.Size(23, 22);
+            this.tsbtnMarkCells.Text = "toolStripButton10";
+            this.tsbtnMarkCells.Click += new System.EventHandler(this.tsbtnMarkCells_Click);
             // 
-            // toolStripButton11
+            // tsbtnUnmarkAll
             // 
-            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
-            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton11.Name = "toolStripButton11";
-            this.toolStripButton11.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton11.Text = "toolStripButton11";
+            this.tsbtnUnmarkAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnUnmarkAll.Image = global::SGSControls.Properties.Resources.unmark;
+            this.tsbtnUnmarkAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnUnmarkAll.Name = "tsbtnUnmarkAll";
+            this.tsbtnUnmarkAll.Size = new System.Drawing.Size(23, 22);
+            this.tsbtnUnmarkAll.Text = "toolStripButton11";
+            this.tsbtnUnmarkAll.Click += new System.EventHandler(this.tsbtnUnmarkAll_Click);
             // 
-            // toolStripButton12
+            // tsbtnTimeOffset
             // 
-            this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton12.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton12.Image")));
-            this.toolStripButton12.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton12.Name = "toolStripButton12";
-            this.toolStripButton12.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton12.Text = "toolStripButton12";
+            this.tsbtnTimeOffset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnTimeOffset.Image = global::SGSControls.Properties.Resources.timeoffset;
+            this.tsbtnTimeOffset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnTimeOffset.Name = "tsbtnTimeOffset";
+            this.tsbtnTimeOffset.Size = new System.Drawing.Size(23, 22);
+            this.tsbtnTimeOffset.Text = "toolStripButton12";
+            this.tsbtnTimeOffset.Click += new System.EventHandler(this.tsbtnTimeOffset_Click);
             // 
             // SubEditor
             // 
@@ -309,8 +312,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton tsbtnTimeLineScan;
         private System.Windows.Forms.ToolStripButton tsbtnUndo;
-        private System.Windows.Forms.ToolStripButton toolStripButton10;
-        private System.Windows.Forms.ToolStripButton toolStripButton11;
-        private System.Windows.Forms.ToolStripButton toolStripButton12;
+        private System.Windows.Forms.ToolStripButton tsbtnMarkCells;
+        private System.Windows.Forms.ToolStripButton tsbtnUnmarkAll;
+        private System.Windows.Forms.ToolStripButton tsbtnTimeOffset;
     }
 }

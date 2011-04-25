@@ -36,6 +36,8 @@ namespace SGSControls
             column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridSubtitles.Columns.Add(column);
             dataGridSubtitles.AllowUserToAddRows = false;
+
+            m_selectCells.Rows = dataGridSubtitles.Rows;
         }
         #region Private Members
 
@@ -47,6 +49,7 @@ namespace SGSControls
         private bool m_SubLoaded = false;
         private double m_VideoLength = 0;
         private UndoRecord m_UndoRec = new UndoRecord();
+        SelectCells m_selectCells = new SelectCells();
         #endregion
 
         public Subtitle.AssSub CurrentSub
@@ -119,7 +122,7 @@ namespace SGSControls
             m_UndoRec.DeleteRow(row.Index, row);//为Undo记录删除操作
             Subtitle.AssItem i = ((Subtitle.AssItem)(row.DataBoundItem));
             m_CurrentSub.SubItems.Remove(i);
-            //m_selectCells.Reset(); //清空选中的单元格
+            m_selectCells.Reset();//清空标记的单元格
             dataGridSubtitles.Refresh();
             m_CurrentSub.RefreshIndex();
             Edited = true;
@@ -134,11 +137,12 @@ namespace SGSControls
             m_CurrentSub.SubItems.Insert(index, i);
             m_CurrentSub.RefreshIndex();
             m_UndoRec.InsertRow(index);//为Undo记录插入操作
-            //m_selectCells.Reset(); //清空选中的单元格
+            m_selectCells.Reset(); //清空标记的单元格
             dataGridSubtitles.Refresh();
             Edited = true;
         }
 
+        #region Event handlers
         private void tsbtnJumpto_Click(object sender, EventArgs e)
         {
             Subtitle.AssItem item;
@@ -207,12 +211,8 @@ namespace SGSControls
         private bool cancelEdit;
         private void dataGridSubtitles_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
+            m_selectCells.Reset();
             oldString = dataGridSubtitles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-       //     if (m_VideoPlaying)
-         //   {
-         //       m_Paused = true;
-         //       dxVideoPlayer.Pause();
-         //   }
             if (e.ColumnIndex != 2)
             {
                Subtitle.AssItem item = (Subtitle.AssItem)dataGridSubtitles.Rows[e.RowIndex].DataBoundItem;
@@ -237,35 +237,137 @@ namespace SGSControls
                 if (!oldString.Equals(newString))
                 {
                     m_UndoRec.Edit(e.RowIndex, e.ColumnIndex, oldString);//比较单元格内容，如改变，记录undo
+                    Edited = true;
                 }
-
                 if (e.ColumnIndex != 2)
                 {
                     Subtitle.AssItem item = (Subtitle.AssItem)dataGridSubtitles.Rows[e.RowIndex].DataBoundItem;
                     m_CurrentSub.ItemEdited(item, oldS, oldE);
                 }
-                Edited = true;
             }
             
         }
 
         private void dataGridSubtitles_UserAddedRow(object sender, DataGridViewRowEventArgs e)
         {
-            m_UndoRec.InsertRow(e.Row.Index);
+            m_UndoRec.InsertRow(e.Row.Index - 1);
             cancelEdit = false;
             oldS = 0;
             oldE = 0;
             oldString = "";
             m_CurrentSub.RefreshIndex();
+            Edited = true;
         }
 
         private void tsbtnUndo_Click(object sender, EventArgs e)
         {
+            m_selectCells.Reset();
             m_UndoRec.Undo(m_CurrentSub);
             dataGridSubtitles.Refresh();
             m_CurrentSub.RefreshIndex();
             Edited = true;
         }
+
+
+        private enum TimeCheckStatus { OK = 0, OVERLAP, ERROR };
+
+        private void tsbtnTimeLineScan_Click(object sender, EventArgs e)
+        {
+            if (m_SubLoaded)
+            {
+                bool overlap = false;
+                bool timeerror = false;
+                int rowCount = dataGridSubtitles.Rows.Count - 1;
+                TimeCheckStatus[] itemStatus = new TimeCheckStatus[rowCount];
+                for (int i = 0; i < rowCount - 1; i++)
+                {
+                    Subtitle.AssItem itema = (Subtitle.AssItem)(dataGridSubtitles.Rows[i].DataBoundItem);
+                    if (itema.Start.TimeValue > itema.End.TimeValue)
+                    {
+                        itemStatus[i] = TimeCheckStatus.ERROR;
+                        continue;
+                    }
+                    for (int j = i + 1; j < rowCount; j++)
+                    {
+                        Subtitle.AssItem itemb = (Subtitle.AssItem)(dataGridSubtitles.Rows[j].DataBoundItem);
+                        if (itemb.Start.TimeValue > itemb.End.TimeValue)
+                        {
+                            itemStatus[j] = TimeCheckStatus.ERROR;
+                            continue;
+                        }
+                        if ((
+                            itema.End.TimeValue >= itemb.Start.TimeValue && itema.Start.TimeValue <= itemb.Start.TimeValue ||
+                            itemb.End.TimeValue >= itema.Start.TimeValue && itemb.Start.TimeValue <= itema.Start.TimeValue) &&
+                            itema.End.TimeValue - itema.Start.TimeValue > 0 && itemb.End.TimeValue - itemb.Start.TimeValue > 0
+                        )
+                        {
+                            itemStatus[i] = TimeCheckStatus.OVERLAP;
+                            itemStatus[j] = TimeCheckStatus.OVERLAP;
+                        }
+                    }
+
+                }
+                for (int i = 0; i < rowCount; i++)
+                {
+                    switch (itemStatus[i])
+                    {
+                        case TimeCheckStatus.OVERLAP:
+                            dataGridSubtitles.Rows[i].Cells[0].Style.ForeColor = Color.Red;
+                            dataGridSubtitles.Rows[i].Cells[1].Style.ForeColor = Color.Red;
+                            overlap = true;
+                            break;
+                        case TimeCheckStatus.OK:
+                            dataGridSubtitles.Rows[i].Cells[0].Style.ForeColor = Color.Black;
+                            dataGridSubtitles.Rows[i].Cells[1].Style.ForeColor = Color.Black;
+                            break;
+                        case TimeCheckStatus.ERROR:
+                            dataGridSubtitles.Rows[i].Cells[0].Style.ForeColor = Color.Blue;
+                            dataGridSubtitles.Rows[i].Cells[1].Style.ForeColor = Color.Blue;
+                            timeerror = true;
+                            break;
+                    }
+                }
+                string msg =
+                    timeerror && overlap ? "发现时间轴重叠和错误时间点" :
+                    timeerror && !overlap ? "发现错误时间点" :
+                    !timeerror && overlap ? "发现时间轴重叠" : "未发现时间轴重叠和错误时间点";
+
+                MessageBox.Show(msg, "时间轴检查");
+
+            }
+        }
+
+        private void tsbtnMarkCells_Click(object sender, EventArgs e)
+        {
+            int lastrowindex = dataGridSubtitles.RowCount - 1;
+            if (dataGridSubtitles.SelectedCells != null)
+            {
+                foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
+                {
+                    if (cell.RowIndex != lastrowindex)
+                        m_selectCells.SelectCell(cell.ColumnIndex, cell.RowIndex);
+                }
+            }
+        }
+
+        private void tsbtnUnmarkAll_Click(object sender, EventArgs e)
+        {
+            m_selectCells.DeselectAll();
+        }
+
+        private void tsbtnTimeOffset_Click(object sender, EventArgs e)
+        {
+            if (m_SubLoaded)
+            {
+                TimeOffsetDialog toDlg = new TimeOffsetDialog();
+                if (toDlg.ShowDialog() == DialogResult.OK)
+                {
+                    m_selectCells.TimeOffset(toDlg.TimeOffset, m_UndoRec);
+                    dataGridSubtitles.Refresh();
+                }
+            }
+        }
+        #endregion
 
     }
 
