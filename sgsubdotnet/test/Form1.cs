@@ -26,6 +26,7 @@ namespace test
                 OpenAss(dlg.FileName);
                 subEditor1.CurrentSub = m_CurrentSub;
                 subEditor1.VideoLength = 600;
+                subEditor1.Config = new Config.SGSConfig();
             }
         }
 
