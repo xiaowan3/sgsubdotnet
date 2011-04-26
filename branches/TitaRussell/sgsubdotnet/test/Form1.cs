@@ -14,6 +14,9 @@ namespace test
         public Form1()
         {
             InitializeComponent();
+            Config.SGSConfig cfg = Config.SGSConfig.FromFile(@"E:\test\sgscfg.xml");
+            subEditor1.Config = cfg;
+            
         }
         private Subtitle.AssSub m_CurrentSub = new Subtitle.AssSub();
 
@@ -26,7 +29,7 @@ namespace test
                 OpenAss(dlg.FileName);
                 subEditor1.CurrentSub = m_CurrentSub;
                 subEditor1.VideoLength = 600;
-                subEditor1.Config = new Config.SGSConfig();
+
             }
         }
 
@@ -43,6 +46,13 @@ namespace test
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             subEditor1.DisplayTime(trackBar1.Value);
+        }
+
+        private void subEditor1_TimeEdit(object sender, SGSControls.TimeEditEventArgs e)
+        {
+            double value = trackBar1.Value;
+            e.CancelEvent = checkBox1.Checked;
+            e.TimeValue = value;
         }
     }
 }

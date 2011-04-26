@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Subtitle.AssSub assSub2 = new Subtitle.AssSub();
+            Subtitle.AssSub assSub1 = new Subtitle.AssSub();
             this.waveFormViewer1 = new SGSControls.WaveFormViewer();
             this.subEditor1 = new SGSControls.SubEditor();
             this.button1 = new System.Windows.Forms.Button();
             this.debugMessage = new System.Windows.Forms.TextBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,12 +48,15 @@
             // subEditor1
             // 
             this.subEditor1.Config = null;
-            this.subEditor1.CurrentSub = assSub2;
+            this.subEditor1.CurrentSub = assSub1;
+            this.subEditor1.Edited = false;
             this.subEditor1.Location = new System.Drawing.Point(12, 282);
             this.subEditor1.Name = "subEditor1";
             this.subEditor1.Size = new System.Drawing.Size(569, 214);
             this.subEditor1.TabIndex = 1;
+            this.subEditor1.VideoLength = 0;
             this.subEditor1.Seek += new System.EventHandler<SGSControls.SeekEventArgs>(this.subEditor1_Seek);
+            this.subEditor1.TimeEdit += new System.EventHandler<SGSControls.TimeEditEventArgs>(this.subEditor1_TimeEdit);
             // 
             // button1
             // 
@@ -82,11 +86,22 @@
             this.trackBar1.TickFrequency = 60;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(731, 45);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(101, 19);
+            this.checkBox1.TabIndex = 5;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(969, 508);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.debugMessage);
             this.Controls.Add(this.button1);
@@ -107,6 +122,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox debugMessage;
         private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

@@ -145,7 +145,7 @@
             this.tsbtnTimeOffset});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(300, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(331, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // tsbtnPause
@@ -156,6 +156,7 @@
             this.tsbtnPause.Name = "tsbtnPause";
             this.tsbtnPause.Size = new System.Drawing.Size(23, 22);
             this.tsbtnPause.Text = "暂停";
+            this.tsbtnPause.Click += new System.EventHandler(this.tsbtnPause_Click);
             // 
             // tsbtnPlay
             // 
@@ -165,6 +166,7 @@
             this.tsbtnPlay.Name = "tsbtnPlay";
             this.tsbtnPlay.Size = new System.Drawing.Size(23, 22);
             this.tsbtnPlay.Text = "播放";
+            this.tsbtnPlay.Click += new System.EventHandler(this.tsbtnPlay_Click);
             // 
             // tsbtnJumpto
             // 
