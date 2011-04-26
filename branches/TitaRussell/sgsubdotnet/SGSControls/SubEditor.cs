@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SGSControls
@@ -339,7 +340,7 @@ namespace SGSControls
 
         private void tsbtnMarkCells_Click(object sender, EventArgs e)
         {
-            int lastrowindex = dataGridSubtitles.RowCount - 1;
+            int lastrowindex = dataGridSubtitles.RowCount - 2;
             if (dataGridSubtitles.SelectedCells != null)
             {
                 foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
@@ -369,6 +370,208 @@ namespace SGSControls
         }
         #endregion
 
+        /// <summary>
+        /// Record Key Status
+        /// </summary>
+        private bool[] m_keyhold = new bool[256];
+        private void dataGridSubtitles_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (m_Config == null) return;
+            if ((int)e.KeyCode >= 0 && (int)e.KeyCode < 256)
+            {
+                #region Timeing Keys
+                if (e.KeyCode == m_Config.AddTimePoint && !m_keyhold[(int)e.KeyCode])
+                {
+                    //单键插入时间点
+                }
+                else if (e.KeyCode == m_Config.AddStartTime && !m_keyhold[(int)e.KeyCode])
+                {
+                    //插入开始时间
+                }
+                else if (e.KeyCode == m_Config.AddEndTime && !m_keyhold[(int)e.KeyCode])
+                {
+                    //插入结束时间
+                }
+                else if (e.KeyCode == m_Config.AddContTimePoint && !m_keyhold[(int)e.KeyCode])
+                {
+                    //连续插入时间
+                }
+                else if (e.KeyCode == m_Config.AddCellTime && !m_keyhold[(int)e.KeyCode])
+                {
+                    //插入单元格时间
+                }
+                #endregion
+                #region Seek Keys
+                else if (e.KeyCode == m_Config.Pause && !m_keyhold[(int)e.KeyCode])
+                {
+                    //暂停
+                }
+                else if (e.KeyCode == m_Config.SeekBackword && !m_keyhold[(int)e.KeyCode])
+                {
+                    //Seek
+                }
+                else if (e.KeyCode == m_Config.SeekForward && !m_keyhold[(int)e.KeyCode])
+                {
+                    //Seek
+                }
+                else if (e.KeyCode == m_Config.GotoCurrent && !m_keyhold[(int)e.KeyCode])
+                {
+                    //Jumpto
+                }
+                else if (e.KeyCode == m_Config.GotoPrevious && !m_keyhold[(int)e.KeyCode])
+                {
+                    //Jumpto
+                }
+
+                #endregion
+                #region Edit Keys
+                //复制，支持多个单元格的复制和粘贴
+                else if (e.KeyCode == Keys.C && e.Modifiers == Keys.Control && !m_keyhold[(int)e.KeyCode])
+                {
+                    if (dataGridSubtitles.CurrentCell != null)
+                    {
+                        //行，列的取值范围
+                        int cmin, cmax, rmin, rmax;
+                        //行，列的个数
+                        int nr, nc;
+                        //内容
+                        string[,] content;
+                        string cb = "";
+                        int lastRowIndex = dataGridSubtitles.RowCount - 2;
+                        cmin = dataGridSubtitles.ColumnCount;
+                        cmax = 0;
+                        rmin = lastRowIndex;
+                        rmax = 0;
+                        foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
+                        {
+                            if (cell.RowIndex > lastRowIndex) continue;
+                            if (cell.ColumnIndex < cmin) cmin = cell.ColumnIndex;
+                            if (cell.ColumnIndex > cmax) cmax = cell.ColumnIndex;
+                            if (cell.RowIndex < rmin) rmin = cell.RowIndex;
+                            if (cell.RowIndex > rmax) rmax = cell.RowIndex;
+                        }
+                        nr = rmax - rmin + 1;
+                        nc = cmax - cmin + 1;
+                        content = new string[nr, nc];
+                        foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
+                        {
+                            if (cell.RowIndex > lastRowIndex) continue;
+                            content[cell.RowIndex - rmin, cell.ColumnIndex - cmin] = cell.Value.ToString();
+                        }
+                        for (int r = 0; r < nr; r++)
+                        {
+                            for (int c = 0; c < nc; c++)
+                            {
+                                cb += content[r, c];
+                                if (c != nc - 1) cb += "\t";
+                            }
+                            cb += Environment.NewLine;
+                        }
+                        Clipboard.SetText(cb);
+                    }
+
+                }
+                //粘贴，支持多个单元格的复制和粘贴
+                else if (e.KeyCode == Keys.V && e.Modifiers == Keys.Control && !m_keyhold[(int)e.KeyCode])
+                {
+                    int lastRowIndex = dataGridSubtitles.RowCount - 2;
+                    if (dataGridSubtitles.CurrentCell != null && dataGridSubtitles.CurrentRow.Index <= lastRowIndex
+                        && Clipboard.ContainsText())
+                    {
+                        int cC, cR;
+                        cC = dataGridSubtitles.CurrentCell.ColumnIndex;
+                        cR = dataGridSubtitles.CurrentCell.RowIndex;
+                        string[] cells;
+                        char[] spliter = { '\t' };
+                        StringReader strReader = new StringReader(Clipboard.GetText());
+                        string line = strReader.ReadLine();
+                        m_UndoRec.BeginMultiCells(); //开始Undo记录
+                        while (line != null)
+                        {
+                            cells = line.Split(spliter, 3 - cC);
+                            for (int i = 0; i < cells.Length; i++)
+                            {
+                                if (cells[i].Length != 0)
+                                {
+                                    m_UndoRec.EditMultiCells(cR, cC + i, dataGridSubtitles.Rows[cR].Cells[cC + i].Value.ToString());
+                                    dataGridSubtitles.Rows[cR].Cells[cC + i].Value = cells[i];
+                                }
+                            }
+                            cR++;
+                            if (cR > lastRowIndex) break;
+                            line = strReader.ReadLine();
+                        }
+                        m_UndoRec.EndEditMultiCells();//结束Undo记录
+                        Edited = true;
+                        m_CurrentSub.RefreshIndex();
+                    }
+                }
+
+                else if (e.KeyCode == m_Config.EnterEditMode)
+                {
+                    if (dataGridSubtitles.CurrentCell != null)
+                    {
+                        dataGridSubtitles.BeginEdit(true);
+                    }
+                }
+                else if (e.KeyCode == Keys.Delete && e.Modifiers != Keys.Control && !m_keyhold[(int)e.KeyCode])
+                {
+                    //if (dataGridSubtitles.SelectedCells.Count != 0)
+                    //{
+                    //    m_undoRec.BeginMultiCells(); //开始Undo记录
+                    //    foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
+                    //    {
+                    //        m_undoRec.EditMultiCells(cell.RowIndex, cell.ColumnIndex, cell.Value.ToString());
+                    //        dataGridSubtitles.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Value = "";
+                    //    }
+                    //    m_undoRec.EndEditMultiCells();
+                    //    m_Edited = true;
+                    //}
+                }
+                else if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control && !m_keyhold[(int)e.KeyCode])
+                {
+                    //if (dataGridSubtitles.CurrentRow != null)
+                    //{
+                    //    List<DataGridViewRow> deleteRow = new List<DataGridViewRow>();
+                    //    foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
+                    //    {
+                    //        if (!deleteRow.Contains(dataGridSubtitles.Rows[cell.RowIndex]))
+                    //            deleteRow.Add(dataGridSubtitles.Rows[cell.RowIndex]);
+                    //    }
+                    //    foreach (DataGridViewRow row in deleteRow)
+                    //    {
+                    //        DeleteRow(row);
+                    //    }
+                    //}
+                }
+                #endregion
+                #region File Keys
+                else if (e.KeyCode == m_Config.SaveAss && !m_keyhold[(int)e.KeyCode])
+                {
+                    if (m_SubLoaded)
+                    {
+                        //SaveAssSub();
+                    }
+                }
+                #endregion
+                m_keyhold[(int)e.KeyCode] = true;
+            }
+
+        }
+
+        private void dataGridSubtitles_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (m_Config == null) return;
+            if (e.KeyCode == m_Config.AddTimePoint)
+            {
+                //addEndTime();
+            }
+            if ((int)e.KeyCode >= 0 && (int)e.KeyCode < 256)
+            {
+                m_keyhold[(int)e.KeyCode] = false;
+            }
+        }
+
     }
 
     public class SeekEventArgs : EventArgs
@@ -387,11 +590,13 @@ namespace SGSControls
     {
         public TimeType EditTime;
         public double TimeValue;
-        public TimeEditEventArgs(TimeType editTime, double timevalue)
+        public bool CancelEvent;
+        public TimeEditEventArgs(TimeType editTime, double timevalue, bool cancelEvent)
         {
             EditTime = editTime;
             TimeValue = timevalue;
+            CancelEvent = cancelEvent;
         }
     }
-    public enum TimeType { BeginTime, EndTime };
+    public enum TimeType { BeginTime, EndTime, Unknown };
 }
