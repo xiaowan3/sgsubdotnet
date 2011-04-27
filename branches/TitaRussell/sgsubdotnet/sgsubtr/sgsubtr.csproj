@@ -104,6 +104,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="config\layout.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="config\sgscfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\openass.bmp" />
     <Content Include="Resources\opentxt.bmp" />
     <Content Include="Resources\openvideo.bmp" />

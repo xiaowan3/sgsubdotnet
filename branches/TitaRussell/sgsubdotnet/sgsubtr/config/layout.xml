@@ -1,0 +1,9 @@
+<SGSUBLayout Height="550" Width="720">
+  <SplitContainer Orientation="Vertical" Dock ="Fill" SpliterDistance="400" BorderStyle="None" FixedPanel="Panel1" IsSplitterFixed="false">
+    <SplitContainer Orientation="Horizontal" Dock ="Fill" SpliterDistance="250" BorderStyle="None" FixedPanel="Panel1" IsSplitterFixed="false">
+      <VideoPlayer Dock="Fill"></VideoPlayer>
+      <WaveFormViewer Dock="Fill"></WaveFormViewer>
+    </SplitContainer>
+    <SubEditor Dock="Fill"></SubEditor>
+  </SplitContainer>
+</SGSUBLayout>

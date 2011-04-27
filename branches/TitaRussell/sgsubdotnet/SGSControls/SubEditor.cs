@@ -66,14 +66,16 @@ namespace SGSControls
                     m_SubLoaded = true;
                     m_CurrentSub.CreateIndex(m_VideoLength);
                     Edited = false;
-
                 }
                 else
                 {
                     dataGridSubtitles.AllowUserToAddRows = false;
+
                     m_SubLoaded = false;
                     Edited = false;
                 }
+                m_UndoRec.Reset();
+                m_selectCells.Reset();
             }
         }
 
@@ -95,6 +97,22 @@ namespace SGSControls
                 if (m_SubLoaded) m_CurrentSub.CreateIndex(m_VideoLength);
             }
 
+        }
+
+        public int CurrentRowIndex
+        {
+            get
+            {
+                if (m_SubLoaded && dataGridSubtitles.CurrentRow != null) return dataGridSubtitles.CurrentRow.Index;
+                else return -1;
+            }
+            set
+            {
+                if (m_SubLoaded && value >= 0 && value < dataGridSubtitles.RowCount - 1)
+                {
+                    dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[value].Cells[0];
+                }
+            }
         }
 
         public bool Edited { get; set; }
@@ -397,7 +415,7 @@ namespace SGSControls
             {
                 foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
                 {
-                    if (cell.RowIndex != lastrowindex)
+                    if (cell.RowIndex <= lastrowindex)
                         m_selectCells.SelectCell(cell.ColumnIndex, cell.RowIndex);
                 }
             }
@@ -439,6 +457,21 @@ namespace SGSControls
         /// Record Key Status
         /// </summary>
         private bool[] m_keyhold = new bool[256];
+
+
+        private void dataGridSubtitles_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        {
+            if (e.Cell != null)
+            {
+                if (CurrentRowChanged != null)
+                {
+                    int rowindex = e.Cell.RowIndex;
+                    CurrentRowChangeEventArgs args = new CurrentRowChangeEventArgs(rowindex);
+                    CurrentRowChanged(this, args);
+                }
+            }
+        }
+
         private void dataGridSubtitles_KeyDown(object sender, KeyEventArgs e)
         {
             int lastrowindex = dataGridSubtitles.RowCount - 2;
@@ -696,33 +729,37 @@ namespace SGSControls
                 }
                 else if (e.KeyCode == Keys.Delete && e.Modifiers != Keys.Control && !m_keyhold[(int)e.KeyCode])
                 {
-                    //if (dataGridSubtitles.SelectedCells.Count != 0)
-                    //{
-                    //    m_undoRec.BeginMultiCells(); //开始Undo记录
-                    //    foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
-                    //    {
-                    //        m_undoRec.EditMultiCells(cell.RowIndex, cell.ColumnIndex, cell.Value.ToString());
-                    //        dataGridSubtitles.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Value = "";
-                    //    }
-                    //    m_undoRec.EndEditMultiCells();
-                    //    m_Edited = true;
-                    //}
+                    //清空选中单元格内容
+                    if (dataGridSubtitles.SelectedCells.Count != 0)
+                    {
+                        m_UndoRec.BeginMultiCells(); //开始Undo记录
+                        foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
+                        {
+                            if (cell.RowIndex > lastrowindex) continue;
+                            m_UndoRec.EditMultiCells(cell.RowIndex, cell.ColumnIndex, cell.Value.ToString());
+                            dataGridSubtitles.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Value = "";
+                        }
+                        m_UndoRec.EndEditMultiCells();
+                        Edited = true;
+                    }
                 }
                 else if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control && !m_keyhold[(int)e.KeyCode])
                 {
-                    //if (dataGridSubtitles.CurrentRow != null)
-                    //{
-                    //    List<DataGridViewRow> deleteRow = new List<DataGridViewRow>();
-                    //    foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
-                    //    {
-                    //        if (!deleteRow.Contains(dataGridSubtitles.Rows[cell.RowIndex]))
-                    //            deleteRow.Add(dataGridSubtitles.Rows[cell.RowIndex]);
-                    //    }
-                    //    foreach (DataGridViewRow row in deleteRow)
-                    //    {
-                    //        DeleteRow(row);
-                    //    }
-                    //}
+                    //删除选中的行
+                    if (dataGridSubtitles.CurrentRow != null)
+                    {
+                        List<DataGridViewRow> deleteRow = new List<DataGridViewRow>();
+                        foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
+                        {
+                            if (cell.RowIndex > lastrowindex) continue;
+                            if (!deleteRow.Contains(dataGridSubtitles.Rows[cell.RowIndex]))
+                                deleteRow.Add(dataGridSubtitles.Rows[cell.RowIndex]);
+                        }
+                        foreach (DataGridViewRow row in deleteRow)
+                        {
+                            DeleteRow(row);
+                        }
+                    }
                 }
                 #endregion
                 #region File Keys
@@ -736,7 +773,6 @@ namespace SGSControls
                 #endregion
                 m_keyhold[(int)e.KeyCode] = true;
             }
-
         }
 
         private void dataGridSubtitles_KeyUp(object sender, KeyEventArgs e)
@@ -765,19 +801,10 @@ namespace SGSControls
             }
         }
 
-        private void dataGridSubtitles_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        new public bool Focus()
         {
-            if (e.Cell != null)
-            {
-                if (CurrentRowChanged != null)
-                {
-                    int rowindex = e.Cell.RowIndex;
-                    CurrentRowChangeEventArgs args = new CurrentRowChangeEventArgs(rowindex);
-                    CurrentRowChanged(this, args);
-                }
-            }
+            return dataGridSubtitles.Focus();
         }
-
 
     }
 

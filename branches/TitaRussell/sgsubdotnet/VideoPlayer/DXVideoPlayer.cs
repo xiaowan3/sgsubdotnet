@@ -17,9 +17,11 @@ namespace VideoPlayer
         {
             InitializeComponent();
             g1 = splitContainer1.Panel2.CreateGraphics();
+            MediaOpened = false;
 
         }
-
+        public bool Paused { get; set; }
+        public bool MediaOpened { get; private set; }
         private string m_filename;
         private string m_videoname = "";
         private Image m_trackleft = Resources.PANEL_Left;
@@ -72,7 +74,11 @@ namespace VideoPlayer
 
         public void Pause()
         {
-            if (m_movie != null) m_movie.Pause();
+            if (m_movie != null)
+            {
+                m_movie.Pause();
+                Paused = true;
+            }
         }
 
         public void OpenVideo(string filename)
@@ -91,11 +97,13 @@ namespace VideoPlayer
                 resizeScreen(splitContainer1.Panel1.Width, splitContainer1.Panel1.Height);
                 m_movie.Audio.Volume = ConvertVolume(m_soundvolume);
                 m_videoname = m_filename.Substring(m_filename.LastIndexOf('\\') + 1);
+                MediaOpened = true;
             }
             catch (Exception exception)
             {
                 m_filename = "";
                 m_videoname = "";
+                MediaOpened = false;
                 throw exception;
             }
         }
@@ -124,6 +132,7 @@ namespace VideoPlayer
             if (m_movie != null)
             {
                 m_movie.Play();
+                Paused = false;
             }
         }
 
