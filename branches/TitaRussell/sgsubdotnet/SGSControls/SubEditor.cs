@@ -102,7 +102,7 @@ namespace SGSControls
         public event EventHandler<SeekEventArgs> Seek = null;
         public event EventHandler<TimeEditEventArgs> TimeEdit = null;
         public event EventHandler<PlayerControlEventArgs> PlayerControl = null;
-
+        public event EventHandler<CurrentRowChangeEventArgs> CurrentRowChanged = null;
         #endregion
 
         #region Methods
@@ -765,6 +765,19 @@ namespace SGSControls
             }
         }
 
+        private void dataGridSubtitles_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        {
+            if (e.Cell != null)
+            {
+                if (CurrentRowChanged != null)
+                {
+                    int rowindex = e.Cell.RowIndex;
+                    CurrentRowChangeEventArgs args = new CurrentRowChangeEventArgs(rowindex);
+                    CurrentRowChanged(this, args);
+                }
+            }
+        }
+
 
     }
 
@@ -803,4 +816,13 @@ namespace SGSControls
         public PlayerCommand ControlCMD;
     }
     public enum PlayerCommand{Play,Pause,Toggle};
+
+    public class CurrentRowChangeEventArgs : EventArgs
+    {
+        public int CurrentRowIndex;
+        public CurrentRowChangeEventArgs(int rowIndex)
+        {
+            CurrentRowIndex = rowIndex;
+        }
+    }
 }
