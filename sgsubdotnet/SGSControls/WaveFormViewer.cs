@@ -43,6 +43,12 @@ namespace SGSControls
             add { tsbtnOpenMedia.Click += value; }
             remove { tsbtnOpenMedia.Click -= value; }
         }
+        public event EventHandler BTNSaveAss
+        {
+            add { tsbtnSaveASS.Click += value; }
+            remove { tsbtnSaveASS.Click -= value; }
+        }
+        public event EventHandler<PlayerControlEventArgs> PlayerControl = null;
         #endregion
         #region Public Properties
         public Subtitle.AssSub CurrentSub
@@ -78,63 +84,72 @@ namespace SGSControls
             }
             set
             {
-                if (m_SubLoaded)
-                {
-                    Subtitle.AssItem item;
-                    Subtitle.AssTime time = new Subtitle.AssTime() ;
-                    if (value > 0)
-                    {
-                        item = (Subtitle.AssItem)(m_CurrentSub.SubItems[value - 1]);
-                        time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
-                        labelLastLine.Text = item.Text;
-                        labelLastDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
-                        waveScope.LastStart = item.Start.TimeValue;
-                        waveScope.LastEnd = item.End.TimeValue;
-                    }
-                    else
-                    {
-                        labelLastLine.Text = "";
-                        labelLastDuration.Text = "-:--:--.--";
-                        waveScope.LastStart = 0;
-                        waveScope.LastEnd = 0;
-                    }
-                    if (value >= 0 && value < m_CurrentSub.SubItems.Count)
-                    {
-                        item = (Subtitle.AssItem)(m_CurrentSub.SubItems[value]);
-                        time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
-                        labelThisLine.Text = item.Text;
-                        labelThisDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
-                        waveScope.Start = item.Start.TimeValue;
-                        waveScope.End = item.End.TimeValue;
-                    }
-                    else
-                    {
-                        labelThisLine.Text = "";
-                        labelThisDuration.Text = "-:--:--.--";
-                        waveScope.Start = 0;
-                        waveScope.End = 0;
-                    }
-                    if (value < m_CurrentSub.SubItems.Count - 1)
-                    {
-                        item = (Subtitle.AssItem)(m_CurrentSub.SubItems[value + 1]);
-                        time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
-                        labelNextLine.Text = item.Text;
-                        labelNextDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
-                    }
-                    else
-                    {
-                        labelNextLine.Text = "";
-                        labelNextDuration.Text = "-:--:--.--";
-                    }
-                    waveScope.Redraw();
-                }
+                m_CurrentRow = value;
+                RefreshDisplay();
             }
         }
-
+        public void RefreshDisplay()
+        {
+            if (m_SubLoaded)
+            {
+                Subtitle.AssItem item;
+                Subtitle.AssTime time = new Subtitle.AssTime();
+                if (m_CurrentRow > 0)
+                {
+                    item = (Subtitle.AssItem)(m_CurrentSub.SubItems[m_CurrentRow - 1]);
+                    time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
+                    labelLastLine.Text = item.Text;
+                    labelLastDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
+                    waveScope.LastStart = item.Start.TimeValue;
+                    waveScope.LastEnd = item.End.TimeValue;
+                }
+                else
+                {
+                    labelLastLine.Text = "";
+                    labelLastDuration.Text = "-:--:--.--";
+                    waveScope.LastStart = 0;
+                    waveScope.LastEnd = 0;
+                }
+                if (m_CurrentRow >= 0 && m_CurrentRow < m_CurrentSub.SubItems.Count)
+                {
+                    item = (Subtitle.AssItem)(m_CurrentSub.SubItems[m_CurrentRow]);
+                    time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
+                    labelThisLine.Text = item.Text;
+                    labelThisDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
+                    waveScope.Start = item.Start.TimeValue;
+                    waveScope.End = item.End.TimeValue;
+                }
+                else
+                {
+                    labelThisLine.Text = "";
+                    labelThisDuration.Text = "-:--:--.--";
+                    waveScope.Start = 0;
+                    waveScope.End = 0;
+                }
+                if (m_CurrentRow < m_CurrentSub.SubItems.Count - 1)
+                {
+                    item = (Subtitle.AssItem)(m_CurrentSub.SubItems[m_CurrentRow + 1]);
+                    time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
+                    labelNextLine.Text = item.Text;
+                    labelNextDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
+                }
+                else
+                {
+                    labelNextLine.Text = "";
+                    labelNextDuration.Text = "-:--:--.--";
+                }
+                waveScope.Redraw();
+            }
+        }
         #endregion
         #region Public Methods
         public void GenerateFFTData(string filename)
         {
+            if (PlayerControl != null)
+            {
+                PlayerControlEventArgs arg = new PlayerControlEventArgs(PlayerCommand.Pause);
+                PlayerControl(this, arg);
+            }
             WaveReader.WaveForm.FFmpegpath = FFMpegPath;
             WaveReader.WaveForm wf = WaveReader.WaveForm.ExtractWave(filename);
             waveScope.Wave = wf;
