@@ -33,7 +33,13 @@ namespace sgsubtr
 
         XmlTextReader layoutReader;
         XmlDocument xmldoc;
-        XmlText xmlText;
+
+        #region Controls
+        SubEditor subEditor = new SubEditor();
+        WaveFormViewer waveViewer = new WaveFormViewer();
+        VideoPlayer.DXVideoPlayer dxVideoPlayer = new VideoPlayer.DXVideoPlayer();
+        #endregion
+
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -117,6 +123,18 @@ namespace sgsubtr
                         }
                     }
                     break;
+                case "VideoPlayer":
+                    container.Controls.Add(dxVideoPlayer);
+                    foreach (XmlAttribute attribute in node.Attributes)
+                    {
+                        switch (attribute.Name)
+                        {
+                            case "Dock":
+                                dxVideoPlayer.Dock = (DockStyle)Enum.Parse(typeof(DockStyle), attribute.Value);
+                                break;
+                        }
+                    }
+                    break;
                 case "SGSUBLayout":
                     {
                         Size size = new Size();
@@ -143,10 +161,7 @@ namespace sgsubtr
                     break;
             }
         }
-        #region Controls
-        SubEditor subEditor = new SubEditor();
-        WaveFormViewer waveViewer = new WaveFormViewer();
-        #endregion
+
 
         public SgsubMainform()
         {

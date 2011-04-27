@@ -34,9 +34,9 @@
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.subEditor1 = new SGSControls.SubEditor();
             this.waveFormViewer1 = new SGSControls.WaveFormViewer();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
@@ -94,6 +94,15 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Location = new System.Drawing.Point(744, 464);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainer1.Size = new System.Drawing.Size(213, 100);
+            this.splitContainer1.SplitterDistance = 71;
+            this.splitContainer1.TabIndex = 7;
+            // 
             // subEditor1
             // 
             this.subEditor1.Config = null;
@@ -119,14 +128,6 @@
             this.waveFormViewer1.Name = "waveFormViewer1";
             this.waveFormViewer1.Size = new System.Drawing.Size(569, 292);
             this.waveFormViewer1.TabIndex = 0;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Location = new System.Drawing.Point(744, 464);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Size = new System.Drawing.Size(213, 100);
-            this.splitContainer1.SplitterDistance = 75;
-            this.splitContainer1.TabIndex = 7;
             // 
             // Form1
             // 
