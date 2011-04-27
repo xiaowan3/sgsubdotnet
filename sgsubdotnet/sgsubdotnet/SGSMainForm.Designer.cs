@@ -162,7 +162,7 @@
             this.dxVideoPlayer.CurrentPosition = 0;
             this.dxVideoPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dxVideoPlayer.Location = new System.Drawing.Point(0, 0);
-            this.dxVideoPlayer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dxVideoPlayer.Margin = new System.Windows.Forms.Padding(2);
             this.dxVideoPlayer.Name = "dxVideoPlayer";
             this.dxVideoPlayer.Size = new System.Drawing.Size(374, 238);
             this.dxVideoPlayer.TabIndex = 0;
@@ -191,7 +191,7 @@
             this.spliterSoundbar.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.spliterSoundbar.IsSplitterFixed = true;
             this.spliterSoundbar.Location = new System.Drawing.Point(0, 0);
-            this.spliterSoundbar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.spliterSoundbar.Margin = new System.Windows.Forms.Padding(2);
             this.spliterSoundbar.Name = "spliterSoundbar";
             this.spliterSoundbar.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -434,11 +434,11 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.subtitleGrid);
-            this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(2);
             this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(738, 219);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
-            this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.toolStripContainer1.Name = "toolStripContainer1";
             this.toolStripContainer1.Size = new System.Drawing.Size(738, 244);
             this.toolStripContainer1.TabIndex = 1;
@@ -511,7 +511,7 @@
             this.tsBtnTimeoffset});
             this.subToolStrip.Location = new System.Drawing.Point(3, 0);
             this.subToolStrip.Name = "subToolStrip";
-            this.subToolStrip.Size = new System.Drawing.Size(331, 25);
+            this.subToolStrip.Size = new System.Drawing.Size(300, 25);
             this.subToolStrip.TabIndex = 0;
             // 
             // tsBtnPause

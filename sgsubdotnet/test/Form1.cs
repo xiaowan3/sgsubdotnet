@@ -29,6 +29,7 @@ namespace test
                 OpenAss(dlg.FileName);
                 subEditor1.CurrentSub = m_CurrentSub;
                 subEditor1.VideoLength = 600;
+                waveFormViewer1.CurrentSub = m_CurrentSub;
 
             }
         }
@@ -46,6 +47,7 @@ namespace test
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             subEditor1.DisplayTime(trackBar1.Value);
+            waveFormViewer1.CurrentPosition = trackBar1.Value;
         }
 
         private void subEditor1_TimeEdit(object sender, SGSControls.TimeEditEventArgs e)
@@ -53,6 +55,17 @@ namespace test
             double value = trackBar1.Value;
             e.CancelEvent = checkBox1.Checked;
             e.TimeValue = value;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            waveFormViewer1.MediaFilename = @"E:\test\testvideo.avi";
+            waveFormViewer1.FFMpegPath = @"E:\test\ffmpeg.exe";
+        }
+
+        private void subEditor1_CurrentRowChanged(object sender, SGSControls.CurrentRowChangeEventArgs e)
+        {
+            waveFormViewer1.CurrentLineIndex = e.CurrentRowIndex;
         }
     }
 }

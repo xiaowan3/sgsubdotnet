@@ -86,7 +86,7 @@
             this.labelSub.Location = new System.Drawing.Point(13, 9);
             this.labelSub.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSub.Name = "labelSub";
-            this.labelSub.Size = new System.Drawing.Size(90, 25);
+            this.labelSub.Size = new System.Drawing.Size(69, 20);
             this.labelSub.TabIndex = 0;
             this.labelSub.Text = "label1";
             // 
@@ -121,6 +121,7 @@
             this.dataGridSubtitles.TabIndex = 0;
             this.dataGridSubtitles.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridSubtitles_CellBeginEdit);
             this.dataGridSubtitles.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridSubtitles_UserAddedRow);
+            this.dataGridSubtitles.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.dataGridSubtitles_CellStateChanged);
             this.dataGridSubtitles.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridSubtitles_CellEndEdit);
             this.dataGridSubtitles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridSubtitles_KeyDown);
             this.dataGridSubtitles.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridSubtitles_KeyUp);
@@ -145,7 +146,7 @@
             this.tsbtnTimeOffset});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(331, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(300, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // tsbtnPause
