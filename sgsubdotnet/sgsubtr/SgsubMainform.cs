@@ -38,6 +38,21 @@ namespace sgsubtr
         SubEditor subEditor = new SubEditor();
         WaveFormViewer waveViewer = new WaveFormViewer();
         VideoPlayer.DXVideoPlayer dxVideoPlayer = new VideoPlayer.DXVideoPlayer();
+
+        MenuStrip mainMenu = new MenuStrip();
+        ToolStripMenuItem fileMenuItems = new ToolStripMenuItem("文件");
+        ToolStripMenuItem openSub = new ToolStripMenuItem("打开时间轴");
+        ToolStripMenuItem openTXT = new ToolStripMenuItem("打开翻译文本");
+        ToolStripMenuItem openMedia = new ToolStripMenuItem("打开视频");
+        ToolStripMenuItem saveSub = new ToolStripMenuItem("保存时间轴");
+        ToolStripMenuItem saveSubAs = new ToolStripMenuItem("另存为时间轴");
+        ToolStripMenuItem exit = new ToolStripMenuItem("退出");
+        
+        ToolStripMenuItem ConfigMenuItems = new ToolStripMenuItem("设置");
+        ToolStripMenuItem KeyConfig = new ToolStripMenuItem("按键设置");
+
+        StatusStrip statusStrip = new StatusStrip();
+
         #endregion
 
         /// <summary>
@@ -54,8 +69,59 @@ namespace sgsubtr
             xmldoc.Load(layoutReader);
             if (xmldoc.ChildNodes.Count <= 0) throw new Exception("Wrong XML File");
             XmlNode root = xmldoc.ChildNodes[0];
-            LayoutLoader(this, root);
+            Panel panel = new Panel();
 
+            this.mainMenu.SuspendLayout();
+            panel.SuspendLayout();
+            this.SuspendLayout();
+
+            //Build Mainmenu
+            mainMenu.Name = "Main Menu";
+            mainMenu.Items.Add(fileMenuItems);
+            mainMenu.Items.Add(ConfigMenuItems);
+            openSub.Image = Resource.openass;
+            openSub.ImageTransparentColor = Color.Magenta;
+
+            openTXT.Image = Resource.opentxt;
+            openTXT.ImageTransparentColor = Color.Magenta;
+
+            openMedia.Image = Resource.openvideo;
+            openMedia.ImageTransparentColor = Color.Magenta;
+
+            saveSub.Image = Resource.save;
+            saveSub.ImageTransparentColor = Color.Magenta;
+
+            fileMenuItems.DropDownItems.Add(openSub);
+            fileMenuItems.DropDownItems.Add(openTXT);
+            fileMenuItems.DropDownItems.Add(openMedia);
+            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
+            fileMenuItems.DropDownItems.Add(saveSub);
+            fileMenuItems.DropDownItems.Add(saveSubAs);
+            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
+            fileMenuItems.DropDownItems.Add(exit);
+
+            ConfigMenuItems.DropDownItems.Add(KeyConfig);
+
+            mainMenu.Size = new Size(200, 28);
+            
+
+
+            panel.Dock = DockStyle.Fill;
+            panel.Location = new Point(0, 28);
+
+            this.Controls.Add(panel);
+            this.Controls.Add(statusStrip);
+            this.Controls.Add(mainMenu);
+            this.MainMenuStrip = mainMenu;
+
+            mainMenu.ResumeLayout(false);
+            mainMenu.PerformLayout();
+            panel.ResumeLayout(false);
+            panel.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+            LayoutLoader(panel, root);
         }
         private void LayoutLoader(Control container, XmlNode node)
         {
