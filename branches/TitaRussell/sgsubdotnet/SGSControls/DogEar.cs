@@ -11,13 +11,107 @@ namespace SGSControls
 {
     class DogEar
     {
+        Microsoft.DirectX.DirectSound.Device dev = new Microsoft.DirectX.DirectSound.Device();
+
+        private List<AudioClip> audioList = new List<AudioClip>();
+        private string mediaFile;
+
+        public double CatCoef { get; set; }
+        public double RabbitCoef { get; set; }
+
+        public double Hanning_Duration { get; set; }
+        public double Hanning_Overlap { get; set; }
+        public double Delta_Divisor { get; set; }
+
+        public DogEar(System.Windows.Forms.Control owner,string Mediafile, string FFMpegPath)
+        {
+            mediaFile = Mediafile;
+            AudioFileIO.FFmpegpath = FFMpegPath;
+            dev.SetCooperativeLevel(owner, Microsoft.DirectX.DirectSound.CooperativeLevel.Normal);
+        }
+
+        public void EarAClip(double start, double duration, EarType type)
+        {
+            AudioClip clip = null;
+            for (int i = 0; i < audioList.Count; i++)
+            {
+                if (audioList[i].Equivalent(start, duration, type))
+                {
+                    clip = audioList[i];
+                    break;
+                }
+            }
+            if (clip == null)
+            {
+                clip = new AudioClip();
+                if (type == EarType.Human) clip.Type = EarType.Cat;
+                else clip.Type = type;
+                wavinfo wavInfo = new wavinfo();
+                clip.OriginalStream = AudioFileIO.ExtractWave(mediaFile, ref wavInfo, start.ToString("F1"), duration.ToString("F1"));
+                AudioFileIO.WriteStreamLen(clip.OriginalStream);
+                clip.ScaledStream = new MemoryStream();
+                switch (clip.Type)
+                {
+                    case EarType.Cat:
+                        WSOLA.ScaleAudio(clip.OriginalStream, clip.ScaledStream, CatCoef, Hanning_Duration, Hanning_Overlap, Delta_Divisor, wavInfo);
+                        break;
+                    case EarType.Rabbit:
+                        WSOLA.ScaleAudio(clip.OriginalStream, clip.ScaledStream, RabbitCoef, Hanning_Duration, Hanning_Overlap, Delta_Divisor, wavInfo);
+                        break;
+                }
+                audioList.Add(clip);
+            }
+            //play it
+            if (type != EarType.Human)
+            {
+                Microsoft.DirectX.DirectSound.SecondaryBuffer secbuf 
+                    = new Microsoft.DirectX.DirectSound.SecondaryBuffer(clip.ScaledStream, dev);
+                secbuf.Play(0, Microsoft.DirectX.DirectSound.BufferPlayFlags.Default);
+            }
+            else
+            {
+                Microsoft.DirectX.DirectSound.SecondaryBuffer secbuf 
+                    = new Microsoft.DirectX.DirectSound.SecondaryBuffer(clip.OriginalStream, dev);
+                secbuf.Play(0, Microsoft.DirectX.DirectSound.BufferPlayFlags.Default);
+            }
+        }
+
+
+
+    }
+
+    enum EarType { Human = 0, Cat, Rabbit }
+
+    class AudioClip
+    {
+        public EarType Type = EarType.Human;
+        public Stream OriginalStream = null;
+        public Stream ScaledStream = null;
+        public double BeginTime = 0;
+        public double Duration = 0;
+        public bool Equivalent(AudioClip clip)
+        {
+            if (Math.Abs(BeginTime - clip.BeginTime) < 0.1 &&
+                Math.Abs(Duration - clip.Duration) < 0.1 &&
+                Type == clip.Type) 
+                return true;
+            else return false;
+        }
+        public bool Equivalent(double beginTime, double duration, EarType type)
+        {
+            if (Math.Abs(BeginTime - beginTime) < 0.1 &&
+                Math.Abs(Duration - duration) < 0.1 &&
+                (Type == type || type == EarType.Human))
+                return true;
+            else return false;
+        }
     }
 
 
     class AudioFileIO
     {
         public static string FFmpegpath = null;
-        public static MemoryStream ExtractWave(string videofilename, ref wavinfo wavinf, string begin, string len)
+        public static Stream ExtractWave(string videofilename, ref wavinfo wavinf, string begin, string len)
         {
             //ffmpeg -i <infile> -f wav -ac 1 -vn -y <outfile.wav>
             if (FFmpegpath == null) throw new Exception("FFmpegpath is not set");
@@ -187,6 +281,60 @@ namespace SGSControls
 
     class WSOLA
     {
+        static public void ScaleAudio(Stream src, Stream dst, double coef, double hdur, double hover, double del, wavinfo wavinf)
+        {
+            int isize;
+            int osize;
+            int readoff = 0, readn = 0;
+            int nread;
+
+            int writesize;
+            byte[] inputbuf;
+            byte[] outputbuf;
+
+            WSOLA.setWSOLAPara(hdur, hover, del, wavinf.Frequency);
+
+            WSOLA.initWSOLA((int)wavinf.Channels, (int)wavinf.Frequency, coef);
+            isize = WSOLA.getInputSize();
+            osize = WSOLA.getOutputSize();
+            inputbuf = new byte[isize];
+            outputbuf = new byte[osize];
+            osize = WSOLA.getOutputSize();
+            WSOLA.prereadSrc(ref readoff, ref readn);
+            src.Seek(readoff, SeekOrigin.Begin);
+            nread = src.Read(inputbuf, 0, readn);
+            WSOLA.initProcess(inputbuf);
+            //beginloop
+
+            writesize = osize / 2;
+            dst.Seek(0,SeekOrigin.Begin);
+            AudioFileIO.WriteHead(dst, wavinf);
+
+
+            do
+            {
+                WSOLA.prereadSrc(ref readoff, ref readn);
+                src.Seek(readoff, SeekOrigin.Begin);
+                nread = src.Read(inputbuf, 0, readn);
+                if (nread < readn) break;
+                WSOLA.loadSource(inputbuf);
+
+                WSOLA.prereadDes(ref readoff, ref readn);
+                src.Seek(readoff, SeekOrigin.Begin);
+                nread = src.Read(inputbuf, 0, readn);
+                if (nread < readn) break;
+
+                WSOLA.loadDesire(inputbuf);
+                WSOLA.process(outputbuf);
+                dst.Write(outputbuf, 0, writesize);
+            } while (true);
+            AudioFileIO.WriteStreamLen(dst);
+            dst.Flush();
+            WSOLA.destroyWsola();
+
+        }
+
+
         [DllImport("wsolalib.dll")]
         public static extern void setWSOLAPara(double Hanning_Duration, double Hanning_Overlap, double Delta_Divisor, double Sample_Frequency);
 
@@ -217,6 +365,8 @@ namespace SGSControls
         [DllImport("wsolalib.dll")]
         public static extern void process([MarshalAs(UnmanagedType.LPArray)]Byte[] output);
 
+        [DllImport("wsolalib.dll")]
+        public static extern void destroyWsola();
     }
 
 }
