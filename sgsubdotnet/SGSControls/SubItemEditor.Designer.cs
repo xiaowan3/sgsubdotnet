@@ -29,48 +29,53 @@
         private void InitializeComponent()
         {
             this.btnHumanear = new System.Windows.Forms.Button();
-            this.btnDogear = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnCatear = new System.Windows.Forms.Button();
+            this.btnRabbitear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnHumanear
             // 
-            this.btnHumanear.Location = new System.Drawing.Point(23, 45);
+            this.btnHumanear.Location = new System.Drawing.Point(15, 15);
+            this.btnHumanear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnHumanear.Name = "btnHumanear";
-            this.btnHumanear.Size = new System.Drawing.Size(75, 23);
+            this.btnHumanear.Size = new System.Drawing.Size(56, 29);
             this.btnHumanear.TabIndex = 0;
             this.btnHumanear.Text = "人耳";
             this.btnHumanear.UseVisualStyleBackColor = true;
             this.btnHumanear.Click += new System.EventHandler(this.btnHumanear_Click);
             // 
-            // btnDogear
+            // btnCatear
             // 
-            this.btnDogear.Location = new System.Drawing.Point(104, 45);
-            this.btnDogear.Name = "btnDogear";
-            this.btnDogear.Size = new System.Drawing.Size(75, 23);
-            this.btnDogear.TabIndex = 1;
-            this.btnDogear.Text = "狗耳";
-            this.btnDogear.UseVisualStyleBackColor = true;
-            this.btnDogear.Click += new System.EventHandler(this.btnDogear_Click);
+            this.btnCatear.Location = new System.Drawing.Point(77, 15);
+            this.btnCatear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCatear.Name = "btnCatear";
+            this.btnCatear.Size = new System.Drawing.Size(56, 29);
+            this.btnCatear.TabIndex = 1;
+            this.btnCatear.Text = "猫耳";
+            this.btnCatear.UseVisualStyleBackColor = true;
+            this.btnCatear.Click += new System.EventHandler(this.btnDogear_Click);
             // 
-            // button3
+            // btnRabbitear
             // 
-            this.button3.Location = new System.Drawing.Point(185, 45);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnRabbitear.Location = new System.Drawing.Point(139, 15);
+            this.btnRabbitear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRabbitear.Name = "btnRabbitear";
+            this.btnRabbitear.Size = new System.Drawing.Size(56, 29);
+            this.btnRabbitear.TabIndex = 2;
+            this.btnRabbitear.Text = "兔耳";
+            this.btnRabbitear.UseVisualStyleBackColor = true;
+            this.btnRabbitear.Click += new System.EventHandler(this.btnRabbitear_Click);
             // 
             // SubItemEditor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.btnDogear);
+            this.Controls.Add(this.btnRabbitear);
+            this.Controls.Add(this.btnCatear);
             this.Controls.Add(this.btnHumanear);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "SubItemEditor";
-            this.Size = new System.Drawing.Size(317, 150);
+            this.Size = new System.Drawing.Size(238, 76);
             this.ResumeLayout(false);
 
         }
@@ -78,7 +83,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnHumanear;
-        private System.Windows.Forms.Button btnDogear;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnCatear;
+        private System.Windows.Forms.Button btnRabbitear;
     }
 }

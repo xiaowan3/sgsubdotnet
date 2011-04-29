@@ -28,9 +28,9 @@ namespace SGSControls
             {
                 m_MediaFile = value;
                 dogEar = new DogEar(this, value, FFMpegPath);
-                dogEar.Hanning_Duration = 0.2;
-                dogEar.Hanning_Overlap = 0.3;
-                dogEar.Delta_Divisor = 6;
+                dogEar.Hanning_Duration = 0.09;
+                dogEar.Hanning_Overlap = 0.4;
+                dogEar.Delta_Divisor = 18;
                 dogEar.CatCoef = 1.5;
                 dogEar.RabbitCoef = 2.6;
             }
@@ -41,9 +41,14 @@ namespace SGSControls
             if (CurrentSub != null && dogEar != null && CurrentIndex >= 0 && CurrentIndex < CurrentSub.SubItems.Count)
             {
                 Subtitle.AssItem item = (Subtitle.AssItem)(CurrentSub.SubItems[CurrentIndex]);
-                if (item.End.TimeValue - item.Start.TimeValue > 0.1)
+                double duration = item.End.TimeValue - item.Start.TimeValue;
+                if (duration > 30)
                 {
-                    dogEar.EarAClip(item.Start.TimeValue, item.End.TimeValue - item.Start.TimeValue, EarType.Human);
+                    MessageBox.Show("囧，句子太长了，我会傲娇的。");
+                }
+                else if (duration  > 0.1)
+                {
+                    dogEar.EarAClip(item.Start.TimeValue, duration, EarType.Human);
                 }
             }
         }
@@ -53,9 +58,26 @@ namespace SGSControls
             if (CurrentSub != null && dogEar != null && CurrentIndex >= 0 && CurrentIndex < CurrentSub.SubItems.Count)
             {
                 Subtitle.AssItem item = (Subtitle.AssItem)(CurrentSub.SubItems[CurrentIndex]);
+                double duration = item.End.TimeValue - item.Start.TimeValue;
+                if (duration > 30)
+                {
+                    MessageBox.Show("囧，句子太长了，我会傲娇的。");
+                }
+                if (duration > 0.1)
+                {
+                    dogEar.EarAClip(item.Start.TimeValue, duration, EarType.Cat);
+                }
+            }
+        }
+
+        private void btnRabbitear_Click(object sender, EventArgs e)
+        {
+            if (CurrentSub != null && dogEar != null && CurrentIndex >= 0 && CurrentIndex < CurrentSub.SubItems.Count)
+            {
+                Subtitle.AssItem item = (Subtitle.AssItem)(CurrentSub.SubItems[CurrentIndex]);
                 if (item.End.TimeValue - item.Start.TimeValue > 0.1)
                 {
-                    dogEar.EarAClip(item.Start.TimeValue, item.End.TimeValue - item.Start.TimeValue, EarType.Cat);
+                    dogEar.EarAClip(item.Start.TimeValue, item.End.TimeValue - item.Start.TimeValue, EarType.Rabbit);
                 }
             }
         }

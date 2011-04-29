@@ -8,6 +8,7 @@ using System.Text;
 using System.Xml;
 using System.Windows.Forms;
 using SGSControls;
+using Config;
 
 namespace sgsubtr
 {
@@ -71,12 +72,47 @@ namespace sgsubtr
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Text = "Form1";
 
-            StartUpPath = Application.StartupPath;
-            #region Build Layout
             XmlDocument xmldoc;
             XmlTextReader layoutReader; xmldoc = new XmlDocument();
-            layoutReader = new XmlTextReader(StartUpPath + @"\config\layout.xml");
-            xmldoc.Load(layoutReader);
+            StartUpPath = Application.StartupPath;
+
+            #region Load Config
+            AppFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + Application.CompanyName;
+            if (!System.IO.Directory.Exists(AppFolderPath))
+            {
+                System.IO.Directory.CreateDirectory(AppFolderPath);
+            }
+            if (!System.IO.Directory.Exists(AppFolderPath + @"\config"))
+            {
+                System.IO.Directory.CreateDirectory(AppFolderPath + @"\config");
+            }
+            if (!System.IO.File.Exists(AppFolderPath + @"\config\sgscfg.xml"))
+            {
+                m_Config = SGSConfig.FromFile(Application.StartupPath + @"\config\sgscfg.xml");
+                m_Config.Save(AppFolderPath + @"\config\sgscfg.xml");
+            }
+            else
+            {
+                m_Config = SGSConfig.FromFile(AppFolderPath + @"\config\sgscfg.xml");
+            }
+
+            if (!System.IO.File.Exists(AppFolderPath + @"\config\layout.xml"))
+            {
+                layoutReader = new XmlTextReader(StartUpPath + @"\config\layout.xml");
+                XmlWriter layoutWriter = new XmlTextWriter(AppFolderPath + @"\config\layout.xml", Encoding.Unicode);
+                xmldoc.Load(layoutReader);
+                xmldoc.WriteContentTo(layoutWriter);
+            }
+            else
+            {
+                layoutReader = new XmlTextReader(StartUpPath + @"\config\layout.xml");
+                xmldoc.Load(layoutReader);
+            }
+
+            #endregion
+
+            #region Build Layout
+
             if (xmldoc.ChildNodes.Count <= 0) throw new Exception("Wrong XML File");
             XmlNode root = xmldoc.ChildNodes[0];
             Panel panel = new Panel();
@@ -153,6 +189,7 @@ namespace sgsubtr
             saveSub.Click += new EventHandler(saveSub_Click);
             saveSubAs.Click += new EventHandler(saveSubAs_Click);
             exit.Click += new EventHandler(exit_Click);
+            KeyConfig.Click += new EventHandler(KeyConfig_Click);
 
             waveViewer.BTNOpenAss += new EventHandler(openSub_Click);
             waveViewer.BTNOpenMedia += new EventHandler(openMedia_Click);
@@ -169,6 +206,15 @@ namespace sgsubtr
             timer.Tick += new EventHandler(timer_Tick);
             #endregion
 
+        }
+
+        void KeyConfig_Click(object sender, EventArgs e)
+        {
+            KeyConfigForm keycfg = new KeyConfigForm(m_Config);
+            if (keycfg.ShowDialog() == DialogResult.OK)
+            {
+                m_Config.Save();
+            }
         }
 
         void subEditor_Seek(object sender, SeekEventArgs e)
@@ -252,6 +298,7 @@ namespace sgsubtr
         private string m_SubFilename = null;
         private Config.SGSConfig m_Config;
         private string StartUpPath;
+        private string AppFolderPath;
         #endregion
 
         void exit_Click(object sender, EventArgs e)
