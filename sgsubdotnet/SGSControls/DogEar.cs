@@ -30,12 +30,12 @@ namespace SGSControls
             dev.SetCooperativeLevel(owner, Microsoft.DirectX.DirectSound.CooperativeLevel.Normal);
         }
 
-        public void EarAClip(double start, double duration, EarType type)
+        public void EarAClip(double begin, double duration, EarType type)
         {
             AudioClip clip = null;
             for (int i = 0; i < audioList.Count; i++)
             {
-                if (audioList[i].Equivalent(start, duration, type))
+                if (audioList[i].Equivalent(begin, duration, type))
                 {
                     clip = audioList[i];
                     break;
@@ -44,19 +44,32 @@ namespace SGSControls
             if (clip == null)
             {
                 clip = new AudioClip();
+                clip.BeginTime = begin;
+                clip.Duration = duration;
                 if (type == EarType.Human) clip.Type = EarType.Cat;
                 else clip.Type = type;
                 wavinfo wavInfo = new wavinfo();
-                clip.OriginalStream = AudioFileIO.ExtractWave(mediaFile, ref wavInfo, start.ToString("F1"), duration.ToString("F1"));
-                AudioFileIO.WriteStreamLen(clip.OriginalStream);
+                Stream rawStream = AudioFileIO.ExtractWave(mediaFile, ref wavInfo, begin.ToString("F1"), duration.ToString("F1"));
+                clip.OriginalStream = new MemoryStream();
                 clip.ScaledStream = new MemoryStream();
+                AudioFileIO.WriteHead(clip.OriginalStream, wavInfo);
+                byte[] buff = new byte[2048];
+                rawStream.Seek(0, SeekOrigin.Begin);
+                int read;
+                do
+                {
+                    read = rawStream.Read(buff, 0, 2048);
+                    clip.OriginalStream.Write(buff, 0, read);
+                } while (read > 0);
+                AudioFileIO.WriteStreamLen(clip.OriginalStream);
+                
                 switch (clip.Type)
                 {
                     case EarType.Cat:
-                        WSOLA.ScaleAudio(clip.OriginalStream, clip.ScaledStream, CatCoef, Hanning_Duration, Hanning_Overlap, Delta_Divisor, wavInfo);
+                        WSOLA.ScaleAudio(rawStream, clip.ScaledStream, CatCoef, Hanning_Duration, Hanning_Overlap, Delta_Divisor, wavInfo);
                         break;
                     case EarType.Rabbit:
-                        WSOLA.ScaleAudio(clip.OriginalStream, clip.ScaledStream, RabbitCoef, Hanning_Duration, Hanning_Overlap, Delta_Divisor, wavInfo);
+                        WSOLA.ScaleAudio(rawStream, clip.ScaledStream, RabbitCoef, Hanning_Duration, Hanning_Overlap, Delta_Divisor, wavInfo);
                         break;
                 }
                 audioList.Add(clip);
@@ -222,12 +235,27 @@ namespace SGSControls
         public static void WriteStreamLen(Stream oStream)
         {
             byte[] buff;
+            int fmtlen;
+            oStream.Seek(0x10, SeekOrigin.Begin);
+            fmtlen = oStream.ReadByte();
+
+            oStream.Seek(4, SeekOrigin.Begin);
             buff = System.BitConverter.GetBytes((UInt32)(oStream.Length - 0x08));
             oStream.Write(buff, 0, buff.Length);
-            oStream.Seek(0x28, SeekOrigin.Begin);
-            buff = System.BitConverter.GetBytes((UInt32)(oStream.Length - 0x28));
-            oStream.Write(buff, 0, buff.Length);
+            if (fmtlen == 16)
+            {
+                oStream.Seek(0x28, SeekOrigin.Begin);
+                buff = System.BitConverter.GetBytes((UInt32)(oStream.Length - 0x28));
+                oStream.Write(buff, 0, buff.Length);
+            }
+            else
+            {
+                oStream.Seek(0x2A, SeekOrigin.Begin);
+                buff = System.BitConverter.GetBytes((UInt32)(oStream.Length - 0x2A));
+                oStream.Write(buff, 0, buff.Length);
+            }
             oStream.Seek(0, SeekOrigin.Begin);
+
         }
 
 
