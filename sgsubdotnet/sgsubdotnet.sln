@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sgsubtr", "sgsubtr\sgsubtr.csproj", "{1634A5E2-705C-43B5-8F6A-F0FED8C598C9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wsolalib", "wsolalib\wsolalib.vcproj", "{00973297-A474-4389-BC88-014EBBAB9D2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -66,6 +68,8 @@ Global
 		{1634A5E2-705C-43B5-8F6A-F0FED8C598C9}.Debug|x86.Build.0 = Debug|x86
 		{1634A5E2-705C-43B5-8F6A-F0FED8C598C9}.Release|x86.ActiveCfg = Release|x86
 		{1634A5E2-705C-43B5-8F6A-F0FED8C598C9}.Release|x86.Build.0 = Release|x86
+		{00973297-A474-4389-BC88-014EBBAB9D2A}.Debug|x86.ActiveCfg = Debug|Win32
+		{00973297-A474-4389-BC88-014EBBAB9D2A}.Release|x86.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
