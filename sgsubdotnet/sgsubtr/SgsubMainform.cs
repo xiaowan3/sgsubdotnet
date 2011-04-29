@@ -37,6 +37,7 @@ namespace sgsubtr
         #region Controls
         SubEditor subEditor = new SubEditor();
         WaveFormViewer waveViewer = new WaveFormViewer();
+        SubItemEditor subItemEditor = new SubItemEditor();
         VideoPlayer.DXVideoPlayer dxVideoPlayer = new VideoPlayer.DXVideoPlayer();
 
         Timer timer = new Timer();
@@ -114,7 +115,7 @@ namespace sgsubtr
 
             ConfigMenuItems.DropDownItems.Add(KeyConfig);
 
-            HelpMenuItem.DropDownItems.Add(HelpMenuItem);
+            HelpMenuItem.DropDownItems.Add(AboutSGSUBTR);
 
             mainMenu.Size = new Size(200, 28);
 
@@ -143,6 +144,7 @@ namespace sgsubtr
             subEditor.Config = m_Config;
 
             waveViewer.FFMpegPath = StartUpPath + @"\ffmpeg.exe";
+            SubItemEditor.FFMpegPath = StartUpPath + @"\ffmpeg.exe";
 
             #region Event Handlers
             openSub.Click += new EventHandler(openSub_Click);
@@ -204,6 +206,7 @@ namespace sgsubtr
         void subEditor_CurrentRowChanged(object sender, CurrentRowChangeEventArgs e)
         {
             waveViewer.CurrentLineIndex = e.CurrentRowIndex;
+            subItemEditor.CurrentIndex = e.CurrentRowIndex;
         }
 
         void waveViewer_WaveFormMouseDown(object sender, WaveReader.WFMouseEventArgs e)
@@ -290,6 +293,7 @@ namespace sgsubtr
                 dxVideoPlayer.Play();
                 timer.Interval = 100;
                 timer.Start();
+                subItemEditor.MediaFile = filename;
             }
             catch (Exception exception)
             {
@@ -317,6 +321,7 @@ namespace sgsubtr
             subEditor.Edited = false;
             subEditor.CurrentSub = m_CurrentSub;
             waveViewer.CurrentSub = m_CurrentSub;
+            subItemEditor.CurrentSub = m_CurrentSub;
         }
 
         void openSub_Click(object sender, EventArgs e)
@@ -340,6 +345,7 @@ namespace sgsubtr
                 }
                 subEditor.CurrentSub = m_CurrentSub;
                 waveViewer.CurrentSub = m_CurrentSub;
+                subItemEditor.CurrentSub = m_CurrentSub;
             }
 
         }
@@ -506,6 +512,18 @@ namespace sgsubtr
                         foreach (XmlNode subnode in node.ChildNodes)
                         {
                             LayoutLoader(container, subnode);
+                        }
+                    }
+                    break;
+                case "SubItemEditor":
+                    container.Controls.Add(subItemEditor);
+                    foreach (XmlAttribute attribute in node.Attributes)
+                    {
+                        switch (attribute.Name)
+                        {
+                            case "Dock":
+                                subItemEditor.Dock = (DockStyle)Enum.Parse(typeof(DockStyle), attribute.Value);
+                                break;
                         }
                     }
                     break;
