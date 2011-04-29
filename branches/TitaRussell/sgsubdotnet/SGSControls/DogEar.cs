@@ -64,12 +64,14 @@ namespace SGSControls
             //play it
             if (type != EarType.Human)
             {
+                clip.ScaledStream.Seek(0, SeekOrigin.Begin);
                 Microsoft.DirectX.DirectSound.SecondaryBuffer secbuf 
                     = new Microsoft.DirectX.DirectSound.SecondaryBuffer(clip.ScaledStream, dev);
                 secbuf.Play(0, Microsoft.DirectX.DirectSound.BufferPlayFlags.Default);
             }
             else
             {
+                clip.OriginalStream.Seek(0, SeekOrigin.Begin);
                 Microsoft.DirectX.DirectSound.SecondaryBuffer secbuf 
                     = new Microsoft.DirectX.DirectSound.SecondaryBuffer(clip.OriginalStream, dev);
                 secbuf.Play(0, Microsoft.DirectX.DirectSound.BufferPlayFlags.Default);
