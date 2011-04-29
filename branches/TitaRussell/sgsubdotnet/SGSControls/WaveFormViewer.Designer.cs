@@ -103,7 +103,7 @@
             this.waveScope.CurrentPosition = 0;
             this.waveScope.Dock = System.Windows.Forms.DockStyle.Fill;
             this.waveScope.Location = new System.Drawing.Point(2, 2);
-            this.waveScope.Margin = new System.Windows.Forms.Padding(2);
+            this.waveScope.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.waveScope.MaximumSize = new System.Drawing.Size(1024, 120);
             this.waveScope.MinimumSize = new System.Drawing.Size(0, 120);
             this.waveScope.Name = "waveScope";
@@ -116,9 +116,9 @@
             this.labelLastLine.AutoSize = true;
             this.labelLastLine.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelLastLine.ForeColor = System.Drawing.Color.DimGray;
-            this.labelLastLine.Location = new System.Drawing.Point(200, 125);
+            this.labelLastLine.Location = new System.Drawing.Point(206, 125);
             this.labelLastLine.Name = "labelLastLine";
-            this.labelLastLine.Size = new System.Drawing.Size(69, 20);
+            this.labelLastLine.Size = new System.Drawing.Size(56, 16);
             this.labelLastLine.TabIndex = 1;
             this.labelLastLine.Text = "label1";
             // 
@@ -127,9 +127,9 @@
             this.labelThisLine.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelThisLine.AutoSize = true;
             this.labelThisLine.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelThisLine.Location = new System.Drawing.Point(200, 147);
+            this.labelThisLine.Location = new System.Drawing.Point(206, 147);
             this.labelThisLine.Name = "labelThisLine";
-            this.labelThisLine.Size = new System.Drawing.Size(69, 20);
+            this.labelThisLine.Size = new System.Drawing.Size(56, 16);
             this.labelThisLine.TabIndex = 2;
             this.labelThisLine.Text = "label2";
             // 
@@ -139,9 +139,9 @@
             this.labelNextLine.AutoSize = true;
             this.labelNextLine.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelNextLine.ForeColor = System.Drawing.Color.DarkGreen;
-            this.labelNextLine.Location = new System.Drawing.Point(200, 169);
+            this.labelNextLine.Location = new System.Drawing.Point(206, 169);
             this.labelNextLine.Name = "labelNextLine";
-            this.labelNextLine.Size = new System.Drawing.Size(69, 20);
+            this.labelNextLine.Size = new System.Drawing.Size(56, 16);
             this.labelNextLine.TabIndex = 3;
             this.labelNextLine.Text = "label3";
             // 
@@ -149,9 +149,9 @@
             // 
             this.labelArrow.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelArrow.AutoSize = true;
-            this.labelArrow.Location = new System.Drawing.Point(4, 150);
+            this.labelArrow.Location = new System.Drawing.Point(10, 152);
             this.labelArrow.Name = "labelArrow";
-            this.labelArrow.Size = new System.Drawing.Size(23, 15);
+            this.labelArrow.Size = new System.Drawing.Size(17, 12);
             this.labelArrow.TabIndex = 4;
             this.labelArrow.Text = "->";
             // 
@@ -160,7 +160,7 @@
             this.labelLastDuration.AutoSize = true;
             this.labelLastDuration.Location = new System.Drawing.Point(442, 125);
             this.labelLastDuration.Name = "labelLastDuration";
-            this.labelLastDuration.Size = new System.Drawing.Size(63, 22);
+            this.labelLastDuration.Size = new System.Drawing.Size(65, 12);
             this.labelLastDuration.TabIndex = 5;
             this.labelLastDuration.Text = "-:--:--.--";
             // 
@@ -169,7 +169,7 @@
             this.labelThisDuration.AutoSize = true;
             this.labelThisDuration.Location = new System.Drawing.Point(442, 147);
             this.labelThisDuration.Name = "labelThisDuration";
-            this.labelThisDuration.Size = new System.Drawing.Size(63, 22);
+            this.labelThisDuration.Size = new System.Drawing.Size(65, 12);
             this.labelThisDuration.TabIndex = 6;
             this.labelThisDuration.Text = "-:--:--.--";
             // 
@@ -178,7 +178,7 @@
             this.labelNextDuration.AutoSize = true;
             this.labelNextDuration.Location = new System.Drawing.Point(442, 169);
             this.labelNextDuration.Name = "labelNextDuration";
-            this.labelNextDuration.Size = new System.Drawing.Size(63, 22);
+            this.labelNextDuration.Size = new System.Drawing.Size(65, 12);
             this.labelNextDuration.TabIndex = 7;
             this.labelNextDuration.Text = "-:--:--.--";
             // 
@@ -195,7 +195,7 @@
             this.tsbtnFFT});
             this.tsFile.Location = new System.Drawing.Point(3, 0);
             this.tsFile.Name = "tsFile";
-            this.tsFile.Size = new System.Drawing.Size(139, 25);
+            this.tsFile.Size = new System.Drawing.Size(170, 25);
             this.tsFile.TabIndex = 0;
             // 
             // tsbtnOpenAss
@@ -205,7 +205,7 @@
             this.tsbtnOpenAss.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnOpenAss.Name = "tsbtnOpenAss";
             this.tsbtnOpenAss.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnOpenAss.Text = "toolStripButton1";
+            this.tsbtnOpenAss.Text = "打开时间轴";
             // 
             // tsbtnOpenTxt
             // 
@@ -214,7 +214,7 @@
             this.tsbtnOpenTxt.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnOpenTxt.Name = "tsbtnOpenTxt";
             this.tsbtnOpenTxt.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnOpenTxt.Text = "toolStripButton2";
+            this.tsbtnOpenTxt.Text = "打开翻译文本";
             // 
             // tsbtnOpenMedia
             // 
@@ -223,7 +223,7 @@
             this.tsbtnOpenMedia.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnOpenMedia.Name = "tsbtnOpenMedia";
             this.tsbtnOpenMedia.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnOpenMedia.Text = "toolStripButton3";
+            this.tsbtnOpenMedia.Text = "打开视频";
             // 
             // toolStripSeparator1
             // 
@@ -237,7 +237,7 @@
             this.tsbtnSaveASS.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnSaveASS.Name = "tsbtnSaveASS";
             this.tsbtnSaveASS.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnSaveASS.Text = "toolStripButton4";
+            this.tsbtnSaveASS.Text = "保存时间轴";
             // 
             // toolStripSeparator2
             // 
@@ -251,7 +251,7 @@
             this.tsbtnFFT.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnFFT.Name = "tsbtnFFT";
             this.tsbtnFFT.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnFFT.Text = "toolStripButton5";
+            this.tsbtnFFT.Text = "读取频谱";
             this.tsbtnFFT.Click += new System.EventHandler(this.tsbtnFFT_Click);
             // 
             // WaveFormViewer
