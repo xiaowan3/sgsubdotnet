@@ -121,6 +121,7 @@ namespace SGSControls
         public event EventHandler<TimeEditEventArgs> TimeEdit = null;
         public event EventHandler<PlayerControlEventArgs> PlayerControl = null;
         public event EventHandler<CurrentRowChangeEventArgs> CurrentRowChanged = null;
+        public event EventHandler KeySaveAss = nul;
         #endregion
 
         #region Methods
@@ -237,7 +238,7 @@ namespace SGSControls
                 Subtitle.AssItem i = item.Clone();
                 m_CurrentSub.SubItems.Insert(dataGridSubtitles.CurrentRow.Index + 1, i);
                 m_UndoRec.InsertRow(dataGridSubtitles.CurrentRow.Index + 1);//为Undo记录插入操作
-                //m_selectCells.Reset(); //清空选中的单元格
+                m_selectCells.Reset();//清空标记的单元格
                 dataGridSubtitles.Refresh();
                 m_CurrentSub.RefreshIndex();
                 Edited = true;
@@ -767,7 +768,7 @@ namespace SGSControls
                 {
                     if (m_SubLoaded)
                     {
-                        //SaveAssSub();
+                        if (KeySaveAss != null) KeySaveAss(this, new EventArgs());
                     }
                 }
                 #endregion
