@@ -70,7 +70,8 @@ namespace sgsubtr
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.Text = "Form1";
+            this.Text = "SGSUB.Net Tita Russell";
+            this.Icon = Resource.tita;
 
             XmlDocument xmldoc;
             XmlTextReader layoutReader; xmldoc = new XmlDocument();
