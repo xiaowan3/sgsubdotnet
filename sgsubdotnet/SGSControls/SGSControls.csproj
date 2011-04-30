@@ -189,6 +189,9 @@
       <Link>libfftw3l-3.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="resources\slower.png" />
+    <None Include="resources\slow.png" />
+    <None Include="resources\normal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
