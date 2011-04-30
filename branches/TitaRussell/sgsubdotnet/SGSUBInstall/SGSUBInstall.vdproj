@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2BBE14E8B32A4EF186101D70E79DBB6D"
+        "OwnerKey" = "8:_99FE09E178D34DC5B04AC3BF1C1F7447"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_41DA51B34902A15C0C088020ED6779FD"
         "OwnerKey" = "8:_BABD0DCC9C116E6FD3EF2B0BA7A0F13B"
         "MsmSig" = "8:_UNDEFINED"
@@ -99,14 +105,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9EAFEDCEFEB1311CD60A70AC9CFC49EE"
-        "OwnerKey" = "8:_41DA51B34902A15C0C088020ED6779FD"
+        "MsmKey" = "8:_99FE09E178D34DC5B04AC3BF1C1F7447"
+        "OwnerKey" = "8:_41E823A94CEF4F18A645E5E9AC22B0C6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_99FE09E178D34DC5B04AC3BF1C1F7447"
+        "OwnerKey" = "8:_A08ACE1898274DF5A09FD96C8248A2DC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_9EAFEDCEFEB1311CD60A70AC9CFC49EE"
-        "OwnerKey" = "8:_940CC9902D3F01306DF2B1C53C3CAFA4"
+        "OwnerKey" = "8:_41DA51B34902A15C0C088020ED6779FD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -118,13 +130,13 @@
         "Entry"
         {
         "MsmKey" = "8:_9EAFEDCEFEB1311CD60A70AC9CFC49EE"
-        "OwnerKey" = "8:_BABD0DCC9C116E6FD3EF2B0BA7A0F13B"
+        "OwnerKey" = "8:_940CC9902D3F01306DF2B1C53C3CAFA4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9F2225E4801340E2ABDC2F6C97C2F99C"
-        "OwnerKey" = "8:_FAC66F8FA0A34A2C81163B1444A9A9F7"
+        "MsmKey" = "8:_9EAFEDCEFEB1311CD60A70AC9CFC49EE"
+        "OwnerKey" = "8:_BABD0DCC9C116E6FD3EF2B0BA7A0F13B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -183,26 +195,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_FAC66F8FA0A34A2C81163B1444A9A9F7"
+        "MsmKey" = "8:_FCC892470281BCE7FC18621E726008DE"
         "OwnerKey" = "8:_41E823A94CEF4F18A645E5E9AC22B0C6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FAC66F8FA0A34A2C81163B1444A9A9F7"
-        "OwnerKey" = "8:_A08ACE1898274DF5A09FD96C8248A2DC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_FCC892470281BCE7FC18621E726008DE"
         "OwnerKey" = "8:_A08ACE1898274DF5A09FD96C8248A2DC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FCC892470281BCE7FC18621E726008DE"
-        "OwnerKey" = "8:_41E823A94CEF4F18A645E5E9AC22B0C6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -837,7 +837,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SGSUB.Net"
         "ProductCode" = "8:{DE0EABC5-2B51-475D-ACCF-CAB7751FACC1}"
-        "PackageCode" = "8:{30A4078F-28FA-4121-B4A9-9E09E6E3404A}"
+        "PackageCode" = "8:{4372468A-5132-40D9-82E6-75B4DD8C9A7D}"
         "UpgradeCode" = "8:{6FBABC1C-0EAD-4DE5-BB4A-7494BDBEC8F6}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
@@ -1366,7 +1366,7 @@
         }
         "MergeModule"
         {
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_9F2225E4801340E2ABDC2F6C97C2F99C"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_2BBE14E8B32A4EF186101D70E79DBB6D"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"
@@ -1380,7 +1380,7 @@
             "Feature" = "8:"
             "IsolateTo" = "8:"
             }
-            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_FAC66F8FA0A34A2C81163B1444A9A9F7"
+            "{CEE29DC0-9FBA-4B99-8D47-5BC643D9B626}:_99FE09E178D34DC5B04AC3BF1C1F7447"
             {
             "UseDynamicProperties" = "11:TRUE"
             "IsDependency" = "11:TRUE"

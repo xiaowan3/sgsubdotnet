@@ -17,6 +17,10 @@ namespace SGSControls
             InitializeComponent();
         }
 
+        #region Events
+        public event EventHandler<PlayerControlEventArgs> PlayerControl = null;
+        public event EventHandler<EventArgs> ButtonClicked = null;
+        #endregion
         string m_MediaFile;
         private DogEar dogEar = null;
         public Subtitle.AssSub CurrentSub = null;
@@ -46,11 +50,13 @@ namespace SGSControls
                 {
                     MessageBox.Show("囧，句子太长了，我会傲娇的。");
                 }
-                else if (duration  > 0.1)
+                else if (duration > 0.1)
                 {
+                    if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
                     dogEar.EarAClip(item.Start.TimeValue, duration, EarType.Human);
                 }
             }
+            if (ButtonClicked != null) ButtonClicked(this, new EventArgs());
         }
 
         private void btnDogear_Click(object sender, EventArgs e)
@@ -65,9 +71,11 @@ namespace SGSControls
                 }
                 if (duration > 0.1)
                 {
+                    if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
                     dogEar.EarAClip(item.Start.TimeValue, duration, EarType.Cat);
                 }
             }
+            if (ButtonClicked != null) ButtonClicked(this, new EventArgs());
         }
 
         private void btnRabbitear_Click(object sender, EventArgs e)
@@ -77,9 +85,11 @@ namespace SGSControls
                 Subtitle.AssItem item = (Subtitle.AssItem)(CurrentSub.SubItems[CurrentIndex]);
                 if (item.End.TimeValue - item.Start.TimeValue > 0.1)
                 {
+                    if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
                     dogEar.EarAClip(item.Start.TimeValue, item.End.TimeValue - item.Start.TimeValue, EarType.Rabbit);
                 }
             }
+            if (ButtonClicked != null) ButtonClicked(this, new EventArgs());
         }
     }
 }

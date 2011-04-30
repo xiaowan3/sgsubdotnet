@@ -204,9 +204,17 @@ namespace sgsubtr
             subEditor.PlayerControl += new EventHandler<PlayerControlEventArgs>(subEditor_PlayerControl);
             subEditor.Seek += new EventHandler<SeekEventArgs>(subEditor_Seek);
 
+            subItemEditor.ButtonClicked += new EventHandler<EventArgs>(subItemEditor_ButtonClicked);
+            subItemEditor.PlayerControl += new EventHandler<PlayerControlEventArgs>(subEditor_PlayerControl);
+
             timer.Tick += new EventHandler(timer_Tick);
             #endregion
 
+        }
+
+        void subItemEditor_ButtonClicked(object sender, EventArgs e)
+        {
+            subEditor.Focus();
         }
 
         void KeyConfig_Click(object sender, EventArgs e)
@@ -309,7 +317,17 @@ namespace sgsubtr
 
         void saveSubAs_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.AddExtension = true;
+            dlg.DefaultExt = "ass";
+            dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                m_SubFilename = dlg.FileName;
+                m_CurrentSub.WriteAss(m_SubFilename, Encoding.Unicode);
+                subEditor.Edited = false;
+            }
+
         }
 
         void saveSub_Click(object sender, EventArgs e)
