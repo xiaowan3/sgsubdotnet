@@ -146,7 +146,7 @@
             this.tsbtnTimeOffset});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(300, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(331, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // tsbtnPause
@@ -276,7 +276,7 @@
             this.tsbtnTimeOffset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnTimeOffset.Name = "tsbtnTimeOffset";
             this.tsbtnTimeOffset.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnTimeOffset.Text = "j时间平衡";
+            this.tsbtnTimeOffset.Text = "时间平衡";
             this.tsbtnTimeOffset.Click += new System.EventHandler(this.tsbtnTimeOffset_Click);
             // 
             // SubEditor
