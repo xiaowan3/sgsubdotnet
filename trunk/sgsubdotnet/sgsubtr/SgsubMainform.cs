@@ -528,6 +528,7 @@ namespace sgsubtr
 
         void saveSubAs_Click(object sender, EventArgs e)
         {
+            if (m_CurrentSub == null) return;
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.AddExtension = true;
             dlg.DefaultExt = "ass";
@@ -640,6 +641,7 @@ namespace sgsubtr
 
         private bool SaveAssSub()
         {
+            if (m_CurrentSub == null) return false;
             if (m_SubFilename == null)
             {
                 SaveFileDialog dlg = new SaveFileDialog();
