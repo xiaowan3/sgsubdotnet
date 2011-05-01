@@ -194,7 +194,7 @@ namespace Subtitle
         /// 为了在播放时能快速找到显示的字幕，定义这么一个索引。
         /// </summary>
         private List<AssItem>[] m_AssItemIndex;
-
+        private double m_VideoLen;
 
         /// <summary>
         /// 建立索引
@@ -202,17 +202,25 @@ namespace Subtitle
         /// <param name="length">视频长度</param>
         public void CreateIndex(double length)
         {
-            m_AssItemIndex = new List<AssItem>[(int)Math.Ceiling(length)];
-            for (int i = 0; i < m_AssItemIndex.Length; i++) m_AssItemIndex[i] = new List<AssItem>();
-            foreach (AssItem item in SubItems)
+            if (length > 0)
             {
-                int a = (int)Math.Floor(item.Start.TimeValue);
-                int b = (int)Math.Ceiling(item.End.TimeValue);
-                for (int i = a; i < b; i++)
+                m_VideoLen = length;
+                m_AssItemIndex = new List<AssItem>[(int)Math.Ceiling(length) + 1];
+                for (int i = 0; i < m_AssItemIndex.Length; i++) m_AssItemIndex[i] = new List<AssItem>();
+                foreach (AssItem item in SubItems)
                 {
-                    if (i < m_AssItemIndex.Length)
-                        m_AssItemIndex[i].Add(item);
+                    int a = (int)Math.Floor(item.Start.TimeValue);
+                    int b = (int)Math.Ceiling(item.End.TimeValue);
+                    for (int i = a; i < b; i++)
+                    {
+                        if (i < m_AssItemIndex.Length)
+                            m_AssItemIndex[i].Add(item);
+                    }
                 }
+            }
+            else
+            {
+                m_AssItemIndex = null;
             }
         }
 
@@ -280,7 +288,7 @@ namespace Subtitle
         public string GetSubtitle(double time)
         {
             string str = "";
-            if (m_AssItemIndex != null)
+            if (m_AssItemIndex != null && time <= m_VideoLen)
             {
                 foreach (AssItem t in m_AssItemIndex[(int)Math.Floor(time)])
                 {
