@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BDFF0BC9-EE7E-4378-A319-D0CAF96E2CA1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SGSControls</RootNamespace>
+    <AssemblyName>SGSControls</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.DirectX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.DirectX.AudioVideoPlayback, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.DirectX.DirectSound, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DogEar.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SelectCells.cs" />
+    <Compile Include="SubEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SubEditor.Designer.cs">
+      <DependentUpon>SubEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubItemEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SubItemEditor.Designer.cs">
+      <DependentUpon>SubItemEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeOffsetDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimeOffsetDialog.designer.cs">
+      <DependentUpon>TimeOffsetDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UndoRecord.cs" />
+    <Compile Include="WaveFormViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WaveFormViewer.Designer.cs">
+      <DependentUpon>WaveFormViewer.cs</DependentUpon>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubEditor.resx">
+      <DependentUpon>SubEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubItemEditor.resx">
+      <DependentUpon>SubItemEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeOffsetDialog.resx">
+      <DependentUpon>TimeOffsetDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaveFormViewer.resx">
+      <DependentUpon>WaveFormViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Config\Config.csproj">
+      <Project>{5CAAC511-8895-4C8F-BFF6-73A912BCFE3A}</Project>
+      <Name>Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Subtitle\Subtitle.csproj">
+      <Project>{0CBB1C5A-AB92-44D1-A0DA-44C80F8A27B6}</Project>
+      <Name>Subtitle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VideoPlayer\VideoPlayer.csproj">
+      <Project>{919513CF-DF3A-4F66-8BAC-2988EF98EB97}</Project>
+      <Name>VideoPlayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WaveReader\WaveReader.csproj">
+      <Project>{66428FAC-8E3C-4BFF-8268-069398389696}</Project>
+      <Name>WaveReader</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Pause.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Run.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\save.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\timeoffset.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\undo.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\unmark.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\copy.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\delete.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\fft.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\insertafter.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\insertbefore.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\jumpto.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\mark.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\olscan.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\openass.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\opentxt.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\openvideo.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\wsolalib\bin\$(ConfigurationName)\wsolalib.dll">
+      <Link>wsolalib.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\wsolalib\libs\bin\libfftw3-3.dll">
+      <Link>libfftw3-3.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\wsolalib\libs\bin\libfftw3l-3.dll">
+      <Link>libfftw3l-3.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="resources\slower.png" />
+    <None Include="resources\slow.png" />
+    <None Include="resources\normal.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
