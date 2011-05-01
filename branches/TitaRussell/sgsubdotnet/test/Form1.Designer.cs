@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Subtitle.AssSub assSub1 = new Subtitle.AssSub();
+            Subtitle.AssSub assSub2 = new Subtitle.AssSub();
             this.button1 = new System.Windows.Forms.Button();
             this.debugMessage = new System.Windows.Forms.TextBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
@@ -43,16 +43,19 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tsStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.splitContainer1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(450, 33);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(56, 18);
             this.button1.TabIndex = 2;
@@ -63,7 +66,7 @@
             // debugMessage
             // 
             this.debugMessage.Location = new System.Drawing.Point(464, 4);
-            this.debugMessage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.debugMessage.Margin = new System.Windows.Forms.Padding(2);
             this.debugMessage.Multiline = true;
             this.debugMessage.Name = "debugMessage";
             this.debugMessage.Size = new System.Drawing.Size(255, 234);
@@ -72,7 +75,7 @@
             // trackBar1
             // 
             this.trackBar1.Location = new System.Drawing.Point(450, 241);
-            this.trackBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.trackBar1.Margin = new System.Windows.Forms.Padding(2);
             this.trackBar1.Maximum = 600;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(254, 45);
@@ -84,7 +87,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(548, 36);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(78, 16);
             this.checkBox1.TabIndex = 5;
@@ -104,21 +107,22 @@
             // splitContainer1
             // 
             this.splitContainer1.Location = new System.Drawing.Point(524, 290);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.splitContainer1.Size = new System.Drawing.Size(160, 80);
-            this.splitContainer1.SplitterDistance = 52;
+            this.splitContainer1.SplitterDistance = 51;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 7;
             // 
             // subEditor1
             // 
             this.subEditor1.Config = null;
-            this.subEditor1.CurrentSub = assSub1;
+            this.subEditor1.CurrentRowIndex = -1;
+            this.subEditor1.CurrentSub = assSub2;
             this.subEditor1.Edited = false;
-            this.subEditor1.Location = new System.Drawing.Point(26, 269);
-            this.subEditor1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.subEditor1.Location = new System.Drawing.Point(19, 252);
+            this.subEditor1.Margin = new System.Windows.Forms.Padding(2);
             this.subEditor1.Name = "subEditor1";
             this.subEditor1.Size = new System.Drawing.Size(427, 171);
             this.subEditor1.TabIndex = 1;
@@ -133,7 +137,7 @@
             this.waveFormViewer1.CurrentPosition = 0;
             this.waveFormViewer1.CurrentSub = null;
             this.waveFormViewer1.Location = new System.Drawing.Point(2, 2);
-            this.waveFormViewer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.waveFormViewer1.Margin = new System.Windows.Forms.Padding(2);
             this.waveFormViewer1.Name = "waveFormViewer1";
             this.waveFormViewer1.Size = new System.Drawing.Size(427, 241);
             this.waveFormViewer1.TabIndex = 0;
@@ -162,14 +166,14 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // editToolStripMenuItem
@@ -180,6 +184,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.statusStrip1);
             this.panel1.Controls.Add(this.waveFormViewer1);
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Controls.Add(this.subEditor1);
@@ -188,10 +193,26 @@
             this.panel1.Controls.Add(this.trackBar1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 24);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(727, 447);
             this.panel1.TabIndex = 9;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsStatusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 425);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(727, 22);
+            this.statusStrip1.TabIndex = 8;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tsStatusLabel
+            // 
+            this.tsStatusLabel.Name = "tsStatusLabel";
+            this.tsStatusLabel.Size = new System.Drawing.Size(41, 17);
+            this.tsStatusLabel.Text = "status";
             // 
             // Form1
             // 
@@ -203,7 +224,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
@@ -212,6 +233,8 @@
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,6 +256,8 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel tsStatusLabel;
     }
 }
 

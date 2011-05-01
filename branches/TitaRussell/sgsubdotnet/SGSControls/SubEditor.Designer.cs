@@ -86,9 +86,9 @@
             this.labelSub.Location = new System.Drawing.Point(13, 9);
             this.labelSub.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSub.Name = "labelSub";
-            this.labelSub.Size = new System.Drawing.Size(69, 20);
+            this.labelSub.Size = new System.Drawing.Size(149, 20);
             this.labelSub.TabIndex = 0;
-            this.labelSub.Text = "label1";
+            this.labelSub.Text = "字幕显示在这里";
             // 
             // subEditorToolStrip
             // 
@@ -191,7 +191,7 @@
             this.tsbtnDuplicate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnDuplicate.Name = "tsbtnDuplicate";
             this.tsbtnDuplicate.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnDuplicate.Text = "toolStripButton4";
+            this.tsbtnDuplicate.Text = "重复当前行";
             this.tsbtnDuplicate.Click += new System.EventHandler(this.tsbtnDuplicate_Click);
             // 
             // tsbtnDelete
@@ -201,7 +201,7 @@
             this.tsbtnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnDelete.Name = "tsbtnDelete";
             this.tsbtnDelete.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnDelete.Text = "toolStripButton5";
+            this.tsbtnDelete.Text = "删除当前行";
             this.tsbtnDelete.Click += new System.EventHandler(this.tsbtnDelete_Click);
             // 
             // tsbtnInsAfter
@@ -211,7 +211,7 @@
             this.tsbtnInsAfter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnInsAfter.Name = "tsbtnInsAfter";
             this.tsbtnInsAfter.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnInsAfter.Text = "toolStripButton6";
+            this.tsbtnInsAfter.Text = "在之后插入空行";
             this.tsbtnInsAfter.Click += new System.EventHandler(this.tsbtnInsAfter_Click);
             // 
             // tsbtnInsBefore
@@ -221,7 +221,7 @@
             this.tsbtnInsBefore.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnInsBefore.Name = "tsbtnInsBefore";
             this.tsbtnInsBefore.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnInsBefore.Text = "toolStripButton7";
+            this.tsbtnInsBefore.Text = "在之前插入空行";
             this.tsbtnInsBefore.Click += new System.EventHandler(this.tsbtnInsBefore_Click);
             // 
             // toolStripSeparator2
@@ -236,7 +236,7 @@
             this.tsbtnTimeLineScan.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnTimeLineScan.Name = "tsbtnTimeLineScan";
             this.tsbtnTimeLineScan.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnTimeLineScan.Text = "toolStripButton8";
+            this.tsbtnTimeLineScan.Text = "检查时间轴";
             this.tsbtnTimeLineScan.Click += new System.EventHandler(this.tsbtnTimeLineScan_Click);
             // 
             // tsbtnUndo
@@ -246,7 +246,7 @@
             this.tsbtnUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnUndo.Name = "tsbtnUndo";
             this.tsbtnUndo.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnUndo.Text = "toolStripButton9";
+            this.tsbtnUndo.Text = "撤消";
             this.tsbtnUndo.Click += new System.EventHandler(this.tsbtnUndo_Click);
             // 
             // tsbtnMarkCells
@@ -256,7 +256,7 @@
             this.tsbtnMarkCells.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnMarkCells.Name = "tsbtnMarkCells";
             this.tsbtnMarkCells.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnMarkCells.Text = "toolStripButton10";
+            this.tsbtnMarkCells.Text = "标记选中单元格";
             this.tsbtnMarkCells.Click += new System.EventHandler(this.tsbtnMarkCells_Click);
             // 
             // tsbtnUnmarkAll
@@ -266,7 +266,7 @@
             this.tsbtnUnmarkAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnUnmarkAll.Name = "tsbtnUnmarkAll";
             this.tsbtnUnmarkAll.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnUnmarkAll.Text = "toolStripButton11";
+            this.tsbtnUnmarkAll.Text = "清除所有标记";
             this.tsbtnUnmarkAll.Click += new System.EventHandler(this.tsbtnUnmarkAll_Click);
             // 
             // tsbtnTimeOffset
@@ -276,7 +276,7 @@
             this.tsbtnTimeOffset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnTimeOffset.Name = "tsbtnTimeOffset";
             this.tsbtnTimeOffset.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnTimeOffset.Text = "toolStripButton12";
+            this.tsbtnTimeOffset.Text = "j时间平衡";
             this.tsbtnTimeOffset.Click += new System.EventHandler(this.tsbtnTimeOffset_Click);
             // 
             // SubEditor

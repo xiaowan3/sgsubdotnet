@@ -121,7 +121,7 @@ namespace SGSControls
         public event EventHandler<TimeEditEventArgs> TimeEdit = null;
         public event EventHandler<PlayerControlEventArgs> PlayerControl = null;
         public event EventHandler<CurrentRowChangeEventArgs> CurrentRowChanged = null;
-        public event EventHandler KeySaveAss = nul;
+        public event EventHandler KeySaveAss = null;
         #endregion
 
         #region Methods
