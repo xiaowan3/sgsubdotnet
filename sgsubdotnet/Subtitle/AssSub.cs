@@ -9,8 +9,8 @@ namespace Subtitle
 {
     public class AssSub
     {
-        private AssHead m_AssHead;
-        private AssLineParser m_AssParser;
+        private AssHead _mAssHead;
+        private AssLineParser _mAssParser;
         public BindingSource SubItems = new BindingSource();
 
         public AssHead DefaultAssHead;
@@ -35,8 +35,8 @@ namespace Subtitle
         /// <param name="filename"></param>
         public void LoadAss(string filename)
         {
-            FileStream ifile = new FileStream(filename, FileMode.Open);
-            StreamReader istream = new StreamReader(ifile, Encoding.Default, true);
+            var ifile = new FileStream(filename, FileMode.Open);
+            var istream = new StreamReader(ifile, Encoding.Default, true);
             LoadAss(istream);
             istream.Close();
             ifile.Close();
@@ -49,8 +49,8 @@ namespace Subtitle
         /// <param name="encoding"></param>
         public void LoadAss(string filename, Encoding encoding)
         {
-            FileStream ifile = new FileStream(filename, FileMode.Open);
-            StreamReader istream = new StreamReader(ifile,encoding);
+            var ifile = new FileStream(filename, FileMode.Open);
+            var istream = new StreamReader(ifile,encoding);
             LoadAss(istream);
             istream.Close();
             ifile.Close();
@@ -64,12 +64,13 @@ namespace Subtitle
         {
             string line;
             bool eventfound = false;
-            m_AssHead = new AssHead();
+            _mAssHead = new AssHead();
 
             while (!iStream.EndOfStream)
             {
                 line = iStream.ReadLine();
-                m_AssHead.AddLine(line);
+                if (line == null) throw (new Exception("Wrong ass file."));
+                _mAssHead.AddLine(line);
                 if (line.ToUpper().IndexOf("EVENTS") != -1)
                 {
                     eventfound = true;
@@ -78,12 +79,12 @@ namespace Subtitle
             }
             if (!eventfound) throw (new Exception("Wrong ass file."));
             line = iStream.ReadLine();
-            m_AssParser = new AssLineParser(line);
+            _mAssParser = new AssLineParser(line);
             SubItems.Clear();
             while (!iStream.EndOfStream)
             {
                 line = iStream.ReadLine();
-                AssItem item = m_AssParser.ParseLine(line);
+                AssItem item = _mAssParser.ParseLine(line);
                 if (item != null) SubItems.Add(item);
             }
         }
@@ -95,8 +96,8 @@ namespace Subtitle
         /// <param name="filename"></param>
         public void WriteAss(string filename)
         {
-            FileStream ofile = new FileStream(filename, FileMode.Create);
-            StreamWriter oStream = new StreamWriter(ofile);
+            var ofile = new FileStream(filename, FileMode.Create);
+            var oStream = new StreamWriter(ofile);
             WriteAss(oStream);
             oStream.Flush();
             ofile.Flush();
@@ -111,8 +112,8 @@ namespace Subtitle
         /// <param name="encoding"></param>
         public void WriteAss(string filename, Encoding encoding)
         {
-            FileStream ofile = new FileStream(filename, FileMode.Create);
-            StreamWriter oStream = new StreamWriter(ofile,encoding);
+            var ofile = new FileStream(filename, FileMode.Create);
+            var oStream = new StreamWriter(ofile,encoding);
             WriteAss(oStream);
             oStream.Flush();
             ofile.Flush();
@@ -126,11 +127,11 @@ namespace Subtitle
         /// <param name="oStream"></param>
         public void WriteAss(StreamWriter oStream)
         {
-            m_AssHead.WriteTo(oStream);
-            oStream.WriteLine(m_AssParser.FmtLine);
+            _mAssHead.WriteTo(oStream);
+            oStream.WriteLine(_mAssParser.FmtLine);
             foreach (object i in SubItems)
             {
-                oStream.WriteLine(m_AssParser.FormatLine((AssItem)i));
+                oStream.WriteLine(_mAssParser.FormatLine((AssItem)i));
             }
         }
 
@@ -140,8 +141,8 @@ namespace Subtitle
         /// <param name="filename"></param>
         public void LoadText(string filename)
         {
-            FileStream ifile = new FileStream(filename, FileMode.Open);
-            StreamReader istream = new StreamReader(ifile, Encoding.Default, true);
+            var ifile = new FileStream(filename, FileMode.Open);
+            var istream = new StreamReader(ifile, Encoding.Default, true);
             
             LoadText(istream);
             istream.Close();
@@ -152,10 +153,11 @@ namespace Subtitle
         ///  读取无时间轴的翻译稿
         /// </summary>
         /// <param name="filename"></param>
+        /// <param name="encoding"></param>
         public void LoadText(string filename, Encoding encoding)
         {
-            FileStream ifile = new FileStream(filename, FileMode.Open);
-            StreamReader istream = new StreamReader(ifile, encoding);
+            var ifile = new FileStream(filename, FileMode.Open);
+            var istream = new StreamReader(ifile, encoding);
             LoadText(istream);
             istream.Close();
             ifile.Close();
@@ -164,28 +166,29 @@ namespace Subtitle
 
         public void LoadText(StreamReader iStream)
         {
-            m_AssHead = DefaultAssHead;
-            m_AssParser = new AssLineParser(DefaultFormatLine);
-            string line;
+            _mAssHead = DefaultAssHead;
+            _mAssParser = new AssLineParser(DefaultFormatLine);
             SubItems.Clear();
             while (!iStream.EndOfStream)
             {
-                line = iStream.ReadLine();
-                AssItem item = new AssItem();
+                string line = iStream.ReadLine();
+                var item = new AssItem
+                               {
+                                   Format = DefaultFormat,
+                                   Layer = DefaultLayer,
+                                   Marked = DefaultMarked,
+                                   Start = {TimeValue = DefaultStart},
+                                   End = {TimeValue = DefaultEnd},
+                                   Style = DefaultStyle,
+                                   Name = DefaultName,
+                                   Actor = DefaultActor,
+                                   MarginL = DefaultMarginL,
+                                   MarginR = DefaultMarginR,
+                                   MarginV = DefaultMarginV,
+                                   Effect = DefaultEffect,
+                                   Text = line
+                               };
                 //Format: Marked, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-                item.Format = DefaultFormat;
-                item.Layer = DefaultLayer;
-                item.Marked = DefaultMarked;
-                item.Start.TimeValue = DefaultStart;
-                item.End.TimeValue = DefaultEnd;
-                item.Style = DefaultStyle;
-                item.Name = DefaultName;
-                item.Actor = DefaultActor;
-                item.MarginL = DefaultMarginL;
-                item.MarginR = DefaultMarginR;
-                item.MarginV = DefaultMarginV;
-                item.Effect = DefaultEffect;
-                item.Text = line;
                 SubItems.Add(item);
             }
         }
@@ -193,8 +196,8 @@ namespace Subtitle
         /// <summary>
         /// 为了在播放时能快速找到显示的字幕，定义这么一个索引。
         /// </summary>
-        private List<AssItem>[] m_AssItemIndex;
-        private double m_VideoLen;
+        private List<AssItem>[] _mAssItemIndex;
+        private double _mVideoLen;
 
         /// <summary>
         /// 建立索引
@@ -204,44 +207,43 @@ namespace Subtitle
         {
             if (length > 0)
             {
-                m_VideoLen = length;
-                m_AssItemIndex = new List<AssItem>[(int)Math.Ceiling(length) + 1];
-                for (int i = 0; i < m_AssItemIndex.Length; i++) m_AssItemIndex[i] = new List<AssItem>();
+                _mVideoLen = length;
+                _mAssItemIndex = new List<AssItem>[(int)Math.Ceiling(length) + 1];
+                for (int i = 0; i < _mAssItemIndex.Length; i++) _mAssItemIndex[i] = new List<AssItem>();
                 foreach (AssItem item in SubItems)
                 {
-                    int a = (int)Math.Floor(item.Start.TimeValue);
-                    int b = (int)Math.Ceiling(item.End.TimeValue);
+                    var a = (int)Math.Floor(item.Start.TimeValue);
+                    var b = (int)Math.Ceiling(item.End.TimeValue);
                     for (int i = a; i < b; i++)
                     {
-                        if (i < m_AssItemIndex.Length)
-                            m_AssItemIndex[i].Add(item);
+                        if (i < _mAssItemIndex.Length)
+                            _mAssItemIndex[i].Add(item);
                     }
                 }
             }
             else
             {
-                m_AssItemIndex = null;
+                _mAssItemIndex = null;
             }
         }
 
 
         public void RefreshIndex()
         {
-            if (m_AssItemIndex != null)
+            if (_mAssItemIndex == null) return;
+
+            foreach (List<AssItem> t in _mAssItemIndex)
             {
-                for (int i = 0; i < m_AssItemIndex.Length; i++)
+                t.Clear();
+            }
+            foreach (AssItem item in SubItems)
+            {
+                var a = (int)Math.Floor(item.Start.TimeValue);
+                var b = (int)Math.Ceiling(item.End.TimeValue);
+                for (int i = a; i < b; i++)
                 {
-                    m_AssItemIndex[i].Clear();
-                }
-                foreach (AssItem item in SubItems)
-                {
-                    int a = (int)Math.Floor(item.Start.TimeValue);
-                    int b = (int)Math.Ceiling(item.End.TimeValue);
-                    for (int i = a; i < b; i++)
-                    {
-                        if (i < m_AssItemIndex.Length)
-                            m_AssItemIndex[i].Add(item);
-                    }
+                    if (i < _mAssItemIndex.Length)
+                        _mAssItemIndex[i].Add(item);
                 }
             }
         }
@@ -253,25 +255,25 @@ namespace Subtitle
         /// <param name="oldEnd">原来的终止时间</param>
         public void ItemEdited(AssItem item, double oldStart, double oldEnd)
         {
-            int olds = (int)Math.Floor(oldStart);
-            int olde = (int)Math.Ceiling(oldEnd);
+            var olds = (int)Math.Floor(oldStart);
+            var olde = (int)Math.Ceiling(oldEnd);
 
-            int news = (int)Math.Floor(item.Start.TimeValue);
-            int newe = (int)Math.Ceiling(item.End.TimeValue);
+            var news = (int)Math.Floor(item.Start.TimeValue);
+            var newe = (int)Math.Ceiling(item.End.TimeValue);
             int s = Math.Min(news, olds), e = Math.Max(newe, olde);
-            if (m_AssItemIndex != null)
+            if (_mAssItemIndex != null)
             {
                 for (int i = s; i < e; i++)
                 {
-                    if (i < m_AssItemIndex.Length)
+                    if (i < _mAssItemIndex.Length)
                     {
                         if (i < news || i >= newe)
                         {
-                            if (m_AssItemIndex[i].Contains(item)) m_AssItemIndex[i].Remove(item);
+                            if (_mAssItemIndex[i].Contains(item)) _mAssItemIndex[i].Remove(item);
                         }
                         else
                         {
-                            if (!m_AssItemIndex[i].Contains(item)) m_AssItemIndex[i].Add(item);
+                            if (!_mAssItemIndex[i].Contains(item)) _mAssItemIndex[i].Add(item);
 
                         }
                     }
@@ -288,13 +290,14 @@ namespace Subtitle
         public string GetSubtitle(double time)
         {
             string str = "";
-            if (m_AssItemIndex != null && time <= m_VideoLen)
+            if (_mAssItemIndex != null && time <= _mVideoLen)
             {
-                foreach (AssItem t in m_AssItemIndex[(int)Math.Floor(time)])
-                {
-                    if (t.Start.TimeValue <= time && t.End.TimeValue >= time && t.End.TimeValue - t.Start.TimeValue > 0.1)
-                        str += t.Text + Environment.NewLine;
-                }
+                str = _mAssItemIndex[(int) Math.Floor(time)].
+                    Where(
+                        t =>
+                        t.Start.TimeValue <= time && t.End.TimeValue >= time &&
+                        t.End.TimeValue - t.Start.TimeValue > 0.1).
+                    Aggregate(str, (current, t) => current + (t.Text + Environment.NewLine));
             }
             return str;
         }
