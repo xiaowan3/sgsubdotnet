@@ -24,26 +24,27 @@ namespace sgsubtr
             switch (node.Name)
             {
                 case "SplitContainer":
-                    SplitContainer sc = new SplitContainer();
+                    var sc = new SplitContainer();
+                    if (node.Attributes == null) break;
                     foreach (XmlAttribute attribute in node.Attributes)
                     {
                         container.Controls.Add(sc);
                         switch (attribute.Name)
                         {
                             case "Orientation":
-                                sc.Orientation = (Orientation)Enum.Parse(typeof(Orientation), attribute.Value);
+                                sc.Orientation = (Orientation) Enum.Parse(typeof (Orientation), attribute.Value);
                                 break;
                             case "Dock":
-                                sc.Dock = (DockStyle)Enum.Parse(typeof(DockStyle), attribute.Value);
+                                sc.Dock = (DockStyle) Enum.Parse(typeof (DockStyle), attribute.Value);
                                 break;
                             case "SpliterDistance":
                                 sc.SplitterDistance = int.Parse(attribute.Value);
                                 break;
                             case "BorderStyle":
-                                sc.BorderStyle = (BorderStyle)Enum.Parse(typeof(BorderStyle), attribute.Value);
+                                sc.BorderStyle = (BorderStyle) Enum.Parse(typeof (BorderStyle), attribute.Value);
                                 break;
                             case "FixedPanel":
-                                sc.FixedPanel = (FixedPanel)Enum.Parse(typeof(FixedPanel), attribute.Value);
+                                sc.FixedPanel = (FixedPanel) Enum.Parse(typeof (FixedPanel), attribute.Value);
                                 break;
                             case "IsSplitterFixed":
                                 sc.IsSplitterFixed = Boolean.Parse(attribute.Value);
@@ -63,6 +64,7 @@ namespace sgsubtr
                     break;
                 case "SubEditor":
                     container.Controls.Add(subEditor);
+                    if (node.Attributes == null) break;
                     foreach (XmlAttribute attribute in node.Attributes)
                     {
                         switch (attribute.Name)
@@ -75,6 +77,7 @@ namespace sgsubtr
                     break;
                 case "WaveFormViewer":
                     container.Controls.Add(waveViewer);
+                    if (node.Attributes == null) break;
                     foreach (XmlAttribute attribute in node.Attributes)
                     {
                         switch (attribute.Name)
@@ -87,6 +90,7 @@ namespace sgsubtr
                     break;
                 case "VideoPlayer":
                     container.Controls.Add(dxVideoPlayer);
+                    if (node.Attributes == null) break;
                     foreach (XmlAttribute attribute in node.Attributes)
                     {
                         switch (attribute.Name)
@@ -99,7 +103,8 @@ namespace sgsubtr
                     break;
                 case "SGSUBLayout":
                     {
-                        Size size = new Size();
+                        var size = new Size();
+                        if (node.Attributes == null) break;
                         foreach (XmlAttribute attribute in node.Attributes)
                         {
                             switch (attribute.Name)
@@ -112,7 +117,7 @@ namespace sgsubtr
                                     break;
                             }
                         }
-                        this.Size = size;
+                        Size = size;
                         foreach (XmlNode subnode in node.ChildNodes)
                         {
                             LayoutLoader(container, subnode);
@@ -121,6 +126,7 @@ namespace sgsubtr
                     break;
                 case "SubItemEditor":
                     container.Controls.Add(subItemEditor);
+                    if (node.Attributes == null) break;
                     foreach (XmlAttribute attribute in node.Attributes)
                     {
                         switch (attribute.Name)
@@ -140,7 +146,7 @@ namespace sgsubtr
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -193,47 +199,47 @@ namespace sgsubtr
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.Text = "SGSUB.Net Tita Russell";
-            this.Icon = Resource.tita;
-            this.AllowDrop = true;
+            components = new Container();
+            AutoScaleMode = AutoScaleMode.None;
+            Text = @"SGSUB.Net Tita Russell";
+            Icon = Resource.tita;
+            AllowDrop = true;
 
 
-            XmlDocument xmldoc;
-            XmlTextReader layoutReader; xmldoc = new XmlDocument();
-            StartUpPath = Application.StartupPath;
+            var xmldoc= new XmlDocument();
+            XmlTextReader layoutReader;  
+            _startUpPath = Application.StartupPath;
 
             #region Load Config
-            AppFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + Application.CompanyName;
-            if (!System.IO.Directory.Exists(AppFolderPath))
+            _appFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + Application.CompanyName;
+            if (!System.IO.Directory.Exists(_appFolderPath))
             {
-                System.IO.Directory.CreateDirectory(AppFolderPath);
+                System.IO.Directory.CreateDirectory(_appFolderPath);
             }
-            if (!System.IO.Directory.Exists(AppFolderPath + @"\config"))
+            if (!System.IO.Directory.Exists(_appFolderPath + @"\config"))
             {
-                System.IO.Directory.CreateDirectory(AppFolderPath + @"\config");
+                System.IO.Directory.CreateDirectory(_appFolderPath + @"\config");
             }
-            if (!System.IO.File.Exists(AppFolderPath + @"\config\sgscfg.xml"))
+            if (!System.IO.File.Exists(_appFolderPath + @"\config\sgscfg.xml"))
             {
-                m_Config = SGSConfig.FromFile(Application.StartupPath + @"\config\sgscfg.xml");
-                m_Config.Save(AppFolderPath + @"\config\sgscfg.xml");
+                _config = SGSConfig.FromFile(Application.StartupPath + @"\config\sgscfg.xml");
+                _config.Save(_appFolderPath + @"\config\sgscfg.xml");
             }
             else
             {
-                m_Config = SGSConfig.FromFile(AppFolderPath + @"\config\sgscfg.xml");
+                _config = SGSConfig.FromFile(_appFolderPath + @"\config\sgscfg.xml");
             }
 
-            if (!System.IO.File.Exists(AppFolderPath + @"\config\layout.xml"))
+            if (!System.IO.File.Exists(_appFolderPath + @"\config\layout.xml"))
             {
-                layoutReader = new XmlTextReader(StartUpPath + @"\config\layout.xml");
-                XmlWriter layoutWriter = new XmlTextWriter(AppFolderPath + @"\config\layout.xml", Encoding.Unicode);
+                layoutReader = new XmlTextReader(_startUpPath + @"\config\layout.xml");
+                XmlWriter layoutWriter = new XmlTextWriter(_appFolderPath + @"\config\layout.xml", Encoding.Unicode);
                 xmldoc.Load(layoutReader);
                 xmldoc.WriteContentTo(layoutWriter);
             }
             else
             {
-                layoutReader = new XmlTextReader(StartUpPath + @"\config\layout.xml");
+                layoutReader = new XmlTextReader(_startUpPath + @"\config\layout.xml");
                 xmldoc.Load(layoutReader);
             }
 
@@ -243,14 +249,13 @@ namespace sgsubtr
 
             if (xmldoc.ChildNodes.Count <= 0) throw new Exception("Wrong XML File");
             XmlNode root = xmldoc.ChildNodes[0];
-            Panel panel = new Panel();
+            var panel = new Panel();
 
-            this.mainMenu.SuspendLayout();
+            mainMenu.SuspendLayout();
             panel.SuspendLayout();
-            this.SuspendLayout();
+            SuspendLayout();
 
             //Build Mainmenu
-            mainMenu.Name = "Main Menu";
             mainMenu.Items.Add(fileMenuItems);
             mainMenu.Items.Add(ConfigMenuItems);
             mainMenu.Items.Add(HelpMenuItem);
@@ -288,31 +293,31 @@ namespace sgsubtr
             panel.Dock = DockStyle.Fill;
             panel.Location = new Point(0, 28);
 
-            this.Controls.Add(panel);
-            this.Controls.Add(statusStrip);
-            this.Controls.Add(mainMenu);
-            this.MainMenuStrip = mainMenu;
+            Controls.Add(panel);
+            Controls.Add(statusStrip);
+            Controls.Add(mainMenu);
+            MainMenuStrip = mainMenu;
 
             mainMenu.ResumeLayout(false);
             mainMenu.PerformLayout();
             panel.ResumeLayout(false);
             panel.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
             statusStrip.Items.Add(statusLabel);
             LayoutLoader(panel, root);
             #endregion
 
 
-            subEditor.Config = m_Config;
+            subEditor.Config = _config;
 
-            waveViewer.FFMpegPath = StartUpPath + @"\ffmpeg.exe";
-            SubItemEditor.FFMpegPath = StartUpPath + @"\ffmpeg.exe";
+            waveViewer.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
+            SubItemEditor.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
 
             #region Event Handlers
-            this.DragDrop += new DragEventHandler(SgsubMainform_DragDrop);
-            this.DragEnter += new DragEventHandler(SgsubMainform_DragEnter);
-            this.FormClosing += new FormClosingEventHandler(SgsubMainform_FormClosing);
+            DragDrop += new DragEventHandler(SgsubMainform_DragDrop);
+            DragEnter += new DragEventHandler(SgsubMainform_DragEnter);
+            FormClosing += new FormClosingEventHandler(SgsubMainform_FormClosing);
 
             openSub.Click += new EventHandler(openSub_Click);
             openTXT.Click += new EventHandler(openTXT_Click);
@@ -343,7 +348,7 @@ namespace sgsubtr
 
         }
 
-        private string[] AllowedExts = { "avi", "mkv", "mp4", "rmvb", "wmv", "ass", "txt" };
+        private readonly string[] _allowedExts = { "avi", "mkv", "mp4", "rmvb", "wmv", "ass", "txt" };
 
 
         void SgsubMainform_FormClosing(object sender, FormClosingEventArgs e)
@@ -358,11 +363,11 @@ namespace sgsubtr
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                string[] files = (string[])(e.Data.GetData(DataFormats.FileDrop));
+                var files = (string[])(e.Data.GetData(DataFormats.FileDrop));
                 if (files.Length == 1)
                 {
                     string ext = (files[0].Substring(files[0].LastIndexOf('.') + 1)).ToLower();
-                    if (AllowedExts.Contains(ext))
+                    if (_allowedExts.Contains(ext))
                     {
                         e.Effect = DragDropEffects.Copy;
                     }
@@ -374,7 +379,7 @@ namespace sgsubtr
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                string[] files = (string[])(e.Data.GetData(DataFormats.FileDrop));
+                var files = (string[])(e.Data.GetData(DataFormats.FileDrop));
                 if (files.Length == 1)
                 {
                     string ext = (files[0].Substring(files[0].LastIndexOf('.') + 1)).ToLower();
@@ -396,7 +401,7 @@ namespace sgsubtr
                             OpenVideo(files[0]);
                             break;
                     }
-                    if (AllowedExts.Contains(ext))
+                    if (_allowedExts.Contains(ext))
                     {
                         e.Effect = DragDropEffects.Copy;
                     }
@@ -411,10 +416,10 @@ namespace sgsubtr
 
         void KeyConfig_Click(object sender, EventArgs e)
         {
-            KeyConfigForm keycfg = new KeyConfigForm(m_Config);
+            var keycfg = new KeyConfigForm(_config);
             if (keycfg.ShowDialog() == DialogResult.OK)
             {
-                m_Config.Save();
+                _config.Save();
             }
         }
 
@@ -433,20 +438,20 @@ namespace sgsubtr
 
         private void SetDefaultValues()
         {
-            m_CurrentSub.DefaultAssHead = m_Config.DefaultAssHead;
-            m_CurrentSub.DefaultFormatLine = m_Config.DefaultFormatLine;
-            m_CurrentSub.DefaultFormat = m_Config.DefaultFormat;
-            m_CurrentSub.DefaultLayer = m_Config.DefaultLayer;
-            m_CurrentSub.DefaultMarked = m_Config.DefaultMarked;
-            m_CurrentSub.DefaultStart = m_Config.DefaultStart;
-            m_CurrentSub.DefaultEnd = m_Config.DefaultEnd;
-            m_CurrentSub.DefaultStyle = m_Config.DefaultStyle;
-            m_CurrentSub.DefaultName = m_Config.DefaultName;
-            m_CurrentSub.DefaultActor = m_Config.DefaultActor;
-            m_CurrentSub.DefaultMarginL = m_Config.DefaultMarginL;
-            m_CurrentSub.DefaultMarginR = m_Config.DefaultMarginR;
-            m_CurrentSub.DefaultMarginV = m_Config.DefaultMarginV;
-            m_CurrentSub.DefaultEffect = m_Config.DefaultEffect;
+            _currentSub.DefaultAssHead = _config.DefaultAssHead;
+            _currentSub.DefaultFormatLine = _config.DefaultFormatLine;
+            _currentSub.DefaultFormat = _config.DefaultFormat;
+            _currentSub.DefaultLayer = _config.DefaultLayer;
+            _currentSub.DefaultMarked = _config.DefaultMarked;
+            _currentSub.DefaultStart = _config.DefaultStart;
+            _currentSub.DefaultEnd = _config.DefaultEnd;
+            _currentSub.DefaultStyle = _config.DefaultStyle;
+            _currentSub.DefaultName = _config.DefaultName;
+            _currentSub.DefaultActor = _config.DefaultActor;
+            _currentSub.DefaultMarginL = _config.DefaultMarginL;
+            _currentSub.DefaultMarginR = _config.DefaultMarginR;
+            _currentSub.DefaultMarginV = _config.DefaultMarginV;
+            _currentSub.DefaultEffect = _config.DefaultEffect;
         }
 
 
@@ -514,28 +519,30 @@ namespace sgsubtr
         }
 
         #region Private Members
-        private Subtitle.AssSub m_CurrentSub = null;
-        private string m_SubFilename = null;
-        private Config.SGSConfig m_Config;
-        private string StartUpPath;
-        private string AppFolderPath;
+        private Subtitle.AssSub _currentSub;
+        private string _subFilename;
+        private SGSConfig _config;
+        private string _startUpPath;
+        private string _appFolderPath;
         #endregion
 
         void exit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         void saveSubAs_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.AddExtension = true;
-            dlg.DefaultExt = "ass";
-            dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
+            var dlg = new SaveFileDialog
+                          {
+                              AddExtension = true,
+                              DefaultExt = "ass",
+                              Filter = @"ASS Subtitle (*.ass)|*.ass||"
+                          };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                m_SubFilename = dlg.FileName;
-                m_CurrentSub.WriteAss(m_SubFilename, Encoding.Unicode);
+                _subFilename = dlg.FileName;
+                _currentSub.WriteAss(_subFilename, Encoding.Unicode);
                 subEditor.Edited = false;
             }
 
@@ -548,8 +555,11 @@ namespace sgsubtr
 
         void openMedia_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Video File (*.mp4;*.mkv;*.avi;*.mpg)|*.mp4;*.mkv;*.avi;*.mpg|All files (*.*)|*.*||";
+            var dlg = new OpenFileDialog
+                          {
+                              Filter =
+                                  @"Video File (*.mp4;*.mkv;*.avi;*.mpg)|*.mp4;*.mkv;*.avi;*.mpg|All files (*.*)|*.*||"
+                          };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 OpenVideo(dlg.FileName);
@@ -559,8 +569,7 @@ namespace sgsubtr
 
         void openTXT_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Text File (*.txt)|*.txt||";
+            var dlg = new OpenFileDialog {Filter = @"Text File (*.txt)|*.txt||"};
 
             if (AskSave() && dlg.ShowDialog() == DialogResult.OK)
             {
@@ -569,8 +578,7 @@ namespace sgsubtr
         }
         void openSub_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
+            var dlg = new OpenFileDialog {Filter = @"ASS Subtitle (*.ass)|*.ass||"};
             if (AskSave() && dlg.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -579,9 +587,9 @@ namespace sgsubtr
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK);
-                    m_CurrentSub = null;
-                    m_SubFilename = null;
+                    MessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK);
+                    _currentSub = null;
+                    _subFilename = null;
                     SetCurrentSub();
                 }
             }
@@ -594,7 +602,7 @@ namespace sgsubtr
         /// <summary>
         /// 打开视频
         /// </summary>
-        /// <param name="file"></param>
+        /// <param name="filename"></param>
         private void OpenVideo(string filename)
         {
             try
@@ -621,8 +629,8 @@ namespace sgsubtr
         {
             if (subEditor.Edited)
             {
-                DialogResult result = MessageBox.Show("当前字幕己修改" + Environment.NewLine + "想保存文件吗",
-                    "SGSUB.Net", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                var result = MessageBox.Show(string.Format("当前字幕己修改{0}想保存文件吗", Environment.NewLine),
+                    @"SGSUB.Net", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 switch (result)
                 {
                     case DialogResult.Yes:
@@ -640,22 +648,24 @@ namespace sgsubtr
 
         private bool SaveAssSub()
         {
-            if (m_SubFilename == null)
+            if (_subFilename == null)
             {
-                SaveFileDialog dlg = new SaveFileDialog();
-                dlg.AddExtension = true;
-                dlg.DefaultExt = "ass";
-                dlg.Filter = "ASS Subtitle (*.ass)|*.ass||";
+                var dlg = new SaveFileDialog
+                              {
+                                  AddExtension = true,
+                                  DefaultExt = "ass",
+                                  Filter = @"ASS Subtitle (*.ass)|*.ass||"
+                              };
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    m_SubFilename = dlg.FileName;
+                    _subFilename = dlg.FileName;
                 }
                 else
                 {
                     return false;
                 }
             }
-            m_CurrentSub.WriteAss(m_SubFilename, Encoding.Unicode);
+            _currentSub.WriteAss(_subFilename, Encoding.Unicode);
             subEditor.Edited = false;
             return true;
         }
@@ -663,27 +673,27 @@ namespace sgsubtr
 
         private void OpenTxt(string filename)
         {
-            m_CurrentSub = new Subtitle.AssSub();
+            _currentSub = new Subtitle.AssSub();
             SetDefaultValues();
-            m_CurrentSub.LoadText(filename);
-            m_SubFilename = null;
+            _currentSub.LoadText(filename);
+            _subFilename = null;
             subEditor.Edited = false;
             SetCurrentSub();
         }
 
         private void OpenAss(string filename)
         {
-            m_CurrentSub = new Subtitle.AssSub();
-            m_CurrentSub.LoadAss(filename);
-            m_SubFilename = filename;
+            _currentSub = new Subtitle.AssSub();
+            _currentSub.LoadAss(filename);
+            _subFilename = filename;
             SetCurrentSub();
         }
 
         private void SetCurrentSub()
         {
-            subEditor.CurrentSub = m_CurrentSub;
-            waveViewer.CurrentSub = m_CurrentSub;
-            subItemEditor.CurrentSub = m_CurrentSub;
+            subEditor.CurrentSub = _currentSub;
+            waveViewer.CurrentSub = _currentSub;
+            subItemEditor.CurrentSub = _currentSub;
         }
 
 
