@@ -32,22 +32,24 @@ namespace WaveReader
         public static WaveForm ExtractWave(string videofilename)
         {
             //ffmpeg -i <infile> -f wav -ac 1 -vn -y <outfile.wav>
-            WaveForm wavfm = new WaveForm();
-            List<Byte[][]> wflist = new List<Byte[][]>();
-            Byte[][] asec;
-            Process ffmpegprocess = new Process();
-            ffmpegprocess.StartInfo.FileName = FFmpegpath;
-            ffmpegprocess.StartInfo.Arguments = "-i \"" + videofilename + "\" -f wav -ac 1 -ar 48000 -vn -y -";
-            ffmpegprocess.StartInfo.CreateNoWindow = true;
-            ffmpegprocess.StartInfo.RedirectStandardOutput = true;
-            ffmpegprocess.StartInfo.UseShellExecute = false;
+            var wavfm = new WaveForm();
+            var wflist = new List<Byte[][]>();
+            var ffmpegprocess = new Process
+                                    {
+                                        StartInfo =
+                                            {
+                                                FileName = FFmpegpath,
+                                                Arguments =
+                                                    "-i \"" + videofilename + "\" -f wav -ac 1 -ar 48000 -vn -y -",
+                                                CreateNoWindow = true,
+                                                RedirectStandardOutput = true,
+                                                UseShellExecute = false
+                                            }
+                                    };
             ffmpegprocess.Start();
             Stream stdout = ffmpegprocess.StandardOutput.BaseStream;
-            byte[] buf;
-            byte[] chunk;
-            wavinfo wavinf;
             //get wavinfo
-            buf = new byte[4];
+            byte[] buf = new byte[4];
             
             int read;
             tagname tag;
@@ -68,9 +70,9 @@ namespace WaveReader
             if (tag != tagname.FMT) throw new Exception("WaveReadError");
             read = stdout.Read(buf, 0, 4);
             taglen = gettaglen(buf);  //length;
-            chunk = new byte[taglen];
+            byte[] chunk = new byte[taglen];
             read = stdout.Read(chunk, 0, (int)taglen);
-            wavinf = parsefmt(chunk);
+            wavinfo wavinf = parsefmt(chunk);
 
             read = stdout.Read(buf, 0, 4);
             tag = gettagname(buf); //data
@@ -97,7 +99,7 @@ namespace WaveReader
             int nSamples = samplelen / 10;//每个FFT周期的采样个数
             IntPtr fftbuf = fft.CreateFFTBuffer(nSamples);
 
-            asec = new Byte[spsec][];
+            var asec = new Byte[spsec][];
             for (int i = 0; i < spsec; i++) asec[i] = new Byte[100];
             
             int[] split = new int[numsplit + 1];
@@ -137,15 +139,15 @@ namespace WaveReader
 
             } while (read > 0);
             //保存波形信息
-            wavfm.m_waveform = new byte[wflist.Count * spsec][];
+            wavfm._mWaveform = new byte[wflist.Count * spsec][];
 
             wavfm.DeltaT = 0.1 / numsplit;
             for (int i = 0; i < wflist.Count; i++)
             {
                 for (int j = 0; j < spsec; j++)
-                    wavfm.m_waveform[i * spsec + j] = wflist[i][j];
+                    wavfm._mWaveform[i * spsec + j] = wflist[i][j];
             }
-            wavfm.Length = wavfm.m_waveform.Length * wavfm.DeltaT;
+            wavfm.Length = wavfm._mWaveform.Length * wavfm.DeltaT;
 
 
             return wavfm;
@@ -191,13 +193,19 @@ namespace WaveReader
         }
         private static wavinfo parsefmt(byte[] chunk)
         {
-            wavinfo wi = new wavinfo();
-            wi.FormatTag = (UInt32)chunk[0] + ((UInt32)(chunk[1]) << 8);
-            wi.Channels = (UInt32)chunk[2] + ((UInt32)(chunk[3]) << 8);
-            wi.Frequency = (UInt32)chunk[4] + ((UInt32)(chunk[5]) << 8) + ((UInt32)(chunk[6]) << 16) + ((UInt32)(chunk[7]) << 24);
-            wi.ByteRate = (UInt32)chunk[8] + ((UInt32)(chunk[9]) << 8) + ((UInt32)(chunk[10]) << 16) + ((UInt32)(chunk[11]) << 24);
-            wi.BlockAlign = (UInt32)chunk[12] + ((UInt32)(chunk[13]) << 8);
-            wi.BitPerSample = (UInt32)chunk[14] + ((UInt32)(chunk[15]) << 8);
+            var wi = new wavinfo
+                         {
+                             FormatTag = (UInt32) chunk[0] + ((UInt32) (chunk[1]) << 8),
+                             Channels = (UInt32) chunk[2] + ((UInt32) (chunk[3]) << 8),
+                             Frequency =
+                                 (UInt32) chunk[4] + ((UInt32) (chunk[5]) << 8) + ((UInt32) (chunk[6]) << 16) +
+                                 ((UInt32) (chunk[7]) << 24),
+                             ByteRate =
+                                 (UInt32) chunk[8] + ((UInt32) (chunk[9]) << 8) + ((UInt32) (chunk[10]) << 16) +
+                                 ((UInt32) (chunk[11]) << 24),
+                             BlockAlign = (UInt32) chunk[12] + ((UInt32) (chunk[13]) << 8),
+                             BitPerSample = (UInt32) chunk[14] + ((UInt32) (chunk[15]) << 8)
+                         };
             return wi;
         }
 
@@ -210,11 +218,11 @@ namespace WaveReader
         public Byte[] ValueAt(double time)
         {
             int l = (int)(time / DeltaT);
-            if (l < 0 || l >= m_waveform.Length) return m_nullwave;
-            return m_waveform[l];
+            if (l < 0 || l >= _mWaveform.Length) return _mNullwave;
+            return _mWaveform[l];
         }
-        private Byte[][] m_waveform;
-        private Byte[] m_nullwave = new Byte[100];
+        private Byte[][] _mWaveform;
+        private Byte[] _mNullwave = new Byte[100];
     }
     class wavinfo
     {
