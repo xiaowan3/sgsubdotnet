@@ -36,10 +36,10 @@
             // btnRabbitear
             // 
             this.btnRabbitear.Image = global::SGSControls.Properties.Resources.slower;
-            this.btnRabbitear.Location = new System.Drawing.Point(150, 2);
-            this.btnRabbitear.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRabbitear.Location = new System.Drawing.Point(200, 2);
+            this.btnRabbitear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnRabbitear.Name = "btnRabbitear";
-            this.btnRabbitear.Size = new System.Drawing.Size(56, 59);
+            this.btnRabbitear.Size = new System.Drawing.Size(75, 74);
             this.btnRabbitear.TabIndex = 2;
             this.btnRabbitear.UseVisualStyleBackColor = true;
             this.btnRabbitear.Click += new System.EventHandler(this.btnRabbitear_Click);
@@ -47,10 +47,10 @@
             // btnCatear
             // 
             this.btnCatear.Image = global::SGSControls.Properties.Resources.slow;
-            this.btnCatear.Location = new System.Drawing.Point(76, 2);
-            this.btnCatear.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCatear.Location = new System.Drawing.Point(101, 2);
+            this.btnCatear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCatear.Name = "btnCatear";
-            this.btnCatear.Size = new System.Drawing.Size(56, 59);
+            this.btnCatear.Size = new System.Drawing.Size(75, 74);
             this.btnCatear.TabIndex = 1;
             this.btnCatear.UseVisualStyleBackColor = true;
             this.btnCatear.Click += new System.EventHandler(this.btnDogear_Click);
@@ -58,24 +58,23 @@
             // btnHumanear
             // 
             this.btnHumanear.Image = global::SGSControls.Properties.Resources.normal;
-            this.btnHumanear.Location = new System.Drawing.Point(2, 2);
-            this.btnHumanear.Margin = new System.Windows.Forms.Padding(2);
+            this.btnHumanear.Location = new System.Drawing.Point(3, 2);
+            this.btnHumanear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnHumanear.Name = "btnHumanear";
-            this.btnHumanear.Size = new System.Drawing.Size(56, 59);
+            this.btnHumanear.Size = new System.Drawing.Size(75, 74);
             this.btnHumanear.TabIndex = 0;
             this.btnHumanear.UseVisualStyleBackColor = true;
             this.btnHumanear.Click += new System.EventHandler(this.btnHumanear_Click);
             // 
             // SubItemEditor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.btnRabbitear);
             this.Controls.Add(this.btnCatear);
             this.Controls.Add(this.btnHumanear);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "SubItemEditor";
-            this.Size = new System.Drawing.Size(238, 70);
+            this.Size = new System.Drawing.Size(317, 88);
             this.ResumeLayout(false);
 
         }
