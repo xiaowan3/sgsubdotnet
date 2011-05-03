@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
 using System.IO;
 using System.Windows.Forms;
 
@@ -16,85 +13,78 @@ namespace SGSControls
         {
             InitializeComponent();
 
-            DataGridViewColumn column;
-
             dataGridSubtitles.AutoGenerateColumns = false;
             dataGridSubtitles.AutoSize = false;
 
-            column = new DataGridViewTextBoxColumn();
-            column.HeaderText = "Begin Time";
-            column.DataPropertyName = "StartTime";
-            dataGridSubtitles.Columns.Add(column);
+            var column1 = new DataGridViewTextBoxColumn {HeaderText = @"Begin Time", DataPropertyName = "StartTime"};
+            dataGridSubtitles.Columns.Add(column1);
 
-            column = new DataGridViewTextBoxColumn();
-            column.HeaderText = "End Time";
-            column.DataPropertyName = "EndTime";
-            dataGridSubtitles.Columns.Add(column);
+            var column2 = new DataGridViewTextBoxColumn {HeaderText = @"End Time", DataPropertyName = "EndTime"};
+            dataGridSubtitles.Columns.Add(column2);
 
-            column = new DataGridViewTextBoxColumn();
-            column.HeaderText = "Text";
-            column.DataPropertyName = "Text";
-            column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridSubtitles.Columns.Add(column);
+            var column3 = new DataGridViewTextBoxColumn
+                         {
+                             HeaderText = @"Text",
+                             DataPropertyName = "Text",
+                             AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                         };
+            dataGridSubtitles.Columns.Add(column3);
             dataGridSubtitles.AllowUserToAddRows = false;
 
-            m_selectCells.Rows = dataGridSubtitles.Rows;
+            _mSelectCells.Rows = dataGridSubtitles.Rows;
         }
         #region Private Members
 
         /// <summary>
         /// 字幕内容
         /// </summary>
-        private Subtitle.AssSub m_CurrentSub = new Subtitle.AssSub();
-        private Config.SGSConfig m_Config = null;
-        private bool m_SubLoaded = false;
-        private double m_VideoLength = 0;
-        private UndoRecord m_UndoRec = new UndoRecord();
-        SelectCells m_selectCells = new SelectCells();
+        private Subtitle.AssSub _mCurrentSub = new Subtitle.AssSub();
+        private Config.SGSConfig _mConfig;
+        private bool _mSubLoaded;
+        private double _mVideoLength;
+        private readonly UndoRecord _mUndoRec = new UndoRecord();
+        private readonly SelectCells _mSelectCells = new SelectCells();
         #endregion
 
         public Subtitle.AssSub CurrentSub
         {
-            get { return m_CurrentSub; }
             set
             {
-                m_CurrentSub = value;
+                _mCurrentSub = value;
                 if (value != null && value.SubItems.Count > 0)
                 {
                     dataGridSubtitles.DataSource = value.SubItems;
                     dataGridSubtitles.AllowUserToAddRows = true;
-                    m_SubLoaded = true;
-                    m_CurrentSub.CreateIndex(m_VideoLength);
+                    _mSubLoaded = true;
+                    _mCurrentSub.CreateIndex(_mVideoLength);
                     Edited = false;
                 }
                 else
                 {
                     dataGridSubtitles.AllowUserToAddRows = false;
 
-                    m_SubLoaded = false;
+                    _mSubLoaded = false;
                     Edited = false;
                 }
-                m_UndoRec.Reset();
-                m_selectCells.Reset();
+                _mUndoRec.Reset();
+                _mSelectCells.Reset();
             }
         }
 
         public Config.SGSConfig Config
         {
-            get { return m_Config; }
             set
             {
-                m_Config = value;
+                _mConfig = value;
             }
         }
 
         public double VideoLength
         {
-            get { return m_VideoLength; }
             set
             {
-                m_VideoLength = value;
-                if (m_SubLoaded) m_CurrentSub.CreateIndex(m_VideoLength);
+                _mVideoLength = value;
+                if (_mSubLoaded) _mCurrentSub.CreateIndex(_mVideoLength);
             }
 
         }
@@ -103,12 +93,11 @@ namespace SGSControls
         {
             get
             {
-                if (m_SubLoaded && dataGridSubtitles.CurrentRow != null) return dataGridSubtitles.CurrentRow.Index;
-                else return -1;
+                return _mSubLoaded && dataGridSubtitles.CurrentRow != null ? dataGridSubtitles.CurrentRow.Index : -1;
             }
             set
             {
-                if (m_SubLoaded && value >= 0 && value < dataGridSubtitles.RowCount - 1)
+                if (_mSubLoaded && value >= 0 && value < dataGridSubtitles.RowCount - 1)
                 {
                     dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[value].Cells[0];
                 }
@@ -125,78 +114,78 @@ namespace SGSControls
         #endregion
 
         #region Methods
-        public void EditBeginTime(int RowIndex, double Value)
+        public void EditBeginTime(int rowIndex, double value)
         {
             int lastrowindex = dataGridSubtitles.RowCount - 2;
-            if (RowIndex >= 0 && RowIndex <= lastrowindex)
+            if (rowIndex >= 0 && rowIndex <= lastrowindex)
             {
-                Subtitle.AssItem item = (Subtitle.AssItem)(dataGridSubtitles.Rows[RowIndex].DataBoundItem);
-                m_UndoRec.Edit(RowIndex, 0, item.StartTime);//记录Undo
+                var item = (Subtitle.AssItem)(dataGridSubtitles.Rows[rowIndex].DataBoundItem);
+                _mUndoRec.Edit(rowIndex, 0, item.StartTime);//记录Undo
                 double os = item.Start.TimeValue;
-                item.Start.TimeValue = Value > 0 ? Value : 0;
-                m_CurrentSub.ItemEdited(item, os, item.End.TimeValue);
-                dataGridSubtitles.UpdateCellValue(0, RowIndex);
+                item.Start.TimeValue = value > 0 ? value : 0;
+                _mCurrentSub.ItemEdited(item, os, item.End.TimeValue);
+                dataGridSubtitles.UpdateCellValue(0, rowIndex);
                 Edited = true;
             }
 
         }
-        public void EditEndTime(int RowIndex, double Value)
+        public void EditEndTime(int rowIndex, double value)
         {
             int lastrowindex = dataGridSubtitles.RowCount - 2;
-            if (RowIndex >= 0 && RowIndex <= lastrowindex)
+            if (rowIndex >= 0 && rowIndex <= lastrowindex)
             {
-                Subtitle.AssItem item = (Subtitle.AssItem)(dataGridSubtitles.Rows[RowIndex].DataBoundItem);
-                m_UndoRec.Edit(RowIndex, 1, item.EndTime);//记录Undo
+                var item = (Subtitle.AssItem)(dataGridSubtitles.Rows[rowIndex].DataBoundItem);
+                _mUndoRec.Edit(rowIndex, 1, item.EndTime);//记录Undo
                 double oe = item.End.TimeValue;
-                item.End.TimeValue = Value > 0 ? Value : 0; ;
-                m_CurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
-                dataGridSubtitles.UpdateCellValue(1, RowIndex);
+                item.End.TimeValue = value > 0 ? value : 0;
+                _mCurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
+                dataGridSubtitles.UpdateCellValue(1, rowIndex);
                 Edited = true;
             }
         }
 
-        public void EditCellTime(int RowIndex, int ColIndex, double Value)
+        public void EditCellTime(int rowIndex, int colIndex, double value)
         {
             int lastrowindex = dataGridSubtitles.RowCount - 2;
-            if (RowIndex >= 0 && RowIndex <= lastrowindex)
+            if (rowIndex >= 0 && rowIndex <= lastrowindex)
             {
-                Subtitle.AssItem item = (Subtitle.AssItem)(dataGridSubtitles.Rows[RowIndex].DataBoundItem);
-                if (ColIndex == 0)
+                var item = (Subtitle.AssItem)(dataGridSubtitles.Rows[rowIndex].DataBoundItem);
+                if (colIndex == 0)
                 {
-                    m_UndoRec.Edit(RowIndex, 0, item.StartTime);//记录Undo
+                    _mUndoRec.Edit(rowIndex, 0, item.StartTime);//记录Undo
                     double os = item.Start.TimeValue;
-                    item.Start.TimeValue = Value > 0 ? Value : 0;
-                    m_CurrentSub.ItemEdited(item, os, item.End.TimeValue);
-                    dataGridSubtitles.UpdateCellValue(0, RowIndex);
+                    item.Start.TimeValue = value > 0 ? value : 0;
+                    _mCurrentSub.ItemEdited(item, os, item.End.TimeValue);
+                    dataGridSubtitles.UpdateCellValue(0, rowIndex);
                     Edited = true;
                 }
-                else if (ColIndex == 1)
+                else if (colIndex == 1)
                 {
-                    m_UndoRec.Edit(RowIndex, 1, item.EndTime);//记录Undo
+                    _mUndoRec.Edit(rowIndex, 1, item.EndTime);//记录Undo
                     double oe = item.End.TimeValue;
-                    item.End.TimeValue = Value > 0 ? Value : 0; ;
-                    m_CurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
-                    dataGridSubtitles.UpdateCellValue(1, RowIndex);
+                    item.End.TimeValue = value > 0 ? value : 0;
+                    _mCurrentSub.ItemEdited(item, item.Start.TimeValue, oe);
+                    dataGridSubtitles.UpdateCellValue(1, rowIndex);
                     Edited = true;
                 }
             }
         }
 
-        public void DisplayTime(double Time)
+        public void DisplayTime(double time)
         {
-            if (m_SubLoaded)
-                labelSub.Text = m_CurrentSub.GetSubtitle(Time);
+            if (_mSubLoaded)
+                labelSub.Text = _mCurrentSub.GetSubtitle(time);
         }
         #endregion
 
         private void DeleteRow(DataGridViewRow row)
         {
-            m_UndoRec.DeleteRow(row.Index, row);//为Undo记录删除操作
-            Subtitle.AssItem i = ((Subtitle.AssItem)(row.DataBoundItem));
-            m_CurrentSub.SubItems.Remove(i);
-            m_selectCells.Reset();//清空标记的单元格
+            _mUndoRec.DeleteRow(row.Index, row);//为Undo记录删除操作
+            var i = ((Subtitle.AssItem)(row.DataBoundItem));
+            _mCurrentSub.SubItems.Remove(i);
+            _mSelectCells.Reset();//清空标记的单元格
             dataGridSubtitles.Refresh();
-            m_CurrentSub.RefreshIndex();
+            _mCurrentSub.RefreshIndex();
             Edited = true;
         }
 
@@ -206,10 +195,10 @@ namespace SGSControls
             i.Text = "";
             i.Start.TimeValue = 0;
             i.End.TimeValue = 0;
-            m_CurrentSub.SubItems.Insert(index, i);
-            m_CurrentSub.RefreshIndex();
-            m_UndoRec.InsertRow(index);//为Undo记录插入操作
-            m_selectCells.Reset(); //清空标记的单元格
+            _mCurrentSub.SubItems.Insert(index, i);
+            _mCurrentSub.RefreshIndex();
+            _mUndoRec.InsertRow(index);//为Undo记录插入操作
+            _mSelectCells.Reset(); //清空标记的单元格
             dataGridSubtitles.Refresh();
             Edited = true;
         }
@@ -218,12 +207,12 @@ namespace SGSControls
         private void tsbtnJumpto_Click(object sender, EventArgs e)
         {
             Subtitle.AssItem item;
-            if (dataGridSubtitles.CurrentRow != null && m_SubLoaded
+            if (dataGridSubtitles.CurrentRow != null && _mSubLoaded
                 && (item = (Subtitle.AssItem)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
                 )
             {
-                double time = ((Subtitle.AssItem)(dataGridSubtitles.CurrentRow.DataBoundItem)).Start.TimeValue;
-                SeekEventArgs seekevent = new SeekEventArgs(SeekDir.Begin, time);
+                double time = item.Start.TimeValue;
+                var seekevent = new SeekEventArgs(SeekDir.Begin, time);
                 if (Seek != null) Seek(this, seekevent);
             }
         }
@@ -231,25 +220,24 @@ namespace SGSControls
         private void tsbtnDuplicate_Click(object sender, EventArgs e)
         {
             Subtitle.AssItem item;
-            if (dataGridSubtitles.CurrentRow != null && m_SubLoaded
+            if (dataGridSubtitles.CurrentRow != null && _mSubLoaded
                 && (item = (Subtitle.AssItem)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
                 )
             {
                 Subtitle.AssItem i = item.Clone();
-                m_CurrentSub.SubItems.Insert(dataGridSubtitles.CurrentRow.Index + 1, i);
-                m_UndoRec.InsertRow(dataGridSubtitles.CurrentRow.Index + 1);//为Undo记录插入操作
-                m_selectCells.Reset();//清空标记的单元格
+                _mCurrentSub.SubItems.Insert(dataGridSubtitles.CurrentRow.Index + 1, i);
+                _mUndoRec.InsertRow(dataGridSubtitles.CurrentRow.Index + 1);//为Undo记录插入操作
+                _mSelectCells.Reset();//清空标记的单元格
                 dataGridSubtitles.Refresh();
-                m_CurrentSub.RefreshIndex();
+                _mCurrentSub.RefreshIndex();
                 Edited = true;
             }
         }
 
         private void tsbtnDelete_Click(object sender, EventArgs e)
         {
-            Subtitle.AssItem item;
-            if (dataGridSubtitles.CurrentRow != null && m_SubLoaded
-                && (item = (Subtitle.AssItem)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
+            if (dataGridSubtitles.CurrentRow != null && _mSubLoaded
+                && dataGridSubtitles.CurrentRow.DataBoundItem != null
                 )
             {
                 DeleteRow(dataGridSubtitles.CurrentRow);
@@ -258,9 +246,8 @@ namespace SGSControls
 
         private void tsbtnInsBefore_Click(object sender, EventArgs e)
         {
-            Subtitle.AssItem item;
-            if (dataGridSubtitles.CurrentRow != null && m_SubLoaded
-                && (item = (Subtitle.AssItem)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
+            if (dataGridSubtitles.CurrentRow != null && _mSubLoaded
+                && dataGridSubtitles.CurrentRow.DataBoundItem != null
                 )
             {
                 InsertNewRow(dataGridSubtitles.CurrentRow.Index, dataGridSubtitles.CurrentRow);
@@ -269,52 +256,52 @@ namespace SGSControls
 
         private void tsbtnInsAfter_Click(object sender, EventArgs e)
         {
-            Subtitle.AssItem item;
-            if (dataGridSubtitles.CurrentRow != null && m_SubLoaded
-                && (item = (Subtitle.AssItem)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
+            if (dataGridSubtitles.CurrentRow != null && _mSubLoaded
+                && dataGridSubtitles.CurrentRow.DataBoundItem != null
                 )
             {
                 InsertNewRow(dataGridSubtitles.CurrentRow.Index + 1, dataGridSubtitles.CurrentRow);
             }
         }
 
-        private double oldS = 0, oldE = 0;
-        private string oldString;
-        private bool cancelEdit;
+        private double _oldS;
+        private double _oldE;
+        private string _oldString;
+        private bool _cancelEdit;
         private void dataGridSubtitles_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            m_selectCells.Reset();
-            oldString = dataGridSubtitles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            _mSelectCells.Reset();
+            _oldString = dataGridSubtitles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
             if (e.ColumnIndex != 2)
             {
-                Subtitle.AssItem item = (Subtitle.AssItem)dataGridSubtitles.Rows[e.RowIndex].DataBoundItem;
+                var item = (Subtitle.AssItem)dataGridSubtitles.Rows[e.RowIndex].DataBoundItem;
                 if (item == null)
                 {
-                    cancelEdit = true;
-                    oldString = "";
+                    _cancelEdit = true;
+                    _oldString = "";
                 }
                 else
                 {
-                    oldS = item.Start.TimeValue;
-                    oldE = item.End.TimeValue;
+                    _oldS = item.Start.TimeValue;
+                    _oldE = item.End.TimeValue;
                 }
             }
         }
 
         private void dataGridSubtitles_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (!cancelEdit)
+            if (!_cancelEdit)
             {
                 string newString = dataGridSubtitles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                if (!oldString.Equals(newString))
+                if (!_oldString.Equals(newString))
                 {
-                    m_UndoRec.Edit(e.RowIndex, e.ColumnIndex, oldString);//比较单元格内容，如改变，记录undo
+                    _mUndoRec.Edit(e.RowIndex, e.ColumnIndex, _oldString);//比较单元格内容，如改变，记录undo
                     Edited = true;
                 }
                 if (e.ColumnIndex != 2)
                 {
-                    Subtitle.AssItem item = (Subtitle.AssItem)dataGridSubtitles.Rows[e.RowIndex].DataBoundItem;
-                    m_CurrentSub.ItemEdited(item, oldS, oldE);
+                    var item = (Subtitle.AssItem)dataGridSubtitles.Rows[e.RowIndex].DataBoundItem;
+                    _mCurrentSub.ItemEdited(item, _oldS, _oldE);
                 }
             }
 
@@ -322,21 +309,21 @@ namespace SGSControls
 
         private void dataGridSubtitles_UserAddedRow(object sender, DataGridViewRowEventArgs e)
         {
-            m_UndoRec.InsertRow(e.Row.Index - 1);
-            cancelEdit = false;
-            oldS = 0;
-            oldE = 0;
-            oldString = "";
-            m_CurrentSub.RefreshIndex();
+            _mUndoRec.InsertRow(e.Row.Index - 1);
+            _cancelEdit = false;
+            _oldS = 0;
+            _oldE = 0;
+            _oldString = "";
+            _mCurrentSub.RefreshIndex();
             Edited = true;
         }
 
         private void tsbtnUndo_Click(object sender, EventArgs e)
         {
-            m_selectCells.Reset();
-            m_UndoRec.Undo(m_CurrentSub);
+            _mSelectCells.Reset();
+            _mUndoRec.Undo(_mCurrentSub);
             dataGridSubtitles.Refresh();
-            m_CurrentSub.RefreshIndex();
+            _mCurrentSub.RefreshIndex();
             Edited = true;
         }
 
@@ -345,7 +332,7 @@ namespace SGSControls
 
         private void tsbtnTimeLineScan_Click(object sender, EventArgs e)
         {
-            if (m_SubLoaded)
+            if (_mSubLoaded)
             {
                 bool overlap = false;
                 bool timeerror = false;
@@ -401,10 +388,10 @@ namespace SGSControls
                 }
                 string msg =
                     timeerror && overlap ? "发现时间轴重叠和错误时间点" :
-                    timeerror && !overlap ? "发现错误时间点" :
-                    !timeerror && overlap ? "发现时间轴重叠" : "未发现时间轴重叠和错误时间点";
+                    timeerror ? "发现错误时间点" :
+                    overlap ? "发现时间轴重叠" : "未发现时间轴重叠和错误时间点";
 
-                MessageBox.Show(msg, "时间轴检查");
+                MessageBox.Show(msg, @"时间轴检查");
 
             }
         }
@@ -412,43 +399,38 @@ namespace SGSControls
         private void tsbtnMarkCells_Click(object sender, EventArgs e)
         {
             int lastrowindex = dataGridSubtitles.RowCount - 2;
-            if (dataGridSubtitles.SelectedCells != null)
+            foreach (var cell in
+                dataGridSubtitles.SelectedCells.Cast<DataGridViewCell>().Where(cell => cell.RowIndex <= lastrowindex))
             {
-                foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
-                {
-                    if (cell.RowIndex <= lastrowindex)
-                        m_selectCells.SelectCell(cell.ColumnIndex, cell.RowIndex);
-                }
+                _mSelectCells.SelectCell(cell.ColumnIndex, cell.RowIndex);
             }
         }
 
         private void tsbtnUnmarkAll_Click(object sender, EventArgs e)
         {
-            m_selectCells.DeselectAll();
+            _mSelectCells.DeselectAll();
         }
 
         private void tsbtnTimeOffset_Click(object sender, EventArgs e)
         {
-            if (m_SubLoaded)
+            if (!_mSubLoaded) return;
+            var toDlg = new TimeOffsetDialog();
+            if (toDlg.ShowDialog() == DialogResult.OK)
             {
-                TimeOffsetDialog toDlg = new TimeOffsetDialog();
-                if (toDlg.ShowDialog() == DialogResult.OK)
-                {
-                    m_selectCells.TimeOffset(toDlg.TimeOffset, m_UndoRec);
-                    dataGridSubtitles.Refresh();
-                }
+                _mSelectCells.TimeOffset(toDlg.TimeOffset, _mUndoRec);
+                dataGridSubtitles.Refresh();
             }
         }
 
         private void tsbtnPause_Click(object sender, EventArgs e)
         {
-            PlayerControlEventArgs arg = new PlayerControlEventArgs(PlayerCommand.Pause);
+            var arg = new PlayerControlEventArgs(PlayerCommand.Pause);
             if (PlayerControl != null) PlayerControl(this, arg);
         }
 
         private void tsbtnPlay_Click(object sender, EventArgs e)
         {
-            PlayerControlEventArgs arg = new PlayerControlEventArgs(PlayerCommand.Play);
+            var arg = new PlayerControlEventArgs(PlayerCommand.Play);
             if (PlayerControl != null) PlayerControl(this, arg);
         }
 
@@ -457,337 +439,85 @@ namespace SGSControls
         /// <summary>
         /// Record Key Status
         /// </summary>
-        private bool[] m_keyhold = new bool[256];
+        private readonly bool[] _mKeyhold = new bool[256];
 
 
         private void dataGridSubtitles_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
         {
-            if (e.Cell != null)
-            {
-                if (CurrentRowChanged != null)
-                {
-                    int rowindex = e.Cell.RowIndex;
-                    CurrentRowChangeEventArgs args = new CurrentRowChangeEventArgs(rowindex);
-                    CurrentRowChanged(this, args);
-                }
-            }
+            if (e.Cell == null) return;
+            if (CurrentRowChanged == null) return;
+
+            int rowindex = e.Cell.RowIndex;
+            var args = new CurrentRowChangeEventArgs(rowindex);
+            CurrentRowChanged(this, args);
         }
 
         private void dataGridSubtitles_KeyDown(object sender, KeyEventArgs e)
         {
             int lastrowindex = dataGridSubtitles.RowCount - 2;
-            if (m_Config == null) return;
-            if ((int)e.KeyCode >= 0 && (int)e.KeyCode < 256)
-            {
-                int rowIndex = (dataGridSubtitles.CurrentRow == null) ? -1 : dataGridSubtitles.CurrentRow.Index;
-                #region Timeing Keys
-                if (e.KeyCode == m_Config.AddTimePoint && !m_keyhold[(int)e.KeyCode])
-                {
-                    //单键插入时间
+            if (_mConfig == null) return;
+            if ((int) e.KeyCode < 0 || (int) e.KeyCode >= 256) return;
 
-                    if (rowIndex >= 0 && rowIndex <= lastrowindex)
-                    {
-                        TimeEditEventArgs timeEditArgs = new TimeEditEventArgs(TimeType.BeginTime, 0, true);
-                        if (TimeEdit != null) TimeEdit(this, timeEditArgs);
-                        double time = timeEditArgs.TimeValue + m_Config.StartOffset;
-                        if (!timeEditArgs.CancelEvent)
-                        {
-                            if (rowIndex > 0 && m_Config.AutoOverlapCorrection)
-                            {
-                                Subtitle.AssItem lastitem = ((Subtitle.AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
-                                if (lastitem.End.TimeValue - time > 0 &&
-                                    lastitem.End.TimeValue - time < Math.Max(Math.Abs(m_Config.StartOffset), Math.Abs(m_Config.EndOffset)))
-                                {
-                                    EditEndTime(rowIndex - 1, time - 0.01);
-                                }
-                            }
-                            EditBeginTime(rowIndex, timeEditArgs.TimeValue);
-                            dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex].Cells[1];
-                        }
-                    }
-                }
-                else if (e.KeyCode == m_Config.AddStartTime && !m_keyhold[(int)e.KeyCode])
-                {
-                    //插入开始时间
-                    if (rowIndex >= 0 && rowIndex <= lastrowindex)
-                    {
-                        TimeEditEventArgs timeEditArgs = new TimeEditEventArgs(TimeType.BeginTime, 0, true);
-                        if (TimeEdit != null) TimeEdit(this, timeEditArgs);
-                        double time = timeEditArgs.TimeValue + m_Config.StartOffset;
-                        if (!timeEditArgs.CancelEvent)
-                        {
-                            if (rowIndex > 0 && m_Config.AutoOverlapCorrection)
-                            {
-                                Subtitle.AssItem lastitem = ((Subtitle.AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
-                                if (lastitem.End.TimeValue - time > 0 &&
-                                    lastitem.End.TimeValue - time < Math.Max(Math.Abs(m_Config.StartOffset), Math.Abs(m_Config.EndOffset)))
-                                {
-                                    EditEndTime(rowIndex - 1, time - 0.01);
-                                }
-                            }
-                            EditBeginTime(rowIndex, time);
-                            dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex].Cells[1];
-                        }
-                    }
-                }
-                else if (e.KeyCode == m_Config.AddEndTime && !m_keyhold[(int)e.KeyCode])
-                {
-                    //插入结束时间
-                    if (rowIndex >= 0 && rowIndex <= lastrowindex)
-                    {
-                        TimeEditEventArgs timeEditArgs = new TimeEditEventArgs(TimeType.EndTime, 0, true);
-                        if (TimeEdit != null) TimeEdit(this, timeEditArgs);
-                        double time = timeEditArgs.TimeValue + m_Config.EndOffset;
-                        if (!timeEditArgs.CancelEvent)
-                        {
-                            EditEndTime(rowIndex, time);
-                            if (rowIndex < lastrowindex)
-                                dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex + 1].Cells[0];
-                        }
-                    }
-                }
-                else if (e.KeyCode == m_Config.AddContTimePoint && !m_keyhold[(int)e.KeyCode])
-                {
-                    //连续插入时间
-                    if (rowIndex >= 0 && rowIndex <= lastrowindex)
-                    {
-                        TimeEditEventArgs timeEditArgs = new TimeEditEventArgs(TimeType.Unknown, 0, true);
-                        if (TimeEdit != null) TimeEdit(this, timeEditArgs);
-                        double time = timeEditArgs.TimeValue + m_Config.StartOffset;
-                        if (!timeEditArgs.CancelEvent)
-                        {
-                            EditEndTime(rowIndex, time - 0.01);
-                            if (rowIndex < lastrowindex)
-                            {
-                                EditBeginTime(rowIndex + 1, time);
-                                dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex + 1].Cells[1];
-                            }
-                        }
-                    }
-                }
-                else if (e.KeyCode == m_Config.AddCellTime && !m_keyhold[(int)e.KeyCode])
-                {
-                    //插入单元格时间
-                    if (rowIndex >= 0 && rowIndex <= lastrowindex)
-                    {
-
-                        TimeEditEventArgs timeEditArgs = new TimeEditEventArgs(TimeType.Unknown, 0, true);
-                        if (TimeEdit != null) TimeEdit(this, timeEditArgs);
-                        if (!timeEditArgs.CancelEvent)
-                        {
-                            double time = timeEditArgs.TimeValue + m_Config.StartOffset;
-                            int colIndex = dataGridSubtitles.CurrentCell.ColumnIndex;
-                            if (colIndex == 0) //插入开始时间
-                            {
-                                if (rowIndex > 0 && m_Config.AutoOverlapCorrection)
-                                {
-                                    Subtitle.AssItem lastitem = ((Subtitle.AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
-                                    if (lastitem.End.TimeValue - time > 0 &&
-                                        lastitem.End.TimeValue - time < Math.Max(Math.Abs(m_Config.StartOffset), Math.Abs(m_Config.EndOffset)))
-                                    {
-                                        EditEndTime(rowIndex - 1, time - 0.01);
-                                    }
-                                }
-                                EditBeginTime(rowIndex, time);
-                                dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex].Cells[1];
-                            }
-                            else if (colIndex == 1)//插入结束时间
-                            {
-                                EditEndTime(rowIndex, time);
-                                if (rowIndex < lastrowindex)
-                                    dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex + 1].Cells[0];
-                            }
-                        }
-                    }
-                }
-                #endregion
-                #region Seek Keys
-                else if (e.KeyCode == m_Config.Pause && !m_keyhold[(int)e.KeyCode])
-                {
-                    PlayerControlEventArgs arg = new PlayerControlEventArgs(PlayerCommand.Toggle);
-                    if (PlayerControl != null) PlayerControl(this, arg);
-                }
-                else if (e.KeyCode == m_Config.SeekBackword && !m_keyhold[(int)e.KeyCode])
-                {
-                    SeekEventArgs seekevent = new SeekEventArgs(SeekDir.CurrentPos, -m_Config.SeekStep);
-                    if (Seek != null) Seek(this, seekevent);
-                }
-                else if (e.KeyCode == m_Config.SeekForward && !m_keyhold[(int)e.KeyCode])
-                {
-                    SeekEventArgs seekevent = new SeekEventArgs(SeekDir.CurrentPos, m_Config.SeekStep);
-                    if (Seek != null) Seek(this, seekevent);
-                }
-                else if (e.KeyCode == m_Config.GotoCurrent && !m_keyhold[(int)e.KeyCode])
-                {
-                    Subtitle.AssItem item;
-                    if (dataGridSubtitles.CurrentRow != null && m_SubLoaded
-                        && (item = (Subtitle.AssItem)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
-                        )
-                    {
-                        double time = ((Subtitle.AssItem)(dataGridSubtitles.CurrentRow.DataBoundItem)).Start.TimeValue;
-                        SeekEventArgs seekevent = new SeekEventArgs(SeekDir.Begin, time);
-                        if (Seek != null) Seek(this, seekevent);
-                    }
-                }
-                else if (e.KeyCode == m_Config.GotoPrevious && !m_keyhold[(int)e.KeyCode])
-                {
-                    if (rowIndex > 0 && rowIndex <= lastrowindex)
-                    {
-                        Subtitle.AssItem item = ((Subtitle.AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
-                        SeekEventArgs seekevent = new SeekEventArgs(SeekDir.Begin, item.Start.TimeValue);
-                        if (Seek != null) Seek(this, seekevent);
-                    }
-                }
-
-                #endregion
-                #region Edit Keys
-                //复制，支持多个单元格的复制和粘贴
-                else if (e.KeyCode == Keys.C && e.Modifiers == Keys.Control && !m_keyhold[(int)e.KeyCode])
-                {
-                    if (dataGridSubtitles.CurrentCell != null)
-                    {
-                        //行，列的取值范围
-                        int cmin, cmax, rmin, rmax;
-                        //行，列的个数
-                        int nr, nc;
-                        //内容
-                        string[,] content;
-                        string cb = "";
-                        cmin = dataGridSubtitles.ColumnCount;
-                        cmax = 0;
-                        rmin = lastrowindex;
-                        rmax = 0;
-                        foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
-                        {
-                            if (cell.RowIndex > lastrowindex) continue;
-                            if (cell.ColumnIndex < cmin) cmin = cell.ColumnIndex;
-                            if (cell.ColumnIndex > cmax) cmax = cell.ColumnIndex;
-                            if (cell.RowIndex < rmin) rmin = cell.RowIndex;
-                            if (cell.RowIndex > rmax) rmax = cell.RowIndex;
-                        }
-                        nr = rmax - rmin + 1;
-                        nc = cmax - cmin + 1;
-                        content = new string[nr, nc];
-                        foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
-                        {
-                            if (cell.RowIndex > lastrowindex) continue;
-                            content[cell.RowIndex - rmin, cell.ColumnIndex - cmin] = cell.Value.ToString();
-                        }
-                        for (int r = 0; r < nr; r++)
-                        {
-                            for (int c = 0; c < nc; c++)
-                            {
-                                cb += content[r, c];
-                                if (c != nc - 1) cb += "\t";
-                            }
-                            cb += Environment.NewLine;
-                        }
-                        Clipboard.SetText(cb);
-                    }
-
-                }
-                //粘贴，支持多个单元格的复制和粘贴
-                else if (e.KeyCode == Keys.V && e.Modifiers == Keys.Control && !m_keyhold[(int)e.KeyCode])
-                {
-                    if (dataGridSubtitles.CurrentCell != null && dataGridSubtitles.CurrentRow.Index <= lastrowindex
-                        && Clipboard.ContainsText())
-                    {
-                        int cC, cR;
-                        cC = dataGridSubtitles.CurrentCell.ColumnIndex;
-                        cR = dataGridSubtitles.CurrentCell.RowIndex;
-                        string[] cells;
-                        char[] spliter = { '\t' };
-                        StringReader strReader = new StringReader(Clipboard.GetText());
-                        string line = strReader.ReadLine();
-                        m_UndoRec.BeginMultiCells(); //开始Undo记录
-                        while (line != null)
-                        {
-                            cells = line.Split(spliter, 3 - cC);
-                            for (int i = 0; i < cells.Length; i++)
-                            {
-                                if (cells[i].Length != 0)
-                                {
-                                    m_UndoRec.EditMultiCells(cR, cC + i, dataGridSubtitles.Rows[cR].Cells[cC + i].Value.ToString());
-                                    dataGridSubtitles.Rows[cR].Cells[cC + i].Value = cells[i];
-                                }
-                            }
-                            cR++;
-                            if (cR > lastrowindex) break;
-                            line = strReader.ReadLine();
-                        }
-                        m_UndoRec.EndEditMultiCells();//结束Undo记录
-                        Edited = true;
-                        m_CurrentSub.RefreshIndex();
-                    }
-                }
-
-                else if (e.KeyCode == m_Config.EnterEditMode)
-                {
-                    if (dataGridSubtitles.CurrentCell != null)
-                    {
-                        dataGridSubtitles.BeginEdit(true);
-                    }
-                }
-                else if (e.KeyCode == Keys.Delete && e.Modifiers != Keys.Control && !m_keyhold[(int)e.KeyCode])
-                {
-                    //清空选中单元格内容
-                    if (dataGridSubtitles.SelectedCells.Count != 0)
-                    {
-                        m_UndoRec.BeginMultiCells(); //开始Undo记录
-                        foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
-                        {
-                            if (cell.RowIndex > lastrowindex) continue;
-                            m_UndoRec.EditMultiCells(cell.RowIndex, cell.ColumnIndex, cell.Value.ToString());
-                            dataGridSubtitles.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Value = "";
-                        }
-                        m_UndoRec.EndEditMultiCells();
-                        Edited = true;
-                    }
-                }
-                else if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control && !m_keyhold[(int)e.KeyCode])
-                {
-                    //删除选中的行
-                    if (dataGridSubtitles.CurrentRow != null)
-                    {
-                        List<DataGridViewRow> deleteRow = new List<DataGridViewRow>();
-                        foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
-                        {
-                            if (cell.RowIndex > lastrowindex) continue;
-                            if (!deleteRow.Contains(dataGridSubtitles.Rows[cell.RowIndex]))
-                                deleteRow.Add(dataGridSubtitles.Rows[cell.RowIndex]);
-                        }
-                        foreach (DataGridViewRow row in deleteRow)
-                        {
-                            DeleteRow(row);
-                        }
-                    }
-                }
-                #endregion
-                #region File Keys
-                else if (e.KeyCode == m_Config.SaveAss && !m_keyhold[(int)e.KeyCode])
-                {
-                    if (m_SubLoaded)
-                    {
-                        if (KeySaveAss != null) KeySaveAss(this, new EventArgs());
-                    }
-                }
-                #endregion
-                m_keyhold[(int)e.KeyCode] = true;
-            }
-        }
-
-        private void dataGridSubtitles_KeyUp(object sender, KeyEventArgs e)
-        {
-            int lastrowindex = dataGridSubtitles.RowCount - 2;
             int rowIndex = (dataGridSubtitles.CurrentRow == null) ? -1 : dataGridSubtitles.CurrentRow.Index;
-            if (m_Config == null) return;
-            if (e.KeyCode == m_Config.AddTimePoint)
+
+            #region Timeing Keys
+            if (e.KeyCode == _mConfig.AddTimePoint && !_mKeyhold[(int)e.KeyCode])
             {
-                if (rowIndex > -1 && rowIndex <= lastrowindex)
+                //单键插入时间
+
+                if (rowIndex >= 0 && rowIndex <= lastrowindex)
+                {
+                    var timeEditArgs = new TimeEditEventArgs(TimeType.BeginTime, 0, true);
+                    if (TimeEdit != null) TimeEdit(this, timeEditArgs);
+                    double time = timeEditArgs.TimeValue + _mConfig.StartOffset;
+                    if (!timeEditArgs.CancelEvent)
+                    {
+                        if (rowIndex > 0 && _mConfig.AutoOverlapCorrection)
+                        {
+                            Subtitle.AssItem lastitem = ((Subtitle.AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
+                            if (lastitem.End.TimeValue - time > 0 &&
+                                lastitem.End.TimeValue - time < Math.Max(Math.Abs(_mConfig.StartOffset), Math.Abs(_mConfig.EndOffset)))
+                            {
+                                EditEndTime(rowIndex - 1, time - 0.01);
+                            }
+                        }
+                        EditBeginTime(rowIndex, time);
+                        dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex].Cells[1];
+                    }
+                }
+            }
+            else if (e.KeyCode == _mConfig.AddStartTime && !_mKeyhold[(int)e.KeyCode])
+            {
+                //插入开始时间
+                if (rowIndex >= 0 && rowIndex <= lastrowindex)
+                {
+                    TimeEditEventArgs timeEditArgs = new TimeEditEventArgs(TimeType.BeginTime, 0, true);
+                    if (TimeEdit != null) TimeEdit(this, timeEditArgs);
+                    double time = timeEditArgs.TimeValue + _mConfig.StartOffset;
+                    if (!timeEditArgs.CancelEvent)
+                    {
+                        if (rowIndex > 0 && _mConfig.AutoOverlapCorrection)
+                        {
+                            Subtitle.AssItem lastitem = ((Subtitle.AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
+                            if (lastitem.End.TimeValue - time > 0 &&
+                                lastitem.End.TimeValue - time < Math.Max(Math.Abs(_mConfig.StartOffset), Math.Abs(_mConfig.EndOffset)))
+                            {
+                                EditEndTime(rowIndex - 1, time - 0.01);
+                            }
+                        }
+                        EditBeginTime(rowIndex, time);
+                        dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex].Cells[1];
+                    }
+                }
+            }
+            else if (e.KeyCode == _mConfig.AddEndTime && !_mKeyhold[(int)e.KeyCode])
+            {
+                //插入结束时间
+                if (rowIndex >= 0 && rowIndex <= lastrowindex)
                 {
                     TimeEditEventArgs timeEditArgs = new TimeEditEventArgs(TimeType.EndTime, 0, true);
                     if (TimeEdit != null) TimeEdit(this, timeEditArgs);
-                    double time = timeEditArgs.TimeValue + m_Config.EndOffset;
+                    double time = timeEditArgs.TimeValue + _mConfig.EndOffset;
                     if (!timeEditArgs.CancelEvent)
                     {
                         EditEndTime(rowIndex, time);
@@ -796,9 +526,254 @@ namespace SGSControls
                     }
                 }
             }
-            if ((int)e.KeyCode >= 0 && (int)e.KeyCode < 256)
+            else if (e.KeyCode == _mConfig.AddContTimePoint && !_mKeyhold[(int)e.KeyCode])
             {
-                m_keyhold[(int)e.KeyCode] = false;
+                //连续插入时间
+                if (rowIndex >= 0 && rowIndex <= lastrowindex)
+                {
+                    TimeEditEventArgs timeEditArgs = new TimeEditEventArgs(TimeType.Unknown, 0, true);
+                    if (TimeEdit != null) TimeEdit(this, timeEditArgs);
+                    double time = timeEditArgs.TimeValue + _mConfig.StartOffset;
+                    if (!timeEditArgs.CancelEvent)
+                    {
+                        EditEndTime(rowIndex, time - 0.01);
+                        if (rowIndex < lastrowindex)
+                        {
+                            EditBeginTime(rowIndex + 1, time);
+                            dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex + 1].Cells[1];
+                        }
+                    }
+                }
+            }
+            else if (e.KeyCode == _mConfig.AddCellTime && !_mKeyhold[(int)e.KeyCode])
+            {
+                //插入单元格时间
+                if (rowIndex >= 0 && rowIndex <= lastrowindex)
+                {
+
+                    TimeEditEventArgs timeEditArgs = new TimeEditEventArgs(TimeType.Unknown, 0, true);
+                    if (TimeEdit != null) TimeEdit(this, timeEditArgs);
+                    if (!timeEditArgs.CancelEvent)
+                    {
+                        double time = timeEditArgs.TimeValue + _mConfig.StartOffset;
+                        int colIndex = dataGridSubtitles.CurrentCell.ColumnIndex;
+                        if (colIndex == 0) //插入开始时间
+                        {
+                            if (rowIndex > 0 && _mConfig.AutoOverlapCorrection)
+                            {
+                                Subtitle.AssItem lastitem = ((Subtitle.AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
+                                if (lastitem.End.TimeValue - time > 0 &&
+                                    lastitem.End.TimeValue - time < Math.Max(Math.Abs(_mConfig.StartOffset), Math.Abs(_mConfig.EndOffset)))
+                                {
+                                    EditEndTime(rowIndex - 1, time - 0.01);
+                                }
+                            }
+                            EditBeginTime(rowIndex, time);
+                            dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex].Cells[1];
+                        }
+                        else if (colIndex == 1)//插入结束时间
+                        {
+                            EditEndTime(rowIndex, time);
+                            if (rowIndex < lastrowindex)
+                                dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex + 1].Cells[0];
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region Seek Keys
+            else if (e.KeyCode == _mConfig.Pause && !_mKeyhold[(int)e.KeyCode])
+            {
+                var arg = new PlayerControlEventArgs(PlayerCommand.Toggle);
+                if (PlayerControl != null) PlayerControl(this, arg);
+            }
+            else if (e.KeyCode == _mConfig.SeekBackword && !_mKeyhold[(int)e.KeyCode])
+            {
+                var seekevent = new SeekEventArgs(SeekDir.CurrentPos, -_mConfig.SeekStep);
+                if (Seek != null) Seek(this, seekevent);
+            }
+            else if (e.KeyCode == _mConfig.SeekForward && !_mKeyhold[(int)e.KeyCode])
+            {
+                var seekevent = new SeekEventArgs(SeekDir.CurrentPos, _mConfig.SeekStep);
+                if (Seek != null) Seek(this, seekevent);
+            }
+            else if (e.KeyCode == _mConfig.GotoCurrent && !_mKeyhold[(int)e.KeyCode])
+            {
+                Subtitle.AssItem item;
+                if (dataGridSubtitles.CurrentRow != null && _mSubLoaded
+                    && (item = (Subtitle.AssItem)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
+                    )
+                {
+                    double time = item.Start.TimeValue;
+                    var seekevent = new SeekEventArgs(SeekDir.Begin, time);
+                    if (Seek != null) Seek(this, seekevent);
+                }
+            }
+            else if (e.KeyCode == _mConfig.GotoPrevious && !_mKeyhold[(int)e.KeyCode])
+            {
+                if (rowIndex > 0 && rowIndex <= lastrowindex)
+                {
+                    var item = ((Subtitle.AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
+                    var seekevent = new SeekEventArgs(SeekDir.Begin, item.Start.TimeValue);
+                    if (Seek != null) Seek(this, seekevent);
+                }
+            }
+
+                #endregion
+            #region Edit Keys
+                //复制，支持多个单元格的复制和粘贴
+            else if (e.KeyCode == Keys.C && e.Modifiers == Keys.Control && !_mKeyhold[(int)e.KeyCode])
+            {
+                if (dataGridSubtitles.CurrentCell != null)
+                {
+                    string cb = "";
+                    //行，列的取值范围
+                    int cmin = dataGridSubtitles.ColumnCount;
+                    int cmax = 0;
+                    int rmin = lastrowindex;
+                    int rmax = 0;
+                    foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
+                    {
+                        if (cell.RowIndex > lastrowindex) continue;
+                        if (cell.ColumnIndex < cmin) cmin = cell.ColumnIndex;
+                        if (cell.ColumnIndex > cmax) cmax = cell.ColumnIndex;
+                        if (cell.RowIndex < rmin) rmin = cell.RowIndex;
+                        if (cell.RowIndex > rmax) rmax = cell.RowIndex;
+                    }
+                    //行，列的个数
+                    int nr = rmax - rmin + 1;
+                    int nc = cmax - cmin + 1;
+                    //内容
+                    var content = new string[nr, nc];
+                    foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
+                    {
+                        if (cell.RowIndex > lastrowindex) continue;
+                        content[cell.RowIndex - rmin, cell.ColumnIndex - cmin] = cell.Value.ToString();
+                    }
+                    for (int r = 0; r < nr; r++)
+                    {
+                        for (int c = 0; c < nc; c++)
+                        {
+                            cb += content[r, c];
+                            if (c != nc - 1) cb += "\t";
+                        }
+                        cb += Environment.NewLine;
+                    }
+                    Clipboard.SetText(cb);
+                }
+
+            }
+                //粘贴，支持多个单元格的复制和粘贴
+            else if (e.KeyCode == Keys.V && e.Modifiers == Keys.Control && !_mKeyhold[(int)e.KeyCode])
+            {
+                if (dataGridSubtitles.CurrentRow != null && dataGridSubtitles.CurrentRow.Index <= lastrowindex
+                    && Clipboard.ContainsText())
+                {
+                    int cC = dataGridSubtitles.CurrentCell.ColumnIndex;
+                    int cR = dataGridSubtitles.CurrentCell.RowIndex;
+                    string[] cells;
+                    char[] spliter = { '\t' };
+                    var strReader = new StringReader(Clipboard.GetText());
+                    string line = strReader.ReadLine();
+                    _mUndoRec.BeginMultiCells(); //开始Undo记录
+                    while (line != null)
+                    {
+                        cells = line.Split(spliter, 3 - cC);
+                        for (int i = 0; i < cells.Length; i++)
+                        {
+                            if (cells[i].Length != 0)
+                            {
+                                _mUndoRec.EditMultiCells(cR, cC + i, dataGridSubtitles.Rows[cR].Cells[cC + i].Value.ToString());
+                                dataGridSubtitles.Rows[cR].Cells[cC + i].Value = cells[i];
+                            }
+                        }
+                        cR++;
+                        if (cR > lastrowindex) break;
+                        line = strReader.ReadLine();
+                    }
+                    _mUndoRec.EndEditMultiCells();//结束Undo记录
+                    Edited = true;
+                    _mCurrentSub.RefreshIndex();
+                }
+            }
+
+            else if (e.KeyCode == _mConfig.EnterEditMode)
+            {
+                if (dataGridSubtitles.CurrentCell != null)
+                {
+                    dataGridSubtitles.BeginEdit(true);
+                }
+            }
+            else if (e.KeyCode == Keys.Delete && e.Modifiers != Keys.Control && !_mKeyhold[(int)e.KeyCode])
+            {
+                //清空选中单元格内容
+                if (dataGridSubtitles.SelectedCells.Count != 0)
+                {
+                    _mUndoRec.BeginMultiCells(); //开始Undo记录
+                    foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
+                    {
+                        if (cell.RowIndex > lastrowindex) continue;
+                        _mUndoRec.EditMultiCells(cell.RowIndex, cell.ColumnIndex, cell.Value.ToString());
+                        dataGridSubtitles.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Value = "";
+                    }
+                    _mUndoRec.EndEditMultiCells();
+                    Edited = true;
+                }
+            }
+            else if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control && !_mKeyhold[(int)e.KeyCode])
+            {
+                //删除选中的行
+                if (dataGridSubtitles.CurrentRow != null)
+                {
+                    List<DataGridViewRow> deleteRow = new List<DataGridViewRow>();
+                    foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
+                    {
+                        if (cell.RowIndex > lastrowindex) continue;
+                        if (!deleteRow.Contains(dataGridSubtitles.Rows[cell.RowIndex]))
+                            deleteRow.Add(dataGridSubtitles.Rows[cell.RowIndex]);
+                    }
+                    foreach (DataGridViewRow row in deleteRow)
+                    {
+                        DeleteRow(row);
+                    }
+                }
+            }
+                #endregion
+            #region File Keys
+            else if (e.KeyCode == _mConfig.SaveAss && !_mKeyhold[(int)e.KeyCode])
+            {
+                if (_mSubLoaded)
+                {
+                    if (KeySaveAss != null) KeySaveAss(this, new EventArgs());
+                }
+            }
+            #endregion
+            _mKeyhold[(int)e.KeyCode] = true;
+        }
+
+        private void dataGridSubtitles_KeyUp(object sender, KeyEventArgs e)
+        {
+            int lastrowindex = dataGridSubtitles.RowCount - 2;
+            int rowIndex = (dataGridSubtitles.CurrentRow == null) ? -1 : dataGridSubtitles.CurrentRow.Index;
+            if (_mConfig == null) return;
+            if (e.KeyCode == _mConfig.AddTimePoint)
+            {
+                if (rowIndex > -1 && rowIndex <= lastrowindex)
+                {
+                    var timeEditArgs = new TimeEditEventArgs(TimeType.EndTime, 0, true);
+                    if (TimeEdit != null) TimeEdit(this, timeEditArgs);
+                    double time = timeEditArgs.TimeValue + _mConfig.EndOffset;
+                    if (!timeEditArgs.CancelEvent)
+                    {
+                        EditEndTime(rowIndex, time);
+                        if (rowIndex < lastrowindex)
+                            dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex + 1].Cells[0];
+                    }
+                }
+            }
+            if ((int) e.KeyCode >= 0 && (int) e.KeyCode < 256)
+            {
+                _mKeyhold[(int) e.KeyCode] = false;
             }
         }
 
@@ -811,8 +786,8 @@ namespace SGSControls
 
     public class SeekEventArgs : EventArgs
     {
-        public double SeekOffset;
-        public SeekDir SeekDirection;
+        public readonly double SeekOffset;
+        public readonly SeekDir SeekDirection;
         public SeekEventArgs(SeekDir seekdir, double seekoff)
         {
             SeekOffset = seekoff;
@@ -841,13 +816,13 @@ namespace SGSControls
         {
             ControlCMD = cmd;
         }
-        public PlayerCommand ControlCMD;
+        public readonly PlayerCommand ControlCMD;
     }
     public enum PlayerCommand{Play,Pause,Toggle};
 
     public class CurrentRowChangeEventArgs : EventArgs
     {
-        public int CurrentRowIndex;
+        public readonly int CurrentRowIndex;
         public CurrentRowChangeEventArgs(int rowIndex)
         {
             CurrentRowIndex = rowIndex;
