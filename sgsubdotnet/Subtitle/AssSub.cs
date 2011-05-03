@@ -112,8 +112,8 @@ namespace Subtitle
         /// <param name="encoding"></param>
         public void WriteAss(string filename, Encoding encoding)
         {
-            FileStream ofile = new FileStream(filename, FileMode.Create);
-            StreamWriter oStream = new StreamWriter(ofile,encoding);
+            var ofile = new FileStream(filename, FileMode.Create);
+            var oStream = new StreamWriter(ofile,encoding);
             WriteAss(oStream);
             oStream.Flush();
             ofile.Flush();
@@ -168,26 +168,27 @@ namespace Subtitle
         {
             _assHead = DefaultAssHead;
             _assParser = new AssLineParser(DefaultFormatLine);
-            string line;
             SubItems.Clear();
             while (!iStream.EndOfStream)
             {
-                line = iStream.ReadLine();
-                AssItem item = new AssItem();
+                string line = iStream.ReadLine();
+                var item = new AssItem
+                               {
+                                   Format = DefaultFormat,
+                                   Layer = DefaultLayer,
+                                   Marked = DefaultMarked,
+                                   Start = {TimeValue = DefaultStart},
+                                   End = {TimeValue = DefaultEnd},
+                                   Style = DefaultStyle,
+                                   Name = DefaultName,
+                                   Actor = DefaultActor,
+                                   MarginL = DefaultMarginL,
+                                   MarginR = DefaultMarginR,
+                                   MarginV = DefaultMarginV,
+                                   Effect = DefaultEffect,
+                                   Text = line
+                               };
                 //Format: Marked, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-                item.Format = DefaultFormat;
-                item.Layer = DefaultLayer;
-                item.Marked = DefaultMarked;
-                item.Start.TimeValue = DefaultStart;
-                item.End.TimeValue = DefaultEnd;
-                item.Style = DefaultStyle;
-                item.Name = DefaultName;
-                item.Actor = DefaultActor;
-                item.MarginL = DefaultMarginL;
-                item.MarginR = DefaultMarginR;
-                item.MarginV = DefaultMarginV;
-                item.Effect = DefaultEffect;
-                item.Text = line;
                 SubItems.Add(item);
             }
         }
@@ -195,8 +196,8 @@ namespace Subtitle
         /// <summary>
         /// 为了在播放时能快速找到显示的字幕，定义这么一个索引。
         /// </summary>
-        private List<AssItem>[] m_AssItemIndex;
-        private double m_VideoLen;
+        private List<AssItem>[] _mAssItemIndex;
+        private double _mVideoLen;
 
         /// <summary>
         /// 建立索引
@@ -206,44 +207,43 @@ namespace Subtitle
         {
             if (length > 0)
             {
-                m_VideoLen = length;
-                m_AssItemIndex = new List<AssItem>[(int)Math.Ceiling(length) + 1];
-                for (int i = 0; i < m_AssItemIndex.Length; i++) m_AssItemIndex[i] = new List<AssItem>();
+                _mVideoLen = length;
+                _mAssItemIndex = new List<AssItem>[(int)Math.Ceiling(length) + 1];
+                for (int i = 0; i < _mAssItemIndex.Length; i++) _mAssItemIndex[i] = new List<AssItem>();
                 foreach (AssItem item in SubItems)
                 {
-                    int a = (int)Math.Floor(item.Start.TimeValue);
-                    int b = (int)Math.Ceiling(item.End.TimeValue);
+                    var a = (int)Math.Floor(item.Start.TimeValue);
+                    var b = (int)Math.Ceiling(item.End.TimeValue);
                     for (int i = a; i < b; i++)
                     {
-                        if (i < m_AssItemIndex.Length)
-                            m_AssItemIndex[i].Add(item);
+                        if (i < _mAssItemIndex.Length)
+                            _mAssItemIndex[i].Add(item);
                     }
                 }
             }
             else
             {
-                m_AssItemIndex = null;
+                _mAssItemIndex = null;
             }
         }
 
 
         public void RefreshIndex()
         {
-            if (m_AssItemIndex != null)
+            if (_mAssItemIndex == null) return;
+
+            foreach (List<AssItem> t in _mAssItemIndex)
             {
-                foreach (var t in m_AssItemIndex)
+                t.Clear();
+            }
+            foreach (AssItem item in SubItems)
+            {
+                var a = (int)Math.Floor(item.Start.TimeValue);
+                var b = (int)Math.Ceiling(item.End.TimeValue);
+                for (int i = a; i < b; i++)
                 {
-                    t.Clear();
-                }
-                foreach (AssItem item in SubItems)
-                {
-                    int a = (int)Math.Floor(item.Start.TimeValue);
-                    int b = (int)Math.Ceiling(item.End.TimeValue);
-                    for (int i = a; i < b; i++)
-                    {
-                        if (i < m_AssItemIndex.Length)
-                            m_AssItemIndex[i].Add(item);
-                    }
+                    if (i < _mAssItemIndex.Length)
+                        _mAssItemIndex[i].Add(item);
                 }
             }
         }
@@ -255,25 +255,25 @@ namespace Subtitle
         /// <param name="oldEnd">原来的终止时间</param>
         public void ItemEdited(AssItem item, double oldStart, double oldEnd)
         {
-            int olds = (int)Math.Floor(oldStart);
-            int olde = (int)Math.Ceiling(oldEnd);
+            var olds = (int)Math.Floor(oldStart);
+            var olde = (int)Math.Ceiling(oldEnd);
 
-            int news = (int)Math.Floor(item.Start.TimeValue);
-            int newe = (int)Math.Ceiling(item.End.TimeValue);
+            var news = (int)Math.Floor(item.Start.TimeValue);
+            var newe = (int)Math.Ceiling(item.End.TimeValue);
             int s = Math.Min(news, olds), e = Math.Max(newe, olde);
-            if (m_AssItemIndex != null)
+            if (_mAssItemIndex != null)
             {
                 for (int i = s; i < e; i++)
                 {
-                    if (i < m_AssItemIndex.Length)
+                    if (i < _mAssItemIndex.Length)
                     {
                         if (i < news || i >= newe)
                         {
-                            if (m_AssItemIndex[i].Contains(item)) m_AssItemIndex[i].Remove(item);
+                            if (_mAssItemIndex[i].Contains(item)) _mAssItemIndex[i].Remove(item);
                         }
                         else
                         {
-                            if (!m_AssItemIndex[i].Contains(item)) m_AssItemIndex[i].Add(item);
+                            if (!_mAssItemIndex[i].Contains(item)) _mAssItemIndex[i].Add(item);
 
                         }
                     }
@@ -290,17 +290,14 @@ namespace Subtitle
         public string GetSubtitle(double time)
         {
             string str = "";
-            if (m_AssItemIndex != null && time <= m_VideoLen)
+            if (_mAssItemIndex != null && time <= _mVideoLen)
             {
-                str =
-                    m_AssItemIndex[(int) Math.Floor(time)]
-                        .Where(
-                            t =>
-                            t.Start.TimeValue <= time && t.End.TimeValue >= time &&
-                            t.End.TimeValue - t.Start.TimeValue > 0.1)
-                        .Aggregate(str,
-                                   (current, t) =>
-                                   current + (t.Text + Environment.NewLine));
+                str = _mAssItemIndex[(int) Math.Floor(time)].
+                    Where(
+                        t =>
+                        t.Start.TimeValue <= time && t.End.TimeValue >= time &&
+                        t.End.TimeValue - t.Start.TimeValue > 0.1).
+                    Aggregate(str, (current, t) => current + (t.Text + Environment.NewLine));
             }
             return str;
         }

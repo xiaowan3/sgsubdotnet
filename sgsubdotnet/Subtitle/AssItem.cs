@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Runtime.Serialization;
 
@@ -88,11 +86,11 @@ namespace Subtitle
 
         public string Effect = "";
 
-        private string m_Text = "";
+        private string _mText = "";
         public string Text
         {
-            get { return m_Text; }
-            set { m_Text = value; }
+            get { return _mText; }
+            set { _mText = value; }
         }
 
         public AssItem()
@@ -100,21 +98,23 @@ namespace Subtitle
         }
         public AssItem Clone()
         {
-            AssItem ret = new AssItem();
-            ret.Actor = (string)Actor.Clone();
-            ret.Effect = (string)Effect.Clone();
-            ret.End = new AssTime(End.ToString());
-            ret.Format = (string)Format.Clone();
-            ret.Layer = (string)Layer.Clone();
-            ret.m_Text = (string)m_Text.Clone();
-            ret.MarginL = MarginL;
-            ret.MarginR = MarginR;
-            ret.MarginV = MarginV;
-            ret.Marked = (string)Marked.Clone();
-            ret.Name = (string)Name.Clone();
-            ret.Start = new AssTime(Start.ToString());
-            ret.Style = (string)Style.Clone();
-        
+            var ret = new AssItem
+                          {
+                              Actor = (string) Actor.Clone(),
+                              Effect = (string) Effect.Clone(),
+                              End = new AssTime(End.ToString()),
+                              Format = (string) Format.Clone(),
+                              Layer = (string) Layer.Clone(),
+                              _mText = (string) _mText.Clone(),
+                              MarginL = MarginL,
+                              MarginR = MarginR,
+                              MarginV = MarginV,
+                              Marked = (string) Marked.Clone(),
+                              Name = (string) Name.Clone(),
+                              Start = new AssTime(Start.ToString()),
+                              Style = (string) Style.Clone()
+                          };
+
             return ret;
         }
 
@@ -125,37 +125,37 @@ namespace Subtitle
     /// </summary>
     public class AssTime
     {
-        double timeValue;
+        double _timeValue;
 
         public double TimeValue
         {
             get
             {
-                return timeValue;
+                return _timeValue;
             }
             set
             {
-                timeValue = value;
+                _timeValue = value;
             }
         }
 
         public AssTime()
         {
-            timeValue = 0;
+            _timeValue = 0;
         }
 
         public AssTime(string time)
         {
-            string sub;
             int a = time.Length-1;
-            int b = 0;
-            timeValue = 0;
+            _timeValue = 0;
             float unit = 1;
             try
             {
+                int b;
                 do
                 {
                     b = time.LastIndexOf(':', a);
+                    string sub;
                     if (b != -1)
                     {
                         sub = time.Substring(b + 1, a - b);
@@ -165,28 +165,27 @@ namespace Subtitle
                     {
                         sub = time.Substring(0, a + 1);
                     }
-                    timeValue += float.Parse(sub) * unit;
+                    _timeValue += float.Parse(sub) * unit;
                     unit *= 60;
                 } while (b != -1);
             }
             catch (Exception)
             {
-                timeValue = 0;
+                _timeValue = 0;
             }
 
         }
 
         public override string ToString()
         {
-            int h, m,s,ms;
-            int intTime = (int)Math.Round(timeValue * 100);
-            h = intTime / 360000;
+            var intTime = (int)Math.Round(_timeValue * 100);
+            int h = intTime / 360000;
             intTime %= 360000;
-            m = intTime / 6000;
+            int m = intTime / 6000;
             intTime %= 6000;
-            s = intTime / 100;
-            ms = intTime % 100;
-            return h.ToString() + ":" + m.ToString("D2") + ":" + s.ToString("D2") + "." + ms.ToString("D2");
+            int s = intTime / 100;
+            int ms = intTime % 100;
+            return string.Format("{0}:{1}:{2}.{3}", h, m.ToString("D2"), s.ToString("D2"), ms.ToString("D2"));
         }
 
 
@@ -229,12 +228,12 @@ namespace Subtitle
             int s = 0;
             m_fmtline = format;
             format += "#";
-            for(int i = 0;i<format.Length;i++)
+            foreach (char t in format)
             {
-                if (Char.IsLetter(format[i])) seg += format[i];
+                if (Char.IsLetter(t)) seg += t;
                 else
                 {
-                    if (!Char.IsSeparator(format[i]))
+                    if (!Char.IsSeparator(t))
                     {
                         switch (seg.ToUpper())
                         {
@@ -280,7 +279,7 @@ namespace Subtitle
                             default:
                                 break;
                         }
-                        spliter[s] = format[i];
+                        spliter[s] = t;
                         s++;
                         pos++;
                         seg = "";
@@ -296,9 +295,8 @@ namespace Subtitle
         /// <returns></returns>
         public AssItem ParseLine(string line)
         {
-            string[] segs = new string[13];
+            var segs = new string[13];
             int last = 0;
-            int len;
             string trimed = line.Trim();
             if (trimed.Length <= 1 || trimed[0] == ';')
                 return null;
@@ -306,7 +304,7 @@ namespace Subtitle
             {
                 if (spliter[i] != '#')
                 {
-                    len = line.IndexOf(spliter[i], last) - last;
+                    int len = line.IndexOf(spliter[i], last) - last;
                     segs[i] = line.Substring(last, len);
                     last = len + last + 1;
                 }
@@ -317,7 +315,7 @@ namespace Subtitle
                 }
 
             }
-            AssItem assitem = new AssItem();
+            var assitem = new AssItem();
             if (formatpos != -1) assitem.Format = segs[formatpos];
             if (markedpos != -1) assitem.Marked = segs[markedpos];
             if (layerPos != -1) assitem.Layer = segs[layerPos];
@@ -343,7 +341,7 @@ namespace Subtitle
         public string FormatLine(AssItem line)
         {
             string str = "";
-            string[] segs = new string[12];
+            var segs = new string[12];
             for (int i = 0; i < 12; i++) segs[i] = "";
 
             if (formatpos != -1) segs[formatpos] = line.Format;
