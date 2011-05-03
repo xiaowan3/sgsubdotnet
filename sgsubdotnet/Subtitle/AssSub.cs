@@ -9,8 +9,8 @@ namespace Subtitle
 {
     public class AssSub
     {
-        private AssHead m_AssHead;
-        private AssLineParser m_AssParser;
+        private AssHead _assHead;
+        private AssLineParser _assParser;
         public BindingSource SubItems = new BindingSource();
 
         public AssHead DefaultAssHead;
@@ -35,8 +35,8 @@ namespace Subtitle
         /// <param name="filename"></param>
         public void LoadAss(string filename)
         {
-            FileStream ifile = new FileStream(filename, FileMode.Open);
-            StreamReader istream = new StreamReader(ifile, Encoding.Default, true);
+            var ifile = new FileStream(filename, FileMode.Open);
+            var istream = new StreamReader(ifile, Encoding.Default, true);
             LoadAss(istream);
             istream.Close();
             ifile.Close();
@@ -49,8 +49,8 @@ namespace Subtitle
         /// <param name="encoding"></param>
         public void LoadAss(string filename, Encoding encoding)
         {
-            FileStream ifile = new FileStream(filename, FileMode.Open);
-            StreamReader istream = new StreamReader(ifile,encoding);
+            var ifile = new FileStream(filename, FileMode.Open);
+            var istream = new StreamReader(ifile,encoding);
             LoadAss(istream);
             istream.Close();
             ifile.Close();
@@ -64,12 +64,13 @@ namespace Subtitle
         {
             string line;
             bool eventfound = false;
-            m_AssHead = new AssHead();
+            _assHead = new AssHead();
 
             while (!iStream.EndOfStream)
             {
                 line = iStream.ReadLine();
-                m_AssHead.AddLine(line);
+                if (line == null) throw (new Exception("Wrong ass file."));
+                _assHead.AddLine(line);
                 if (line.ToUpper().IndexOf("EVENTS") != -1)
                 {
                     eventfound = true;
@@ -78,12 +79,12 @@ namespace Subtitle
             }
             if (!eventfound) throw (new Exception("Wrong ass file."));
             line = iStream.ReadLine();
-            m_AssParser = new AssLineParser(line);
+            _assParser = new AssLineParser(line);
             SubItems.Clear();
             while (!iStream.EndOfStream)
             {
                 line = iStream.ReadLine();
-                AssItem item = m_AssParser.ParseLine(line);
+                var item = _assParser.ParseLine(line);
                 if (item != null) SubItems.Add(item);
             }
         }
@@ -95,8 +96,8 @@ namespace Subtitle
         /// <param name="filename"></param>
         public void WriteAss(string filename)
         {
-            FileStream ofile = new FileStream(filename, FileMode.Create);
-            StreamWriter oStream = new StreamWriter(ofile);
+            var ofile = new FileStream(filename, FileMode.Create);
+            var oStream = new StreamWriter(ofile);
             WriteAss(oStream);
             oStream.Flush();
             ofile.Flush();
@@ -126,11 +127,11 @@ namespace Subtitle
         /// <param name="oStream"></param>
         public void WriteAss(StreamWriter oStream)
         {
-            m_AssHead.WriteTo(oStream);
-            oStream.WriteLine(m_AssParser.FmtLine);
+            _assHead.WriteTo(oStream);
+            oStream.WriteLine(_assParser.FmtLine);
             foreach (object i in SubItems)
             {
-                oStream.WriteLine(m_AssParser.FormatLine((AssItem)i));
+                oStream.WriteLine(_assParser.FormatLine((AssItem)i));
             }
         }
 
@@ -140,8 +141,8 @@ namespace Subtitle
         /// <param name="filename"></param>
         public void LoadText(string filename)
         {
-            FileStream ifile = new FileStream(filename, FileMode.Open);
-            StreamReader istream = new StreamReader(ifile, Encoding.Default, true);
+            var ifile = new FileStream(filename, FileMode.Open);
+            var istream = new StreamReader(ifile, Encoding.Default, true);
             
             LoadText(istream);
             istream.Close();
@@ -152,10 +153,11 @@ namespace Subtitle
         ///  读取无时间轴的翻译稿
         /// </summary>
         /// <param name="filename"></param>
+        /// <param name="encoding"></param>
         public void LoadText(string filename, Encoding encoding)
         {
-            FileStream ifile = new FileStream(filename, FileMode.Open);
-            StreamReader istream = new StreamReader(ifile, encoding);
+            var ifile = new FileStream(filename, FileMode.Open);
+            var istream = new StreamReader(ifile, encoding);
             LoadText(istream);
             istream.Close();
             ifile.Close();
@@ -164,8 +166,8 @@ namespace Subtitle
 
         public void LoadText(StreamReader iStream)
         {
-            m_AssHead = DefaultAssHead;
-            m_AssParser = new AssLineParser(DefaultFormatLine);
+            _assHead = DefaultAssHead;
+            _assParser = new AssLineParser(DefaultFormatLine);
             string line;
             SubItems.Clear();
             while (!iStream.EndOfStream)
@@ -229,9 +231,9 @@ namespace Subtitle
         {
             if (m_AssItemIndex != null)
             {
-                for (int i = 0; i < m_AssItemIndex.Length; i++)
+                foreach (var t in m_AssItemIndex)
                 {
-                    m_AssItemIndex[i].Clear();
+                    t.Clear();
                 }
                 foreach (AssItem item in SubItems)
                 {
@@ -290,11 +292,15 @@ namespace Subtitle
             string str = "";
             if (m_AssItemIndex != null && time <= m_VideoLen)
             {
-                foreach (AssItem t in m_AssItemIndex[(int)Math.Floor(time)])
-                {
-                    if (t.Start.TimeValue <= time && t.End.TimeValue >= time && t.End.TimeValue - t.Start.TimeValue > 0.1)
-                        str += t.Text + Environment.NewLine;
-                }
+                str =
+                    m_AssItemIndex[(int) Math.Floor(time)]
+                        .Where(
+                            t =>
+                            t.Start.TimeValue <= time && t.End.TimeValue >= time &&
+                            t.End.TimeValue - t.Start.TimeValue > 0.1)
+                        .Aggregate(str,
+                                   (current, t) =>
+                                   current + (t.Text + Environment.NewLine));
             }
             return str;
         }
