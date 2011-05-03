@@ -23,37 +23,30 @@ namespace SGSControls
         public double Hanning_Overlap { get; set; }
         public double Delta_Divisor { get; set; }
 
-        public DogEar(System.Windows.Forms.Control owner,string Mediafile, string FFMpegPath)
+        public DogEar(System.Windows.Forms.Control owner,string mediafile, string FFMpegPath)
         {
-            mediaFile = Mediafile;
+            mediaFile = mediafile;
             AudioFileIO.FFmpegpath = FFMpegPath;
             dev.SetCooperativeLevel(owner, Microsoft.DirectX.DirectSound.CooperativeLevel.Normal);
         }
 
         public void EarAClip(double begin, double duration, EarType type)
         {
-            AudioClip clip = null;
-            for (int i = 0; i < audioList.Count; i++)
-            {
-                if (audioList[i].Equivalent(begin, duration, type))
-                {
-                    clip = audioList[i];
-                    break;
-                }
-            }
+            AudioClip clip = audioList.FirstOrDefault(t => t.Equivalent(begin, duration, type));
             if (clip == null)
             {
-                clip = new AudioClip();
-                clip.BeginTime = begin;
-                clip.Duration = duration;
-                if (type == EarType.Human) clip.Type = EarType.Cat;
-                else clip.Type = type;
-                wavinfo wavInfo = new wavinfo();
-                Stream rawStream = AudioFileIO.ExtractWave(mediaFile, ref wavInfo, begin.ToString("F1"), duration.ToString("F1"));
+                clip = new AudioClip
+                           {
+                               BeginTime = begin,
+                               Duration = duration,
+                               Type = type == EarType.Human ? EarType.Cat : type
+                           };
+                var wavInfo = new wavinfo();
+                var rawStream = AudioFileIO.ExtractWave(mediaFile, ref wavInfo, begin.ToString("F1"), duration.ToString("F1"));
                 clip.OriginalStream = new MemoryStream();
                 clip.ScaledStream = new MemoryStream();
                 AudioFileIO.WriteHead(clip.OriginalStream, wavInfo);
-                byte[] buff = new byte[2048];
+                var buff = new byte[2048];
                 rawStream.Seek(0, SeekOrigin.Begin);
                 int read;
                 do
@@ -78,15 +71,13 @@ namespace SGSControls
             if (type != EarType.Human)
             {
                 clip.ScaledStream.Seek(0, SeekOrigin.Begin);
-                Microsoft.DirectX.DirectSound.SecondaryBuffer secbuf 
-                    = new Microsoft.DirectX.DirectSound.SecondaryBuffer(clip.ScaledStream, dev);
+                var secbuf = new Microsoft.DirectX.DirectSound.SecondaryBuffer(clip.ScaledStream, dev);
                 secbuf.Play(0, Microsoft.DirectX.DirectSound.BufferPlayFlags.Default);
             }
             else
             {
                 clip.OriginalStream.Seek(0, SeekOrigin.Begin);
-                Microsoft.DirectX.DirectSound.SecondaryBuffer secbuf 
-                    = new Microsoft.DirectX.DirectSound.SecondaryBuffer(clip.OriginalStream, dev);
+                var secbuf = new Microsoft.DirectX.DirectSound.SecondaryBuffer(clip.OriginalStream, dev);
                 secbuf.Play(0, Microsoft.DirectX.DirectSound.BufferPlayFlags.Default);
             }
         }
@@ -110,61 +101,66 @@ namespace SGSControls
                 Math.Abs(Duration - clip.Duration) < 0.1 &&
                 Type == clip.Type) 
                 return true;
-            else return false;
+            return false;
         }
+
         public bool Equivalent(double beginTime, double duration, EarType type)
         {
             if (Math.Abs(BeginTime - beginTime) < 0.1 &&
                 Math.Abs(Duration - duration) < 0.1 &&
                 (Type == type || type == EarType.Human))
                 return true;
-            else return false;
+            return false;
         }
     }
 
 
-    class AudioFileIO
+    static class AudioFileIO
     {
-        public static string FFmpegpath = null;
+        public static string FFmpegpath;
         public static Stream ExtractWave(string videofilename, ref wavinfo wavinf, string begin, string len)
         {
             //ffmpeg -i <infile> -f wav -ac 1 -vn -y <outfile.wav>
             if (FFmpegpath == null) throw new Exception("FFmpegpath is not set");
-            MemoryStream audioStream = new MemoryStream();
-            List<Byte[][]> wflist = new List<Byte[][]>();
-            Process ffmpegprocess = new Process();
-            ffmpegprocess.StartInfo.FileName = FFmpegpath;
-            ffmpegprocess.StartInfo.Arguments = "-i \"" + videofilename + "\" -ss " + begin + " -t " + len + " -f wav -ac 1 -ar 48000 -vn -y -";
-            ffmpegprocess.StartInfo.CreateNoWindow = true;
-            ffmpegprocess.StartInfo.RedirectStandardOutput = true;
-            ffmpegprocess.StartInfo.UseShellExecute = false;
+            var audioStream = new MemoryStream();
+            var ffmpegprocess = new Process
+                                    {
+                                        StartInfo =
+                                            {
+                                                FileName = FFmpegpath,
+                                                Arguments =
+                                                    "-i \"" + videofilename + "\" -ss " + begin + " -t " + len +
+                                                    " -f wav -ac 1 -ar 48000 -vn -y -",
+                                                CreateNoWindow = true,
+                                                RedirectStandardOutput = true,
+                                                UseShellExecute = false
+                                            }
+                                    };
             ffmpegprocess.Start();
-            Stream stdout = ffmpegprocess.StandardOutput.BaseStream;
-            byte[] buf;
-            byte[] chunk;
+            var stdout = ffmpegprocess.StandardOutput.BaseStream;
 
-            buf = new byte[4];
+            var buf = new byte[4];
 
             int read;
-            tagname tag;
+            Tagname tag;
             UInt32 taglen;
             read = stdout.Read(buf, 0, 4);
             tag = gettagname(buf); //RIFF
-            if (tag != tagname.RIFF) throw new Exception("WaveReadError");
+            if (tag != Tagname.RIFF) throw new Exception("WaveReadError");
 
             read = stdout.Read(buf, 0, 4);
             taglen = gettaglen(buf); //0
 
             read = stdout.Read(buf, 0, 4);
             tag = gettagname(buf); //WAVE
-            if (tag != tagname.WAVE) throw new Exception("WaveReadError");
+            if (tag != Tagname.WAVE) throw new Exception("WaveReadError");
 
             read = stdout.Read(buf, 0, 4);
             tag = gettagname(buf); //fmt
-            if (tag != tagname.FMT) throw new Exception("WaveReadError");
+            if (tag != Tagname.FMT) throw new Exception("WaveReadError");
             read = stdout.Read(buf, 0, 4);
             taglen = gettaglen(buf);  //length;
-            chunk = new byte[taglen];
+            var chunk = new byte[taglen];
             read = stdout.Read(chunk, 0, (int)taglen);
             wavinfo info = parsefmt(chunk);
             info.CloneTo(ref wavinf);
@@ -173,7 +169,7 @@ namespace SGSControls
             tag = gettagname(buf); //data
             read = stdout.Read(buf, 0, 4);
             taglen = gettaglen(buf);  //length;
-            if (tag != tagname.DATA)
+            if (tag != Tagname.DATA)
             {
                 throw new Exception("Please report bug: Strange wave format");
             }
@@ -195,7 +191,7 @@ namespace SGSControls
         }
         public static void WriteHead(Stream oStream, wavinfo info)
         {
-            byte[] seg = new byte[4];
+            var seg = new byte[4];
             byte[] buff;
 
             System.Text.Encoding.ASCII.GetBytes("RIFF", 0, 4, seg, 0);
@@ -259,12 +255,12 @@ namespace SGSControls
         }
 
 
-        enum tagname { RIFF, WAVE, FMT, DATA, Unknown };
-        private static tagname gettagname(byte[] seg)
+        enum Tagname { RIFF, WAVE, FMT, DATA, Unknown };
+        private static Tagname gettagname(byte[] seg)
         {
             //[RIFF]
             string segname = System.Text.Encoding.ASCII.GetString(seg, 0, 4);
-            tagname tgn = (tagname)Enum.Parse(typeof(tagname), segname.TrimEnd().ToUpper());
+            var tgn = (Tagname)Enum.Parse(typeof(Tagname), segname.TrimEnd().ToUpper());
             return tgn;
 
         }
@@ -296,14 +292,14 @@ namespace SGSControls
         public UInt32 BitPerSample = 0;
         public UInt32 ByteRate = 0;
         public UInt32 BlockAlign = 0;
-        public void CloneTo(ref wavinfo CloneTo)
+        public void CloneTo(ref wavinfo cloneTo)
         {
-            CloneTo.BitPerSample = BitPerSample;
-            CloneTo.BlockAlign = BlockAlign;
-            CloneTo.ByteRate = ByteRate;
-            CloneTo.Channels = Channels;
-            CloneTo.FormatTag = FormatTag;
-            CloneTo.Frequency = Frequency;
+            cloneTo.BitPerSample = BitPerSample;
+            cloneTo.BlockAlign = BlockAlign;
+            cloneTo.ByteRate = ByteRate;
+            cloneTo.Channels = Channels;
+            cloneTo.FormatTag = FormatTag;
+            cloneTo.Frequency = Frequency;
         }
 
     }
@@ -366,37 +362,37 @@ namespace SGSControls
 
 
         [DllImport("wsolalib.dll")]
-        public static extern void setWSOLAPara(double Hanning_Duration, double Hanning_Overlap, double Delta_Divisor, double Sample_Frequency);
+        private static extern void setWSOLAPara(double Hanning_Duration, double Hanning_Overlap, double Delta_Divisor, double Sample_Frequency);
 
         [DllImport("wsolalib.dll")]
-        public static extern void initWSOLA(int channels, int frequency, double tau);
+        private static extern void initWSOLA(int channels, int frequency, double tau);
 
         [DllImport("wsolalib.dll")]
-        public static extern int getOutputSize();
+        private static extern int getOutputSize();
 
         [DllImport("wsolalib.dll")]
-        public static extern int getInputSize();
+        private static extern int getInputSize();
 
         [DllImport("wsolalib.dll")]
-        public static extern void initProcess([MarshalAs(UnmanagedType.LPArray)]Byte[] input);
+        private static extern void initProcess([MarshalAs(UnmanagedType.LPArray)]Byte[] input);
 
         [DllImport("wsolalib.dll")]
-        public static extern void prereadSrc(ref int srcIndex, ref int srcLen);
+        private static extern void prereadSrc(ref int srcIndex, ref int srcLen);
 
         [DllImport("wsolalib.dll")]
-        public static extern void prereadDes(ref int desIndex, ref int desLen);
+        private static extern void prereadDes(ref int desIndex, ref int desLen);
 
         [DllImport("wsolalib.dll")]
-        public static extern void loadSource([MarshalAs(UnmanagedType.LPArray)]Byte[] input);
+        private static extern void loadSource([MarshalAs(UnmanagedType.LPArray)]Byte[] input);
 
         [DllImport("wsolalib.dll")]
-        public static extern void loadDesire([MarshalAs(UnmanagedType.LPArray)]Byte[] input);
+        private static extern void loadDesire([MarshalAs(UnmanagedType.LPArray)]Byte[] input);
 
         [DllImport("wsolalib.dll")]
-        public static extern void process([MarshalAs(UnmanagedType.LPArray)]Byte[] output);
+        private static extern void process([MarshalAs(UnmanagedType.LPArray)]Byte[] output);
 
         [DllImport("wsolalib.dll")]
-        public static extern void destroyWsola();
+        private static extern void destroyWsola();
     }
 
 }

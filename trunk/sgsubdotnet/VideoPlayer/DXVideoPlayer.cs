@@ -52,7 +52,7 @@ namespace VideoPlayer
             get
             {
                 if (m_movie != null) return m_movie.Duration;
-                else return 0;
+                return 0;
             }
         }
 
@@ -61,7 +61,7 @@ namespace VideoPlayer
             get
             {
                 if (m_movie != null) return m_movie.CurrentPosition;
-                else return 0;
+                return 0;
             }
             set
             {
@@ -99,12 +99,12 @@ namespace VideoPlayer
                 m_videoname = m_filename.Substring(m_filename.LastIndexOf('\\') + 1);
                 MediaOpened = true;
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 m_filename = "";
                 m_videoname = "";
                 MediaOpened = false;
-                throw exception;
+                throw;
             }
         }
 
@@ -248,20 +248,20 @@ namespace VideoPlayer
             if (m_movie != null)
             {
                 m_thumbarea.X = (int)((splitContainer1.Panel2.Width - m_thumbarea.Width) * (m_movie.CurrentPosition / m_movie.Duration));
-                msglabel.Text = translateTime(m_movie.CurrentPosition) + "/" + translateTime(m_movie.Duration);
+                msglabel.Text = string.Format("{0}/{1}", translateTime(m_movie.CurrentPosition), translateTime(m_movie.Duration));
                 redrawtrackbar();
                 
             }
         }
 
-        private string translateTime(double time)
+        private static string translateTime(double time)
         {
             int sec = (int)Math.Floor(time);
             int h = sec / 3600;
             sec %= 3600;
             int m = sec / 60;
             sec %= 60;
-            string msg = h.ToString("D1") + ":" + m.ToString("D2") + ":" + sec.ToString("D2");
+            string msg = string.Format("{0}:{1}:{2}", h.ToString("D1"), m.ToString("D2"), sec.ToString("D2"));
             return msg;
         }
 
