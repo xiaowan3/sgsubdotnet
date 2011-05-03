@@ -9,8 +9,8 @@ namespace Subtitle
 {
     public class AssSub
     {
-        private AssHead _mAssHead;
-        private AssLineParser _mAssParser;
+        private AssHead _assHead;
+        private AssLineParser _assParser;
         public BindingSource SubItems = new BindingSource();
 
         public AssHead DefaultAssHead;
@@ -64,13 +64,13 @@ namespace Subtitle
         {
             string line;
             bool eventfound = false;
-            _mAssHead = new AssHead();
+            _assHead = new AssHead();
 
             while (!iStream.EndOfStream)
             {
                 line = iStream.ReadLine();
                 if (line == null) throw (new Exception("Wrong ass file."));
-                _mAssHead.AddLine(line);
+                _assHead.AddLine(line);
                 if (line.ToUpper().IndexOf("EVENTS") != -1)
                 {
                     eventfound = true;
@@ -79,12 +79,12 @@ namespace Subtitle
             }
             if (!eventfound) throw (new Exception("Wrong ass file."));
             line = iStream.ReadLine();
-            _mAssParser = new AssLineParser(line);
+            _assParser = new AssLineParser(line);
             SubItems.Clear();
             while (!iStream.EndOfStream)
             {
                 line = iStream.ReadLine();
-                AssItem item = _mAssParser.ParseLine(line);
+                var item = _assParser.ParseLine(line);
                 if (item != null) SubItems.Add(item);
             }
         }
@@ -127,11 +127,11 @@ namespace Subtitle
         /// <param name="oStream"></param>
         public void WriteAss(StreamWriter oStream)
         {
-            _mAssHead.WriteTo(oStream);
-            oStream.WriteLine(_mAssParser.FmtLine);
+            _assHead.WriteTo(oStream);
+            oStream.WriteLine(_assParser.FmtLine);
             foreach (object i in SubItems)
             {
-                oStream.WriteLine(_mAssParser.FormatLine((AssItem)i));
+                oStream.WriteLine(_assParser.FormatLine((AssItem)i));
             }
         }
 
@@ -166,8 +166,8 @@ namespace Subtitle
 
         public void LoadText(StreamReader iStream)
         {
-            _mAssHead = DefaultAssHead;
-            _mAssParser = new AssLineParser(DefaultFormatLine);
+            _assHead = DefaultAssHead;
+            _assParser = new AssLineParser(DefaultFormatLine);
             SubItems.Clear();
             while (!iStream.EndOfStream)
             {

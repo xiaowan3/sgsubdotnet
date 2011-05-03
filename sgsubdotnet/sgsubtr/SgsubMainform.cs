@@ -350,10 +350,7 @@ namespace sgsubtr
 
         void SgsubMainform_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!AskSave())
-            {
-                e.Cancel = true;
-            }
+            if (!AskSave()) e.Cancel = true;
         }
 
         void SgsubMainform_DragEnter(object sender, DragEventArgs e)
@@ -569,9 +566,7 @@ namespace sgsubtr
                                   @"Video File (*.mp4;*.mkv;*.avi;*.mpg)|*.mp4;*.mkv;*.avi;*.mpg|All files (*.*)|*.*||"
                           };
             if (dlg.ShowDialog() == DialogResult.OK)
-            {
                 OpenVideo(dlg.FileName);
-            }
         }
 
 
@@ -580,9 +575,7 @@ namespace sgsubtr
             var dlg = new OpenFileDialog {Filter = @"Text File (*.txt)|*.txt||"};
 
             if (AskSave() && dlg.ShowDialog() == DialogResult.OK)
-            {
                 OpenTxt(dlg.FileName);
-            }
         }
         void openSub_Click(object sender, EventArgs e)
         {
@@ -601,10 +594,7 @@ namespace sgsubtr
                     SetCurrentSub();
                 }
             }
-
         }
-
-
 
         #region File Operation
 
@@ -670,9 +660,7 @@ namespace sgsubtr
                     _mSubFilename = dlg.FileName;
                 }
                 else
-                {
                     return false;
-                }
             }
             _mCurrentSub.WriteAss(_mSubFilename, Encoding.Unicode);
             subEditor.Edited = false;
