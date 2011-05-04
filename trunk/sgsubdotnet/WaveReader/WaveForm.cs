@@ -102,7 +102,7 @@ namespace WaveReader
             var asec = new Byte[spsec][];
             for (int i = 0; i < spsec; i++) asec[i] = new Byte[100];
             
-            int[] split = new int[numsplit + 1];
+            var split = new int[numsplit + 1];
             for (int i = 0; i < numsplit + 1; i++)
                 split[i] = (int)(i * (double)(samplelen) / (2 * numsplit)) * 2;
             
@@ -205,8 +205,7 @@ namespace WaveReader
         public UInt32 BlockAlign = 0;
 
     }
-
-    static class FFT
+    class FFT
     {
         [DllImport("fftsupport.dll")]
         public static extern IntPtr CreateFFTBuffer(Int32 len);
