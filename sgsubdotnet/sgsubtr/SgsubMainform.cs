@@ -181,6 +181,7 @@ namespace sgsubtr
 
         ToolStripMenuItem ConfigMenuItems = new ToolStripMenuItem("设置");
         ToolStripMenuItem KeyConfig = new ToolStripMenuItem("按键设置");
+        ToolStripMenuItem Customize = new ToolStripMenuItem("自定义");
 
         ToolStripMenuItem HelpMenuItem = new ToolStripMenuItem("帮助");
         ToolStripMenuItem AboutSGSUBTR = new ToolStripMenuItem("关于 SGSUB.Net");
@@ -289,6 +290,7 @@ namespace sgsubtr
             fileMenuItems.DropDownItems.Add(exit);
 
             ConfigMenuItems.DropDownItems.Add(KeyConfig);
+            ConfigMenuItems.DropDownItems.Add(Customize);
 
             HelpMenuItem.DropDownItems.Add(AboutSGSUBTR);
 
@@ -332,7 +334,9 @@ namespace sgsubtr
             saveSubAs.Click += new EventHandler(saveSubAs_Click);
             exit.Click += new EventHandler(exit_Click);
             KeyConfig.Click += new EventHandler(KeyConfig_Click);
+            Customize.Click += new EventHandler(Customize_Click);
             AboutSGSUBTR.Click += new EventHandler(AboutSGSUBTR_Click);
+
 
             waveViewer.BTNOpenAss += new EventHandler(openSub_Click);
             waveViewer.BTNOpenMedia += new EventHandler(openMedia_Click);
@@ -354,6 +358,12 @@ namespace sgsubtr
             timer.Tick += new EventHandler(timer_Tick);
             #endregion
 
+        }
+
+        void Customize_Click(object sender, EventArgs e)
+        {
+            var cfgform = new ConfigForm(_mConfig, _startUpPath + @"\config\");
+            cfgform.ShowDialog();
         }
 
         void AboutSGSUBTR_Click(object sender, EventArgs e)
