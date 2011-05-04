@@ -518,6 +518,7 @@
             this.Controls.Add(this.btnFF);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "KeyConfigForm";
+            this.ShowInTaskbar = false;
             this.Text = "按键设置";
             this.Load += new System.EventHandler(this.KeyConfigForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numST)).EndInit();
