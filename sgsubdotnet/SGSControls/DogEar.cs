@@ -43,7 +43,7 @@ namespace SGSControls
                                Duration = duration,
                                Type = type == EarType.Human ? EarType.Cat : type
                            };
-                var wavInfo = new wavinfo();
+                var wavInfo = new Wavinfo();
                 var rawStream = AudioFileIO.ExtractWave(_mediaFile, ref wavInfo, begin.ToString("F1"), duration.ToString("F1"));
                 clip.OriginalStream = new MemoryStream();
                 clip.ScaledStream = new MemoryStream();
@@ -121,7 +121,7 @@ namespace SGSControls
     static class AudioFileIO
     {
         public static string FFmpegpath;
-        public static Stream ExtractWave(string videofilename, ref wavinfo wavinf, string begin, string len)
+        public static Stream ExtractWave(string videofilename, ref Wavinfo wavinf, string begin, string len)
         {
             //ffmpeg -i <infile> -f wav -ac 1 -vn -y <outfile.wav>
             if (FFmpegpath == null) throw new Exception("FFmpegpath is not set");
@@ -165,7 +165,7 @@ namespace SGSControls
             taglen = Gettaglen(buf);  //length;
             var chunk = new byte[taglen];
             read = stdout.Read(chunk, 0, (int)taglen);
-            wavinfo info = Parsefmt(chunk);
+            Wavinfo info = Parsefmt(chunk);
             info.CloneTo(ref wavinf);
 
             read = stdout.Read(buf, 0, 4);
@@ -192,7 +192,7 @@ namespace SGSControls
             return audioStream;
 
         }
-        public static void WriteHead(Stream oStream, wavinfo info)
+        public static void WriteHead(Stream oStream, Wavinfo info)
         {
             var seg = new byte[4];
             byte[] buff;
@@ -271,9 +271,9 @@ namespace SGSControls
             uint len = BitConverter.ToUInt32(seg, 0);
             return len;
         }
-        private static wavinfo Parsefmt(byte[] chunk)
+        private static Wavinfo Parsefmt(byte[] chunk)
         {
-            var wi = new wavinfo
+            var wi = new Wavinfo
                          {
                              FormatTag = BitConverter.ToUInt16(chunk, 0),
                              Channels = BitConverter.ToUInt16(chunk, 2),
@@ -287,7 +287,7 @@ namespace SGSControls
 
     }
 
-    class wavinfo
+    class Wavinfo
     {
         public UInt32 FormatTag = 0;
         public UInt32 Channels = 0;
@@ -295,7 +295,7 @@ namespace SGSControls
         public UInt32 BitPerSample = 0;
         public UInt32 ByteRate = 0;
         public UInt32 BlockAlign = 0;
-        public void CloneTo(ref wavinfo cloneTo)
+        public void CloneTo(ref Wavinfo cloneTo)
         {
             cloneTo.BitPerSample = BitPerSample;
             cloneTo.BlockAlign = BlockAlign;
@@ -308,9 +308,9 @@ namespace SGSControls
     }
 
 
-    class WSOLA
+    static class WSOLA
     {
-        static public void ScaleAudio(Stream src, Stream dst, double coef, double hdur, double hover, double del, wavinfo wavinf)
+        static public void ScaleAudio(Stream src, Stream dst, double coef, double hdur, double hover, double del, Wavinfo wavinf)
         {
             int isize;
             int osize;
@@ -321,18 +321,18 @@ namespace SGSControls
             byte[] inputbuf;
             byte[] outputbuf;
 
-            WSOLA.setWSOLAPara(hdur, hover, del, wavinf.Frequency);
+            setWSOLAPara(hdur, hover, del, wavinf.Frequency);
 
-            WSOLA.initWSOLA((int)wavinf.Channels, (int)wavinf.Frequency, coef);
-            isize = WSOLA.getInputSize();
-            osize = WSOLA.getOutputSize();
+            initWSOLA((int)wavinf.Channels, (int)wavinf.Frequency, coef);
+            isize = getInputSize();
+            osize = getOutputSize();
             inputbuf = new byte[isize];
             outputbuf = new byte[osize];
-            osize = WSOLA.getOutputSize();
-            WSOLA.prereadSrc(ref readoff, ref readn);
+            osize = getOutputSize();
+            prereadSrc(ref readoff, ref readn);
             src.Seek(readoff, SeekOrigin.Begin);
-            nread = src.Read(inputbuf, 0, readn);
-            WSOLA.initProcess(inputbuf);
+            src.Read(inputbuf, 0, readn);
+            initProcess(inputbuf);
             //beginloop
 
             writesize = osize / 2;
@@ -342,24 +342,24 @@ namespace SGSControls
 
             do
             {
-                WSOLA.prereadSrc(ref readoff, ref readn);
+                prereadSrc(ref readoff, ref readn);
                 src.Seek(readoff, SeekOrigin.Begin);
                 nread = src.Read(inputbuf, 0, readn);
                 if (nread < readn) break;
-                WSOLA.loadSource(inputbuf);
+                loadSource(inputbuf);
 
-                WSOLA.prereadDes(ref readoff, ref readn);
+                prereadDes(ref readoff, ref readn);
                 src.Seek(readoff, SeekOrigin.Begin);
                 nread = src.Read(inputbuf, 0, readn);
                 if (nread < readn) break;
 
-                WSOLA.loadDesire(inputbuf);
-                WSOLA.process(outputbuf);
+                loadDesire(inputbuf);
+                process(outputbuf);
                 dst.Write(outputbuf, 0, writesize);
             } while (true);
             AudioFileIO.WriteStreamLen(dst);
             dst.Flush();
-            WSOLA.destroyWsola();
+            destroyWsola();
 
         }
 
