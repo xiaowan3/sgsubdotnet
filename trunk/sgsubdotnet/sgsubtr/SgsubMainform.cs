@@ -324,6 +324,7 @@ namespace sgsubtr
             saveSubAs.Click += new EventHandler(saveSubAs_Click);
             exit.Click += new EventHandler(exit_Click);
             KeyConfig.Click += new EventHandler(KeyConfig_Click);
+            AboutSGSUBTR.Click += new EventHandler(AboutSGSUBTR_Click);
 
             waveViewer.BTNOpenAss += new EventHandler(openSub_Click);
             waveViewer.BTNOpenMedia += new EventHandler(openMedia_Click);
@@ -345,6 +346,12 @@ namespace sgsubtr
             timer.Tick += new EventHandler(timer_Tick);
             #endregion
 
+        }
+
+        void AboutSGSUBTR_Click(object sender, EventArgs e)
+        {
+            var aboutBox = new AboutBox();
+            aboutBox.Show();
         }
 
 

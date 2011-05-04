@@ -52,33 +52,33 @@ namespace WaveReader
             byte[] buf = new byte[4];
             
             int read;
-            tagname tag;
+            Tagname tag;
             UInt32 taglen; 
             read = stdout.Read(buf, 0, 4);
-            tag = gettagname(buf); //RIFF
-            if (tag != tagname.RIFF) throw new Exception("WaveReadError");
+            tag = Gettagname(buf); //RIFF
+            if (tag != Tagname.RIFF) throw new Exception("WaveReadError");
 
             read = stdout.Read(buf, 0, 4);
-            taglen = gettaglen(buf); //0
+            taglen = Gettaglen(buf); //0
 
             read = stdout.Read(buf, 0, 4);
-            tag = gettagname(buf); //WAVE
-            if (tag != tagname.WAVE) throw new Exception("WaveReadError");
+            tag = Gettagname(buf); //WAVE
+            if (tag != Tagname.WAVE) throw new Exception("WaveReadError");
 
             read = stdout.Read(buf, 0, 4);
-            tag = gettagname(buf); //fmt
-            if (tag != tagname.FMT) throw new Exception("WaveReadError");
+            tag = Gettagname(buf); //fmt
+            if (tag != Tagname.FMT) throw new Exception("WaveReadError");
             read = stdout.Read(buf, 0, 4);
-            taglen = gettaglen(buf);  //length;
+            taglen = Gettaglen(buf);  //length;
             byte[] chunk = new byte[taglen];
             read = stdout.Read(chunk, 0, (int)taglen);
-            wavinfo wavinf = parsefmt(chunk);
+            Wavinfo wavinf = Parsefmt(chunk);
 
             read = stdout.Read(buf, 0, 4);
-            tag = gettagname(buf); //data
+            tag = Gettagname(buf); //data
             read = stdout.Read(buf, 0, 4);
-            taglen = gettaglen(buf);  //length;
-            if (tag != tagname.DATA)
+            taglen = Gettaglen(buf);  //length;
+            if (tag != Tagname.DATA)
             {
                 throw new Exception("Please report bug: Strange wave format");
             }
@@ -97,7 +97,7 @@ namespace WaveReader
             int numsplit = 5; //每0.1秒所分的段数
             int spsec = numsplit * 10; //每秒数据点数
             int nSamples = samplelen / 10;//每个FFT周期的采样个数
-            IntPtr fftbuf = fft.CreateFFTBuffer(nSamples);
+            IntPtr fftbuf = FFT.CreateFFTBuffer(nSamples);
 
             var asec = new Byte[spsec][];
             for (int i = 0; i < spsec; i++) asec[i] = new Byte[100];
@@ -124,7 +124,7 @@ namespace WaveReader
                 //取每一段(wavfm.DeltaT s)音频的##
                 for (int s = 0; s < numsplit; s++)
                 {
-                    fft.DoFFT(fftbuf, chunk, (split[s + 1] - split[s]) / 2, split[s] / 2, asec[timecount]);
+                    FFT.DoFFT(fftbuf, chunk, (split[s + 1] - split[s]) / 2, split[s] / 2, asec[timecount]);
                     timecount++;
                 }
 
@@ -153,58 +153,29 @@ namespace WaveReader
             return wavfm;
         }
 
-        enum tagname{RIFF,WAVE,FMT,DATA,Unknown};
-        private static tagname gettagname(byte[] seg)
+        enum Tagname{RIFF,WAVE,FMT,DATA,Unknown};
+        private static Tagname Gettagname(byte[] seg)
         {
-            //[RIFF]
-            if (seg[0] == 0x52 && seg[1] == 0x49 && seg[2] == 0x46 && seg[3] == 0x46)
-            {
-
-                return tagname.RIFF;
-            }
-            //[WAVE]
-            else if (seg[0] == 0x57 && seg[1] == 0x41 && seg[2] == 0x56 && seg[3] == 0x45)
-            {
-
-                return tagname.WAVE;
-            }
-            //[fmt ]
-            else if (seg[0] == 0x66 && seg[1] == 0x6D && seg[2] == 0x74)
-            {
-
-                return tagname.FMT;
-            }
-            //[data]
-            else if (seg[0] == 0x64 && seg[1] == 0x61 && seg[2] == 0x74 && seg[3] == 0x61)
-            {
-
-                return tagname.DATA;
-            }
-            else
-            {
-                return tagname.Unknown;
-            }
+            string segname = System.Text.Encoding.ASCII.GetString(seg, 0, 4);
+            var tgn = (Tagname)Enum.Parse(typeof(Tagname), segname.TrimEnd().ToUpper());
+            return tgn;
         }
-        private static UInt32 gettaglen(byte[] seg)
+        private static UInt32 Gettaglen(byte[] seg)
         {
-            UInt32 len;
-            len = (UInt32)seg[0] + ((UInt32)(seg[1]) << 8) + ((UInt32)(seg[2]) << 16) + ((UInt32)(seg[3]) << 24);
+            uint len = BitConverter.ToUInt32(seg, 0);
             return len;
         }
-        private static wavinfo parsefmt(byte[] chunk)
+
+        private static Wavinfo Parsefmt(byte[] chunk)
         {
-            var wi = new wavinfo
+            var wi = new Wavinfo
                          {
-                             FormatTag = (UInt32) chunk[0] + ((UInt32) (chunk[1]) << 8),
-                             Channels = (UInt32) chunk[2] + ((UInt32) (chunk[3]) << 8),
-                             Frequency =
-                                 (UInt32) chunk[4] + ((UInt32) (chunk[5]) << 8) + ((UInt32) (chunk[6]) << 16) +
-                                 ((UInt32) (chunk[7]) << 24),
-                             ByteRate =
-                                 (UInt32) chunk[8] + ((UInt32) (chunk[9]) << 8) + ((UInt32) (chunk[10]) << 16) +
-                                 ((UInt32) (chunk[11]) << 24),
-                             BlockAlign = (UInt32) chunk[12] + ((UInt32) (chunk[13]) << 8),
-                             BitPerSample = (UInt32) chunk[14] + ((UInt32) (chunk[15]) << 8)
+                             FormatTag = BitConverter.ToUInt16(chunk, 0),
+                             Channels = BitConverter.ToUInt16(chunk, 2),
+                             Frequency =BitConverter.ToUInt32(chunk,4),
+                             ByteRate =BitConverter.ToUInt32(chunk,8),
+                             BlockAlign = BitConverter.ToUInt16(chunk, 12),
+                             BitPerSample = BitConverter.ToUInt16(chunk, 14)
                          };
             return wi;
         }
@@ -218,13 +189,13 @@ namespace WaveReader
         public Byte[] ValueAt(double time)
         {
             int l = (int)(time / DeltaT);
-            if (l < 0 || l >= _mWaveform.Length) return _mNullwave;
+            if (l < 0 || l >= _mWaveform.Length) return _nullwave;
             return _mWaveform[l];
         }
         private Byte[][] _mWaveform;
-        private Byte[] _mNullwave = new Byte[100];
+        private Byte[] _nullwave = new Byte[100];
     }
-    class wavinfo
+    class Wavinfo
     {
         public UInt32 FormatTag = 0;
         public UInt32 Channels = 0;
@@ -234,7 +205,8 @@ namespace WaveReader
         public UInt32 BlockAlign = 0;
 
     }
-    class fft
+
+    static class FFT
     {
         [DllImport("fftsupport.dll")]
         public static extern IntPtr CreateFFTBuffer(Int32 len);

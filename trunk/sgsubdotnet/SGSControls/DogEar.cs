@@ -13,8 +13,8 @@ namespace SGSControls
     {
         Microsoft.DirectX.DirectSound.Device dev = new Microsoft.DirectX.DirectSound.Device();
 
-        private List<AudioClip> audioList = new List<AudioClip>();
-        private string mediaFile;
+        private readonly List<AudioClip> _audioList = new List<AudioClip>();
+        private readonly string _mediaFile;
 
         public double CatCoef { get; set; }
         public double RabbitCoef { get; set; }
@@ -23,16 +23,18 @@ namespace SGSControls
         public double Hanning_Overlap { get; set; }
         public double Delta_Divisor { get; set; }
 
+        public int MaxBuffer = 10;
+
         public DogEar(System.Windows.Forms.Control owner,string mediafile, string FFMpegPath)
         {
-            mediaFile = mediafile;
+            _mediaFile = mediafile;
             AudioFileIO.FFmpegpath = FFMpegPath;
             dev.SetCooperativeLevel(owner, Microsoft.DirectX.DirectSound.CooperativeLevel.Normal);
         }
 
         public void EarAClip(double begin, double duration, EarType type)
         {
-            AudioClip clip = audioList.FirstOrDefault(t => t.Equivalent(begin, duration, type));
+            AudioClip clip = _audioList.FirstOrDefault(t => t.Equivalent(begin, duration, type));
             if (clip == null)
             {
                 clip = new AudioClip
@@ -42,7 +44,7 @@ namespace SGSControls
                                Type = type == EarType.Human ? EarType.Cat : type
                            };
                 var wavInfo = new wavinfo();
-                var rawStream = AudioFileIO.ExtractWave(mediaFile, ref wavInfo, begin.ToString("F1"), duration.ToString("F1"));
+                var rawStream = AudioFileIO.ExtractWave(_mediaFile, ref wavInfo, begin.ToString("F1"), duration.ToString("F1"));
                 clip.OriginalStream = new MemoryStream();
                 clip.ScaledStream = new MemoryStream();
                 AudioFileIO.WriteHead(clip.OriginalStream, wavInfo);
@@ -65,7 +67,8 @@ namespace SGSControls
                         WSOLA.ScaleAudio(rawStream, clip.ScaledStream, RabbitCoef, Hanning_Duration, Hanning_Overlap, Delta_Divisor, wavInfo);
                         break;
                 }
-                audioList.Add(clip);
+                _audioList.Add(clip);
+                if(_audioList.Count > MaxBuffer)_audioList.RemoveAt(0);
             }
             //play it
             if (type != EarType.Human)
@@ -145,30 +148,30 @@ namespace SGSControls
             Tagname tag;
             UInt32 taglen;
             read = stdout.Read(buf, 0, 4);
-            tag = gettagname(buf); //RIFF
+            tag = Gettagname(buf); //RIFF
             if (tag != Tagname.RIFF) throw new Exception("WaveReadError");
 
             read = stdout.Read(buf, 0, 4);
-            taglen = gettaglen(buf); //0
+            taglen = Gettaglen(buf); //0
 
             read = stdout.Read(buf, 0, 4);
-            tag = gettagname(buf); //WAVE
+            tag = Gettagname(buf); //WAVE
             if (tag != Tagname.WAVE) throw new Exception("WaveReadError");
 
             read = stdout.Read(buf, 0, 4);
-            tag = gettagname(buf); //fmt
+            tag = Gettagname(buf); //fmt
             if (tag != Tagname.FMT) throw new Exception("WaveReadError");
             read = stdout.Read(buf, 0, 4);
-            taglen = gettaglen(buf);  //length;
+            taglen = Gettaglen(buf);  //length;
             var chunk = new byte[taglen];
             read = stdout.Read(chunk, 0, (int)taglen);
-            wavinfo info = parsefmt(chunk);
+            wavinfo info = Parsefmt(chunk);
             info.CloneTo(ref wavinf);
 
             read = stdout.Read(buf, 0, 4);
-            tag = gettagname(buf); //data
+            tag = Gettagname(buf); //data
             read = stdout.Read(buf, 0, 4);
-            taglen = gettaglen(buf);  //length;
+            taglen = Gettaglen(buf);  //length;
             if (tag != Tagname.DATA)
             {
                 throw new Exception("Please report bug: Strange wave format");
@@ -256,29 +259,29 @@ namespace SGSControls
 
 
         enum Tagname { RIFF, WAVE, FMT, DATA, Unknown };
-        private static Tagname gettagname(byte[] seg)
+        private static Tagname Gettagname(byte[] seg)
         {
-            //[RIFF]
             string segname = System.Text.Encoding.ASCII.GetString(seg, 0, 4);
             var tgn = (Tagname)Enum.Parse(typeof(Tagname), segname.TrimEnd().ToUpper());
             return tgn;
 
         }
-        private static UInt32 gettaglen(byte[] seg)
+        private static UInt32 Gettaglen(byte[] seg)
         {
-            UInt32 len;
-            len = (UInt32)seg[0] + ((UInt32)(seg[1]) << 8) + ((UInt32)(seg[2]) << 16) + ((UInt32)(seg[3]) << 24);
+            uint len = BitConverter.ToUInt32(seg, 0);
             return len;
         }
-        private static wavinfo parsefmt(byte[] chunk)
+        private static wavinfo Parsefmt(byte[] chunk)
         {
-            wavinfo wi = new wavinfo();
-            wi.FormatTag = (UInt32)chunk[0] + ((UInt32)(chunk[1]) << 8);
-            wi.Channels = (UInt32)chunk[2] + ((UInt32)(chunk[3]) << 8);
-            wi.Frequency = (UInt32)chunk[4] + ((UInt32)(chunk[5]) << 8) + ((UInt32)(chunk[6]) << 16) + ((UInt32)(chunk[7]) << 24);
-            wi.ByteRate = (UInt32)chunk[8] + ((UInt32)(chunk[9]) << 8) + ((UInt32)(chunk[10]) << 16) + ((UInt32)(chunk[11]) << 24);
-            wi.BlockAlign = (UInt32)chunk[12] + ((UInt32)(chunk[13]) << 8);
-            wi.BitPerSample = (UInt32)chunk[14] + ((UInt32)(chunk[15]) << 8);
+            var wi = new wavinfo
+                         {
+                             FormatTag = BitConverter.ToUInt16(chunk, 0),
+                             Channels = BitConverter.ToUInt16(chunk, 2),
+                             Frequency = BitConverter.ToUInt32(chunk, 4),
+                             ByteRate = BitConverter.ToUInt32(chunk, 8),
+                             BlockAlign = BitConverter.ToUInt16(chunk, 12),
+                             BitPerSample = BitConverter.ToUInt16(chunk, 14)
+                         };
             return wi;
         }
 
