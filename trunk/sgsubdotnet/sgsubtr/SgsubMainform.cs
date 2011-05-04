@@ -246,7 +246,15 @@ namespace sgsubtr
             #region Build Layout
 
             if (xmldoc.ChildNodes.Count <= 0) throw new Exception("Wrong XML File");
-            XmlNode root = xmldoc.ChildNodes[0];
+            XmlNode root = xmldoc.ChildNodes.Cast<XmlNode>().Where(node => node.Name == "SGSUBLayout").FirstOrDefault();
+
+            if (root == null)
+            {
+                MessageBox.Show(@"无法读取布局文件，使用默认布局", @"错误",MessageBoxButtons.OK);
+                var defaultReader = new XmlTextReader(_startUpPath + @"\config\layout.xml");
+                xmldoc.Load(defaultReader);
+                root = xmldoc.ChildNodes[0];
+            }
             var panel = new Panel();
 
             mainMenu.SuspendLayout();
