@@ -1,10 +1,10 @@
 <SGSUBLayout Height="550" Width="800">
-  <SplitContainer Orientation="Vertical" Dock ="Fill" SpliterDistance="400" BorderStyle="None" FixedPanel="Panel1" IsSplitterFixed="false">
-    <SplitContainer Orientation="Horizontal" Dock ="Fill" SpliterDistance="250" BorderStyle="None" FixedPanel="Panel1" IsSplitterFixed="false">
+  <SplitContainer Orientation="Vertical" Dock ="Fill" SpliterDistance="400" BorderStyle="Fixed3D" FixedPanel="Panel1" IsSplitterFixed="false">
+    <SplitContainer Orientation="Horizontal" Dock ="Fill" SpliterDistance="250" BorderStyle="Fixed3D" FixedPanel="Panel1" IsSplitterFixed="false">
       <VideoPlayer Dock="Fill"></VideoPlayer>
       <WaveFormViewer Dock="Fill"></WaveFormViewer>
     </SplitContainer>
-    <SplitContainer Orientation="Horizontal" Dock ="Fill" SpliterDistance="70" BorderStyle="None" FixedPanel="Panel1" IsSplitterFixed="true">
+    <SplitContainer Orientation="Horizontal" Dock ="Fill" SpliterDistance="75" BorderStyle="None" FixedPanel="Panel1" IsSplitterFixed="true">
       <SubItemEditor Dock="Fill"></SubItemEditor>
       <SubEditor Dock="Fill"></SubEditor>
     </SplitContainer>
