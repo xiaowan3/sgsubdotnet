@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SGSControls
@@ -16,9 +10,9 @@ namespace SGSControls
             InitializeComponent();
         }
         #region Private members
-        private Subtitle.AssSub m_CurrentSub = null;
-        private bool m_SubLoaded = false;
-        private int m_CurrentRow = -1;
+        private Subtitle.AssSub _currentSub;
+        private bool _subLoaded;
+        private int _currentRow = -1;
         #endregion
 
         #region Public Events
@@ -53,18 +47,18 @@ namespace SGSControls
         #region Public Properties
         public Subtitle.AssSub CurrentSub
         {
-            get { return m_CurrentSub; }
+            get { return _currentSub; }
             set
             {
-                m_CurrentSub = value;
+                _currentSub = value;
                 if (value != null && value.SubItems.Count > 0)
                 {
-                    m_SubLoaded = true;
+                    _subLoaded = true;
 
                 }
                 else
                 {
-                    m_SubLoaded = false;
+                    _subLoaded = false;
                 }
             }
         }
@@ -80,23 +74,23 @@ namespace SGSControls
         {
             get
             {
-                return m_CurrentRow;
+                return _currentRow;
             }
             set
             {
-                m_CurrentRow = value;
+                _currentRow = value;
                 RefreshDisplay();
             }
         }
         public void RefreshDisplay()
         {
-            if (m_SubLoaded)
+            if (_subLoaded)
             {
                 Subtitle.AssItem item;
-                Subtitle.AssTime time = new Subtitle.AssTime();
-                if (m_CurrentRow > 0)
+                var time = new Subtitle.AssTime();
+                if (_currentRow > 0)
                 {
-                    item = (Subtitle.AssItem)(m_CurrentSub.SubItems[m_CurrentRow - 1]);
+                    item = (Subtitle.AssItem)(_currentSub.SubItems[_currentRow - 1]);
                     time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
                     labelLastLine.Text = item.Text;
                     labelLastDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
@@ -106,13 +100,13 @@ namespace SGSControls
                 else
                 {
                     labelLastLine.Text = "";
-                    labelLastDuration.Text = "-:--:--.--";
+                    labelLastDuration.Text = @"-:--:--.--";
                     waveScope.LastStart = 0;
                     waveScope.LastEnd = 0;
                 }
-                if (m_CurrentRow >= 0 && m_CurrentRow < m_CurrentSub.SubItems.Count)
+                if (_currentRow >= 0 && _currentRow < _currentSub.SubItems.Count)
                 {
-                    item = (Subtitle.AssItem)(m_CurrentSub.SubItems[m_CurrentRow]);
+                    item = (Subtitle.AssItem)(_currentSub.SubItems[_currentRow]);
                     time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
                     labelThisLine.Text = item.Text;
                     labelThisDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
@@ -122,13 +116,13 @@ namespace SGSControls
                 else
                 {
                     labelThisLine.Text = "";
-                    labelThisDuration.Text = "-:--:--.--";
+                    labelThisDuration.Text = @"-:--:--.--";
                     waveScope.Start = 0;
                     waveScope.End = 0;
                 }
-                if (m_CurrentRow < m_CurrentSub.SubItems.Count - 1)
+                if (_currentRow < _currentSub.SubItems.Count - 1)
                 {
-                    item = (Subtitle.AssItem)(m_CurrentSub.SubItems[m_CurrentRow + 1]);
+                    item = (Subtitle.AssItem)(_currentSub.SubItems[_currentRow + 1]);
                     time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
                     labelNextLine.Text = item.Text;
                     labelNextDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
@@ -136,7 +130,7 @@ namespace SGSControls
                 else
                 {
                     labelNextLine.Text = "";
-                    labelNextDuration.Text = "-:--:--.--";
+                    labelNextDuration.Text = @"-:--:--.--";
                 }
                 waveScope.Redraw();
             }
@@ -147,7 +141,7 @@ namespace SGSControls
         {
             if (PlayerControl != null)
             {
-                PlayerControlEventArgs arg = new PlayerControlEventArgs(PlayerCommand.Pause);
+                var arg = new PlayerControlEventArgs(PlayerCommand.Pause);
                 PlayerControl(this, arg);
             }
             WaveReader.WaveForm.FFmpegpath = FFMpegPath;
@@ -155,8 +149,8 @@ namespace SGSControls
             waveScope.Wave = wf;
             waveScope.Redraw();
         }
-        public string MediaFilename = null;
-        public string FFMpegPath = null;
+        public string MediaFilename;
+        public string FFMpegPath;
         #endregion
 
         private void tsbtnFFT_Click(object sender, EventArgs e)
