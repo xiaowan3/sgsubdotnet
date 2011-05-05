@@ -30,14 +30,15 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.layoutConfig = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.listLayout = new System.Windows.Forms.ListBox();
-            this.pictureLayout = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureLayout = new System.Windows.Forms.PictureBox();
+            this.listLayout = new System.Windows.Forms.ListBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnConfirm = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.layoutConfig.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureLayout)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureLayout)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -54,6 +55,7 @@
             // layoutConfig
             // 
             this.layoutConfig.BackColor = System.Drawing.SystemColors.Control;
+            this.layoutConfig.Controls.Add(this.btnConfirm);
             this.layoutConfig.Controls.Add(this.groupBox1);
             this.layoutConfig.Controls.Add(this.listLayout);
             this.layoutConfig.Location = new System.Drawing.Point(4, 21);
@@ -63,15 +65,23 @@
             this.layoutConfig.TabIndex = 0;
             this.layoutConfig.Text = "布局管理";
             // 
-            // tabPage2
+            // groupBox1
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 21);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(625, 394);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.groupBox1.Controls.Add(this.pictureLayout);
+            this.groupBox1.Location = new System.Drawing.Point(169, 19);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(423, 280);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "预览";
+            // 
+            // pictureLayout
+            // 
+            this.pictureLayout.Location = new System.Drawing.Point(32, 20);
+            this.pictureLayout.Name = "pictureLayout";
+            this.pictureLayout.Size = new System.Drawing.Size(355, 244);
+            this.pictureLayout.TabIndex = 1;
+            this.pictureLayout.TabStop = false;
             // 
             // listLayout
             // 
@@ -83,23 +93,25 @@
             this.listLayout.TabIndex = 0;
             this.listLayout.SelectedIndexChanged += new System.EventHandler(this.listLayout_SelectedIndexChanged);
             // 
-            // pictureLayout
+            // tabPage2
             // 
-            this.pictureLayout.Location = new System.Drawing.Point(32, 20);
-            this.pictureLayout.Name = "pictureLayout";
-            this.pictureLayout.Size = new System.Drawing.Size(355, 244);
-            this.pictureLayout.TabIndex = 1;
-            this.pictureLayout.TabStop = false;
+            this.tabPage2.Location = new System.Drawing.Point(4, 21);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(625, 394);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // btnConfirm
             // 
-            this.groupBox1.Controls.Add(this.pictureLayout);
-            this.groupBox1.Location = new System.Drawing.Point(169, 19);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(423, 280);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "预览";
+            this.btnConfirm.Location = new System.Drawing.Point(400, 337);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(75, 23);
+            this.btnConfirm.TabIndex = 3;
+            this.btnConfirm.Text = "确定";
+            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // ConfigForm
             // 
@@ -115,8 +127,8 @@
             this.Text = "ConfigForm";
             this.tabControl1.ResumeLayout(false);
             this.layoutConfig.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureLayout)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureLayout)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -129,5 +141,6 @@
         private System.Windows.Forms.ListBox listLayout;
         private System.Windows.Forms.PictureBox pictureLayout;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnConfirm;
     }
 }

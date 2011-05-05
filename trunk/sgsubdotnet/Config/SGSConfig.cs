@@ -9,6 +9,12 @@ namespace Config
     public class SGSConfig
     {
         private string _mFilename;
+
+        /// <summary>
+        /// 布局名称
+        /// </summary>
+        [DataMember]
+        public string LayoutName { get; set; }
         /// <summary>
         /// 起始时间点相对于按键时刻的偏移量（负为提前）（秒）
         /// </summary>

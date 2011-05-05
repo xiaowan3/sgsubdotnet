@@ -141,6 +141,9 @@
     <Content Include="config\default.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="config\defaultpic.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="config\layout.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

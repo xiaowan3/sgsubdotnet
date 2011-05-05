@@ -551,7 +551,7 @@ namespace SGSControls
                 if (rowIndex >= 0 && rowIndex <= lastrowindex)
                 {
 
-                    TimeEditEventArgs timeEditArgs = new TimeEditEventArgs(TimeType.Unknown, 0, true);
+                    var timeEditArgs = new TimeEditEventArgs(TimeType.Unknown, 0, true);
                     if (TimeEdit != null) TimeEdit(this, timeEditArgs);
                     if (!timeEditArgs.CancelEvent)
                     {
@@ -561,7 +561,7 @@ namespace SGSControls
                         {
                             if (rowIndex > 0 && _config.AutoOverlapCorrection)
                             {
-                                Subtitle.AssItem lastitem = ((Subtitle.AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
+                                var lastitem = ((Subtitle.AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
                                 if (lastitem.End.TimeValue - time > 0 &&
                                     lastitem.End.TimeValue - time < Math.Max(Math.Abs(_config.StartOffset), Math.Abs(_config.EndOffset)))
                                 {
