@@ -13,9 +13,9 @@ namespace sgsubtr
 {
     public partial class ConfigForm : Form
     {
-        private Config.SGSConfig _config;
-        private string _configDir;
-        private Dictionary<string, Image> _layoutlist = new Dictionary<string, Image>();
+        private readonly Config.SGSConfig _config;
+        private readonly string _configDir;
+        private readonly Dictionary<string, Image> _layoutlist = new Dictionary<string, Image>();
         public ConfigForm(Config.SGSConfig config, string configDir)
         {
             _config = config;
@@ -37,16 +37,27 @@ namespace sgsubtr
                 if (xmlnode == null) continue;
                 if (xmlnode.Attributes == null) continue;
                 Image previewImage;
+                Image defaultPreview = Image.FromFile(_configDir + "defaultpic.png");
+                    
                 try
                 {
                     previewImage = Image.FromFile(_configDir + xmlnode.Attributes["PreviewFile"].Value);
                 }
                 catch
                 {
-                    continue;
+                    previewImage = defaultPreview;
                 }
                 _layoutlist.Add(layoutname, previewImage);
                 listLayout.Items.Add(layoutname);
+            }
+            if (_config.LayoutName != null && _layoutlist.ContainsKey(_config.LayoutName))
+            {
+                listLayout.SelectedItem =
+                    listLayout.Items.Cast<string>().Where(name => name == _config.LayoutName).FirstOrDefault();
+            }
+            else
+            {
+                listLayout.SelectedIndex = 0;
             }
         }
 
@@ -56,6 +67,13 @@ namespace sgsubtr
             {
                 pictureLayout.Image = _layoutlist[listLayout.SelectedItem.ToString()];
             }
+        }
+
+        private void btnConfirm_Click(object sender, EventArgs e)
+        {
+            _config.LayoutName = listLayout.SelectedItem.ToString();
+            _config.Save();
+            Close();
         }
     }
 }
