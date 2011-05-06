@@ -201,7 +201,7 @@ namespace sgsubtr
             components = new Container();
             AutoScaleMode = AutoScaleMode.None;
             Text = @"SGSUB.Net Tita Russell";
-            Icon = Resource.tita;
+            Icon = global::sgsubtr.Properties.Resources.tita;
             AllowDrop = true;
             statusLabel.Text = StatusMessages[0];
 
@@ -267,16 +267,16 @@ namespace sgsubtr
             mainMenu.Items.Add(ConfigMenuItems);
             mainMenu.Items.Add(HelpMenuItem);
 
-            openSub.Image = Resource.openass;
+            openSub.Image = global::sgsubtr.Properties.Resources.openass;
             openSub.ImageTransparentColor = Color.Magenta;
 
-            openTXT.Image = Resource.opentxt;
+            openTXT.Image = global::sgsubtr.Properties.Resources.opentxt;
             openTXT.ImageTransparentColor = Color.Magenta;
 
-            openMedia.Image = Resource.openvideo;
+            openMedia.Image = global::sgsubtr.Properties.Resources.openvideo;
             openMedia.ImageTransparentColor = Color.Magenta;
 
-            saveSub.Image = Resource.save;
+            saveSub.Image = global::sgsubtr.Properties.Resources.save;
             saveSub.ImageTransparentColor = Color.Magenta;
 
 
