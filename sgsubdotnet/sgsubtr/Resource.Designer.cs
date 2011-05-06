@@ -94,5 +94,12 @@ namespace sgsubtr {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap titarussell {
+            get {
+                object obj = ResourceManager.GetObject("titarussell", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
