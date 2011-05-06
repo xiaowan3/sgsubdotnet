@@ -155,6 +155,7 @@
     <Content Include="Resources\openvideo.bmp" />
     <Content Include="Resources\save.bmp" />
     <Content Include="Resources\tita.ico" />
+    <None Include="Resources\titarussell.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
