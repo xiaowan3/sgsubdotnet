@@ -523,6 +523,8 @@ namespace SGSControls
                         EditEndTime(rowIndex, time);
                         if (rowIndex < lastrowindex)
                             dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex + 1].Cells[0];
+                        if (rowIndex - dataGridSubtitles.FirstDisplayedScrollingRowIndex > _config.SelectRowOffset)
+                            dataGridSubtitles.FirstDisplayedScrollingRowIndex = rowIndex - _config.SelectRowOffset;
                     }
                 }
             }
@@ -542,6 +544,8 @@ namespace SGSControls
                             EditBeginTime(rowIndex + 1, time);
                             dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex + 1].Cells[1];
                         }
+                        if (rowIndex - dataGridSubtitles.FirstDisplayedScrollingRowIndex > _config.SelectRowOffset)
+                            dataGridSubtitles.FirstDisplayedScrollingRowIndex = rowIndex - _config.SelectRowOffset;
                     }
                 }
             }
@@ -576,6 +580,8 @@ namespace SGSControls
                             EditEndTime(rowIndex, time);
                             if (rowIndex < lastrowindex)
                                 dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex + 1].Cells[0];
+                            if (rowIndex - dataGridSubtitles.FirstDisplayedScrollingRowIndex > _config.SelectRowOffset)
+                                dataGridSubtitles.FirstDisplayedScrollingRowIndex = rowIndex - _config.SelectRowOffset;
                         }
                     }
                 }
@@ -768,6 +774,8 @@ namespace SGSControls
                         EditEndTime(rowIndex, time);
                         if (rowIndex < lastrowindex)
                             dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex + 1].Cells[0];
+                        if (rowIndex - dataGridSubtitles.FirstDisplayedScrollingRowIndex > _config.SelectRowOffset)
+                            dataGridSubtitles.FirstDisplayedScrollingRowIndex = rowIndex - _config.SelectRowOffset;
                     }
                 }
             }
