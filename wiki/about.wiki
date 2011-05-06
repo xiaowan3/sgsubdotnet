@@ -1,0 +1,8 @@
+#labels Featured
+#关于SGSUB.Net
+
+= 什么是SGSUB.Net =
+
+SGSUB.Net 是一个 .Net Framework 3.5 开发的字幕时间轴编辑软件。在Windows 7 系统下能正常地工作。SGSUB.Net使用Direct Show播放视频，因此所支持的视频格式取决于你系统的解码器的设置。SGSUB.Net支持视频播放的同时利用按键编辑字幕，也支持利用声音的频谱图编辑时间轴。
+
+
