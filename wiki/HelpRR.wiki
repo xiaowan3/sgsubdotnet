@@ -1,10 +1,6 @@
 #labels Featured
 SGSUB.Net Reiner Rubin 使用方法
 
-= 主界面 =
-
-[http://sgsubdotnet.googlecode.com/svn/wiki/imgs/screen1_1_6.png]
-
 
 = 工具条按钮说明 =
 ==文件工具条==
@@ -55,3 +51,7 @@ SGSUB.Net Reiner Rubin 使用方法
     * 粘贴 Ctrl + V
     * 清空单元格内容 Delete
     * 删除选定行 Ctrl + Delete
+
+= 界面预览 =
+
+[http://sgsubdotnet.googlecode.com/svn/wiki/imgs/screen1_1_6.png]
