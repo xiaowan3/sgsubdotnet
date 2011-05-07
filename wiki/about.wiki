@@ -1,5 +1,5 @@
+#summary 关于SGSUB.Net
 #labels Featured,Gadgets
-#关于SGSUB.Net
 
 = 什么是SGSUB.Net =
 
