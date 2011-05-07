@@ -1,5 +1,5 @@
+#summary SGSUB.Net Reiner Rubin 界面介绍
 #labels Featured
-SGSUB.Net Reiner Rubin 使用方法
 
 
 = 工具条按钮说明 =
