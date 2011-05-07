@@ -79,6 +79,9 @@
     <EmbeddedResource Include="config\default.layout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="config\Wide.layout">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="KeyConfigForm.resx">
       <DependentUpon>KeyConfigForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -129,9 +132,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="config\default.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="config\default.png" />
     <Content Include="config\defaultpic.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -142,6 +143,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\gear.ico" />
+    <Content Include="config\wide.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\openass.bmp" />
     <Content Include="Resources\opentxt.bmp" />
     <Content Include="Resources\openvideo.bmp" />
