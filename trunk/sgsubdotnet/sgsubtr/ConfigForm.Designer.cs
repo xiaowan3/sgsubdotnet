@@ -68,7 +68,7 @@
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(400, 337);
+            this.btnConfirm.Location = new System.Drawing.Point(435, 353);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(75, 23);
             this.btnConfirm.TabIndex = 3;
@@ -81,7 +81,7 @@
             this.groupBox1.Controls.Add(this.pictureLayout);
             this.groupBox1.Location = new System.Drawing.Point(169, 19);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(423, 280);
+            this.groupBox1.Size = new System.Drawing.Size(423, 312);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "预览";
@@ -90,7 +90,7 @@
             // 
             this.pictureLayout.Location = new System.Drawing.Point(32, 20);
             this.pictureLayout.Name = "pictureLayout";
-            this.pictureLayout.Size = new System.Drawing.Size(355, 244);
+            this.pictureLayout.Size = new System.Drawing.Size(355, 275);
             this.pictureLayout.TabIndex = 1;
             this.pictureLayout.TabStop = false;
             // 
@@ -100,7 +100,7 @@
             this.listLayout.ItemHeight = 12;
             this.listLayout.Location = new System.Drawing.Point(25, 19);
             this.listLayout.Name = "listLayout";
-            this.listLayout.Size = new System.Drawing.Size(120, 280);
+            this.listLayout.Size = new System.Drawing.Size(120, 304);
             this.listLayout.TabIndex = 0;
             this.listLayout.SelectedIndexChanged += new System.EventHandler(this.listLayout_SelectedIndexChanged);
             // 

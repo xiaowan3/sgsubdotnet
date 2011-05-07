@@ -221,24 +221,25 @@ namespace sgsubtr
             }
             if (!System.IO.File.Exists(_appFolderPath + @"\config\sgscfg.xml"))
             {
-                _mConfig = SGSConfig.FromFile(Application.StartupPath + @"\config\sgscfg.xml");
-                _mConfig.Save(_appFolderPath + @"\config\sgscfg.xml");
+                _config = SGSConfig.FromFile(Application.StartupPath + @"\config\sgscfg.xml");
+                _config.Save(_appFolderPath + @"\config\sgscfg.xml");
             }
             else
             {
-                _mConfig = SGSConfig.FromFile(_appFolderPath + @"\config\sgscfg.xml");
+                _config = SGSConfig.FromFile(_appFolderPath + @"\config\sgscfg.xml");
             }
-
-            if (!System.IO.File.Exists(_appFolderPath + @"\config\layout.xml"))
+            //Load Layout
+            var layoutfilename = string.Format(@"{0}\config\{1}.layout", _startUpPath, _config.LayoutName);
+            if (!System.IO.File.Exists(layoutfilename))
             {
-                layoutReader = new XmlTextReader(_startUpPath + @"\config\layout.xml");
-                XmlWriter layoutWriter = new XmlTextWriter(_appFolderPath + @"\config\layout.xml", Encoding.Unicode);
+                layoutReader = new XmlTextReader(_startUpPath + @"\config\default.layout");
                 xmldoc.Load(layoutReader);
-                xmldoc.WriteContentTo(layoutWriter);
+                _config.LayoutName = "default";
+                _config.Save();
             }
             else
             {
-                layoutReader = new XmlTextReader(_startUpPath + @"\config\layout.xml");
+                layoutReader = new XmlTextReader(layoutfilename);
                 xmldoc.Load(layoutReader);
             }
 
@@ -317,7 +318,7 @@ namespace sgsubtr
             #endregion
 
 
-            subEditor.Config = _mConfig;
+            subEditor.Config = _config;
 
             waveViewer.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
             SubItemEditor.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
@@ -362,7 +363,7 @@ namespace sgsubtr
 
         void Customize_Click(object sender, EventArgs e)
         {
-            var cfgform = new ConfigForm(_mConfig, _startUpPath + @"\config\");
+            var cfgform = new ConfigForm(_config, _startUpPath + @"\config\");
             cfgform.ShowDialog();
         }
 
@@ -432,10 +433,10 @@ namespace sgsubtr
 
         void KeyConfig_Click(object sender, EventArgs e)
         {
-            var keycfg = new KeyConfigForm(_mConfig);
+            var keycfg = new KeyConfigForm(_config);
             if (keycfg.ShowDialog() == DialogResult.OK)
             {
-                _mConfig.Save();
+                _config.Save();
             }
         }
 
@@ -454,20 +455,20 @@ namespace sgsubtr
 
         private void SetDefaultValues()
         {
-            _mCurrentSub.DefaultAssHead = _mConfig.DefaultAssHead;
-            _mCurrentSub.DefaultFormatLine = _mConfig.DefaultFormatLine;
-            _mCurrentSub.DefaultFormat = _mConfig.DefaultFormat;
-            _mCurrentSub.DefaultLayer = _mConfig.DefaultLayer;
-            _mCurrentSub.DefaultMarked = _mConfig.DefaultMarked;
-            _mCurrentSub.DefaultStart = _mConfig.DefaultStart;
-            _mCurrentSub.DefaultEnd = _mConfig.DefaultEnd;
-            _mCurrentSub.DefaultStyle = _mConfig.DefaultStyle;
-            _mCurrentSub.DefaultName = _mConfig.DefaultName;
-            _mCurrentSub.DefaultActor = _mConfig.DefaultActor;
-            _mCurrentSub.DefaultMarginL = _mConfig.DefaultMarginL;
-            _mCurrentSub.DefaultMarginR = _mConfig.DefaultMarginR;
-            _mCurrentSub.DefaultMarginV = _mConfig.DefaultMarginV;
-            _mCurrentSub.DefaultEffect = _mConfig.DefaultEffect;
+            _mCurrentSub.DefaultAssHead = _config.DefaultAssHead;
+            _mCurrentSub.DefaultFormatLine = _config.DefaultFormatLine;
+            _mCurrentSub.DefaultFormat = _config.DefaultFormat;
+            _mCurrentSub.DefaultLayer = _config.DefaultLayer;
+            _mCurrentSub.DefaultMarked = _config.DefaultMarked;
+            _mCurrentSub.DefaultStart = _config.DefaultStart;
+            _mCurrentSub.DefaultEnd = _config.DefaultEnd;
+            _mCurrentSub.DefaultStyle = _config.DefaultStyle;
+            _mCurrentSub.DefaultName = _config.DefaultName;
+            _mCurrentSub.DefaultActor = _config.DefaultActor;
+            _mCurrentSub.DefaultMarginL = _config.DefaultMarginL;
+            _mCurrentSub.DefaultMarginR = _config.DefaultMarginR;
+            _mCurrentSub.DefaultMarginV = _config.DefaultMarginV;
+            _mCurrentSub.DefaultEffect = _config.DefaultEffect;
         }
 
 
@@ -541,7 +542,7 @@ namespace sgsubtr
 
         private Subtitle.AssSub _mCurrentSub;
         private string _mSubFilename;
-        private SGSConfig _mConfig;
+        private SGSConfig _config;
         private string _startUpPath;
         private string _appFolderPath;
 
