@@ -51,16 +51,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Form2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -90,6 +90,10 @@
     <ProjectReference Include="..\SGSControls\SGSControls.csproj">
       <Project>{BDFF0BC9-EE7E-4378-A319-D0CAF96E2CA1}</Project>
       <Name>SGSControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SGSDatatype\SGSDatatype.csproj">
+      <Project>{76586FC3-5D8E-40EB-8662-32B4F2950C5F}</Project>
+      <Name>SGSDatatype</Name>
     </ProjectReference>
     <ProjectReference Include="..\Subtitle\Subtitle.csproj">
       <Project>{0CBB1C5A-AB92-44D1-A0DA-44C80F8A27B6}</Project>
