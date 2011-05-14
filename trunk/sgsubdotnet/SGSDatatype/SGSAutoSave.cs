@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml;
 using System.IO;
+using System.IO.Compression;
 using System.Runtime.Serialization;
 
 namespace SGSDatatype
@@ -24,14 +25,14 @@ namespace SGSDatatype
         public static SGSAutoSave Load(string filename)
         {
             var fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
+            var zipfs = new GZipStream(fs, CompressionMode.Decompress);
 
-            XmlDictionaryReader reader =
-                XmlDictionaryReader.CreateTextReader(fs, new XmlDictionaryReaderQuotas());
+            var reader = XmlDictionaryReader.CreateTextReader(zipfs, new XmlDictionaryReaderQuotas());
             var ser = new DataContractSerializer(typeof(SGSAutoSave));
 
             var autosaveobj = (SGSAutoSave)ser.ReadObject(reader, true);
             reader.Close();
-            fs.Close();
+            zipfs.Close();
             autosaveobj._filename = filename;
             return autosaveobj;
         }
@@ -56,11 +57,15 @@ namespace SGSDatatype
 
         public void Save(string filename)
         {
-            var writer = new FileStream(filename, FileMode.Create);
+            var fs = new FileStream(filename, FileMode.Create);
+            var zipwriter = new GZipStream(fs, CompressionMode.Compress);
             var ser = new DataContractSerializer(typeof(SGSAutoSave));
             _filename = filename;
-            ser.WriteObject(writer, this);
-            writer.Close();
+            ser.WriteObject(zipwriter, this);
+            zipwriter.Flush();
+            fs.Flush();
+            zipwriter.Close();
+            fs.Close();
         }
 
         public void Save()

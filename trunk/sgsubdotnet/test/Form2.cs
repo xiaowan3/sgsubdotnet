@@ -54,5 +54,10 @@ namespace test
         {
             _autosave.Save(@"E:\test\autosave.xml");
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            _autosave = SGSAutoSave.Load(@"E:\test\autosave.gz");
+        }
     }
 }
