@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using System.Xml;
 using System.IO;
 using System.Runtime.Serialization;
@@ -37,6 +38,7 @@ namespace SGSDatatype
         
         public void SaveHistory(AssSub sub)
         {
+            /*
             var ms = new MemoryStream();
             var write = new StreamWriter(ms);
             sub.WriteAss(write);
@@ -45,7 +47,9 @@ namespace SGSDatatype
             var reader = new StreamReader(ms);
             var subcopy = new AssSub();
             subcopy.LoadAss(reader);
-            _saveList.Add(new AutoSaveRecord(DateTime.Today, subcopy));
+             * */
+            var savesub = new AutoSaveSubtitle(sub);
+            _saveList.Add(new AutoSaveRecord(DateTime.Today, savesub));
 
         }
 
@@ -76,7 +80,7 @@ namespace SGSDatatype
         {
             
         }
-        public AutoSaveRecord(DateTime time, AssSub sub)
+        public AutoSaveRecord(DateTime time, AutoSaveSubtitle sub)
         {
             SaveDate = time;
             Subtitle = sub;
@@ -85,6 +89,45 @@ namespace SGSDatatype
         [DataMember]
         public DateTime SaveDate;
         [DataMember]
-        public AssSub Subtitle;
+        public AutoSaveSubtitle Subtitle;
+    }
+
+    [DataContract(Name = "SGSConfig", Namespace = "AutoSaveSubtitle")]
+    class AutoSaveSubtitle
+    {
+        [DataMember]
+        public AssHead AssHead;
+
+        [DataMember]
+        public AssLineParser AssParser;
+
+        [DataMember]
+        public List<AssItem> SubItems = new List<AssItem>();
+
+        public AutoSaveSubtitle(AssSub assSub)
+        {
+            AssHead = assSub.AssHead;
+            AssParser = assSub.AssParser;
+            foreach (var item in assSub.SubItems)
+            {
+                SubItems.Add(((AssItem)item).Clone());
+            }
+        }
+
+        public AssSub getSub()
+        {
+            var sub = new AssSub
+                             {
+                                 AssHead = AssHead,
+                                 AssParser = AssParser,
+                                 SubItems = new BindingSource()
+                             };
+            foreach (var item in SubItems)
+            {
+                sub.SubItems.Add(item);
+            }
+            return sub;
+
+        }
     }
 }
