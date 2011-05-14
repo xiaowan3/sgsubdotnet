@@ -11,22 +11,22 @@ namespace SGSDatatype
     [DataContract(Name = "AssHead", Namespace = "SGSDatatype")]
     public class AssHead
     {
-        [DataMember()]
-        public List<string> m_HeadLines = new List<string>();
+        [DataMember]
+        public List<string> HeadLines = new List<string>();
 
         public void AddLine(string line)
         {
-            m_HeadLines.Add(line);
+            HeadLines.Add(line);
         }
 
         public void Clear()
         {
-            m_HeadLines = new List<string>();
+            HeadLines = new List<string>();
         }
 
         public void WriteTo(StreamWriter oStream)
         {
-            foreach (string s in m_HeadLines)
+            foreach (string s in HeadLines)
                 oStream.WriteLine(s);
         }
     }
@@ -34,14 +34,18 @@ namespace SGSDatatype
     /// <summary>
     /// 每一行字幕
     /// </summary>
+    [DataContract(Name = "AssItem", Namespace = "SGSDatatype")]
     public class AssItem
     {
         //Format: Marked, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         //全是ass中每一行的东西
+        [DataMember]
         public string Format = "";
 
+        [DataMember]
         public string Marked = "";
 
+        [DataMember]
         public string Layer = "";
 
         public string StartTime
@@ -68,25 +72,36 @@ namespace SGSDatatype
             }
         }
 
+        [DataMember]
         public AssTime Start = new AssTime();
 
+        [DataMember]
         public AssTime End = new AssTime();
 
+        [DataMember]
         public string Style = "";
 
+        [DataMember]
         public string Name = "";
 
+        [DataMember]
         public string Actor = "";
 
+        [DataMember]
         public int MarginL = 0;
 
+        [DataMember]
         public int MarginR = 0;
 
+        [DataMember]
         public int MarginV = 0;
 
+        [DataMember]
         public string Effect = "";
 
         private string _mText = "";
+       
+        [DataMember]
         public string Text
         {
             get { return _mText; }
@@ -123,31 +138,21 @@ namespace SGSDatatype
     /// <summary>
     /// 时间
     /// </summary>
+    [DataContract(Name = "AssTime", Namespace = "SGSDatatype")]
     public class AssTime
     {
-        double _timeValue;
-
-        public double TimeValue
-        {
-            get
-            {
-                return _timeValue;
-            }
-            set
-            {
-                _timeValue = value;
-            }
-        }
+        [DataMember]
+        public double TimeValue { get; set; }
 
         public AssTime()
         {
-            _timeValue = 0;
+            TimeValue = 0;
         }
 
         public AssTime(string time)
         {
             int a = time.Length-1;
-            _timeValue = 0;
+            TimeValue = 0;
             float unit = 1;
             try
             {
@@ -165,20 +170,20 @@ namespace SGSDatatype
                     {
                         sub = time.Substring(0, a + 1);
                     }
-                    _timeValue += float.Parse(sub) * unit;
+                    TimeValue += float.Parse(sub) * unit;
                     unit *= 60;
                 } while (b != -1);
             }
             catch (Exception)
             {
-                _timeValue = 0;
+                TimeValue = 0;
             }
 
         }
 
         public override string ToString()
         {
-            var intTime = (int)Math.Round(_timeValue * 100);
+            var intTime = (int)Math.Round(TimeValue * 100);
             int h = intTime / 360000;
             intTime %= 360000;
             int m = intTime / 6000;
@@ -195,26 +200,42 @@ namespace SGSDatatype
     /// <summary>
     /// 解析每一行
     /// </summary>
+    [DataContract(Name = "AssLineParser", Namespace = "SGSDatatype")]
     public class AssLineParser
     {
+        [DataMember]
         private string m_fmtline = "";
         public string FmtLine
         {
             get { return m_fmtline; }
         }
+        [DataMember]
         private char[] spliter = new char[13];
+        [DataMember]
         private int formatpos = -1;
+        [DataMember]
         private int markedpos = -1;
+        [DataMember]
         private int startpos = -1;
+        [DataMember]
         private int endpos = -1;
+        [DataMember]
         private int stylepos = -1;
+        [DataMember]
         private int namepos = -1;
+        [DataMember]
         private int actorpos = -1;
+        [DataMember]
         private int marginLpos = -1;
+        [DataMember]
         private int marginRpos = -1;
+        [DataMember]
         private int marginVpos = -1;
+        [DataMember]
         private int effectpos = -1;
+        [DataMember]
         private int textpos = -1;
+        [DataMember]
         private int layerPos = -1;
 
         /// <summary>

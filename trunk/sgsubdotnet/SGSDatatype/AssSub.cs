@@ -4,13 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.Serialization;
 
 namespace SGSDatatype
 {
+
+    [DataContract(Name = "SGSConfig", Namespace = "SGSDatatype")]
     public class AssSub
     {
-        private AssHead _assHead;
-        private AssLineParser _assParser;
+        [DataMember]
+        public AssHead AssHead;
+
+        [DataMember]
+        public AssLineParser AssParser;
+
+        [DataMember]
         public BindingSource SubItems = new BindingSource();
 
 
@@ -49,13 +57,13 @@ namespace SGSDatatype
         {
             string line;
             bool eventfound = false;
-            _assHead = new AssHead();
+            AssHead = new AssHead();
 
             while (!iStream.EndOfStream)
             {
                 line = iStream.ReadLine();
                 if (line == null) throw (new Exception("Wrong ass file."));
-                _assHead.AddLine(line);
+                AssHead.AddLine(line);
                 if (line.ToUpper().IndexOf("EVENTS") != -1)
                 {
                     eventfound = true;
@@ -64,12 +72,12 @@ namespace SGSDatatype
             }
             if (!eventfound) throw (new Exception("Wrong ass file."));
             line = iStream.ReadLine();
-            _assParser = new AssLineParser(line);
+            AssParser = new AssLineParser(line);
             SubItems.Clear();
             while (!iStream.EndOfStream)
             {
                 line = iStream.ReadLine();
-                var item = _assParser.ParseLine(line);
+                var item = AssParser.ParseLine(line);
                 if (item != null) SubItems.Add(item);
             }
         }
@@ -112,11 +120,11 @@ namespace SGSDatatype
         /// <param name="oStream"></param>
         public void WriteAss(StreamWriter oStream)
         {
-            _assHead.WriteTo(oStream);
-            oStream.WriteLine(_assParser.FmtLine);
+            AssHead.WriteTo(oStream);
+            oStream.WriteLine(AssParser.FmtLine);
             foreach (object i in SubItems)
             {
-                oStream.WriteLine(_assParser.FormatLine((AssItem)i));
+                oStream.WriteLine(AssParser.FormatLine((AssItem)i));
             }
         }
 
@@ -153,8 +161,8 @@ namespace SGSDatatype
 
         public void LoadText(StreamReader iStream, SGSConfig config)
         {
-            _assHead = config.DefaultAssHead;
-            _assParser = new AssLineParser(config.DefaultFormatLine);
+            AssHead = config.DefaultAssHead;
+            AssParser = new AssLineParser(config.DefaultFormatLine);
             SubItems.Clear();
             while (!iStream.EndOfStream)
             {

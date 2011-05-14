@@ -43,5 +43,16 @@ namespace test
                 _sub = sub;
             }
         }
+        SGSAutoSave _autosave = new SGSAutoSave();
+        private void button3_Click(object sender, EventArgs e)
+        {
+            _autosave.SaveHistory(_sub);
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            _autosave.Save(@"E:\test\autosave.xml");
+        }
     }
 }
