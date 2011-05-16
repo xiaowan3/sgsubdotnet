@@ -8,59 +8,88 @@ using System.Runtime.Serialization;
 
 namespace SGSDatatype
 {
-    [DataContract(Name = "SGSAutoSave", Namespace = "SGSDatatype")]
     public class SGSAutoSave
     {
-        [DataMember]
-        private List<AutoSaveRecord> _saveList;
+        public readonly List<SaveFileIndex> AutoSaveFiles;
+        private readonly string _savePath;
 
-        private string _filename;
 
-        public SGSAutoSave()
+        public SGSAutoSave(string savePath)
         {
-            _saveList = new List<AutoSaveRecord>();
-            _filename = null;
+            AutoSaveFiles = new List<SaveFileIndex>();
+            if (!Directory.Exists(savePath))
+            {
+                Directory.CreateDirectory(savePath);
+            }
+            _savePath = savePath;
         }
 
-        public static SGSAutoSave Load(string filename)
+        public void Load()
         {
-            var fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-            var zipfs = new GZipStream(fs, CompressionMode.Decompress);
-
-            var reader = XmlDictionaryReader.CreateTextReader(zipfs, new XmlDictionaryReaderQuotas());
-            var ser = new DataContractSerializer(typeof(SGSAutoSave));
-
-            var autosaveobj = (SGSAutoSave)ser.ReadObject(reader, true);
-            reader.Close();
-            zipfs.Close();
-            autosaveobj._filename = filename;
-            return autosaveobj;
+            AutoSaveFiles.Clear();
+            var savefiles = Directory.GetFiles(_savePath, "*.save");
+            foreach (var savefile in savefiles)
+            {
+                var autosaverec = AutoSaveRecord.Fromfile(savefile);
+                AutoSaveFiles.Add(new SaveFileIndex(savefile, autosaverec.Filename, autosaverec.SaveDate));
+            }
         }
         
         public void SaveHistory(AssSub sub)
         {
-            /*
-            var ms = new MemoryStream();
-            var write = new StreamWriter(ms);
-            sub.WriteAss(write);
-            write.Flush();
-            ms.Seek(0, SeekOrigin.Begin);
-            var reader = new StreamReader(ms);
-            var subcopy = new AssSub();
-            subcopy.LoadAss(reader);
-             * */
-            var savesub = new AutoSaveSubtitle(sub);
-            _saveList.Add(new AutoSaveRecord(DateTime.Today, savesub));
 
+            var savesub = new AutoSaveSubtitle(sub);
+            var autosaverec = new AutoSaveRecord(DateTime.Now, savesub);
+            autosaverec.Save(string.Format("{0}\\{1}.save", _savePath, Guid.NewGuid()));
         }
 
+        public void SaveHistory(AssSub sub,string filename)
+        {
+
+            var savesub = new AutoSaveSubtitle(sub);
+            var autosaverec = new AutoSaveRecord(DateTime.Now, savesub, filename);
+            autosaverec.Save(string.Format("{0}\\{1}.save", _savePath, Guid.NewGuid()));
+        }
+
+
+    }
+    public class SaveFileIndex
+    {
+        public SaveFileIndex(string savefilename,string filename, DateTime saveTime)
+        {
+            SaveFile = savefilename;
+            Filename = filename;
+            SaveTime = saveTime;
+        }
+
+        public string SaveFile;
+        public string Filename;
+        public DateTime SaveTime;
+    }
+
+    [DataContract(Name = "SGSConfig", Namespace = "SGSControls")]
+    internal class AutoSaveRecord
+    {
+
+        public static AutoSaveRecord Fromfile(string filename)
+        {
+            var fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
+            var zipfs = new GZipStream(fs, CompressionMode.Decompress);
+            var reader = XmlDictionaryReader.CreateTextReader(zipfs, new XmlDictionaryReaderQuotas());
+            var ser = new DataContractSerializer(typeof(AutoSaveRecord));
+
+            var autosaverec = (AutoSaveRecord)ser.ReadObject(reader, true);
+            reader.Close();
+            zipfs.Close();
+            return autosaverec;
+
+        }
 
         public void Save(string filename)
         {
             var fs = new FileStream(filename, FileMode.Create);
             var zipwriter = new GZipStream(fs, CompressionMode.Compress);
-            var ser = new DataContractSerializer(typeof(SGSAutoSave));
-            _filename = filename;
+            var ser = new DataContractSerializer(typeof(AutoSaveRecord));
             ser.WriteObject(zipwriter, this);
             zipwriter.Flush();
             fs.Flush();
@@ -68,31 +97,27 @@ namespace SGSDatatype
             fs.Close();
         }
 
-        public void Save()
-        {
-            if(_filename != null) Save(_filename);
-            else throw new Exception("Error.");
-        }
-
-
-
-    }
-
-    [DataContract(Name = "SGSConfig", Namespace = "SGSControls")]
-    internal class AutoSaveRecord
-    {
-        public AutoSaveRecord()
-        {
-            
-        }
         public AutoSaveRecord(DateTime time, AutoSaveSubtitle sub)
         {
             SaveDate = time;
             Subtitle = sub;
+            Filename = "Unknown";
         }
+
+        public AutoSaveRecord(DateTime time, AutoSaveSubtitle sub,string filename)
+        {
+            SaveDate = time;
+            Subtitle = sub;
+            Filename = filename;
+        }
+
 
         [DataMember]
         public DateTime SaveDate;
+
+        [DataMember]
+        public string Filename;
+        
         [DataMember]
         public AutoSaveSubtitle Subtitle;
     }
@@ -119,7 +144,7 @@ namespace SGSDatatype
             }
         }
 
-        public AssSub getSub()
+        public AssSub GetSub()
         {
             var sub = new AssSub
                              {
