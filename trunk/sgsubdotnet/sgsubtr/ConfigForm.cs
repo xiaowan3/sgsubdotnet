@@ -8,15 +8,16 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Xml;
+using SGSDatatype;
 
 namespace sgsubtr
 {
     public partial class ConfigForm : Form
     {
-        private readonly Config.SGSConfig _config;
+        private readonly SGSConfig _config;
         private readonly string _configDir;
         private readonly Dictionary<string, Image> _layoutlist = new Dictionary<string, Image>();
-        public ConfigForm(Config.SGSConfig config, string configDir)
+        public ConfigForm(SGSConfig config, string configDir)
         {
             _config = config;
             InitializeComponent();

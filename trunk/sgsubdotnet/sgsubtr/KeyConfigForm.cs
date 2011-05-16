@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
+using SGSDatatype;
 
 namespace sgsubtr
 {
     public partial class KeyConfigForm : Form
     {
-        public KeyConfigForm(Config.SGSConfig config)
+        public KeyConfigForm(SGSConfig config)
         {
             InitializeComponent();
             m_Config = config;
@@ -29,7 +30,7 @@ namespace sgsubtr
 
         }
 
-        public Config.SGSConfig m_Config;
+        public SGSConfig m_Config;
 
         public Keys BWKey;
         public Keys FFKey;

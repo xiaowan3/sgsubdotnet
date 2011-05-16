@@ -110,17 +110,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Config\Config.csproj">
-      <Project>{5CAAC511-8895-4C8F-BFF6-73A912BCFE3A}</Project>
-      <Name>Config</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SGSControls\SGSControls.csproj">
       <Project>{BDFF0BC9-EE7E-4378-A319-D0CAF96E2CA1}</Project>
       <Name>SGSControls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Subtitle\Subtitle.csproj">
-      <Project>{0CBB1C5A-AB92-44D1-A0DA-44C80F8A27B6}</Project>
-      <Name>Subtitle</Name>
+    <ProjectReference Include="..\SGSDatatype\SGSDatatype.csproj">
+      <Project>{76586FC3-5D8E-40EB-8662-32B4F2950C5F}</Project>
+      <Name>SGSDatatype</Name>
     </ProjectReference>
     <ProjectReference Include="..\VideoPlayer\VideoPlayer.csproj">
       <Project>{919513CF-DF3A-4F66-8BAC-2988EF98EB97}</Project>
@@ -132,6 +128,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="config\config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="config\default.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-
+using SGSDatatype;
 namespace SGSControls
 {
     public partial class WaveFormViewer : UserControl
@@ -10,7 +10,7 @@ namespace SGSControls
             InitializeComponent();
         }
         #region Private members
-        private Subtitle.AssSub _currentSub;
+        private AssSub _currentSub;
         private bool _subLoaded;
         private int _currentRow = -1;
         #endregion
@@ -45,7 +45,7 @@ namespace SGSControls
         public event EventHandler<PlayerControlEventArgs> PlayerControl = null;
         #endregion
         #region Public Properties
-        public Subtitle.AssSub CurrentSub
+        public AssSub CurrentSub
         {
             get { return _currentSub; }
             set
@@ -86,11 +86,11 @@ namespace SGSControls
         {
             if (_subLoaded)
             {
-                Subtitle.AssItem item;
-                var time = new Subtitle.AssTime();
+                AssItem item;
+                var time = new AssTime();
                 if (_currentRow > 0)
                 {
-                    item = (Subtitle.AssItem)(_currentSub.SubItems[_currentRow - 1]);
+                    item = (AssItem)(_currentSub.SubItems[_currentRow - 1]);
                     time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
                     labelLastLine.Text = item.Text;
                     labelLastDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
@@ -106,7 +106,7 @@ namespace SGSControls
                 }
                 if (_currentRow >= 0 && _currentRow < _currentSub.SubItems.Count)
                 {
-                    item = (Subtitle.AssItem)(_currentSub.SubItems[_currentRow]);
+                    item = (AssItem)(_currentSub.SubItems[_currentRow]);
                     time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
                     labelThisLine.Text = item.Text;
                     labelThisDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
@@ -122,7 +122,7 @@ namespace SGSControls
                 }
                 if (_currentRow < _currentSub.SubItems.Count - 1)
                 {
-                    item = (Subtitle.AssItem)(_currentSub.SubItems[_currentRow + 1]);
+                    item = (AssItem)(_currentSub.SubItems[_currentRow + 1]);
                     time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
                     labelNextLine.Text = item.Text;
                     labelNextDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";

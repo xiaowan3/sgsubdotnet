@@ -6,7 +6,7 @@ using System.Text;
 using System.Xml;
 using System.Windows.Forms;
 using SGSControls;
-using Config;
+using SGSDatatype;
 
 namespace sgsubtr
 {
@@ -219,14 +219,14 @@ namespace sgsubtr
             {
                 System.IO.Directory.CreateDirectory(_appFolderPath + @"\config");
             }
-            if (!System.IO.File.Exists(_appFolderPath + @"\config\sgscfg.xml"))
+            if (!System.IO.File.Exists(_appFolderPath + @"\config\config.xml"))
             {
-                _config = SGSConfig.FromFile(Application.StartupPath + @"\config\sgscfg.xml");
-                _config.Save(_appFolderPath + @"\config\sgscfg.xml");
+                _config = SGSConfig.FromFile(Application.StartupPath + @"\config\config.xml");
+                _config.Save(_appFolderPath + @"\config\config.xml");
             }
             else
             {
-                _config = SGSConfig.FromFile(_appFolderPath + @"\config\sgscfg.xml");
+                _config = SGSConfig.FromFile(_appFolderPath + @"\config\config.xml");
             }
             //Load Layout
             var layoutfilename = string.Format(@"{0}\config\{1}.layout", _startUpPath, _config.LayoutName);
@@ -453,24 +453,6 @@ namespace sgsubtr
             }
         }
 
-        private void SetDefaultValues()
-        {
-            _mCurrentSub.DefaultAssHead = _config.DefaultAssHead;
-            _mCurrentSub.DefaultFormatLine = _config.DefaultFormatLine;
-            _mCurrentSub.DefaultFormat = _config.DefaultFormat;
-            _mCurrentSub.DefaultLayer = _config.DefaultLayer;
-            _mCurrentSub.DefaultMarked = _config.DefaultMarked;
-            _mCurrentSub.DefaultStart = _config.DefaultStart;
-            _mCurrentSub.DefaultEnd = _config.DefaultEnd;
-            _mCurrentSub.DefaultStyle = _config.DefaultStyle;
-            _mCurrentSub.DefaultName = _config.DefaultName;
-            _mCurrentSub.DefaultActor = _config.DefaultActor;
-            _mCurrentSub.DefaultMarginL = _config.DefaultMarginL;
-            _mCurrentSub.DefaultMarginR = _config.DefaultMarginR;
-            _mCurrentSub.DefaultMarginV = _config.DefaultMarginV;
-            _mCurrentSub.DefaultEffect = _config.DefaultEffect;
-        }
-
 
         void PlayerControlEventHandler(object sender, PlayerControlEventArgs e)
         {
@@ -540,7 +522,7 @@ namespace sgsubtr
 
         #region Private Members
 
-        private Subtitle.AssSub _mCurrentSub;
+        private AssSub _mCurrentSub;
         private string _mSubFilename;
         private SGSConfig _config;
         private string _startUpPath;
@@ -696,9 +678,8 @@ namespace sgsubtr
 
         private void OpenTxt(string filename)
         {
-            _mCurrentSub = new Subtitle.AssSub();
-            SetDefaultValues();
-            _mCurrentSub.LoadText(filename);
+            _mCurrentSub = new AssSub();
+            _mCurrentSub.LoadText(filename,_config);
             _mSubFilename = null;
             subEditor.Edited = false;
             SetCurrentSub();
@@ -706,7 +687,7 @@ namespace sgsubtr
 
         private void OpenAss(string filename)
         {
-            _mCurrentSub = new Subtitle.AssSub();
+            _mCurrentSub = new AssSub();
             _mCurrentSub.LoadAss(filename);
             _mSubFilename = filename;
             SetCurrentSub();
