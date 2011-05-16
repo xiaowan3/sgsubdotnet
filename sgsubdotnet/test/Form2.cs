@@ -19,6 +19,7 @@ namespace test
 
         private SGSConfig _config;
         private AssSub _sub;
+        private string _filename;
         
 
         private void button1_Click(object sender, EventArgs e)
@@ -29,6 +30,7 @@ namespace test
                 var sub = new AssSub();
                 sub.LoadAss(openFileDialog.FileName);
                 _sub = sub;
+                _filename = openFileDialog.FileName;
             }
 
         }
@@ -43,21 +45,32 @@ namespace test
                 _sub = sub;
             }
         }
-        SGSAutoSave _autosave = new SGSAutoSave();
+        SGSAutoSave _autosave = new SGSAutoSave(@"E:\test\testsave");
         private void button3_Click(object sender, EventArgs e)
         {
-            _autosave.SaveHistory(_sub);
+            _autosave.SaveHistory(_sub, _filename);
 
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            _autosave.Save(@"E:\test\autosave.xml");
+            _autosave.Load();
+            var filelist = _autosave.AutoSaveFiles;
+            foreach (var saveFileIndex in filelist)
+            {
+                listBox1.Items.Add(string.Format("{0},{1}", saveFileIndex.SaveTime, saveFileIndex.Filename));
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            _autosave = SGSAutoSave.Load(@"E:\test\autosave.gz");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var guid  = Guid.NewGuid();
+            var ba = guid.ToByteArray();
+            textBox1.Text = guid.ToString();
         }
     }
 }
