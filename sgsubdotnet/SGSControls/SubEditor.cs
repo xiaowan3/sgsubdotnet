@@ -220,6 +220,7 @@ namespace SGSControls
 
         private void tsbtnDuplicate_Click(object sender, EventArgs e)
         {
+            dataGridSubtitles.EndEdit();
             AssItem item;
             if (dataGridSubtitles.CurrentRow != null && _subLoaded
                 && (item = (AssItem)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
@@ -237,6 +238,7 @@ namespace SGSControls
 
         private void tsbtnDelete_Click(object sender, EventArgs e)
         {
+            dataGridSubtitles.EndEdit();
             if (dataGridSubtitles.CurrentRow != null && _subLoaded
                 && dataGridSubtitles.CurrentRow.DataBoundItem != null
                 )
@@ -247,6 +249,7 @@ namespace SGSControls
 
         private void tsbtnInsBefore_Click(object sender, EventArgs e)
         {
+            dataGridSubtitles.EndEdit();
             if (dataGridSubtitles.CurrentRow != null && _subLoaded
                 && dataGridSubtitles.CurrentRow.DataBoundItem != null
                 )
@@ -257,6 +260,7 @@ namespace SGSControls
 
         private void tsbtnInsAfter_Click(object sender, EventArgs e)
         {
+            dataGridSubtitles.EndEdit();
             if (dataGridSubtitles.CurrentRow != null && _subLoaded
                 && dataGridSubtitles.CurrentRow.DataBoundItem != null
                 )
@@ -321,6 +325,7 @@ namespace SGSControls
 
         private void tsbtnUndo_Click(object sender, EventArgs e)
         {
+            dataGridSubtitles.EndEdit();
             _selectCells.Reset();
             _undoRec.Undo(_currentSub);
             dataGridSubtitles.Refresh();
@@ -730,6 +735,7 @@ namespace SGSControls
             else if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control && !_mKeyhold[(int)e.KeyCode])
             {
                 //删除选中的行
+                dataGridSubtitles.EndEdit();
                 if (dataGridSubtitles.CurrentRow != null)
                 {
                     List<DataGridViewRow> deleteRow = new List<DataGridViewRow>();
