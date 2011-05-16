@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
-
+using SGSDatatype;
 namespace SGSControls
 {
     class UndoRecord
@@ -81,7 +81,7 @@ namespace SGSControls
         /// Undo
         /// </summary>
         /// <param name="sub"></param>
-        public void Undo(Subtitle.AssSub sub)
+        public void Undo(AssSub sub)
         {
             if (_undo.Count > 0)
             {
@@ -92,7 +92,7 @@ namespace SGSControls
 
                         foreach (UndoCell cell in undo.Cells)
                         {
-                            var item = (Subtitle.AssItem)sub.SubItems[cell.Row];
+                            var item = (AssItem)sub.SubItems[cell.Row];
                             switch (cell.Col)
                             {
                                 case 0:
@@ -111,7 +111,7 @@ namespace SGSControls
                         break;
                     case EditType.Delete://撤削删除操作
                         {
-                            var item = (Subtitle.AssItem)undo.Cells[0].Content;
+                            var item = (AssItem)undo.Cells[0].Content;
                             sub.SubItems.Insert(undo.Cells[0].Row,item);
                         }
                         break;

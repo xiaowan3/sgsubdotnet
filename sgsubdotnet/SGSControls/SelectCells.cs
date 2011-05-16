@@ -5,6 +5,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Drawing;
+using SGSDatatype;
 
 namespace SGSControls
 {
@@ -102,7 +103,7 @@ namespace SGSControls
                 {
                     if (cell.Row < Rows.Count)
                     {
-                        Subtitle.AssItem item = (Subtitle.AssItem)(Rows[cell.Row].DataBoundItem);
+                        AssItem item = (AssItem)(Rows[cell.Row].DataBoundItem);
                         if (cell.Col == 0)
                         {
                             if (undo != null) undo.EditMultiCells(cell.Row, cell.Col, item.StartTime);

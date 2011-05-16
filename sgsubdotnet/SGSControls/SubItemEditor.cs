@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using SGSDatatype;
 
 namespace SGSControls
 {
@@ -17,7 +18,7 @@ namespace SGSControls
         #endregion
         string _mediaFile;
         private DogEar _dogEar;
-        public Subtitle.AssSub CurrentSub;
+        public AssSub CurrentSub;
         public int CurrentIndex { get; set; }
         public string MediaFile
         {
@@ -40,7 +41,7 @@ namespace SGSControls
         {
             if (CurrentSub != null && _dogEar != null && CurrentIndex >= 0 && CurrentIndex < CurrentSub.SubItems.Count)
             {
-                var item = (Subtitle.AssItem)(CurrentSub.SubItems[CurrentIndex]);
+                var item = (AssItem)(CurrentSub.SubItems[CurrentIndex]);
                 double duration = item.End.TimeValue - item.Start.TimeValue;
                 if (duration > 30)
                 {
@@ -59,7 +60,7 @@ namespace SGSControls
         {
             if (CurrentSub != null && _dogEar != null && CurrentIndex >= 0 && CurrentIndex < CurrentSub.SubItems.Count)
             {
-                var item = (Subtitle.AssItem)(CurrentSub.SubItems[CurrentIndex]);
+                var item = (AssItem)(CurrentSub.SubItems[CurrentIndex]);
                 double duration = item.End.TimeValue - item.Start.TimeValue;
                 if (duration > 30)
                 {
@@ -78,7 +79,7 @@ namespace SGSControls
         {
             if (CurrentSub != null && _dogEar != null && CurrentIndex >= 0 && CurrentIndex < CurrentSub.SubItems.Count)
             {
-                var item = (Subtitle.AssItem)(CurrentSub.SubItems[CurrentIndex]);
+                var item = (AssItem)(CurrentSub.SubItems[CurrentIndex]);
                 if (item.End.TimeValue - item.Start.TimeValue > 0.1)
                 {
                     if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
