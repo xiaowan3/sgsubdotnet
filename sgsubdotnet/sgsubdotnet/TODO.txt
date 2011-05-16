@@ -1,3 +1,0 @@
-﻿1. Copy past hotkeys.
-2. File extention in openfile dialog.
-3. Some icons.
