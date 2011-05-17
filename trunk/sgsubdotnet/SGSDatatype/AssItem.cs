@@ -151,6 +151,11 @@ namespace SGSDatatype
 
         public AssTime(string time)
         {
+            if(time == null)
+            {
+                TimeValue = 0;
+                return;
+            }
             int a = time.Length-1;
             TimeValue = 0;
             float unit = 1;
