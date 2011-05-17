@@ -297,7 +297,8 @@ namespace SGSControls
         {
             if (!_cancelEdit)
             {
-                string newString = dataGridSubtitles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                var value = dataGridSubtitles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                var newString = (value == null ? "" : value.ToString());
                 if (!_oldString.Equals(newString))
                 {
                     _undoRec.Edit(e.RowIndex, e.ColumnIndex, _oldString);//比较单元格内容，如改变，记录undo
