@@ -15,6 +15,25 @@ namespace test
         {
             InitializeComponent();
             _config = SGSConfig.FromFile(@"E:\test\newsgscfg.xml");
+
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.AutoSize = false;
+            var column1 = new DataGridViewTextBoxColumn
+            {
+                HeaderText = @"Time",
+                DataPropertyName = "SaveTime",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            dataGridView1.Columns.Add(column1);
+            var column2 = new DataGridViewTextBoxColumn
+            {
+                HeaderText = @"Filename",
+                DataPropertyName = "Filename",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            dataGridView1.Columns.Add(column2);
+            dataGridView1.DataSource = _autosave.AutoSaveFileBindingSource;
+
         }
 
         private SGSConfig _config;
@@ -55,11 +74,7 @@ namespace test
         private void button4_Click(object sender, EventArgs e)
         {
             _autosave.Load();
-            var filelist = _autosave.AutoSaveFiles;
-            foreach (var saveFileIndex in filelist)
-            {
-                listBox1.Items.Add(string.Format("{0},{1}", saveFileIndex.SaveTime, saveFileIndex.Filename));
-            }
+
         }
 
         private void button5_Click(object sender, EventArgs e)

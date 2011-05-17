@@ -177,6 +177,7 @@ namespace sgsubtr
         ToolStripMenuItem openMedia = new ToolStripMenuItem("打开视频");
         ToolStripMenuItem saveSub = new ToolStripMenuItem("保存时间轴");
         ToolStripMenuItem saveSubAs = new ToolStripMenuItem("另存为时间轴");
+        ToolStripMenuItem autoSaveRecord = new ToolStripMenuItem("查看自动保存记录");
         ToolStripMenuItem exit = new ToolStripMenuItem("退出");
 
         ToolStripMenuItem ConfigMenuItems = new ToolStripMenuItem("设置");
@@ -242,6 +243,9 @@ namespace sgsubtr
                 layoutReader = new XmlTextReader(layoutfilename);
                 xmldoc.Load(layoutReader);
             }
+            //AutoSave
+            _autosave = new SGSAutoSave(_appFolderPath + @"\autosave");
+
 
             #endregion
 
@@ -287,6 +291,7 @@ namespace sgsubtr
             fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
             fileMenuItems.DropDownItems.Add(saveSub);
             fileMenuItems.DropDownItems.Add(saveSubAs);
+            fileMenuItems.DropDownItems.Add(autoSaveRecord);
             fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
             fileMenuItems.DropDownItems.Add(exit);
 
@@ -333,6 +338,7 @@ namespace sgsubtr
             openMedia.Click += new EventHandler(openMedia_Click);
             saveSub.Click += new EventHandler(saveSub_Click);
             saveSubAs.Click += new EventHandler(saveSubAs_Click);
+            autoSaveRecord.Click += new EventHandler(autoSaveRecord_Click);
             exit.Click += new EventHandler(exit_Click);
             KeyConfig.Click += new EventHandler(KeyConfig_Click);
             Customize.Click += new EventHandler(Customize_Click);
@@ -359,6 +365,14 @@ namespace sgsubtr
             timer.Tick += new EventHandler(timer_Tick);
             #endregion
 
+        }
+
+        void autoSaveRecord_Click(object sender, EventArgs e)
+        {
+            if (_mCurrentSub != null)
+                _autosave.SaveHistory(_mCurrentSub, _mSubFilename);
+            var saveDlg = new AutoSaveForm(_autosave);
+            saveDlg.ShowDialog();
         }
 
         void Customize_Click(object sender, EventArgs e)
@@ -525,6 +539,7 @@ namespace sgsubtr
         private AssSub _mCurrentSub;
         private string _mSubFilename;
         private SGSConfig _config;
+        private SGSAutoSave _autosave;
         private string _startUpPath;
         private string _appFolderPath;
 

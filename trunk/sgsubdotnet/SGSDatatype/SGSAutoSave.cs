@@ -10,13 +10,13 @@ namespace SGSDatatype
 {
     public class SGSAutoSave
     {
-        public readonly List<SaveFileIndex> AutoSaveFiles;
+        public readonly BindingSource AutoSaveFileBindingSource;
         private readonly string _savePath;
 
 
         public SGSAutoSave(string savePath)
         {
-            AutoSaveFiles = new List<SaveFileIndex>();
+            AutoSaveFileBindingSource = new BindingSource();
             if (!Directory.Exists(savePath))
             {
                 Directory.CreateDirectory(savePath);
@@ -26,12 +26,13 @@ namespace SGSDatatype
 
         public void Load()
         {
-            AutoSaveFiles.Clear();
+            AutoSaveFileBindingSource.Clear();
             var savefiles = Directory.GetFiles(_savePath, "*.save");
             foreach (var savefile in savefiles)
             {
                 var autosaverec = AutoSaveRecord.Fromfile(savefile);
-                AutoSaveFiles.Add(new SaveFileIndex(savefile, autosaverec.Filename, autosaverec.SaveDate));
+                var item = new SaveFileIndex(savefile, autosaverec.Filename, autosaverec.SaveDate);
+                AutoSaveFileBindingSource.Add(item);
             }
         }
         
@@ -53,6 +54,8 @@ namespace SGSDatatype
 
 
     }
+
+    [DataContract(Name = "AutoSaveRecord", Namespace = "SGSDatatype")]
     public class SaveFileIndex
     {
         public SaveFileIndex(string savefilename,string filename, DateTime saveTime)
@@ -62,12 +65,17 @@ namespace SGSDatatype
             SaveTime = saveTime;
         }
 
-        public string SaveFile;
-        public string Filename;
-        public DateTime SaveTime;
+        [DataMember]
+        public string SaveFile { get; set; }
+
+        [DataMember]
+        public string Filename { get; set; }
+
+        [DataMember]
+        public DateTime SaveTime { get; set; }
     }
 
-    [DataContract(Name = "SGSConfig", Namespace = "SGSControls")]
+    [DataContract(Name = "AutoSaveRecord", Namespace = "SGSDatatype")]
     internal class AutoSaveRecord
     {
 
