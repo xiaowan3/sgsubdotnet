@@ -369,10 +369,16 @@ namespace sgsubtr
 
         void autoSaveRecord_Click(object sender, EventArgs e)
         {
-            if (_mCurrentSub != null)
-                _autosave.SaveHistory(_mCurrentSub, _mSubFilename);
+            if (_currentSub != null)
+                _autosave.SaveHistory(_currentSub, _mSubFilename);
             var saveDlg = new AutoSaveForm(_autosave);
-            saveDlg.ShowDialog();
+            if(saveDlg.ShowDialog()== DialogResult.OK)
+            {
+                _currentSub = saveDlg.Sub;
+                _mSubFilename = null;
+                subEditor.Edited = false;
+                SetCurrentSub();
+            }
         }
 
         void Customize_Click(object sender, EventArgs e)
@@ -536,7 +542,7 @@ namespace sgsubtr
 
         #region Private Members
 
-        private AssSub _mCurrentSub;
+        private AssSub _currentSub;
         private string _mSubFilename;
         private SGSConfig _config;
         private SGSAutoSave _autosave;
@@ -560,7 +566,7 @@ namespace sgsubtr
 
         void saveSubAs_Click(object sender, EventArgs e)
         {
-            if (_mCurrentSub == null) return;
+            if (_currentSub == null) return;
             var dlg = new SaveFileDialog
                           {
                               AddExtension = true,
@@ -570,7 +576,7 @@ namespace sgsubtr
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 _mSubFilename = dlg.FileName;
-                _mCurrentSub.WriteAss(_mSubFilename, Encoding.Unicode);
+                _currentSub.WriteAss(_mSubFilename, Encoding.Unicode);
                 subEditor.Edited = false;
             }
 
@@ -612,7 +618,7 @@ namespace sgsubtr
                 catch (Exception exception)
                 {
                     MessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK);
-                    _mCurrentSub = null;
+                    _currentSub = null;
                     _mSubFilename = null;
                     SetCurrentSub();
                 }
@@ -669,7 +675,7 @@ namespace sgsubtr
 
         private bool SaveAssSub()
         {
-            if (_mCurrentSub == null) return false;
+            if (_currentSub == null) return false;
             if (_mSubFilename == null)
             {
                 var dlg = new SaveFileDialog
@@ -685,7 +691,7 @@ namespace sgsubtr
                 else
                     return false;
             }
-            _mCurrentSub.WriteAss(_mSubFilename, Encoding.Unicode);
+            _currentSub.WriteAss(_mSubFilename, Encoding.Unicode);
             subEditor.Edited = false;
             return true;
         }
@@ -693,8 +699,8 @@ namespace sgsubtr
 
         private void OpenTxt(string filename)
         {
-            _mCurrentSub = new AssSub();
-            _mCurrentSub.LoadText(filename,_config);
+            _currentSub = new AssSub();
+            _currentSub.LoadText(filename,_config);
             _mSubFilename = null;
             subEditor.Edited = false;
             SetCurrentSub();
@@ -702,17 +708,17 @@ namespace sgsubtr
 
         private void OpenAss(string filename)
         {
-            _mCurrentSub = new AssSub();
-            _mCurrentSub.LoadAss(filename);
+            _currentSub = new AssSub();
+            _currentSub.LoadAss(filename);
             _mSubFilename = filename;
             SetCurrentSub();
         }
 
         private void SetCurrentSub()
         {
-            subEditor.CurrentSub = _mCurrentSub;
-            waveViewer.CurrentSub = _mCurrentSub;
-            subItemEditor.CurrentSub = _mCurrentSub;
+            subEditor.CurrentSub = _currentSub;
+            waveViewer.CurrentSub = _currentSub;
+            subItemEditor.CurrentSub = _currentSub;
         }
 
 

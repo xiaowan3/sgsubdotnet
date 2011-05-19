@@ -76,7 +76,7 @@ namespace SGSDatatype
     }
 
     [DataContract(Name = "AutoSaveRecord", Namespace = "SGSDatatype")]
-    internal class AutoSaveRecord
+    public class AutoSaveRecord
     {
 
         public static AutoSaveRecord Fromfile(string filename)
@@ -131,7 +131,7 @@ namespace SGSDatatype
     }
 
     [DataContract(Name = "SGSConfig", Namespace = "AutoSaveSubtitle")]
-    class AutoSaveSubtitle
+    public class AutoSaveSubtitle
     {
         [DataMember]
         public AssHead AssHead;
