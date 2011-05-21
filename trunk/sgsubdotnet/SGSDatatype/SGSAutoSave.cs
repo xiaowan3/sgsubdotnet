@@ -44,6 +44,11 @@ namespace SGSDatatype
             autosaverec.Save(string.Format("{0}\\{1}.save", _savePath, Guid.NewGuid()));
         }
 
+        /// <summary>
+        /// Create a autosave record.
+        /// </summary>
+        /// <param name="sub">Subtitle</param>
+        /// <param name="filename">Subtitle's file name</param>
         public void SaveHistory(AssSub sub,string filename)
         {
 
@@ -52,7 +57,24 @@ namespace SGSDatatype
             autosaverec.Save(string.Format("{0}\\{1}.save", _savePath, Guid.NewGuid()));
         }
 
-
+        /// <summary>
+        /// Delete old autosave records.
+        /// </summary>
+        /// <param name="hours"></param>
+        public void DeleteOld(int hours)
+        {
+            
+            Load();
+            foreach (SaveFileIndex saveFileIndex in AutoSaveFileBindingSource)
+            {
+                var offset = DateTime.Now.Subtract(saveFileIndex.SaveTime);
+                if(offset.Hours > hours)
+                {
+                    File.Delete(saveFileIndex.SaveFile);
+                }
+            }
+            Load();
+        }
     }
 
     [DataContract(Name = "AutoSaveRecord", Namespace = "SGSDatatype")]
