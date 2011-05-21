@@ -332,6 +332,7 @@ namespace sgsubtr
 
 
             subEditor.Config = _config;
+            subEditor.Autosave = _autosave;
 
             waveViewer.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
             SubItemEditor.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
@@ -365,7 +366,7 @@ namespace sgsubtr
             subEditor.PlayerControl += new EventHandler<PlayerControlEventArgs>(PlayerControlEventHandler);
             subEditor.Seek += new EventHandler<SeekEventArgs>(subEditor_Seek);
             subEditor.KeySaveAss += new EventHandler(saveSub_Click);
-            
+            subEditor.AutosaveEvent += new EventHandler(subEditor_AutosaveEvent);
 
             subItemEditor.ButtonClicked += new EventHandler<EventArgs>(subItemEditor_ButtonClicked);
             subItemEditor.PlayerControl += new EventHandler<PlayerControlEventArgs>(PlayerControlEventHandler);
@@ -375,10 +376,13 @@ namespace sgsubtr
 
         }
 
+        void subEditor_AutosaveEvent(object sender, EventArgs e)
+        {
+            if (_currentSub != null) _autosave.SaveHistory(_currentSub, _subFilename);
+        }
+
         void autoSaveRecord_Click(object sender, EventArgs e)
         {
-            if (_currentSub != null)
-                _autosave.SaveHistory(_currentSub, _subFilename);
             var saveDlg = new AutoSaveForm(_autosave);
             if(saveDlg.ShowDialog()== DialogResult.OK)
             {

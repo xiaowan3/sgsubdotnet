@@ -12,7 +12,7 @@ namespace SGSDatatype
     {
         public readonly BindingSource AutoSaveFileBindingSource;
         private readonly string _savePath;
-
+        public DateTime PreviousSaveTime { get; private set; }
 
         public SGSAutoSave(string savePath)
         {
@@ -22,6 +22,7 @@ namespace SGSDatatype
                 Directory.CreateDirectory(savePath);
             }
             _savePath = savePath;
+            PreviousSaveTime = DateTime.Now;
         }
 
         public void Load()
@@ -35,13 +36,19 @@ namespace SGSDatatype
                 AutoSaveFileBindingSource.Add(item);
             }
         }
-        
+
+        public void SetSaveTime()
+        {
+            PreviousSaveTime = DateTime.Now;
+        }
+
         public void SaveHistory(AssSub sub)
         {
 
             var savesub = new AutoSaveSubtitle(sub);
             var autosaverec = new AutoSaveRecord(DateTime.Now, savesub);
             autosaverec.Save(string.Format("{0}\\{1}.save", _savePath, Guid.NewGuid()));
+            PreviousSaveTime = DateTime.Now;
         }
 
         /// <summary>
@@ -55,6 +62,7 @@ namespace SGSDatatype
             var savesub = new AutoSaveSubtitle(sub);
             var autosaverec = new AutoSaveRecord(DateTime.Now, savesub, filename);
             autosaverec.Save(string.Format("{0}\\{1}.save", _savePath, Guid.NewGuid()));
+            PreviousSaveTime = DateTime.Now;
         }
 
         /// <summary>

@@ -5,6 +5,8 @@
   <AddStartTime>Z</AddStartTime>
   <AddTimePoint>A</AddTimePoint>
   <AutoOverlapCorrection>true</AutoOverlapCorrection>
+  <AutoSaveLifeTime>24</AutoSaveLifeTime>
+  <AutoSavePeriod>300</AutoSavePeriod>
   <DefaultActor>NTP</DefaultActor>
   <DefaultAssHead>
     <HeadLines xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
@@ -49,7 +51,7 @@
   <EnterEditMode>None</EnterEditMode>
   <GotoCurrent>E</GotoCurrent>
   <GotoPrevious>R</GotoPrevious>
-  <LayoutName>default</LayoutName>
+  <LayoutName>Wide</LayoutName>
   <Pause>Space</Pause>
   <SaveAss>None</SaveAss>
   <SeekBackword>Q</SeekBackword>
