@@ -8,7 +8,10 @@ namespace SGSDatatype
     [DataContract(Name = "SGSConfig", Namespace = "SGSDatatype")]
     public class SGSConfig
     {
-        private string _mFilename;
+        private string _filename;
+
+        [DataMember]
+        private string Version { get; set; }
 
         /// <summary>
         /// 布局名称
@@ -160,14 +163,31 @@ namespace SGSDatatype
         [DataMember]
         public bool AutoOverlapCorrection { get; set; }
 
+        /// <summary>
+        /// 自动保存周期 秒
+        /// </summary>
+        [DataMember]
+        public int AutoSavePeriod { get; set; }
+
+        /// <summary>
+        /// 自动保存数据保留时间 小时
+        /// </summary>
+        [DataMember]
+        public int AutoSaveLifeTime { get; set; }
+
+
         public SGSConfig()
         {
-            Pause = Keys.Space;
-            AddTimePoint = Keys.A;
-            SeekBackword = Keys.Q;
-            SelectRowOffset = 2;
-            SeekStep = 2;
+        }
 
+        /// <summary>
+        /// Check weather the configuration object is compatible with this version.
+        /// </summary>
+        /// <param name="config">Configuration Object</param>
+        /// <returns></returns>
+        public bool Compatible(SGSConfig config)
+        {
+            return config.Version == Version;
         }
 
         public static SGSConfig FromFile(string filename)
@@ -181,7 +201,7 @@ namespace SGSDatatype
             var sgsCfgObject = (SGSConfig)ser.ReadObject(reader, true);
             reader.Close();
             fs.Close();
-            sgsCfgObject._mFilename = filename;
+            sgsCfgObject._filename = filename;
             return sgsCfgObject;
         }
 
@@ -191,13 +211,13 @@ namespace SGSDatatype
             var ser = new DataContractSerializer(typeof(SGSConfig));
             ser.WriteObject(writer, this);
             writer.Close();
-            _mFilename = filename;
+            _filename = filename;
         }
         public void Save()
         {
-            if (_mFilename != null)
+            if (_filename != null)
             {
-                Save(_mFilename);
+                Save(_filename);
             }
         }
         

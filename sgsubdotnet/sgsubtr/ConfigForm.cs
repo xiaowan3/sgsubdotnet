@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml;
 using SGSDatatype;
-
+// ReSharper disable PossibleLossOfFraction
 namespace sgsubtr
 {
     public partial class ConfigForm : Form
@@ -50,6 +50,9 @@ namespace sgsubtr
                 }
                 _layoutlist.Add(layoutname, previewImage);
                 listLayout.Items.Add(layoutname);
+                numAutosavePeriod.Value = _config.AutoSavePeriod/60;
+                numAutosaveLifeTime.Value = _config.AutoSaveLifeTime;
+
             }
             if (_config.LayoutName != null && _layoutlist.ContainsKey(_config.LayoutName))
             {
@@ -73,7 +76,14 @@ namespace sgsubtr
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             _config.LayoutName = listLayout.SelectedItem.ToString();
+            _config.AutoSavePeriod = (int)numAutosavePeriod.Value * 60;
+            _config.AutoSaveLifeTime = (int) numAutosaveLifeTime.Value;
             _config.Save();
+            Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
             Close();
         }
     }

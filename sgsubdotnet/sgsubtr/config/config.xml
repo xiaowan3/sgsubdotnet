@@ -49,6 +49,7 @@
   <EnterEditMode>None</EnterEditMode>
   <GotoCurrent>E</GotoCurrent>
   <GotoPrevious>R</GotoPrevious>
+  <LayoutName>default</LayoutName>
   <Pause>Space</Pause>
   <SaveAss>None</SaveAss>
   <SeekBackword>Q</SeekBackword>
@@ -56,4 +57,5 @@
   <SeekStep>3</SeekStep>
   <SelectRowOffset>2</SelectRowOffset>
   <StartOffset>-0.3</StartOffset>
+  <Version>1.0.0.1</Version>
 </SGSConfig>

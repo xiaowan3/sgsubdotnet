@@ -220,14 +220,21 @@ namespace sgsubtr
             {
                 System.IO.Directory.CreateDirectory(_appFolderPath + @"\config");
             }
+            var defaultcfg = SGSConfig.FromFile(Application.StartupPath + @"\config\config.xml");
+
             if (!System.IO.File.Exists(_appFolderPath + @"\config\config.xml"))
             {
-                _config = SGSConfig.FromFile(Application.StartupPath + @"\config\config.xml");
+                _config = defaultcfg;
                 _config.Save(_appFolderPath + @"\config\config.xml");
             }
             else
             {
                 _config = SGSConfig.FromFile(_appFolderPath + @"\config\config.xml");
+                if(!defaultcfg.Compatible(_config))
+                {
+                    _config = defaultcfg;
+                    _config.Save(_appFolderPath + @"\config\config.xml");
+                }
             }
             //Load Layout
             var layoutfilename = string.Format(@"{0}\config\{1}.layout", _startUpPath, _config.LayoutName);
@@ -245,11 +252,12 @@ namespace sgsubtr
             }
             //AutoSave
             _autosave = new SGSAutoSave(_appFolderPath + @"\autosave");
+            _autosave.DeleteOld(_config.AutoSaveLifeTime);
 
 
             #endregion
 
-            #region Build Layout
+            #region Build Layout);
 
             if (xmldoc.ChildNodes.Count <= 0) throw new Exception("Wrong XML File");
             XmlNode root = xmldoc.ChildNodes.Cast<XmlNode>().Where(node => node.Name == "SGSUBLayout").FirstOrDefault();
@@ -370,12 +378,12 @@ namespace sgsubtr
         void autoSaveRecord_Click(object sender, EventArgs e)
         {
             if (_currentSub != null)
-                _autosave.SaveHistory(_currentSub, _mSubFilename);
+                _autosave.SaveHistory(_currentSub, _subFilename);
             var saveDlg = new AutoSaveForm(_autosave);
             if(saveDlg.ShowDialog()== DialogResult.OK)
             {
                 _currentSub = saveDlg.Sub;
-                _mSubFilename = null;
+                _subFilename = null;
                 subEditor.Edited = false;
                 SetCurrentSub();
             }
@@ -543,7 +551,7 @@ namespace sgsubtr
         #region Private Members
 
         private AssSub _currentSub;
-        private string _mSubFilename;
+        private string _subFilename;
         private SGSConfig _config;
         private SGSAutoSave _autosave;
         private string _startUpPath;
@@ -575,8 +583,8 @@ namespace sgsubtr
                           };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                _mSubFilename = dlg.FileName;
-                _currentSub.WriteAss(_mSubFilename, Encoding.Unicode);
+                _subFilename = dlg.FileName;
+                _currentSub.WriteAss(_subFilename, Encoding.Unicode);
                 subEditor.Edited = false;
             }
 
@@ -619,7 +627,7 @@ namespace sgsubtr
                 {
                     MessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK);
                     _currentSub = null;
-                    _mSubFilename = null;
+                    _subFilename = null;
                     SetCurrentSub();
                 }
             }
@@ -676,7 +684,7 @@ namespace sgsubtr
         private bool SaveAssSub()
         {
             if (_currentSub == null) return false;
-            if (_mSubFilename == null)
+            if (_subFilename == null)
             {
                 var dlg = new SaveFileDialog
                               {
@@ -686,12 +694,12 @@ namespace sgsubtr
                               };
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    _mSubFilename = dlg.FileName;
+                    _subFilename = dlg.FileName;
                 }
                 else
                     return false;
             }
-            _currentSub.WriteAss(_mSubFilename, Encoding.Unicode);
+            _currentSub.WriteAss(_subFilename, Encoding.Unicode);
             subEditor.Edited = false;
             return true;
         }
@@ -701,7 +709,7 @@ namespace sgsubtr
         {
             _currentSub = new AssSub();
             _currentSub.LoadText(filename,_config);
-            _mSubFilename = null;
+            _subFilename = null;
             subEditor.Edited = false;
             SetCurrentSub();
         }
@@ -710,7 +718,7 @@ namespace sgsubtr
         {
             _currentSub = new AssSub();
             _currentSub.LoadAss(filename);
-            _mSubFilename = filename;
+            _subFilename = filename;
             SetCurrentSub();
         }
 
