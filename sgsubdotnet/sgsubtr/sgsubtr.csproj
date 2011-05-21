@@ -86,6 +86,9 @@
       <DependentUpon>ConfigForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="config\Classical.layout">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="config\default.layout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -138,6 +141,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="config\classical.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="config\config.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
