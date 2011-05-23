@@ -1,6 +1,6 @@
 <SGSConfig xmlns="SGSDatatype" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-  <AddCellTime>None</AddCellTime>
-  <AddContTimePoint>None</AddContTimePoint>
+  <AddCellTime>S</AddCellTime>
+  <AddContTimePoint>D</AddContTimePoint>
   <AddEndTime>X</AddEndTime>
   <AddStartTime>Z</AddStartTime>
   <AddTimePoint>A</AddTimePoint>
@@ -48,12 +48,12 @@
   <DefaultStart>0</DefaultStart>
   <DefaultStyle>*Default</DefaultStyle>
   <EndOffset>-0.1</EndOffset>
-  <EnterEditMode>None</EnterEditMode>
+  <EnterEditMode>F1</EnterEditMode>
   <GotoCurrent>E</GotoCurrent>
   <GotoPrevious>R</GotoPrevious>
   <LayoutName>Wide</LayoutName>
   <Pause>Space</Pause>
-  <SaveAss>None</SaveAss>
+  <SaveAss>F2</SaveAss>
   <SeekBackword>Q</SeekBackword>
   <SeekForward>W</SeekForward>
   <SeekStep>3</SeekStep>
