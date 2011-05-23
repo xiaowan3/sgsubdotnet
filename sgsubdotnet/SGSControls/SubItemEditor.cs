@@ -88,5 +88,6 @@ namespace SGSControls
             }
             if (ButtonClicked != null) ButtonClicked(this, new EventArgs());
         }
+
     }
 }

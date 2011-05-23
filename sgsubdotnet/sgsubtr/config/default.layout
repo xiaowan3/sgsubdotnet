@@ -4,7 +4,7 @@
       <VideoPlayer Dock="Fill"></VideoPlayer>
       <WaveFormViewer Dock="Fill"></WaveFormViewer>
     </SplitContainer>
-    <SplitContainer Orientation="Horizontal" Dock ="Fill" SpliterDistance="75" BorderStyle="None" FixedPanel="Panel1" IsSplitterFixed="true">
+    <SplitContainer Orientation="Horizontal" Dock ="Fill" SpliterDistance="50" BorderStyle="None" FixedPanel="Panel1" IsSplitterFixed="true">
       <SubItemEditor Dock="Fill"></SubItemEditor>
       <SubEditor Dock="Fill"></SubEditor>
     </SplitContainer>
