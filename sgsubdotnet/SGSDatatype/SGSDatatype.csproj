@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssDatatype.cs" />
     <Compile Include="AssItem.cs" />
     <Compile Include="AssSub.cs" />
     <Compile Include="Events.cs" />

@@ -87,7 +87,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(216, 14);
+            this.button5.Location = new System.Drawing.Point(207, 14);
             this.button5.Margin = new System.Windows.Forms.Padding(2);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(56, 18);
@@ -150,7 +150,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(661, 434);
+            this.ClientSize = new System.Drawing.Size(658, 436);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button6);

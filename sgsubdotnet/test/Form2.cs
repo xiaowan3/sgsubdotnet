@@ -43,14 +43,17 @@ namespace test
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var openFileDialog = new OpenFileDialog();
-            if(openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                var sub = new AssSub();
-                sub.LoadAss(openFileDialog.FileName);
-                _sub = sub;
-                _filename = openFileDialog.FileName;
-            }
+            V4Style style = new V4Style();
+            style.SetProperty("Name", "Default");
+            
+            //var openFileDialog = new OpenFileDialog();
+            //if(openFileDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    var sub = new AssSub();
+            //    sub.LoadAss(openFileDialog.FileName);
+            //    _sub = sub;
+            //    _filename = openFileDialog.FileName;
+            //}
 
         }
 
@@ -79,6 +82,10 @@ namespace test
 
         private void button5_Click(object sender, EventArgs e)
         {
+            V4Style style = new V4Style();
+            ((ISSAField)style.GetProperty("Name")).FromString("Default");
+            
+                //style.SetProperty("fontsize", 16);
         }
 
         private void button6_Click(object sender, EventArgs e)
