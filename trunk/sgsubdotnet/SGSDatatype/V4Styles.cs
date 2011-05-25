@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Reflection;
 
@@ -71,23 +72,58 @@ namespace SGSDatatype
     public class V4Style
     {
 
+        [DataMember]
         public SSAString Name { get; set; }
+
+        [DataMember]
         public SSAString Fontname { get; set; }
+
+        [DataMember]
         public SSAInt Fontsize { get; set; }
+
+        [DataMember]
         public SSAColour PrimaryColour { get; set; }
+
+        [DataMember]
         public SSAColour SecondaryColour { get; set; }
+
+        [DataMember]
         public SSAColour TertiaryColour { get; set; }
+
+        [DataMember]
         public SSAColour BackColour { get; set; }
+
+        [DataMember]
         public SSABool Bold { get; set; }
+
+        [DataMember]
         public SSABool Italic { get; set; }
+
+        [DataMember]
         public SSAInt BorderStyle { get; set; }
+
+        [DataMember]
         public SSAInt Outline { get; set; }
+
+        [DataMember]
         public SSAInt Shadow { get; set; }
+
+        [DataMember]
         public SSAInt Alignment { get; set; }
+
+        [DataMember]
         public SSAInt MarginL { get; set; }
+
+        [DataMember]
         public SSAInt MarginR { get; set; }
+
+        [DataMember]
         public SSAInt MarginV { get; set; }
+
+        [DataMember]
         public SSAString AlphaLevel { get; set; }
+
+        [DataMember]
         public SSAString Encoding { get; set; }
         public V4Style()
         {
