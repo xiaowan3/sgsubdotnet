@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 
 namespace SGSDatatype
 {
-    [DataContract(Name = "EventsV4", Namespace = "SGSDatatype")]
+    [DataContract(Name = "SSAEvents", Namespace = "SGSDatatype")]
     [KnownType(typeof(V4Event))]
     public class SSAEvents
     {

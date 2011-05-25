@@ -2,18 +2,25 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace SGSDatatype
 {
+    [DataContract(Name = "V4StylesPlus", Namespace = "SGSDatatype")]
+    [KnownType(typeof(V4StyleP))]
     public class V4StylesPlus : ISection
     {
+        [DataMember]
         private string[] _styleFormat;
-        public readonly List<V4StyleP> StyleList;
+
+        [DataMember]
+        public readonly BindingSource StyleList;
         public V4StylesPlus()
         {
-            StyleList = new List<V4StyleP>();
+            StyleList = new BindingSource();
             _styleFormat = null;
         }
 
@@ -70,28 +77,74 @@ namespace SGSDatatype
 
     public class V4StyleP
     {
+
+        [DataMember]
         public SSAString Name { get; set; }
+
+        [DataMember]
         public SSAString Fontname { get; set; }
+
+        [DataMember]
         public SSAInt Fontsize { get; set; }
+
+        [DataMember]
         public SSAColour PrimaryColour { get; set; }
+
+        [DataMember]
         public SSAColour SecondaryColour { get; set; }
+
+        [DataMember]
         public SSAColour OutlineColor { get; set; }
+
+        [DataMember]
         public SSAColour BackColour { get; set; }
+
+        [DataMember]
         public SSABool Bold { get; set; }
+
+        [DataMember]
         public SSABool Italic { get; set; }
+
+        [DataMember]
         public SSABool Underline { get; set; }
+
+        [DataMember]
         public SSABool Strikeout { get; set; }
+
+        [DataMember]
         public SSADecimal ScaleX { get; set; }
+
+        [DataMember]
         public SSADecimal ScaleY { get; set; }
+
+        [DataMember]
         public SSAInt Spacing { get; set; }
+
+        [DataMember]
         public SSADecimal Angle { get; set; }
+
+        [DataMember]
         public SSAInt BorderStyle { get; set; }
+
+        [DataMember]
         public SSAInt Outline { get; set; }
+
+        [DataMember]
         public SSAInt Shadow { get; set; }
+
+        [DataMember]
         public SSAInt MarginL { get; set; }
+
+        [DataMember]
         public SSAInt MarginR { get; set; }
+
+        [DataMember]
         public SSAInt MarginV { get; set; }
+
+        [DataMember]
         public SSAString AlphaLevel { get; set; }
+
+        [DataMember]
         public SSAString Encoding { get; set; }
 
         public V4StyleP()
