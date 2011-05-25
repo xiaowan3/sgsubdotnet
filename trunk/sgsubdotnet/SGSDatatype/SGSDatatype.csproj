@@ -51,7 +51,7 @@
     <Compile Include="SSADatatype.cs" />
     <Compile Include="AssItem.cs" />
     <Compile Include="AssSub.cs" />
-    <Compile Include="Events.cs" />
+    <Compile Include="SSAEvents.cs" />
     <Compile Include="Fonts.cs" />
     <Compile Include="Graphics.cs" />
     <Compile Include="ScriptInfo.cs" />

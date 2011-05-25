@@ -41,7 +41,7 @@ namespace SGSDatatype
                     var fields = line.Split(separator);
                     for (var i = 0; i < _styleFormat.Length; i++)
                     {
-                        var field = (ISSAField) v4Style.GetProperty(_styleFormat[i]);
+                        var field = v4Style.GetProperty(_styleFormat[i]);
                         if (i < fields.Length && field != null)
                             field.FromString(fields[i]);
                     }
@@ -110,8 +110,8 @@ namespace SGSDatatype
             AlphaLevel = new SSAString();
             Encoding= new SSAString();
         }
-        
-        public void SetProperty(string propertyName,object value)
+
+        public void SetProperty(string propertyName, ISSAField value)
         {
             var propertyInfo = typeof (V4Style).GetProperty(propertyName,
                                                             BindingFlags.Public | BindingFlags.IgnoreCase |
@@ -121,12 +121,12 @@ namespace SGSDatatype
                 propertyInfo.SetValue(this,value,null);
             }
         }
-        public object GetProperty(string propertyName)
+        public ISSAField GetProperty(string propertyName)
         {
             var propertyInfo = typeof (V4Style).GetProperty(propertyName,
                                                             BindingFlags.Public | BindingFlags.IgnoreCase |
                                                             BindingFlags.Instance);
-            return propertyInfo != null ? propertyInfo.GetValue(this, null) : null;
+            return propertyInfo != null ? (ISSAField) propertyInfo.GetValue(this, null) : null;
         }
     }
     
