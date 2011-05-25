@@ -82,8 +82,28 @@ namespace SGSDatatype
                 Value = val;
                 return;
             }
-
             Value = 0;
+        }
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
+        public string ToString(string format)
+        {
+            return Value.ToString(format);
+        }
+    }
+    public class SSADecimal:ISSAField
+    {
+        public decimal Value;
+        public void FromString(string str)
+        {
+            if(decimal.TryParse(str,out Value)) return;
+            Value = 0;
+        }
+        public override string ToString()
+        {
+            return Value.ToString();
         }
     }
 }

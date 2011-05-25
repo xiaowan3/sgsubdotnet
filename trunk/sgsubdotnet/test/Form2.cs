@@ -43,8 +43,9 @@ namespace test
 
         private void button1_Click(object sender, EventArgs e)
         {
-            V4Style style = new V4Style();
-            style.SetProperty("Name", "Default");
+            V4StylesPlus styles = new V4StylesPlus();
+            styles.AddLine("Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding");
+            styles.AddLine("Style: Default,微软雅黑,45,&H00FFFFFF,&HF0000000,&H00000000,&H64000000,-1,-1,0,0,100,100,0,0.00,1,1,0,2,30,30,10,134");
             
             //var openFileDialog = new OpenFileDialog();
             //if(openFileDialog.ShowDialog() == DialogResult.OK)
