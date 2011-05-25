@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
+using System.Xml;
+using System.Runtime.Serialization;
 using SGSDatatype;
 namespace test
 {
@@ -43,10 +46,10 @@ namespace test
 
         private void button1_Click(object sender, EventArgs e)
         {
-            V4StylesPlus styles = new V4StylesPlus();
-            styles.AddLine("Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding");
-            styles.AddLine("Style: Default,微软雅黑,45,&H00FFFFFF,&HF0000000,&H00000000,&H64000000,-1,-1,0,0,100,100,0,0.00,1,1,0,2,30,30,10,134");
-            
+            SSAEvents eventsV4 = new SSAEvents();
+            eventsV4.AddLine("Format: Layer, Start, End, Style, Actor, MarginL, MarginR, MarginV, Effect, Text");
+            eventsV4.AddLine("Dialogue: 0,0:02:34.20,0:02:39.22,OP,NTP,0000,0000,0000,,答えはいつも私の胸に...");
+            eventsV4.AddLine("Dialogue: 0,0:03:01.67,0:03:07.86,OP,NTP,0000,0000,0000,,I believe 真似だけじゃんつまらないの");
             //var openFileDialog = new OpenFileDialog();
             //if(openFileDialog.ShowDialog() == DialogResult.OK)
             //{
@@ -55,6 +58,11 @@ namespace test
             //    _sub = sub;
             //    _filename = openFileDialog.FileName;
             //}
+
+            var writer = new FileStream("E:\\test\\ttttt.xml", FileMode.Create);
+            var ser = new DataContractSerializer(typeof(SSAEvents));
+            ser.WriteObject(writer, eventsV4);
+            writer.Close();
 
         }
 
