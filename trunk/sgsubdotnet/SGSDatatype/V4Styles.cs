@@ -7,12 +7,22 @@ using System.Reflection;
 
 namespace SGSDatatype
 {
-    class V4Styles: ISection
+    public class V4Styles: ISection
     {
         private string[] _styleFormat;
+        public readonly List<V4Style> StyleList;
+
+        public V4Styles()
+        {
+            StyleList = new List<V4Style>();
+            _styleFormat = null;
+        }
+
         public void AddLine(string line)
         {
+            if(line[0]==';') return;
             var spliterpos = line.IndexOf(':');
+            if(spliterpos == -1) return;
             char[] separator = {','};
             var linefmt = line.Substring(0, spliterpos).ToUpper().Trim();
             line = line.Substring(spliterpos + 1);
@@ -20,15 +30,26 @@ namespace SGSDatatype
             {
                 case "FORMAT":
                     _styleFormat = line.Split(separator);
+                    for (var i = 0; i < _styleFormat.Length; i++)
+                    {
+                        _styleFormat[i] = _styleFormat[i].Trim();
+                    }
                     break;
                 case "STYLE":
                     if (_styleFormat == null) throw new Exception("Style Section Error");
-
+                    var v4Style = new V4Style();
+                    var fields = line.Split(separator);
+                    for (var i = 0; i < _styleFormat.Length; i++)
+                    {
+                        var field = (ISSAField) v4Style.GetProperty(_styleFormat[i]);
+                        if (i < fields.Length && field != null)
+                            field.FromString(fields[i]);
+                    }
+                    StyleList.Add(v4Style);
                     break;
                 default:
                     return;
             }
-            throw new NotImplementedException();
         }
 
         public void WriteTo(Stream stream)
@@ -52,26 +73,42 @@ namespace SGSDatatype
 
         public SSAString Name { get; set; }
         public SSAString Fontname { get; set; }
-        public int Fontsize { get; set; }
+        public SSAInt Fontsize { get; set; }
         public SSAColour PrimaryColour { get; set; }
         public SSAColour SecondaryColour { get; set; }
         public SSAColour TertiaryColour { get; set; }
         public SSAColour BackColour { get; set; }
-        public bool Bold { get; set; }
-        public bool Italic { get; set; }
-        public int BorderStyle { get; set; }
-        public int Outline { get; set; }
-        public int Shadow { get; set; }
-        public int Alignment { get; set; }
-        public int MarginL { get; set; }
-        public int MarginR { get; set; }
-        public int MarginV { get; set; }
+        public SSABool Bold { get; set; }
+        public SSABool Italic { get; set; }
+        public SSAInt BorderStyle { get; set; }
+        public SSAInt Outline { get; set; }
+        public SSAInt Shadow { get; set; }
+        public SSAInt Alignment { get; set; }
+        public SSAInt MarginL { get; set; }
+        public SSAInt MarginR { get; set; }
+        public SSAInt MarginV { get; set; }
         public SSAString AlphaLevel { get; set; }
         public SSAString Encoding { get; set; }
         public V4Style()
         {
             Name = new SSAString();
             Fontname = new SSAString();
+            Fontsize = new SSAInt();
+            PrimaryColour = new SSAColour();
+            SecondaryColour = new SSAColour();
+            TertiaryColour = new SSAColour();
+            BackColour = new SSAColour();
+            Bold = new SSABool();
+            Italic = new SSABool();
+            BorderStyle = new SSAInt();
+            Outline = new SSAInt();
+            Shadow = new SSAInt();
+            Alignment = new SSAInt();
+            MarginL = new SSAInt();
+            MarginR = new SSAInt();
+            MarginV = new SSAInt();
+            AlphaLevel = new SSAString();
+            Encoding= new SSAString();
         }
         
         public void SetProperty(string propertyName,object value)
