@@ -180,6 +180,7 @@ namespace SGSDatatype
     [DataContract(Name = "SSAMargin", Namespace = "SGSDatatype")]
     public class SSAMargin:ISSAField
     {
+        [DataMember]
         public int Value;
         public void FromString(string str)
         {

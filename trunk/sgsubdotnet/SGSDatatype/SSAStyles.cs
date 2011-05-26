@@ -5,26 +5,31 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace SGSDatatype
 {
-    public class V4Styles: ISection
+    [DataContract(Name = "V4StylesPlus", Namespace = "SGSDatatype")]
+    [KnownType(typeof(Style))]
+    public class SSAStyles : ISection
     {
+        [DataMember]
         private string[] _styleFormat;
-        public readonly List<V4Style> StyleList;
 
-        public V4Styles()
+        [DataMember]
+        public readonly BindingSource StyleList;
+        public SSAStyles()
         {
-            StyleList = new List<V4Style>();
+            StyleList = new BindingSource();
             _styleFormat = null;
         }
 
         public void AddLine(string line)
         {
-            if(line[0]==';') return;
+            if (line[0] == ';') return;
             var spliterpos = line.IndexOf(':');
-            if(spliterpos == -1) return;
-            char[] separator = {','};
+            if (spliterpos == -1) return;
+            char[] separator = { ',' };
             var linefmt = line.Substring(0, spliterpos).ToUpper().Trim();
             line = line.Substring(spliterpos + 1);
             switch (linefmt)
@@ -38,19 +43,20 @@ namespace SGSDatatype
                     break;
                 case "STYLE":
                     if (_styleFormat == null) throw new Exception("Style Section Error");
-                    var v4Style = new V4Style();
+                    var v4StyleP = new Style();
                     var fields = line.Split(separator);
                     for (var i = 0; i < _styleFormat.Length; i++)
                     {
-                        var field = v4Style.GetProperty(_styleFormat[i]);
+                        var field = v4StyleP.GetProperty(_styleFormat[i]);
                         if (i < fields.Length && field != null)
                             field.FromString(fields[i]);
                     }
-                    StyleList.Add(v4Style);
+                    StyleList.Add(v4StyleP);
                     break;
                 default:
                     return;
             }
+
         }
 
         public void WriteTo(Stream stream)
@@ -65,11 +71,11 @@ namespace SGSDatatype
 
         public string SectionName
         {
-            get { return "v4 Styles"; }
+            get { return "v4+ Styles"; }
         }
     }
 
-    public class V4Style
+    public class Style
     {
 
         [DataMember]
@@ -88,7 +94,13 @@ namespace SGSDatatype
         public SSAColour SecondaryColour { get; set; }
 
         [DataMember]
-        public SSAColour TertiaryColour { get; set; }
+        public SSAColour OutlineColor { get; set; }
+
+        public SSAColour TertiaryColour
+        {
+            get { return OutlineColor; }
+            set { OutlineColor = value; }
+        }
 
         [DataMember]
         public SSAColour BackColour { get; set; }
@@ -100,6 +112,24 @@ namespace SGSDatatype
         public SSABool Italic { get; set; }
 
         [DataMember]
+        public SSABool Underline { get; set; }
+
+        [DataMember]
+        public SSABool Strikeout { get; set; }
+
+        [DataMember]
+        public SSADecimal ScaleX { get; set; }
+
+        [DataMember]
+        public SSADecimal ScaleY { get; set; }
+
+        [DataMember]
+        public SSAInt Spacing { get; set; }
+
+        [DataMember]
+        public SSADecimal Angle { get; set; }
+
+        [DataMember]
         public SSAInt BorderStyle { get; set; }
 
         [DataMember]
@@ -107,9 +137,6 @@ namespace SGSDatatype
 
         [DataMember]
         public SSAInt Shadow { get; set; }
-
-        [DataMember]
-        public SSAInt Alignment { get; set; }
 
         [DataMember]
         public SSAInt MarginL { get; set; }
@@ -125,45 +152,54 @@ namespace SGSDatatype
 
         [DataMember]
         public SSAString Encoding { get; set; }
-        public V4Style()
+
+        public Style()
         {
             Name = new SSAString();
             Fontname = new SSAString();
             Fontsize = new SSAInt();
             PrimaryColour = new SSAColour();
             SecondaryColour = new SSAColour();
-            TertiaryColour = new SSAColour();
+            OutlineColor = new SSAColour();
             BackColour = new SSAColour();
             Bold = new SSABool();
             Italic = new SSABool();
+            Underline=new SSABool();
+            Strikeout = new SSABool();
+            ScaleX = new SSADecimal();
+            ScaleY = new SSADecimal();
+            Spacing = new SSAInt();
+            Angle = new SSADecimal();
             BorderStyle = new SSAInt();
             Outline = new SSAInt();
             Shadow = new SSAInt();
-            Alignment = new SSAInt();
             MarginL = new SSAInt();
             MarginR = new SSAInt();
             MarginV = new SSAInt();
             AlphaLevel = new SSAString();
-            Encoding= new SSAString();
+            Encoding = new SSAString();
         }
 
         public void SetProperty(string propertyName, ISSAField value)
         {
-            var propertyInfo = typeof (V4Style).GetProperty(propertyName,
+            var propertyInfo = typeof(Style).GetProperty(propertyName,
                                                             BindingFlags.Public | BindingFlags.IgnoreCase |
                                                             BindingFlags.Instance);
-            if(propertyInfo != null)
+            if (propertyInfo != null)
             {
-                propertyInfo.SetValue(this,value,null);
+                propertyInfo.SetValue(this, value, null);
             }
         }
         public ISSAField GetProperty(string propertyName)
         {
-            var propertyInfo = typeof (V4Style).GetProperty(propertyName,
+            var propertyInfo = typeof(Style).GetProperty(propertyName,
                                                             BindingFlags.Public | BindingFlags.IgnoreCase |
                                                             BindingFlags.Instance);
             return propertyInfo != null ? (ISSAField) propertyInfo.GetValue(this, null) : null;
         }
+
     }
-    
+
+
+
 }

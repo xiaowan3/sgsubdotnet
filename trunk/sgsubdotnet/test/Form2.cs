@@ -58,10 +58,9 @@ namespace test
             //    _sub = sub;
             //    _filename = openFileDialog.FileName;
             //}
-
+            SubStationAlpha ssa = SubStationAlpha.Load(@"E:\test\Haruhi_14.ass");
             var writer = new FileStream("E:\\test\\ttttt.xml", FileMode.Create);
-            var ser = new DataContractSerializer(typeof(SSAEvents));
-            ser.WriteObject(writer, eventsV4);
+            ssa.WriteXml(writer);
             writer.Close();
 
         }
@@ -91,9 +90,7 @@ namespace test
 
         private void button5_Click(object sender, EventArgs e)
         {
-            V4Style style = new V4Style();
-            ((ISSAField)style.GetProperty("Name")).FromString("Default");
-            
+
                 //style.SetProperty("fontsize", 16);
         }
 
