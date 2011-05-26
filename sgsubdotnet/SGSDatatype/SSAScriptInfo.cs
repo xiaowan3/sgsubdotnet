@@ -7,13 +7,14 @@ using System.Text;
 
 namespace SGSDatatype
 {
+    [DataContract(Name = "SSAScriptInfo", Namespace = "SGSDatatype")]
     public class SSAScriptInfo : ISection
     {
         [DataMember]
         private readonly List<string> _scriptInfoLines;
         [DataMember]
         public SSAVersion Version { get; set; }
-        public void AddLine(string line)
+        public void ParseLine(string line)
         {
             _scriptInfoLines.Add(line);
         }

@@ -27,7 +27,6 @@ namespace SGSDatatype
             ScriptInfoSection = new SSAScriptInfo();
             StylesSection = new SSAStyles();
             EventsSection = new SSAEvents();
-
         }
         public static SubStationAlpha Load(string filename)
         {
@@ -81,7 +80,7 @@ namespace SGSDatatype
                 if (currentSection == null) throw new Exception("Error in line " + linenumber);
                 try
                 {
-                    currentSection.AddLine(line);
+                    currentSection.ParseLine(line);
                 }
                 catch (Exception)
                 {
