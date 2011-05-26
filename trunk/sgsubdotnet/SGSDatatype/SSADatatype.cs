@@ -68,7 +68,7 @@ namespace SGSDatatype
     public class SSAString : ISSAField
     {
         [DataMember]
-        public string Value;
+        public string Value = "";
         public void FromString(string str)
         {
             Value = str;

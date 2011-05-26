@@ -12,7 +12,7 @@ namespace SGSDatatype
         /// Parse a line in a section.
         /// </summary>
         /// <param name="line">Line</param>
-        void AddLine(string line);
+        void ParseLine(string line);
 
         /// <summary>
         /// Write the content to a stream including section descriptor.

@@ -21,13 +21,21 @@ namespace SGSDatatype
         [DataMember]
         public SSAVersion Version { get; set; }
 
+        private const string DefaultStyleName = "Default";
+
         public SSAEvents()
         {
             EventList = new BindingSource();
             _eventFormat = null;
         }
 
-        public void AddLine(string line)
+        public void NewLine(string text)
+        {
+            var v4Event = new V4Event {Style = {Value = DefaultStyleName}, Text = {Value = text}};
+            EventList.Add(v4Event);
+        }
+
+        public void ParseLine(string line)
         {
             if(line[0]==';') return;
             var spliterpos = line.IndexOf(':');
@@ -48,21 +56,20 @@ namespace SGSDatatype
                     if (_eventFormat == null) throw new Exception("Event Section Error");
                     var v4Event = new V4Event();
                    // var fields = line.Split(separator);
-                    for (var i = 0; i < _eventFormat.Length; i++)
+                    foreach (string t in _eventFormat)
                     {
                         var comma = line.IndexOf(',');
-                        if (comma == -1 && _eventFormat[i].ToUpper() != "TEXT") return; //Last field in a line is not Text
-                        var field = v4Event.GetProperty(_eventFormat[i]);
-                        if (_eventFormat[i].ToUpper() == "TEXT")
+                        if (comma == -1 && t.ToUpper() != "TEXT") return; //Last field in a line is not Text
+                        var field = v4Event.GetProperty(t);
+                        if (t.ToUpper() == "TEXT")
                         {
-                            field = v4Event.GetProperty(_eventFormat[i]);
+                            field = v4Event.GetProperty(t);
                             if (field != null) field.FromString(line);
                             break;
                         }
                         var f = line.Substring(0, comma);
                         if (field != null) field.FromString(f);
                         line = line.Substring(comma + 1);
-
                     }
                     EventList.Add(v4Event);
                     break;

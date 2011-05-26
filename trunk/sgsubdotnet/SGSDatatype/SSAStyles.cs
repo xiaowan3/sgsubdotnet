@@ -28,7 +28,11 @@ namespace SGSDatatype
             _styleFormat = null;
         }
 
-        public void AddLine(string line)
+        /// <summary>
+        /// Parse a line
+        /// </summary>
+        /// <param name="line">Line</param>
+        public void ParseLine(string line)
         {
             if (line[0] == ';') return;
             var spliterpos = line.IndexOf(':');
