@@ -17,6 +17,25 @@ namespace SGSDatatype
         public void ParseLine(string line)
         {
             _scriptInfoLines.Add(line);
+            if(line[0]==';') return;
+            int n;
+            if ((n=line.IndexOf(':') )== -1) return;
+            var sectionName = line.Substring(0, n);
+            if (sectionName == "ScriptType")
+            {
+                var val = line.Substring(n + 1).Trim().ToUpper();
+                switch (val)
+                {
+                    case "V4.00":
+                        Version = SSAVersion.V4;
+                        break;
+                    case "V4.00+":
+                        Version = SSAVersion.V4Plus;
+                        break;
+                    default:
+                        throw new Exception("Unsupported Version");
+                }
+            }
         }
 
         public void WriteTo(StreamWriter streamWriter)

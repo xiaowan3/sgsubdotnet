@@ -65,7 +65,13 @@ namespace SGSDatatype
                             currentSection = ssa.ScriptInfoSection;
                             break;
                         case "V4 STYLES":
+                            if (ssa.ScriptInfoSection.Version != SSAVersion.V4) 
+                                throw new Exception("Error Style in line " + linenumber);
+                            currentSection = ssa.StylesSection;
+                            break;
                         case "V4+ STYLES":
+                            if (ssa.ScriptInfoSection.Version != SSAVersion.V4Plus) 
+                                throw new Exception("Error Style in line " + linenumber);
                             currentSection = ssa.StylesSection;
                             break;
                         case "EVENTS":
@@ -89,6 +95,9 @@ namespace SGSDatatype
                 }
                 linenumber++;
             } while (!reader.EndOfStream);
+            ssa.StylesSection.Version = ssa.ScriptInfoSection.Version;
+            ssa.EventsSection.Version = ssa.ScriptInfoSection.Version;
+
             return ssa;
         }
 
