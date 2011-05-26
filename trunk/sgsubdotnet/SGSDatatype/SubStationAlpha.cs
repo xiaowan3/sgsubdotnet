@@ -99,7 +99,13 @@ namespace SGSDatatype
         }
         public void Save(string filename, Encoding encoding)
         {
-
+            var stream = new FileStream(filename,FileMode.Create,FileAccess.Write);
+            var writer = new StreamWriter(stream,encoding);
+            ScriptInfoSection.WriteTo(writer);
+            StylesSection.WriteTo(writer);
+            EventsSection.WriteTo(writer);
+            writer.Flush();
+            stream.Flush();
         }
 
         public static SubStationAlpha FromXml(Stream filestream)

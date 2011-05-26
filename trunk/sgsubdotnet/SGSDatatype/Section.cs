@@ -17,15 +17,9 @@ namespace SGSDatatype
         /// <summary>
         /// Write the content to a stream including section descriptor.
         /// </summary>
-        /// <param name="stream">Stream</param>
-        void WriteTo(Stream stream);
-
-        /// <summary>
-        /// Write the content to a stream including section descriptor.
-        /// </summary>
-        /// <param name="stream">Stream</param>
-        /// <param name="encoding">Encoding</param>
-        void WriteTo(Stream stream,Encoding encoding);
+        /// <param name="streamWriter">Stream</param>
+        void WriteTo(StreamWriter streamWriter);
         string SectionName { get; }
+        SSAVersion Version { get; set; }
     }
 }

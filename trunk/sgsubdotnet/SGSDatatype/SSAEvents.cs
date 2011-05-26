@@ -18,6 +18,9 @@ namespace SGSDatatype
         [DataMember]
         public readonly BindingSource EventList;
 
+        [DataMember]
+        public SSAVersion Version { get; set; }
+
         public SSAEvents()
         {
             EventList = new BindingSource();
@@ -68,14 +71,26 @@ namespace SGSDatatype
             }
         }
 
-        public void WriteTo(Stream stream)
+        public void WriteTo(StreamWriter streamWriter)
         {
-            throw new NotImplementedException();
-        }
+            streamWriter.WriteLine(string.Format("[{0}]", SectionName));
+            streamWriter.Write("Format: ");
 
-        public void WriteTo(Stream stream, Encoding encoding)
-        {
-            throw new NotImplementedException();
+            for (int i = 0; i < _eventFormat.Length - 1; i++)
+            {
+                streamWriter.Write("{0}, ", _eventFormat[i]);
+            }
+            streamWriter.WriteLine(_eventFormat[_eventFormat.Length - 1]);
+            foreach (V4Event v4Event in EventList)
+            {
+                streamWriter.Write("Dialogue: {0}", v4Event.GetProperty(_eventFormat[0]));
+                for (int i = 1; i < _eventFormat.Length; i++)
+                {
+                    streamWriter.Write(",{0}", v4Event.GetProperty(_eventFormat[i]));
+                }
+                streamWriter.WriteLine();
+            }
+            streamWriter.Flush();
         }
 
         public string SectionName
@@ -87,7 +102,7 @@ namespace SGSDatatype
     }
 
     [DataContract(Name = "V4Event", Namespace = "SGSDatatype")]
-    class V4Event
+    public class V4Event
     {
         [DataMember]
         public SSAString Marked { get; set; }
