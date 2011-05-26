@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace SGSDatatype
 {
-    [DataContract(Name = "V4StylesPlus", Namespace = "SGSDatatype")]
+    [DataContract(Name = "SSAStyles", Namespace = "SGSDatatype")]
     [KnownType(typeof(Style))]
     public class SSAStyles : ISection
     {
@@ -104,6 +104,7 @@ namespace SGSDatatype
         }
     }
 
+    [DataContract(Name = "Style", Namespace = "SGSDatatype")]
     public class Style
     {
 
