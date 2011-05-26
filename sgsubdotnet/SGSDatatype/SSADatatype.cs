@@ -120,7 +120,7 @@ namespace SGSDatatype
     public class SSATime : ISSAField
     {
         [DataMember]
-        private double Value;
+        public double Value;
         public void FromString(string str)
         {
             char[] separator = { ':' };
@@ -168,7 +168,7 @@ namespace SGSDatatype
         {
             double dsec = Math.Truncate(Value);
             double ms = Value - dsec;
-            int sec = (int) dsec;
+            var sec = (int) dsec;
             int h = sec/3600;
             int mm = (sec%3600)/60;
             double ss = sec%60 + ms;
@@ -192,4 +192,6 @@ namespace SGSDatatype
             return Value.ToString("D4");
         }
     }
+
+    public enum SSAVersion{V4, V4Plus}
 }

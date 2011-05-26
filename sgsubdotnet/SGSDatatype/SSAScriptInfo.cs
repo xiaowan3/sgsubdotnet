@@ -2,31 +2,30 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace SGSDatatype
 {
     public class SSAScriptInfo : ISection
     {
+        [DataMember]
         private readonly List<string> _scriptInfoLines;
+        [DataMember]
+        public SSAVersion Version { get; set; }
         public void AddLine(string line)
         {
             _scriptInfoLines.Add(line);
         }
 
-        public void WriteTo(Stream stream)
+        public void WriteTo(StreamWriter streamWriter)
         {
-            WriteTo(stream,Encoding.Unicode);
-        }
-
-        public void WriteTo(Stream stream, Encoding encoding)
-        {
-            var writer = new StreamWriter(stream,encoding);
+            streamWriter.WriteLine("[Script Info]");
             foreach (string scriptInfoLine in _scriptInfoLines)
             {
-                writer.WriteLine(scriptInfoLine);
+                streamWriter.WriteLine(scriptInfoLine);
             }
-            writer.Flush();
+            streamWriter.Flush();
         }
 
         public string SectionName

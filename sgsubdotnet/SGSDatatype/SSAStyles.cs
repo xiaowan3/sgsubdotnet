@@ -18,6 +18,10 @@ namespace SGSDatatype
 
         [DataMember]
         public readonly BindingSource StyleList;
+
+        [DataMember]
+        public SSAVersion Version { get; set; }
+
         public SSAStyles()
         {
             StyleList = new BindingSource();
@@ -49,7 +53,7 @@ namespace SGSDatatype
                     {
                         var field = v4StyleP.GetProperty(_styleFormat[i]);
                         if (i < fields.Length && field != null)
-                            field.FromString(fields[i]);
+                            field.FromString(fields[i].Trim());
                     }
                     StyleList.Add(v4StyleP);
                     break;
@@ -59,19 +63,44 @@ namespace SGSDatatype
 
         }
 
-        public void WriteTo(Stream stream)
+        public void WriteTo(StreamWriter streamWriter)
         {
-            throw new NotImplementedException();
-        }
+            streamWriter.WriteLine(string.Format("[{0}]", SectionName));
+            streamWriter.Write("Format: ");
 
-        public void WriteTo(Stream stream, Encoding encoding)
-        {
-            throw new NotImplementedException();
+            for (int i = 0; i < _styleFormat.Length - 1; i++)
+            {
+                streamWriter.Write("{0}, ", _styleFormat[i]);
+            }
+            streamWriter.WriteLine(_styleFormat[_styleFormat.Length - 1]);
+            foreach (Style style in StyleList)
+            {
+                streamWriter.Write("Style: {0}", style.GetProperty(_styleFormat[0]));
+                for (int i = 1; i < _styleFormat.Length; i++)
+                {
+                    streamWriter.Write(",{0}", style.GetProperty(_styleFormat[i]));
+                }
+                streamWriter.WriteLine();
+            }
+            streamWriter.Flush();
         }
 
         public string SectionName
         {
-            get { return "v4+ Styles"; }
+            get
+            {
+                string ver = "";
+                switch (Version)
+                {
+                    case SSAVersion.V4:
+                        ver = "v4 Styles";
+                        break;
+                    case SSAVersion.V4Plus:
+                        ver = "v4+ Styles";
+                        break;
+                }
+                return ver;
+            }
         }
     }
 
@@ -85,7 +114,7 @@ namespace SGSDatatype
         public SSAString Fontname { get; set; }
 
         [DataMember]
-        public SSAInt Fontsize { get; set; }
+        public SSADecimal Fontsize { get; set; }
 
         [DataMember]
         public SSAColour PrimaryColour { get; set; }
@@ -94,13 +123,10 @@ namespace SGSDatatype
         public SSAColour SecondaryColour { get; set; }
 
         [DataMember]
-        public SSAColour OutlineColor { get; set; }
+        public SSAColour OutlineColour { get; set; }
 
-        public SSAColour TertiaryColour
-        {
-            get { return OutlineColor; }
-            set { OutlineColor = value; }
-        }
+        [DataMember]
+        public SSAColour TertiaryColour { get; set; }
 
         [DataMember]
         public SSAColour BackColour { get; set; }
@@ -124,7 +150,7 @@ namespace SGSDatatype
         public SSADecimal ScaleY { get; set; }
 
         [DataMember]
-        public SSAInt Spacing { get; set; }
+        public SSADecimal Spacing { get; set; }
 
         [DataMember]
         public SSADecimal Angle { get; set; }
@@ -133,10 +159,13 @@ namespace SGSDatatype
         public SSAInt BorderStyle { get; set; }
 
         [DataMember]
-        public SSAInt Outline { get; set; }
+        public SSADecimal Outline { get; set; }
 
         [DataMember]
-        public SSAInt Shadow { get; set; }
+        public SSADecimal Shadow { get; set; }
+
+        [DataMember]
+        public SSAInt Alignment { get; set; }
 
         [DataMember]
         public SSAInt MarginL { get; set; }
@@ -157,10 +186,10 @@ namespace SGSDatatype
         {
             Name = new SSAString();
             Fontname = new SSAString();
-            Fontsize = new SSAInt();
+            Fontsize = new SSADecimal();
             PrimaryColour = new SSAColour();
             SecondaryColour = new SSAColour();
-            OutlineColor = new SSAColour();
+            OutlineColour = new SSAColour();
             BackColour = new SSAColour();
             Bold = new SSABool();
             Italic = new SSABool();
@@ -168,11 +197,12 @@ namespace SGSDatatype
             Strikeout = new SSABool();
             ScaleX = new SSADecimal();
             ScaleY = new SSADecimal();
-            Spacing = new SSAInt();
+            Spacing = new SSADecimal();
             Angle = new SSADecimal();
             BorderStyle = new SSAInt();
-            Outline = new SSAInt();
-            Shadow = new SSAInt();
+            Outline = new SSADecimal();
+            Shadow = new SSADecimal();
+            Alignment = new SSAInt();
             MarginL = new SSAInt();
             MarginR = new SSAInt();
             MarginV = new SSAInt();
