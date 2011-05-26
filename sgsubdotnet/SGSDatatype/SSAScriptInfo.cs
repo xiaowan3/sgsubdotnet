@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SGSDatatype
 {
-    class ScriptInfo : ISection
+    public class SSAScriptInfo : ISection
     {
         private readonly List<string> _scriptInfoLines;
         public void AddLine(string line)
@@ -33,7 +33,7 @@ namespace SGSDatatype
         {
             get { return "Script Info"; }
         }
-        public ScriptInfo()
+        public SSAScriptInfo()
         {
             _scriptInfoLines = new List<string>();
         }

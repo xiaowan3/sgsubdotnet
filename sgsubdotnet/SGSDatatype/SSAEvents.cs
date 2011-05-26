@@ -11,7 +11,7 @@ namespace SGSDatatype
 {
     [DataContract(Name = "SSAEvents", Namespace = "SGSDatatype")]
     [KnownType(typeof(V4Event))]
-    public class SSAEvents
+    public class SSAEvents : ISection
     {
         [DataMember]
         private string[] _eventFormat;
@@ -44,12 +44,22 @@ namespace SGSDatatype
                 case "DIALOGUE":
                     if (_eventFormat == null) throw new Exception("Event Section Error");
                     var v4Event = new V4Event();
-                    var fields = line.Split(separator);
+                   // var fields = line.Split(separator);
                     for (var i = 0; i < _eventFormat.Length; i++)
                     {
+                        var comma = line.IndexOf(',');
+                        if (comma == -1 && _eventFormat[i].ToUpper() != "TEXT") return; //Last field in a line is not Text
                         var field = v4Event.GetProperty(_eventFormat[i]);
-                        if (i < fields.Length && field != null)
-                            field.FromString(fields[i]);
+                        if (_eventFormat[i].ToUpper() == "TEXT")
+                        {
+                            field = v4Event.GetProperty(_eventFormat[i]);
+                            if (field != null) field.FromString(line);
+                            break;
+                        }
+                        var f = line.Substring(0, comma);
+                        if (field != null) field.FromString(f);
+                        line = line.Substring(comma + 1);
+
                     }
                     EventList.Add(v4Event);
                     break;
@@ -70,8 +80,9 @@ namespace SGSDatatype
 
         public string SectionName
         {
-            get { return "v4 Styles"; }
+            get { return "Events"; }
         }
+
 
     }
 
@@ -80,6 +91,9 @@ namespace SGSDatatype
     {
         [DataMember]
         public SSAString Marked { get; set; }
+
+        [DataMember]
+        public SSAInt Layer { get; set; }
 
         [DataMember]
         public SSATime Start { get; set; }
@@ -92,6 +106,9 @@ namespace SGSDatatype
 
         [DataMember]
         public SSAString Name { get; set; }
+
+        [DataMember]
+        public SSAString Actor { get; set; }
 
         [DataMember]
         public SSAMargin MarginL { get; set; }
@@ -111,10 +128,12 @@ namespace SGSDatatype
         public V4Event()
         {
             Marked = new SSAString();
+            Layer = new SSAInt();
             Start = new SSATime();
             End = new SSATime();
             Style = new SSAString();
             Name = new SSAString();
+            Actor = new SSAString();
             MarginL = new SSAMargin();
             MarginR = new SSAMargin();
             MarginV = new SSAMargin();

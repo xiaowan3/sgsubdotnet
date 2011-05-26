@@ -54,14 +54,14 @@
     <Compile Include="SSAEvents.cs" />
     <Compile Include="Fonts.cs" />
     <Compile Include="Graphics.cs" />
-    <Compile Include="ScriptInfo.cs" />
+    <Compile Include="SSAIndex.cs" />
+    <Compile Include="SSAScriptInfo.cs" />
     <Compile Include="Section.cs" />
     <Compile Include="SGSAutoSave.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SGSConfig.cs" />
     <Compile Include="SubStationAlpha.cs" />
-    <Compile Include="V4Styles.cs" />
-    <Compile Include="V4StylesPlus.cs" />
+    <Compile Include="SSAStyles.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
