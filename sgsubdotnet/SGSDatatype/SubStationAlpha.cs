@@ -31,7 +31,7 @@ namespace SGSDatatype
         public static SubStationAlpha Load(string filename)
         {
             var stream = new FileStream(filename, FileMode.Open, FileAccess.Read);
-            var streamreader = new StreamReader(stream, true);
+            var streamreader = new StreamReader(stream,Encoding.Default, true);
             return Load(streamreader);
         }
 
@@ -106,13 +106,13 @@ namespace SGSDatatype
             var tfile = new FileStream(templateFile, FileMode.Open, FileAccess.Read);
             var ssa = FromXml(tfile);
             var fstream = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Read);
-            var reader = new StreamReader(fstream, true);
+            var reader = new StreamReader(fstream, Encoding.Default, true);
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
                 ssa.EventsSection.AppendNewLine(line);
             }
-            return null;
+            return ssa;
         }
         public void Save(string filename, Encoding encoding)
         {

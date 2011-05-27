@@ -103,17 +103,17 @@ namespace SGSControls
                 {
                     if (cell.Row < Rows.Count)
                     {
-                        AssItem item = (AssItem)(Rows[cell.Row].DataBoundItem);
+                        V4Event item = (V4Event)(Rows[cell.Row].DataBoundItem);
                         if (cell.Col == 0)
                         {
-                            if (undo != null) undo.EditMultiCells(cell.Row, cell.Col, item.StartTime);
-                            item.Start.TimeValue += timeOffset;
+                            if (undo != null) undo.EditMultiCells(cell.Row, cell.Col, item.Start.ToString());
+                            item.Start.Value += timeOffset;
                             edited = true;
                         }
                         if (cell.Col == 1)
                         {
-                            if (undo != null) undo.EditMultiCells(cell.Row, cell.Col, item.EndTime);
-                            item.End.TimeValue += timeOffset;
+                            if (undo != null) undo.EditMultiCells(cell.Row, cell.Col, item.End.ToString());
+                            item.End.Value += timeOffset;
                             edited = true;
                         }
                     }

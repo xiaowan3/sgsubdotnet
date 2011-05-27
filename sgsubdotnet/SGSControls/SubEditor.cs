@@ -568,9 +568,9 @@ namespace SGSControls
                         {
                             if (rowIndex > 0 && Config.AutoOverlapCorrection)
                             {
-                                var lastitem = ((AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
-                                if (lastitem.End.TimeValue - time > 0 &&
-                                    lastitem.End.TimeValue - time < Math.Max(Math.Abs(Config.StartOffset), Math.Abs(Config.EndOffset)))
+                                var lastitem = ((V4Event)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
+                                if (lastitem.End.Value - time > 0 &&
+                                    lastitem.End.Value - time < Math.Max(Math.Abs(Config.StartOffset), Math.Abs(Config.EndOffset)))
                                 {
                                     EditEndTime(rowIndex - 1, time - 0.01);
                                 }

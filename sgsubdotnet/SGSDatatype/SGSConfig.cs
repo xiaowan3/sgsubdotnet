@@ -113,12 +113,6 @@ namespace SGSDatatype
         [DataMember]
         public Keys SaveAss { get; set; }
         /// <summary>
-        /// 默认ass文件头
-        /// </summary>
-        [DataMember]
-        public AssHead DefaultAssHead { get; set; }
-
-        /// <summary>
         /// 默认格式定义行
         /// </summary>
         [DataMember]
@@ -162,6 +156,9 @@ namespace SGSDatatype
 
         [DataMember]
         public bool AutoOverlapCorrection { get; set; }
+
+        [DataMember]
+        public string TemplateName { get; set; }
 
         /// <summary>
         /// 自动保存周期 秒
