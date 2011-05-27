@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -64,6 +65,7 @@ namespace SGSDatatype
         }
     }
 
+    [TypeConverter(typeof(SSAStringConverter))]
     [DataContract(Name = "SSAString", Namespace = "SGSDatatype")]
     public class SSAString : ISSAField
     {
@@ -76,6 +78,10 @@ namespace SGSDatatype
         public override string ToString()
         {
             return Value;
+        }
+        public static implicit operator SSAString(string str)
+        {
+            return new SSAString { Value = str };
         }
     }
 
@@ -101,13 +107,13 @@ namespace SGSDatatype
     }
 
     [DataContract(Name = "SSADecimal", Namespace = "SGSDatatype")]
-    public class SSADecimal:ISSAField
+    public class SSADecimal : ISSAField
     {
         [DataMember]
         public decimal Value;
         public void FromString(string str)
         {
-            if(decimal.TryParse(str,out Value)) return;
+            if (decimal.TryParse(str, out Value)) return;
             Value = 0;
         }
         public override string ToString()
@@ -116,6 +122,7 @@ namespace SGSDatatype
         }
     }
 
+    [TypeConverter(typeof(SSATimeConverter))]
     [DataContract(Name = "SSATime", Namespace = "SGSDatatype")]
     public class SSATime : ISSAField
     {
@@ -168,17 +175,17 @@ namespace SGSDatatype
         {
             double dsec = Math.Truncate(Value);
             double ms = Value - dsec;
-            var sec = (int) dsec;
-            int h = sec/3600;
-            int mm = (sec%3600)/60;
-            double ss = sec%60 + ms;
+            var sec = (int)dsec;
+            int h = sec / 3600;
+            int mm = (sec % 3600) / 60;
+            double ss = sec % 60 + ms;
             return string.Format("{0}:{1}:{2}", h.ToString("D1"), mm.ToString("D2"), ss.ToString("00.00"));
 
         }
     }
 
     [DataContract(Name = "SSAMargin", Namespace = "SGSDatatype")]
-    public class SSAMargin:ISSAField
+    public class SSAMargin : ISSAField
     {
         [DataMember]
         public int Value;
@@ -191,7 +198,66 @@ namespace SGSDatatype
         {
             return Value.ToString("D4");
         }
+
     }
 
-    public enum SSAVersion{V4, V4Plus}
+    public enum SSAVersion { V4, V4Plus }
+
+
+    public class SSAStringConverter : TypeConverter
+    {
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            return (destinationType == typeof(string));
+        }
+
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return (sourceType == typeof(string));
+        }
+
+        public override object ConvertTo(ITypeDescriptorContext context,
+            CultureInfo culture, object value, Type
+        destinationType)
+        {
+            // convert from SSAString to string
+            return value.ToString();
+        }
+
+        public override object ConvertFrom(ITypeDescriptorContext context,
+            CultureInfo culture, object value)
+        {
+            // convert from string to SSAString
+            return new SSAString{Value = (string)value};
+        }
+    }
+
+    public class SSATimeConverter : TypeConverter
+    {
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            return (destinationType == typeof(string));
+        }
+
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return (sourceType == typeof(string));
+        }
+
+        public override object ConvertTo(ITypeDescriptorContext context,
+            CultureInfo culture, object value, Type destinationType)
+        {
+            // convert from SSATime to string
+            return value.ToString();
+        }
+
+        public override object ConvertFrom(ITypeDescriptorContext context,
+            CultureInfo culture, object value)
+        {
+            // convert from string to SSATime
+            var time = new SSATime();
+            time.FromString((string)value);
+            return time;
+        }
+    }
 }

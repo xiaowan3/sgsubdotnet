@@ -711,7 +711,7 @@ namespace sgsubtr
 
         private void OpenTxt(string filename)
         {
-            var templatefile = string.Format(@"{0}\config\{1}.template", _startUpPath, _config.TemplateName);
+            var templatefile = string.Format(@"{0}\templates\{1}.template", _appFolderPath, _config.TemplateName);
             if (!System.IO.File.Exists(templatefile)) templatefile = _startUpPath + @"\config\default.template";
             _currentSub = SubStationAlpha.CreateFromTxt(filename, templatefile);
             _subFilename = null;
