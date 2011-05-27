@@ -49,11 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SSADatatype.cs" />
-    <Compile Include="AssItem.cs" />
-    <Compile Include="AssSub.cs" />
     <Compile Include="SSAEvents.cs" />
-    <Compile Include="Fonts.cs" />
-    <Compile Include="Graphics.cs" />
+    <Compile Include="SSAFonts.cs" />
+    <Compile Include="SSAGraphics.cs" />
     <Compile Include="SSAIndex.cs" />
     <Compile Include="SSAScriptInfo.cs" />
     <Compile Include="Section.cs" />

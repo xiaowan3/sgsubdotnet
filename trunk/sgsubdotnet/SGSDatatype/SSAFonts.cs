@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SGSDatatype
 {
-    class Graphics
+    class SSAFonts
     {
     }
 }

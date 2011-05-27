@@ -112,47 +112,6 @@ namespace SGSDatatype
 
         [DataMember]
         public Keys SaveAss { get; set; }
-        /// <summary>
-        /// 默认格式定义行
-        /// </summary>
-        [DataMember]
-        public string DefaultFormatLine { get; set; }
-
-        [DataMember]
-        public string DefaultFormat { get; set; }
-
-        [DataMember]
-        public string DefaultMarked { get; set; }
-
-        [DataMember]
-        public string DefaultLayer { get; set; }
-
-        [DataMember]
-        public double DefaultStart { get; set; }
-
-        [DataMember]
-        public double DefaultEnd { get; set; }
-
-        [DataMember]
-        public string DefaultStyle { get; set; }
-
-        [DataMember]
-        public string DefaultName { get; set; }
-
-        [DataMember]
-        public string DefaultActor { get; set; }
-
-        [DataMember]
-        public int DefaultMarginL { get; set; }
-
-        [DataMember]
-        public int DefaultMarginR { get; set; }
-
-        [DataMember]
-        public int DefaultMarginV { get; set; }
-
-        [DataMember]
-        public string DefaultEffect { get; set; }
 
         [DataMember]
         public bool AutoOverlapCorrection { get; set; }
