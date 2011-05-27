@@ -9,7 +9,7 @@ namespace SGSDatatype
     /// 文件头
     /// </summary>
     [DataContract(Name = "AssHead", Namespace = "SGSDatatype")]
-    public class AssHead
+    class AssHead
     {
         [DataMember]
         public List<string> HeadLines = new List<string>();
@@ -35,7 +35,7 @@ namespace SGSDatatype
     /// 每一行字幕
     /// </summary>
     [DataContract(Name = "AssItem", Namespace = "SGSDatatype")]
-    public class AssItem
+    class AssItem
     {
         //Format: Marked, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         //全是ass中每一行的东西
@@ -139,7 +139,7 @@ namespace SGSDatatype
     /// 时间
     /// </summary>
     [DataContract(Name = "AssTime", Namespace = "SGSDatatype")]
-    public class AssTime
+    class AssTime
     {
         [DataMember]
         public double TimeValue { get; set; }
@@ -206,7 +206,7 @@ namespace SGSDatatype
     /// 解析每一行
     /// </summary>
     [DataContract(Name = "AssLineParser", Namespace = "SGSDatatype")]
-    public class AssLineParser
+    class AssLineParser
     {
         [DataMember]
         private string m_fmtline = "";

@@ -153,6 +153,9 @@
     <Content Include="config\defaultpic.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="config\default.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\gear.ico" />
     <Content Include="config\wide.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

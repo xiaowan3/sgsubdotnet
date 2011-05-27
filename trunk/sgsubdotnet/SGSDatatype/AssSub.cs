@@ -161,7 +161,7 @@ namespace SGSDatatype
 
         public void LoadText(StreamReader iStream, SGSConfig config)
         {
-            AssHead = config.DefaultAssHead;
+           // AssHead = config.DefaultAssHead;
             AssParser = new AssLineParser(config.DefaultFormatLine);
             SubItems.Clear();
             while (!iStream.EndOfStream)
