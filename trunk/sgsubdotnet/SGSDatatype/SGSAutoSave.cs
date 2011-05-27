@@ -42,11 +42,10 @@ namespace SGSDatatype
             PreviousSaveTime = DateTime.Now;
         }
 
-        public void SaveHistory(AssSub sub)
+        public void SaveHistory(SubStationAlpha sub)
         {
 
-            var savesub = new AutoSaveSubtitle(sub);
-            var autosaverec = new AutoSaveRecord(DateTime.Now, savesub);
+            var autosaverec = new AutoSaveRecord(DateTime.Now, sub);
             autosaverec.Save(string.Format("{0}\\{1}.save", _savePath, Guid.NewGuid()));
             PreviousSaveTime = DateTime.Now;
         }
@@ -56,11 +55,10 @@ namespace SGSDatatype
         /// </summary>
         /// <param name="sub">Subtitle</param>
         /// <param name="filename">Subtitle's file name</param>
-        public void SaveHistory(AssSub sub,string filename)
+        public void SaveHistory(SubStationAlpha sub, string filename)
         {
 
-            var savesub = new AutoSaveSubtitle(sub);
-            var autosaverec = new AutoSaveRecord(DateTime.Now, savesub, filename);
+            var autosaverec = new AutoSaveRecord(DateTime.Now, sub, filename);
             autosaverec.Save(string.Format("{0}\\{1}.save", _savePath, Guid.NewGuid()));
             PreviousSaveTime = DateTime.Now;
         }
@@ -135,14 +133,14 @@ namespace SGSDatatype
             fs.Close();
         }
 
-        public AutoSaveRecord(DateTime time, AutoSaveSubtitle sub)
+        public AutoSaveRecord(DateTime time, SubStationAlpha sub)
         {
             SaveDate = time;
             Subtitle = sub;
             Filename = "Unknown";
         }
 
-        public AutoSaveRecord(DateTime time, AutoSaveSubtitle sub,string filename)
+        public AutoSaveRecord(DateTime time, SubStationAlpha sub, string filename)
         {
             SaveDate = time;
             Subtitle = sub;
@@ -157,9 +155,9 @@ namespace SGSDatatype
         public string Filename;
         
         [DataMember]
-        public AutoSaveSubtitle Subtitle;
+        public SubStationAlpha Subtitle;
     }
-
+    /*
     [DataContract(Name = "SGSConfig", Namespace = "AutoSaveSubtitle")]
     public class AutoSaveSubtitle
     {
@@ -172,7 +170,7 @@ namespace SGSDatatype
         [DataMember]
         public List<AssItem> SubItems = new List<AssItem>();
 
-        public AutoSaveSubtitle(AssSub assSub)
+        public AutoSaveSubtitle(SubStationAlpha assSub)
         {
             AssHead = assSub.AssHead;
             AssParser = assSub.AssParser;
@@ -197,5 +195,5 @@ namespace SGSDatatype
             return sub;
 
         }
-    }
+    }*/
 }

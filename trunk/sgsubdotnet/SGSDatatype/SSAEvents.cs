@@ -29,10 +29,15 @@ namespace SGSDatatype
             _eventFormat = null;
         }
 
-        public void NewLine(string text)
+        public void AppendNewLine(string text)
         {
             var v4Event = new V4Event {Style = {Value = DefaultStyleName}, Text = {Value = text}};
             EventList.Add(v4Event);
+        }
+
+        public V4Event NewLine(string text)
+        {
+            return new V4Event { Style = { Value = DefaultStyleName }, Text = { Value = text } };
         }
 
         public void ParseLine(string line)
@@ -104,6 +109,9 @@ namespace SGSDatatype
         {
             get { return "Events"; }
         }
+
+
+
 
 
     }
@@ -178,7 +186,25 @@ namespace SGSDatatype
             var propertyInfo = typeof(V4Event).GetProperty(propertyName,
                                                             BindingFlags.Public | BindingFlags.IgnoreCase |
                                                             BindingFlags.Instance);
-            return propertyInfo != null ? (ISSAField) propertyInfo.GetValue(this, null) : null;
+            return propertyInfo != null ? (ISSAField)propertyInfo.GetValue(this, null) : null;
+        }
+        public V4Event Clone()
+        {
+            return new V4Event
+                       {
+                           Actor = new SSAString { Value = Actor.Value },
+                           Effect = new SSAString { Value = Effect.Value },
+                           End = new SSATime { Value = End.Value },
+                           Layer = new SSAInt { Value = Layer.Value },
+                           MarginL = new SSAMargin { Value = MarginL.Value },
+                           MarginR = new SSAMargin { Value = MarginR.Value },
+                           MarginV = new SSAMargin { Value = MarginV.Value },
+                           Marked = new SSAString { Value = Marked.Value },
+                           Name = new SSAString { Value = Name.Value },
+                           Start = new SSATime { Value = Start.Value },
+                           Style = new SSAString { Value = Style.Value }
+
+                       };
         }
     }
 }

@@ -18,7 +18,7 @@ namespace SGSControls
         #endregion
         string _mediaFile;
         private DogEar _dogEar;
-        public AssSub CurrentSub;
+        public SubStationAlpha CurrentSub;
         public int CurrentIndex { get; set; }
         public string MediaFile
         {
@@ -39,10 +39,11 @@ namespace SGSControls
 
         private void btnHumanear_Click(object sender, EventArgs e)
         {
-            if (CurrentSub != null && _dogEar != null && CurrentIndex >= 0 && CurrentIndex < CurrentSub.SubItems.Count)
+            if (CurrentSub != null && _dogEar != null && CurrentIndex >= 0 && 
+                CurrentIndex < CurrentSub.EventsSection.EventList.Count)
             {
-                var item = (AssItem)(CurrentSub.SubItems[CurrentIndex]);
-                double duration = item.End.TimeValue - item.Start.TimeValue;
+                var item = (V4Event)(CurrentSub.EventsSection.EventList[CurrentIndex]);
+                double duration = item.End.Value - item.Start.Value;
                 if (duration > 30)
                 {
                     MessageBox.Show(@"囧，句子太长了，我会傲娇的。");
@@ -50,7 +51,7 @@ namespace SGSControls
                 else if (duration > 0.1)
                 {
                     if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
-                    _dogEar.EarAClip(item.Start.TimeValue, duration, EarType.Human);
+                    _dogEar.EarAClip(item.Start.Value, duration, EarType.Human);
                 }
             }
             if (ButtonClicked != null) ButtonClicked(this, new EventArgs());
@@ -58,10 +59,11 @@ namespace SGSControls
 
         private void btnDogear_Click(object sender, EventArgs e)
         {
-            if (CurrentSub != null && _dogEar != null && CurrentIndex >= 0 && CurrentIndex < CurrentSub.SubItems.Count)
+            if (CurrentSub != null && _dogEar != null && CurrentIndex >= 0 && 
+                CurrentIndex < CurrentSub.EventsSection.EventList.Count)
             {
-                var item = (AssItem)(CurrentSub.SubItems[CurrentIndex]);
-                double duration = item.End.TimeValue - item.Start.TimeValue;
+                var item = (V4Event)(CurrentSub.EventsSection.EventList[CurrentIndex]);
+                double duration = item.End.Value - item.Start.Value;
                 if (duration > 30)
                 {
                     MessageBox.Show(@"囧，句子太长了，我会傲娇的。");
@@ -69,7 +71,7 @@ namespace SGSControls
                 if (duration > 0.1)
                 {
                     if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
-                    _dogEar.EarAClip(item.Start.TimeValue, duration, EarType.Cat);
+                    _dogEar.EarAClip(item.Start.Value, duration, EarType.Cat);
                 }
             }
             if (ButtonClicked != null) ButtonClicked(this, new EventArgs());
@@ -77,13 +79,13 @@ namespace SGSControls
 
         private void btnRabbitear_Click(object sender, EventArgs e)
         {
-            if (CurrentSub != null && _dogEar != null && CurrentIndex >= 0 && CurrentIndex < CurrentSub.SubItems.Count)
+            if (CurrentSub != null && _dogEar != null && CurrentIndex >= 0 && CurrentIndex < CurrentSub.EventsSection.EventList.Count)
             {
-                var item = (AssItem)(CurrentSub.SubItems[CurrentIndex]);
-                if (item.End.TimeValue - item.Start.TimeValue > 0.1)
+                var item = (V4Event)(CurrentSub.EventsSection.EventList[CurrentIndex]);
+                if (item.End.Value - item.Start.Value > 0.1)
                 {
                     if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
-                    _dogEar.EarAClip(item.Start.TimeValue, item.End.TimeValue - item.Start.TimeValue, EarType.Rabbit);
+                    _dogEar.EarAClip(item.Start.Value, item.End.Value - item.Start.Value, EarType.Rabbit);
                 }
             }
             if (ButtonClicked != null) ButtonClicked(this, new EventArgs());

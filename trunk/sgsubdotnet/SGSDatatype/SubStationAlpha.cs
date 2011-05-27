@@ -110,7 +110,7 @@ namespace SGSDatatype
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
-                ssa.EventsSection.NewLine(line);
+                ssa.EventsSection.AppendNewLine(line);
             }
             return null;
         }
@@ -138,6 +138,11 @@ namespace SGSDatatype
             var ser = new DataContractSerializer(typeof(SubStationAlpha));
             ser.WriteObject(filestream, this);
             filestream.Flush();
+        }
+
+        public V4Event CreateEmptyEvent(string text)
+        {
+            return EventsSection.NewLine(text);
         }
     }
 }

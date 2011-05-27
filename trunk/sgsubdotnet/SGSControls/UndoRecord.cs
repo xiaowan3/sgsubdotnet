@@ -81,7 +81,7 @@ namespace SGSControls
         /// Undo
         /// </summary>
         /// <param name="sub"></param>
-        public void Undo(AssSub sub)
+        public void Undo(SubStationAlpha sub)
         {
             if (_undo.Count > 0)
             {
@@ -92,17 +92,17 @@ namespace SGSControls
 
                         foreach (UndoCell cell in undo.Cells)
                         {
-                            var item = (AssItem)sub.SubItems[cell.Row];
+                            var item = (V4Event)sub.EventsSection.EventList[cell.Row];
                             switch (cell.Col)
                             {
                                 case 0:
-                                    item.StartTime = (string)cell.Content;
+                                    item.Start.FromString((string) cell.Content);
                                     break;
                                 case 1:
-                                    item.EndTime = (string)cell.Content;
+                                    item.End.FromString((string) cell.Content);
                                     break;
                                 case 2:
-                                    item.Text = (string)cell.Content;
+                                    item.Text.FromString((string) cell.Content);
                                     break;
                                 default:
                                     break;
@@ -111,12 +111,12 @@ namespace SGSControls
                         break;
                     case EditType.Delete://撤削删除操作
                         {
-                            var item = (AssItem)undo.Cells[0].Content;
-                            sub.SubItems.Insert(undo.Cells[0].Row,item);
+                            var item = (V4Event)undo.Cells[0].Content;
+                            sub.EventsSection.EventList.Insert(undo.Cells[0].Row,item);
                         }
                         break;
                     case EditType.Insert://撤削插入操作
-                        sub.SubItems.RemoveAt(undo.Cells[0].Row);
+                        sub.EventsSection.EventList.RemoveAt(undo.Cells[0].Row);
                         break;
                 }
                 _undo.RemoveAt(_undo.Count - 1);

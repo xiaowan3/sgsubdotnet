@@ -13,7 +13,7 @@ namespace sgsubtr
     public partial class AutoSaveForm : Form
     {
         private readonly SGSAutoSave _autosave;
-        public AssSub Sub;
+        public SubStationAlpha Sub;
         public AutoSaveForm(SGSAutoSave sgsAutoSave)
         {
             InitializeComponent();
@@ -29,7 +29,7 @@ namespace sgsubtr
             {
                 var savefilename = ((SaveFileIndex) dataGridView1.CurrentRow.DataBoundItem).SaveFile;
                 var sub = AutoSaveRecord.Fromfile(savefilename);
-                Sub = sub.Subtitle.GetSub();
+                Sub = sub.Subtitle;
                 DialogResult = DialogResult.OK;
                 Close();
             }

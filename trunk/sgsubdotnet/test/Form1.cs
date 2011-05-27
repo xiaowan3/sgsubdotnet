@@ -45,7 +45,7 @@ namespace test
 
         private void button3_Click(object sender, EventArgs e)
         {
-            _sub.EventsSection.NewLine("testNewline");
+            _sub.EventsSection.AppendNewLine("testNewline");
         }
 
         private void button4_Click(object sender, EventArgs e)

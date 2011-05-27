@@ -17,10 +17,10 @@ namespace SGSControls
             dataGridSubtitles.AutoGenerateColumns = false;
             dataGridSubtitles.AutoSize = false;
 
-            var column1 = new DataGridViewTextBoxColumn {HeaderText = @"Begin Time", DataPropertyName = "StartTime"};
+            var column1 = new DataGridViewTextBoxColumn { HeaderText = @"Start Time", DataPropertyName = "Start" };
             dataGridSubtitles.Columns.Add(column1);
 
-            var column2 = new DataGridViewTextBoxColumn {HeaderText = @"End Time", DataPropertyName = "EndTime"};
+            var column2 = new DataGridViewTextBoxColumn {HeaderText = @"End Time", DataPropertyName = "End"};
             dataGridSubtitles.Columns.Add(column2);
 
             var column3 = new DataGridViewTextBoxColumn
@@ -39,31 +39,31 @@ namespace SGSControls
         /// <summary>
         /// 字幕内容
         /// </summary>
-        private AssSub _currentSub = new AssSub();
-
+        private SubStationAlpha _currentSub = new SubStationAlpha();
+        private SSAIndex _subIndex = new SSAIndex();
         private bool _subLoaded;
         private double _videoLength;
         private readonly UndoRecord _undoRec = new UndoRecord();
         private readonly SelectCells _selectCells = new SelectCells();
         #endregion
 
-        public AssSub CurrentSub
+        public SubStationAlpha CurrentSub
         {
             set
             {
                 _currentSub = value;
-                if (value != null && value.SubItems.Count > 0)
+                if (value != null && value.EventsSection.EventList.Count > 0)
                 {
-                    dataGridSubtitles.DataSource = value.SubItems;
+                    dataGridSubtitles.DataSource = value.EventsSection.EventList;
                     dataGridSubtitles.AllowUserToAddRows = true;
                     _subLoaded = true;
-                    _currentSub.CreateIndex(_videoLength);
+                    _subIndex.Subtitle = value;
+                    _subIndex.CreateIndex(_videoLength);
                     Edited = false;
                 }
                 else
                 {
                     dataGridSubtitles.AllowUserToAddRows = false;
-
                     _subLoaded = false;
                     Edited = false;
                 }
@@ -82,7 +82,7 @@ namespace SGSControls
             set
             {
                 _videoLength = value;
-                if (_subLoaded) _currentSub.CreateIndex(_videoLength);
+                if (_subLoaded) _subIndex.CreateIndex(_videoLength);
             }
 
         }
@@ -113,16 +113,16 @@ namespace SGSControls
         #endregion
 
         #region Methods
-        public void EditBeginTime(int rowIndex, double value)
+        public void EditStartTime(int rowIndex, double value)
         {
             int lastrowindex = dataGridSubtitles.RowCount - 2;
             if (rowIndex >= 0 && rowIndex <= lastrowindex)
             {
-                var item = (AssItem)(dataGridSubtitles.Rows[rowIndex].DataBoundItem);
-                _undoRec.Edit(rowIndex, 0, item.StartTime);//记录Undo
-                double os = item.Start.TimeValue;
-                item.Start.TimeValue = value > 0 ? value : 0;
-                _currentSub.ItemEdited(item, os, item.End.TimeValue);
+                var item = (V4Event)(dataGridSubtitles.Rows[rowIndex].DataBoundItem);
+                _undoRec.Edit(rowIndex, 0, item.Start.ToString());//记录Undo
+                double os = item.Start.Value;
+                item.Start.Value = value > 0 ? value : 0;
+                _subIndex.ItemEdited(item, os, item.End.Value);
                 dataGridSubtitles.UpdateCellValue(0, rowIndex);
                 subtitleEdited();
             }
@@ -133,11 +133,11 @@ namespace SGSControls
             int lastrowindex = dataGridSubtitles.RowCount - 2;
             if (rowIndex >= 0 && rowIndex <= lastrowindex)
             {
-                var item = (AssItem)(dataGridSubtitles.Rows[rowIndex].DataBoundItem);
-                _undoRec.Edit(rowIndex, 1, item.EndTime);//记录Undo
-                double oe = item.End.TimeValue;
-                item.End.TimeValue = value > 0 ? value : 0;
-                _currentSub.ItemEdited(item, item.Start.TimeValue, oe);
+                var item = (V4Event)(dataGridSubtitles.Rows[rowIndex].DataBoundItem);
+                _undoRec.Edit(rowIndex, 1, item.End.ToString());//记录Undo
+                double oe = item.End.Value;
+                item.End.Value = value > 0 ? value : 0;
+                _subIndex.ItemEdited(item, item.Start.Value, oe);
                 dataGridSubtitles.UpdateCellValue(1, rowIndex);
                 subtitleEdited();
             }
@@ -148,22 +148,22 @@ namespace SGSControls
             int lastrowindex = dataGridSubtitles.RowCount - 2;
             if (rowIndex >= 0 && rowIndex <= lastrowindex)
             {
-                var item = (AssItem)(dataGridSubtitles.Rows[rowIndex].DataBoundItem);
+                var item = (V4Event)(dataGridSubtitles.Rows[rowIndex].DataBoundItem);
                 if (colIndex == 0)
                 {
-                    _undoRec.Edit(rowIndex, 0, item.StartTime);//记录Undo
-                    double os = item.Start.TimeValue;
-                    item.Start.TimeValue = value > 0 ? value : 0;
-                    _currentSub.ItemEdited(item, os, item.End.TimeValue);
+                    _undoRec.Edit(rowIndex, 0, item.Start.ToString());//记录Undo
+                    double os = item.Start.Value;
+                    item.Start.Value = value > 0 ? value : 0;
+                    _subIndex.ItemEdited(item, os, item.End.Value);
                     dataGridSubtitles.UpdateCellValue(0, rowIndex);
                     subtitleEdited();
                 }
                 else if (colIndex == 1)
                 {
-                    _undoRec.Edit(rowIndex, 1, item.EndTime);//记录Undo
-                    double oe = item.End.TimeValue;
-                    item.End.TimeValue = value > 0 ? value : 0;
-                    _currentSub.ItemEdited(item, item.Start.TimeValue, oe);
+                    _undoRec.Edit(rowIndex, 1, item.End.ToString());//记录Undo
+                    double oe = item.End.Value;
+                    item.End.Value = value > 0 ? value : 0;
+                    _subIndex.ItemEdited(item, item.Start.Value, oe);
                     dataGridSubtitles.UpdateCellValue(1, rowIndex);
                     subtitleEdited();
                 }
@@ -173,29 +173,26 @@ namespace SGSControls
         public void DisplayTime(double time)
         {
             if (_subLoaded)
-                labelSub.Text = _currentSub.GetSubtitle(time);
+                labelSub.Text = _subIndex.GetSubtitle(time);
         }
         #endregion
 
         private void DeleteRow(DataGridViewRow row)
         {
             _undoRec.DeleteRow(row.Index, row);//为Undo记录删除操作
-            var i = (AssItem)(row.DataBoundItem);
-            _currentSub.SubItems.Remove(i);
+            var i = (V4Event)(row.DataBoundItem);
+            _currentSub.EventsSection.EventList.Remove(i);
             _selectCells.Reset();//清空标记的单元格
             dataGridSubtitles.Refresh();
-            _currentSub.RefreshIndex();
+            _subIndex.RefreshIndex();
             subtitleEdited();
         }
 
         private void InsertNewRow(int index, DataGridViewRow currentRow)
         {
-            var i = ((AssItem)(currentRow.DataBoundItem)).Clone();
-            i.Text = "";
-            i.Start.TimeValue = 0;
-            i.End.TimeValue = 0;
-            _currentSub.SubItems.Insert(index, i);
-            _currentSub.RefreshIndex();
+            V4Event i = _currentSub.CreateEmptyEvent("");//((V4Event)(currentRow.DataBoundItem)).Clone();
+            _currentSub.EventsSection.EventList.Insert(index, i);
+            _subIndex.RefreshIndex();
             _undoRec.InsertRow(index);//为Undo记录插入操作
             _selectCells.Reset(); //清空标记的单元格
             dataGridSubtitles.Refresh();
@@ -205,12 +202,12 @@ namespace SGSControls
         #region Event handlers
         private void tsbtnJumpto_Click(object sender, EventArgs e)
         {
-            AssItem item;
+            V4Event item;
             if (dataGridSubtitles.CurrentRow != null && _subLoaded
-                && (item = (AssItem)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
+                && (item = (V4Event)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
                 )
             {
-                double time = item.Start.TimeValue;
+                double time = item.Start.Value;
                 var seekevent = new SeekEventArgs(SeekDir.Begin, time);
                 if (Seek != null) Seek(this, seekevent);
             }
@@ -219,17 +216,17 @@ namespace SGSControls
         private void tsbtnDuplicate_Click(object sender, EventArgs e)
         {
             dataGridSubtitles.EndEdit();
-            AssItem item;
+            V4Event item;
             if (dataGridSubtitles.CurrentRow != null && _subLoaded
-                && (item = (AssItem)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
+                && (item = (V4Event)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
                 )
             {
-                AssItem i = item.Clone();
-                _currentSub.SubItems.Insert(dataGridSubtitles.CurrentRow.Index + 1, i);
+                V4Event i = item.Clone();
+                _currentSub.EventsSection.EventList.Insert(dataGridSubtitles.CurrentRow.Index + 1, i);
                 _undoRec.InsertRow(dataGridSubtitles.CurrentRow.Index + 1);//为Undo记录插入操作
                 _selectCells.Reset();//清空标记的单元格
                 dataGridSubtitles.Refresh();
-                _currentSub.RefreshIndex();
+                _subIndex.RefreshIndex();
                 subtitleEdited();
             }
         }
@@ -277,7 +274,7 @@ namespace SGSControls
             _oldString = dataGridSubtitles.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
             if (e.ColumnIndex != 2)
             {
-                var item = (AssItem)dataGridSubtitles.Rows[e.RowIndex].DataBoundItem;
+                var item = (V4Event)dataGridSubtitles.Rows[e.RowIndex].DataBoundItem;
                 if (item == null)
                 {
                     _cancelEdit = true;
@@ -285,8 +282,8 @@ namespace SGSControls
                 }
                 else
                 {
-                    _oldS = item.Start.TimeValue;
-                    _oldE = item.End.TimeValue;
+                    _oldS = item.Start.Value;
+                    _oldE = item.End.Value;
                 }
             }
         }
@@ -304,8 +301,8 @@ namespace SGSControls
                 }
                 if (e.ColumnIndex != 2)
                 {
-                    var item = (AssItem)dataGridSubtitles.Rows[e.RowIndex].DataBoundItem;
-                    _currentSub.ItemEdited(item, _oldS, _oldE);
+                    var item = (V4Event)dataGridSubtitles.Rows[e.RowIndex].DataBoundItem;
+                    _subIndex.ItemEdited(item, _oldS, _oldE);
                 }
             }
 
@@ -318,7 +315,7 @@ namespace SGSControls
             _oldS = 0;
             _oldE = 0;
             _oldString = "";
-            _currentSub.RefreshIndex();
+            _subIndex.RefreshIndex();
             subtitleEdited();
 
         }
@@ -329,7 +326,7 @@ namespace SGSControls
             _selectCells.Reset();
             _undoRec.Undo(_currentSub);
             dataGridSubtitles.Refresh();
-            _currentSub.RefreshIndex();
+            _subIndex.RefreshIndex();
             subtitleEdited();
         }
 
@@ -346,24 +343,24 @@ namespace SGSControls
                 var itemStatus = new TimeCheckStatus[rowCount];
                 for (int i = 0; i < rowCount - 1; i++)
                 {
-                    var itema = (AssItem)(dataGridSubtitles.Rows[i].DataBoundItem);
-                    if (itema.Start.TimeValue > itema.End.TimeValue)
+                    var itema = (V4Event)(dataGridSubtitles.Rows[i].DataBoundItem);
+                    if (itema.Start.Value > itema.End.Value)
                     {
                         itemStatus[i] = TimeCheckStatus.Error;
                         continue;
                     }
                     for (int j = i + 1; j < rowCount; j++)
                     {
-                        var itemb = (AssItem)(dataGridSubtitles.Rows[j].DataBoundItem);
-                        if (itemb.Start.TimeValue > itemb.End.TimeValue)
+                        var itemb = (V4Event)(dataGridSubtitles.Rows[j].DataBoundItem);
+                        if (itemb.Start.Value > itemb.End.Value)
                         {
                             itemStatus[j] = TimeCheckStatus.Error;
                             continue;
                         }
                         if ((
-                            itema.End.TimeValue >= itemb.Start.TimeValue && itema.Start.TimeValue <= itemb.Start.TimeValue ||
-                            itemb.End.TimeValue >= itema.Start.TimeValue && itemb.Start.TimeValue <= itema.Start.TimeValue) &&
-                            itema.End.TimeValue - itema.Start.TimeValue > 0 && itemb.End.TimeValue - itemb.Start.TimeValue > 0
+                            itema.End.Value >= itemb.Start.Value && itema.Start.Value <= itemb.Start.Value ||
+                            itemb.End.Value >= itema.Start.Value && itemb.Start.Value <= itema.Start.Value) &&
+                            itema.End.Value - itema.Start.Value > 0 && itemb.End.Value - itemb.Start.Value > 0
                         )
                         {
                             itemStatus[i] = TimeCheckStatus.Overlap;
@@ -480,14 +477,14 @@ namespace SGSControls
                     {
                         if (rowIndex > 0 && Config.AutoOverlapCorrection)
                         {
-                            AssItem lastitem = ((AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
-                            if (lastitem.End.TimeValue - time > 0 &&
-                                lastitem.End.TimeValue - time < Math.Max(Math.Abs(Config.StartOffset), Math.Abs(Config.EndOffset)))
+                            V4Event lastitem = ((V4Event)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
+                            if (lastitem.End.Value - time > 0 &&
+                                lastitem.End.Value - time < Math.Max(Math.Abs(Config.StartOffset), Math.Abs(Config.EndOffset)))
                             {
                                 EditEndTime(rowIndex - 1, time - 0.01);
                             }
                         }
-                        EditBeginTime(rowIndex, time);
+                        EditStartTime(rowIndex, time);
                         dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex].Cells[1];
                     }
                 }
@@ -504,14 +501,14 @@ namespace SGSControls
                     {
                         if (rowIndex > 0 && Config.AutoOverlapCorrection)
                         {
-                            AssItem lastitem = ((AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
-                            if (lastitem.End.TimeValue - time > 0 &&
-                                lastitem.End.TimeValue - time < Math.Max(Math.Abs(Config.StartOffset), Math.Abs(Config.EndOffset)))
+                            V4Event lastitem = ((V4Event)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
+                            if (lastitem.End.Value - time > 0 &&
+                                lastitem.End.Value - time < Math.Max(Math.Abs(Config.StartOffset), Math.Abs(Config.EndOffset)))
                             {
                                 EditEndTime(rowIndex - 1, time - 0.01);
                             }
                         }
-                        EditBeginTime(rowIndex, time);
+                        EditStartTime(rowIndex, time);
                         dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex].Cells[1];
                     }
                 }
@@ -547,7 +544,7 @@ namespace SGSControls
                         EditEndTime(rowIndex, time - 0.01);
                         if (rowIndex < lastrowindex)
                         {
-                            EditBeginTime(rowIndex + 1, time);
+                            EditStartTime(rowIndex + 1, time);
                             dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex + 1].Cells[1];
                         }
                         if (rowIndex - dataGridSubtitles.FirstDisplayedScrollingRowIndex > Config.SelectRowOffset)
@@ -578,7 +575,7 @@ namespace SGSControls
                                     EditEndTime(rowIndex - 1, time - 0.01);
                                 }
                             }
-                            EditBeginTime(rowIndex, time);
+                            EditStartTime(rowIndex, time);
                             dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex].Cells[1];
                         }
                         else if (colIndex == 1)//插入结束时间
@@ -611,12 +608,12 @@ namespace SGSControls
             }
             else if (e.KeyCode == Config.GotoCurrent && !_mKeyhold[(int)e.KeyCode])
             {
-                AssItem item;
+                V4Event item;
                 if (dataGridSubtitles.CurrentRow != null && _subLoaded
-                    && (item = (AssItem)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
+                    && (item = (V4Event)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
                     )
                 {
-                    double time = item.Start.TimeValue;
+                    double time = item.Start.Value;
                     var seekevent = new SeekEventArgs(SeekDir.Begin, time);
                     if (Seek != null) Seek(this, seekevent);
                 }
@@ -625,8 +622,8 @@ namespace SGSControls
             {
                 if (rowIndex > 0 && rowIndex <= lastrowindex)
                 {
-                    var item = ((AssItem)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
-                    var seekevent = new SeekEventArgs(SeekDir.Begin, item.Start.TimeValue);
+                    var item = ((V4Event)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
+                    var seekevent = new SeekEventArgs(SeekDir.Begin, item.Start.Value);
                     if (Seek != null) Seek(this, seekevent);
                 }
             }
@@ -705,7 +702,7 @@ namespace SGSControls
                     }
                     _undoRec.EndEditMultiCells();//结束Undo记录
                     subtitleEdited();
-                    _currentSub.RefreshIndex();
+                    _subIndex.RefreshIndex();
                 }
             }
 

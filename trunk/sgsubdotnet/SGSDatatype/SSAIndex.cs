@@ -79,6 +79,8 @@ namespace SGSDatatype
                 }
             }
         }
+
+
         public string GetSubtitle(double time)
         {
             string str = "";
