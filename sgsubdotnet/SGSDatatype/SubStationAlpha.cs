@@ -101,8 +101,17 @@ namespace SGSDatatype
             return ssa;
         }
 
-        public static SubStationAlpha CreateFromTxt(string filename, SSAStyles styles)
+        public static SubStationAlpha CreateFromTxt(string filename, string templateFile)
         {
+            var tfile = new FileStream(templateFile, FileMode.Open, FileAccess.Read);
+            var ssa = FromXml(tfile);
+            var fstream = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Read);
+            var reader = new StreamReader(fstream, true);
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                ssa.EventsSection.NewLine(line);
+            }
             return null;
         }
         public void Save(string filename, Encoding encoding)
