@@ -10,7 +10,7 @@ namespace SGSControls
             InitializeComponent();
         }
         #region Private members
-        private AssSub _currentSub;
+        private SubStationAlpha _currentSub;
         private bool _subLoaded;
         private int _currentRow = -1;
         #endregion
@@ -45,13 +45,13 @@ namespace SGSControls
         public event EventHandler<PlayerControlEventArgs> PlayerControl = null;
         #endregion
         #region Public Properties
-        public AssSub CurrentSub
+        public SubStationAlpha CurrentSub
         {
             get { return _currentSub; }
             set
             {
                 _currentSub = value;
-                if (value != null && value.SubItems.Count > 0)
+                if (value != null && value.EventsSection.EventList.Count > 0)
                 {
                     _subLoaded = true;
 
@@ -86,16 +86,16 @@ namespace SGSControls
         {
             if (_subLoaded)
             {
-                AssItem item;
-                var time = new AssTime();
+                V4Event item;
+                var time = new SSATime();
                 if (_currentRow > 0)
                 {
-                    item = (AssItem)(_currentSub.SubItems[_currentRow - 1]);
-                    time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
-                    labelLastLine.Text = item.Text;
-                    labelLastDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
-                    waveScope.LastStart = item.Start.TimeValue;
-                    waveScope.LastEnd = item.End.TimeValue;
+                    item = (V4Event)(_currentSub.EventsSection.EventList[_currentRow - 1]);
+                    time.Value = item.End.Value - item.Start.Value;
+                    labelLastLine.Text = item.Text.ToString();
+                    labelLastDuration.Text = (time.Value >= 0) ? time.ToString() : "?:??:??.??";
+                    waveScope.LastStart = item.Start.Value;
+                    waveScope.LastEnd = item.End.Value;
                 }
                 else
                 {
@@ -104,14 +104,14 @@ namespace SGSControls
                     waveScope.LastStart = 0;
                     waveScope.LastEnd = 0;
                 }
-                if (_currentRow >= 0 && _currentRow < _currentSub.SubItems.Count)
+                if (_currentRow >= 0 && _currentRow < _currentSub.EventsSection.EventList.Count)
                 {
-                    item = (AssItem)(_currentSub.SubItems[_currentRow]);
-                    time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
-                    labelThisLine.Text = item.Text;
-                    labelThisDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
-                    waveScope.Start = item.Start.TimeValue;
-                    waveScope.End = item.End.TimeValue;
+                    item = (V4Event)(_currentSub.EventsSection.EventList[_currentRow]);
+                    time.Value = item.End.Value - item.Start.Value;
+                    labelThisLine.Text = item.Text.ToString();
+                    labelThisDuration.Text = (time.Value >= 0) ? time.ToString() : "?:??:??.??";
+                    waveScope.Start = item.Start.Value;
+                    waveScope.End = item.End.Value;
                 }
                 else
                 {
@@ -120,12 +120,12 @@ namespace SGSControls
                     waveScope.Start = 0;
                     waveScope.End = 0;
                 }
-                if (_currentRow < _currentSub.SubItems.Count - 1)
+                if (_currentRow < _currentSub.EventsSection.EventList.Count - 1)
                 {
-                    item = (AssItem)(_currentSub.SubItems[_currentRow + 1]);
-                    time.TimeValue = item.End.TimeValue - item.Start.TimeValue;
-                    labelNextLine.Text = item.Text;
-                    labelNextDuration.Text = (time.TimeValue >= 0) ? time.ToString() : "?:??:??.??";
+                    item = (V4Event)(_currentSub.EventsSection.EventList[_currentRow + 1]);
+                    time.Value = item.End.Value - item.Start.Value;
+                    labelNextLine.Text = item.Text.ToString();
+                    labelNextDuration.Text = (time.Value >= 0) ? time.ToString() : "?:??:??.??";
                 }
                 else
                 {

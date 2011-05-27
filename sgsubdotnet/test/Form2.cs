@@ -40,7 +40,7 @@ namespace test
         }
 
         private SGSConfig _config;
-        private AssSub _sub;
+        private SubStationAlpha _sub;
         private string _filename;
         
 
@@ -59,9 +59,7 @@ namespace test
             var openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                var sub = new AssSub();
-                sub.LoadText(openFileDialog.FileName, _config);
-                _sub = sub;
+
             }
         }
         SGSAutoSave _autosave = new SGSAutoSave(@"E:\test\testsave");

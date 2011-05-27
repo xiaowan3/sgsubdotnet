@@ -518,7 +518,7 @@ namespace sgsubtr
                 switch (e.Button)
                 {
                     case MouseButtons.Left:
-                        subEditor.EditBeginTime(subEditor.CurrentRowIndex, e.Time);
+                        subEditor.EditStartTime(subEditor.CurrentRowIndex, e.Time);
                         break;
                     case MouseButtons.Right:
                         subEditor.EditEndTime(subEditor.CurrentRowIndex, e.Time);
@@ -554,7 +554,7 @@ namespace sgsubtr
 
         #region Private Members
 
-        private AssSub _currentSub;
+        private SubStationAlpha _currentSub;
         private string _subFilename;
         private SGSConfig _config;
         private SGSAutoSave _autosave;
@@ -588,7 +588,7 @@ namespace sgsubtr
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 _subFilename = dlg.FileName;
-                _currentSub.WriteAss(_subFilename, Encoding.Unicode);
+                _currentSub.Save(_subFilename, Encoding.Unicode);
                 subEditor.Edited = false;
             }
 
@@ -703,7 +703,7 @@ namespace sgsubtr
                 else
                     return false;
             }
-            _currentSub.WriteAss(_subFilename, Encoding.Unicode);
+            _currentSub.Save(_subFilename, Encoding.Unicode);
             subEditor.Edited = false;
             return true;
         }
@@ -711,8 +711,8 @@ namespace sgsubtr
 
         private void OpenTxt(string filename)
         {
-            _currentSub = new AssSub();
-            _currentSub.LoadText(filename,_config);
+            _currentSub = SubStationAlpha.CreateFromTxt(filename,"");
+            throw new NotImplementedException();
             _subFilename = null;
             subEditor.Edited = false;
             SetCurrentSub();
@@ -720,8 +720,7 @@ namespace sgsubtr
 
         private void OpenAss(string filename)
         {
-            _currentSub = new AssSub();
-            _currentSub.LoadAss(filename);
+            _currentSub = SubStationAlpha.Load(filename);
             _subFilename = filename;
             SetCurrentSub();
         }

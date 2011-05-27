@@ -10,7 +10,7 @@ namespace SGSDatatype
 {
 
     [DataContract(Name = "SGSConfig", Namespace = "SGSDatatype")]
-    public class AssSub
+    class AssSub
     {
         [DataMember]
         public AssHead AssHead;
