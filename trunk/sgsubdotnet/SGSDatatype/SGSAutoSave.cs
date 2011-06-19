@@ -74,7 +74,7 @@ namespace SGSDatatype
             foreach (SaveFileIndex saveFileIndex in AutoSaveFileBindingSource)
             {
                 var offset = DateTime.Now.Subtract(saveFileIndex.SaveTime);
-                if(offset.Hours > hours)
+                if(offset.TotalHours > hours)
                 {
                     File.Delete(saveFileIndex.SaveFile);
                 }
@@ -157,43 +157,4 @@ namespace SGSDatatype
         [DataMember]
         public SubStationAlpha Subtitle;
     }
-    /*
-    [DataContract(Name = "SGSConfig", Namespace = "AutoSaveSubtitle")]
-    public class AutoSaveSubtitle
-    {
-        [DataMember]
-        public AssHead AssHead;
-
-        [DataMember]
-        public AssLineParser AssParser;
-
-        [DataMember]
-        public List<AssItem> SubItems = new List<AssItem>();
-
-        public AutoSaveSubtitle(SubStationAlpha assSub)
-        {
-            AssHead = assSub.AssHead;
-            AssParser = assSub.AssParser;
-            foreach (var item in assSub.SubItems)
-            {
-                SubItems.Add(((AssItem)item).Clone());
-            }
-        }
-
-        public AssSub GetSub()
-        {
-            var sub = new AssSub
-                             {
-                                 AssHead = AssHead,
-                                 AssParser = AssParser,
-                                 SubItems = new BindingSource()
-                             };
-            foreach (var item in SubItems)
-            {
-                sub.SubItems.Add(item);
-            }
-            return sub;
-
-        }
-    }*/
 }
