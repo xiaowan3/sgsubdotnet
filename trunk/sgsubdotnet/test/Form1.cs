@@ -22,12 +22,13 @@ namespace test
         private SSAIndex _subindex = null;
         private void button1_Click(object sender, EventArgs e)
         {
-            var dlg = new OpenFileDialog();
-            if(dlg.ShowDialog()!=DialogResult.OK) return;
-            //  _sub = SubStationAlpha.Load(@"E:\test\Haruhi_14.ass");
-            _sub = SubStationAlpha.Load(dlg.FileName);
-            _subindex = new SSAIndex {Subtitle = _sub};
-            _subindex.CreateIndex(600);
+            DateTime time = DateTime.Now;
+            long longtime = time.ToBinary();
+            byte[] bytes = BitConverter.GetBytes(longtime);
+            label1.Text = Convert.ToBase64String(bytes);
+
+            long value = BitConverter.ToInt64(Convert.FromBase64String(label1.Text),0);
+            DateTime oldtime = DateTime.FromBinary(value);
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)

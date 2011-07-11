@@ -67,10 +67,19 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.btnSaveAss = new System.Windows.Forms.Button();
+            this.btnMinitrimM = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.btnMinitrimP = new System.Windows.Forms.Button();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.numMTS = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numST)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numET)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSS)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMTS)).BeginInit();
             this.SuspendLayout();
             // 
             // btnFF
@@ -136,7 +145,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 322);
+            this.label1.Location = new System.Drawing.Point(28, 298);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 12);
             this.label1.TabIndex = 6;
@@ -145,7 +154,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 360);
+            this.label2.Location = new System.Drawing.Point(28, 334);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 12);
             this.label2.TabIndex = 7;
@@ -158,7 +167,7 @@
             0,
             0,
             0});
-            this.numST.Location = new System.Drawing.Point(135, 320);
+            this.numST.Location = new System.Drawing.Point(132, 294);
             this.numST.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -185,7 +194,7 @@
             0,
             0,
             0});
-            this.numET.Location = new System.Drawing.Point(135, 358);
+            this.numET.Location = new System.Drawing.Point(132, 330);
             this.numET.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -228,7 +237,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(215, 322);
+            this.label3.Location = new System.Drawing.Point(212, 298);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(17, 12);
             this.label3.TabIndex = 12;
@@ -237,7 +246,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(215, 360);
+            this.label4.Location = new System.Drawing.Point(212, 334);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(17, 12);
             this.label4.TabIndex = 13;
@@ -246,7 +255,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(28, 397);
+            this.label5.Location = new System.Drawing.Point(28, 370);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(83, 12);
             this.label5.TabIndex = 14;
@@ -254,7 +263,7 @@
             // 
             // numSS
             // 
-            this.numSS.Location = new System.Drawing.Point(135, 396);
+            this.numSS.Location = new System.Drawing.Point(132, 366);
             this.numSS.Name = "numSS";
             this.numSS.Size = new System.Drawing.Size(74, 21);
             this.numSS.TabIndex = 15;
@@ -267,7 +276,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(215, 398);
+            this.label6.Location = new System.Drawing.Point(212, 370);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(11, 12);
             this.label6.TabIndex = 16;
@@ -474,11 +483,106 @@
             this.btnSaveAss.UseVisualStyleBackColor = true;
             this.btnSaveAss.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnSaveAss_KeyDown);
             // 
+            // btnMinitrimM
+            // 
+            this.btnMinitrimM.Location = new System.Drawing.Point(323, 194);
+            this.btnMinitrimM.Name = "btnMinitrimM";
+            this.btnMinitrimM.Size = new System.Drawing.Size(41, 28);
+            this.btnMinitrimM.TabIndex = 37;
+            this.btnMinitrimM.Text = "微调";
+            this.btnMinitrimM.UseVisualStyleBackColor = true;
+            this.btnMinitrimM.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnMinitrimM_KeyDown);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(263, 202);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(41, 12);
+            this.label19.TabIndex = 38;
+            this.label19.Text = "微调：";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(306, 202);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(11, 12);
+            this.label20.TabIndex = 39;
+            this.label20.Text = "-";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(370, 202);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(11, 12);
+            this.label21.TabIndex = 40;
+            this.label21.Text = "+";
+            // 
+            // btnMinitrimP
+            // 
+            this.btnMinitrimP.Location = new System.Drawing.Point(387, 194);
+            this.btnMinitrimP.Name = "btnMinitrimP";
+            this.btnMinitrimP.Size = new System.Drawing.Size(41, 28);
+            this.btnMinitrimP.TabIndex = 41;
+            this.btnMinitrimP.Text = "微调";
+            this.btnMinitrimP.UseVisualStyleBackColor = true;
+            this.btnMinitrimP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnMinitrimP_KeyDown);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(28, 406);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(53, 12);
+            this.label22.TabIndex = 42;
+            this.label22.Text = "微调步长";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(212, 406);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(17, 12);
+            this.label23.TabIndex = 44;
+            this.label23.Text = "ms";
+            // 
+            // numMTS
+            // 
+            this.numMTS.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numMTS.Location = new System.Drawing.Point(132, 402);
+            this.numMTS.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.numMTS.Name = "numMTS";
+            this.numMTS.Size = new System.Drawing.Size(74, 21);
+            this.numMTS.TabIndex = 43;
+            this.numMTS.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
             // KeyConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(458, 500);
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.numMTS);
+            this.Controls.Add(this.label22);
+            this.Controls.Add(this.btnMinitrimP);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.btnMinitrimM);
             this.Controls.Add(this.btnSaveAss);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.groupBox1);
@@ -526,6 +630,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numSS)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMTS)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -571,5 +676,13 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button btnSaveAss;
+        private System.Windows.Forms.Button btnMinitrimM;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Button btnMinitrimP;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.NumericUpDown numMTS;
     }
 }
