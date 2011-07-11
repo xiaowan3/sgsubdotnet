@@ -27,7 +27,9 @@ namespace sgsubtr
             EEMKey = m_Config.EnterEditMode;
             CellTimeKey = m_Config.AddCellTime;
             SaveAssKey = m_Config.SaveAss;
-
+            MinitrimMKey = m_Config.MiniTrimMinus;
+            MinitrimPKey = m_Config.MiniTrimPlus;
+            MinitrimStep = m_Config.MinitrimStep;
         }
 
         public SGSConfig m_Config;
@@ -44,6 +46,8 @@ namespace sgsubtr
         public Keys EEMKey;
         public Keys CellTimeKey;
         public Keys SaveAssKey;
+        public Keys MinitrimPKey;
+        public Keys MinitrimMKey;
         private double m_sto;
         public double StartTimeOffset
         {
@@ -68,6 +72,8 @@ namespace sgsubtr
         public double SeekStep;
         public bool AutoOC;
 
+        public double MinitrimStep;
+
         private void KeyConfigForm_Load(object sender, EventArgs e)
         {
             btnBW.Text = BWKey.ToString();
@@ -82,10 +88,12 @@ namespace sgsubtr
             btnEEM.Text =  EEMKey.ToString();
             btnCellT.Text = CellTimeKey.ToString();
             btnSaveAss.Text = SaveAssKey.ToString();
-
+            btnMinitrimM.Text = MinitrimMKey.ToString();
+            btnMinitrimP.Text = MinitrimPKey.ToString();
             numET.Value = (decimal)EndTimeOffset * 1000;
             numST.Value = (decimal)StartTimeOffset * 1000;
             numSS.Value = (decimal)SeekStep;
+            numMTS.Value = (decimal) MinitrimStep*1000;
             checkAOC.Checked = AutoOC;
             
         }
@@ -130,6 +138,7 @@ namespace sgsubtr
         {
             EndTimeOffset = (double)(numET.Value) / 1000.0;
             StartTimeOffset = (double)(numST.Value) / 1000.0;
+            m_Config.MinitrimStep = (double) (numMTS.Value)/1000.0;
             SeekStep = (double)(numSS.Value);
             AutoOC = checkAOC.Checked;
 
@@ -149,7 +158,8 @@ namespace sgsubtr
             m_Config.EnterEditMode = EEMKey;
             m_Config.AddCellTime = CellTimeKey;
             m_Config.SaveAss = SaveAssKey;
-
+            m_Config.MiniTrimPlus = MinitrimPKey;
+            m_Config.MiniTrimMinus = MinitrimMKey;
             DialogResult = DialogResult.OK;
         }
 
@@ -192,6 +202,18 @@ namespace sgsubtr
         {
             SaveAssKey = e.KeyCode;
             btnSaveAss.Text = SaveAssKey.ToString();
+        }
+
+        private void btnMinitrimM_KeyDown(object sender, KeyEventArgs e)
+        {
+            MinitrimMKey = e.KeyCode;
+            btnMinitrimM.Text = MinitrimMKey.ToString();
+        }
+
+        private void btnMinitrimP_KeyDown(object sender, KeyEventArgs e)
+        {
+            MinitrimPKey = e.KeyCode;
+            btnMinitrimP.Text = MinitrimPKey.ToString();
         }
     }
 }

@@ -589,7 +589,41 @@ namespace SGSControls
                     }
                 }
             }
-            #endregion
+            else if(e.KeyCode == Config.MiniTrimMinus && !_mKeyhold[(int)e.KeyCode])
+            {
+                //微调时间轴
+                if (rowIndex >= 0 && rowIndex <= lastrowindex )
+                {
+                    int colIndex = dataGridSubtitles.CurrentCell.ColumnIndex;
+                    V4Event editedItem = ((V4Event)(dataGridSubtitles.Rows[rowIndex].DataBoundItem));
+                    if(colIndex ==0)
+                    {
+                        EditStartTime(rowIndex, editedItem.Start.Value - Config.MinitrimStep);
+                    }
+                    if(colIndex == 1)
+                    {
+                        EditEndTime(rowIndex, editedItem.End.Value - Config.MinitrimStep);
+                    }
+                }
+            }
+            else if (e.KeyCode == Config.MiniTrimPlus && !_mKeyhold[(int)e.KeyCode])
+            {
+                //微调时间轴
+                if (rowIndex >= 0 && rowIndex <= lastrowindex)
+                {
+                    int colIndex = dataGridSubtitles.CurrentCell.ColumnIndex;
+                    V4Event editedItem = ((V4Event)(dataGridSubtitles.Rows[rowIndex].DataBoundItem));
+                    if (colIndex == 0)
+                    {
+                        EditStartTime(rowIndex, editedItem.Start.Value + Config.MinitrimStep);
+                    }
+                    if (colIndex == 1)
+                    {
+                        EditEndTime(rowIndex, editedItem.End.Value + Config.MinitrimStep);
+                    }
+                }
+            }
+                #endregion
             #region Seek Keys
             else if (e.KeyCode == Config.Pause && !_mKeyhold[(int)e.KeyCode])
             {

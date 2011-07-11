@@ -42,14 +42,6 @@ namespace SGSDatatype
             PreviousSaveTime = DateTime.Now;
         }
 
-        public void SaveHistory(SubStationAlpha sub)
-        {
-
-            var autosaverec = new AutoSaveRecord(DateTime.Now, sub);
-            autosaverec.Save(string.Format("{0}\\{1}.save", _savePath, Guid.NewGuid()));
-            PreviousSaveTime = DateTime.Now;
-        }
-
         /// <summary>
         /// Create a autosave record.
         /// </summary>
@@ -69,14 +61,16 @@ namespace SGSDatatype
         /// <param name="hours"></param>
         public void DeleteOld(int hours)
         {
-            
-            Load();
-            foreach (SaveFileIndex saveFileIndex in AutoSaveFileBindingSource)
+
+            var savefiles = Directory.GetFiles(_savePath, "*.save");
+            foreach (var savefile in savefiles)
             {
-                var offset = DateTime.Now.Subtract(saveFileIndex.SaveTime);
-                if(offset.TotalHours > hours)
+                FileInfo fileinfo = new FileInfo(savefile);
+                var editedtime = fileinfo.LastWriteTime;
+                var offset = DateTime.Now.Subtract(editedtime);
+                if (offset.TotalHours > hours)
                 {
-                    File.Delete(saveFileIndex.SaveFile);
+                    File.Delete(savefile);
                 }
             }
             Load();

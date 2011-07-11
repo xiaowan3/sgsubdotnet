@@ -37,6 +37,13 @@ namespace SGSDatatype
         public double SeekStep { get; set; }
 
         /// <summary>
+        /// 微调步长（秒）
+        /// </summary>
+        [DataMember]
+        public double MinitrimStep { get; set; }
+
+
+        /// <summary>
         /// 高亮的行定位于第几行
         /// </summary>
         [DataMember]
@@ -109,6 +116,17 @@ namespace SGSDatatype
         [DataMember]
         public Keys EnterEditMode { get; set; }
 
+        /// <summary>
+        /// 微调加
+        /// </summary>
+        [DataMember]
+        public Keys MiniTrimPlus { get; set; }
+
+        /// <summary>
+        /// 微调减
+        /// </summary>
+        [DataMember]
+        public Keys MiniTrimMinus { get; set; }
 
         [DataMember]
         public Keys SaveAss { get; set; }
@@ -130,7 +148,6 @@ namespace SGSDatatype
         /// </summary>
         [DataMember]
         public int AutoSaveLifeTime { get; set; }
-
 
         public SGSConfig()
         {
