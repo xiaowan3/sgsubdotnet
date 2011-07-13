@@ -144,9 +144,12 @@ namespace SGSControls
                 var arg = new PlayerControlEventArgs(PlayerCommand.Pause);
                 PlayerControl(this, arg);
             }
-            WaveReader.WaveForm.FFmpegpath = FFMpegPath;
-            WaveReader.WaveForm wf = WaveReader.WaveForm.ExtractWave(filename);
-            waveScope.Wave = wf;
+
+            FFTForm.FFMpegPath = FFMpegPath;
+            FFTForm fftForm = new FFTForm();
+            fftForm.ExtractWave(filename);
+            fftForm.ShowDialog();
+            waveScope.Wave = fftForm.Waveform;
             waveScope.Redraw();
         }
         public string MediaFilename;
