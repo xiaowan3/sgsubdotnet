@@ -91,5 +91,28 @@ namespace SGSControls
             if (ButtonClicked != null) ButtonClicked(this, new EventArgs());
         }
 
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            if (CurrentSub != null && CurrentIndex >= 0 && CurrentIndex < CurrentSub.EventsSection.EventList.Count)
+            {
+                var item = (V4Event)(CurrentSub.EventsSection.EventList[CurrentIndex]);
+                double duration = item.End.Value - item.Start.Value;
+                if (duration < 1) return;
+                var saveFiledlg = new SaveFileDialog
+                                      {
+                                          Filter =
+                                              @"MP3 File (*.mp3)|*.mp3||",
+                                          AddExtension = true,
+                                          DefaultExt = "mp3"
+                                      };
+                if (saveFiledlg.ShowDialog() == DialogResult.OK)
+                {
+                    AudioFileIO.ExportAudioClip(_mediaFile, item.Start.Value.ToString("F1"), duration.ToString("F1"),
+                                                "160k", saveFiledlg.FileName);
+                }
+
+            }
+        }
+
     }
 }
