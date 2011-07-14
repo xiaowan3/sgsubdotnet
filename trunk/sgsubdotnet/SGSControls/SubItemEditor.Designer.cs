@@ -31,12 +31,13 @@
             this.btnRabbitear = new System.Windows.Forms.Button();
             this.btnCatear = new System.Windows.Forms.Button();
             this.btnHumanear = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnRabbitear
             // 
             this.btnRabbitear.Image = global::SGSControls.Properties.Resources.slower;
-            this.btnRabbitear.Location = new System.Drawing.Point(200, 2);
+            this.btnRabbitear.Location = new System.Drawing.Point(165, 2);
             this.btnRabbitear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnRabbitear.Name = "btnRabbitear";
             this.btnRabbitear.Size = new System.Drawing.Size(75, 41);
@@ -47,7 +48,7 @@
             // btnCatear
             // 
             this.btnCatear.Image = global::SGSControls.Properties.Resources.slow;
-            this.btnCatear.Location = new System.Drawing.Point(101, 2);
+            this.btnCatear.Location = new System.Drawing.Point(84, 2);
             this.btnCatear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCatear.Name = "btnCatear";
             this.btnCatear.Size = new System.Drawing.Size(75, 41);
@@ -66,9 +67,20 @@
             this.btnHumanear.UseVisualStyleBackColor = true;
             this.btnHumanear.Click += new System.EventHandler(this.btnHumanear_Click);
             // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(246, 3);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(68, 41);
+            this.btnExport.TabIndex = 3;
+            this.btnExport.Text = "截取音频";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
             // SubItemEditor
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.btnExport);
             this.Controls.Add(this.btnRabbitear);
             this.Controls.Add(this.btnCatear);
             this.Controls.Add(this.btnHumanear);
@@ -84,5 +96,6 @@
         private System.Windows.Forms.Button btnHumanear;
         private System.Windows.Forms.Button btnCatear;
         private System.Windows.Forms.Button btnRabbitear;
+        private System.Windows.Forms.Button btnExport;
     }
 }

@@ -256,7 +256,26 @@ namespace SGSControls
             oStream.Seek(0, SeekOrigin.Begin);
 
         }
-
+        public static void ExportAudioClip(string videofilename, string begin, string len, string bitrate, string outfilename)
+        {
+            //ffmpeg.exe -strict experimental  -f mp4 -acodec aac -ac 2 -ab 160k -vn -y $audiofile -i $file
+            if (FFmpegpath == null) throw new Exception("FFmpegpath is not set");
+            var argument = string.Format("-i \"{0}\" -ss {1} -t {2} -f mp3 -acodec libmp3lame -ac 2 -ab {3} -vn -y \"{4}\"",
+                                         videofilename, begin, len, bitrate, outfilename);
+            var ffmpegprocess = new Process
+                                    {
+                                        StartInfo =
+                                            {
+                                                FileName = FFmpegpath,
+                                                Arguments =argument,
+                                                CreateNoWindow = true,
+                                                RedirectStandardOutput = true,
+                                                UseShellExecute = false
+                                            }
+                                    };
+            ffmpegprocess.Start();
+            ffmpegprocess.WaitForExit();
+        }
 
         enum Tagname { RIFF, WAVE, FMT, DATA, Unknown };
         private static Tagname Gettagname(byte[] seg)
