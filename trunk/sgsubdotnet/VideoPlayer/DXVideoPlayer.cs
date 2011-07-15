@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Microsoft.DirectX.AudioVideoPlayback;
 
@@ -12,46 +7,37 @@ namespace VideoPlayer
 {
     public partial class DXVideoPlayer : UserControl
     {
-        private Video m_movie = null;
+        private Video _movie;
         public DXVideoPlayer()
         {
             InitializeComponent();
             g1 = splitContainer1.Panel2.CreateGraphics();
             MediaOpened = false;
-
         }
         public bool Paused { get; set; }
         public bool MediaOpened { get; private set; }
-        private string m_filename;
-        private string m_videoname = "";
-        private Image m_trackleft = Resources.PANEL_Left;
-        private Image m_trackright = Resources.PANEL_Right;
-        private Image m_trackmiddle = Resources.PANEL_Fill;
-        private Image m_trackthumb = Resources.TRACK_Thumb;
-        private Image m_soundthumb = Resources.SOUND_Thumb;
-        private Rectangle m_thumbarea = new Rectangle(2, 3, Resources.TRACK_Thumb.Width, Resources.TRACK_Thumb.Height);
-        private Rectangle m_sndarea = new Rectangle(0, 15, Resources.SOUND_Thumb.Width, Resources.SOUND_Thumb.Height);
-        private double m_soundvolume = 0.5;
+        private readonly Image _trackleft = Resources.PANEL_Left;
+        private readonly Image _trackright = Resources.PANEL_Right;
+        private readonly Image _trackmiddle = Resources.PANEL_Fill;
+        private readonly Image _trackthumb = Resources.TRACK_Thumb;
+        private readonly Image _soundthumb = Resources.SOUND_Thumb;
+        private Rectangle _thumbarea = new Rectangle(2, 3, Resources.TRACK_Thumb.Width, Resources.TRACK_Thumb.Height);
+        private Rectangle _sndarea = new Rectangle(0, 15, Resources.SOUND_Thumb.Width, Resources.SOUND_Thumb.Height);
+        private double _soundvolume = 0.5;
 
-        private double m_aspectRatio = 1;
-
+        private double _aspectRatio = 1;
+    
 
         private Graphics g1;
 
 
-        public string Filename
-        {
-            get
-            {
-                return m_filename;
-            }
-        }
+        public string Filename { get; private set; }
 
         public double Duration
         {
             get
             {
-                if (m_movie != null) return m_movie.Duration;
+                if (_movie != null) return _movie.Duration;
                 return 0;
             }
         }
@@ -60,67 +46,66 @@ namespace VideoPlayer
         {
             get
             {
-                if (m_movie != null) return m_movie.CurrentPosition;
+                if (_movie != null) return _movie.CurrentPosition;
                 return 0;
             }
             set
             {
-                if (m_movie != null)
+                if (_movie != null)
                 {
-                    if (value >= 0 && value < m_movie.Duration) m_movie.CurrentPosition = value;
+                    if (value >= 0 && value < _movie.Duration) _movie.CurrentPosition = value;
                 } 
             }
         }
 
         public void Pause()
         {
-            if (m_movie != null)
+            if (_movie != null)
             {
-                m_movie.Pause();
+                _movie.Pause();
                 Paused = true;
             }
         }
 
         public void OpenVideo(string filename)
         {
-            if (m_movie != null)
+            if (_movie != null)
             {
-                m_movie.Dispose();
-                m_movie = null;
+                _movie.Dispose();
+                _movie = null;
             }
             try
             {
-                m_movie = new Video(filename);
-                m_movie.Owner = screen;
-                m_filename = filename;
-                m_aspectRatio = (double)m_movie.Size.Width / (double)m_movie.Size.Height;
-                resizeScreen(splitContainer1.Panel1.Width, splitContainer1.Panel1.Height);
-                m_movie.Audio.Volume = ConvertVolume(m_soundvolume);
-                m_videoname = m_filename.Substring(m_filename.LastIndexOf('\\') + 1);
+                _movie = new Video(filename);
+                _movie.Owner = screen;
+                Filename = filename;
+                _aspectRatio = _movie.Size.Width / (double)_movie.Size.Height;
+                ResizeScreen(splitContainer1.Panel1.Width, splitContainer1.Panel1.Height);
+                _movie.Audio.Volume = ConvertVolume(_soundvolume);
+                Filename.Substring(Filename.LastIndexOf('\\') + 1);
                 MediaOpened = true;
             }
             catch (Exception)
             {
-                m_filename = "";
-                m_videoname = "";
+                Filename = "";
                 MediaOpened = false;
                 throw;
             }
         }
 
-        private void resizeScreen(int width, int height)
+        private void ResizeScreen(int width, int height)
         {
-            if ((double)width / height > m_aspectRatio)
+            if ((double)width / height > _aspectRatio)
             {
                 screen.Height = height;
-                screen.Width = (int)(height * m_aspectRatio);
+                screen.Width = (int)(height * _aspectRatio);
                 screen.Location = new Point(
                     (splitContainer1.Panel1.Width - screen.Width) / 2, 0);
             }
             else
             {
                 screen.Width = width;
-                screen.Height = (int)(width / m_aspectRatio);
+                screen.Height = (int)(width / _aspectRatio);
                 screen.Location = new Point(
                     0, (splitContainer1.Panel1.Height - screen.Height) / 2);
             }
@@ -129,108 +114,111 @@ namespace VideoPlayer
 
         public void Play()
         {
-            if (m_movie != null)
+            if (_movie != null)
             {
-                m_movie.Play();
+                _movie.Play();
                 Paused = false;
             }
         }
 
         private void splitContainer1_Panel1_SizeChanged(object sender, EventArgs e)
         {
-            if (m_movie != null)
+            if (_movie != null)
             {
-                resizeScreen(splitContainer1.Panel1.Width, splitContainer1.Panel1.Height);
+                ResizeScreen(splitContainer1.Panel1.Width, splitContainer1.Panel1.Height);
             }
         }
 
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
         {
-            redrawtrackbar();
+            RedrawTrackbar();
         }
 
-        private void redrawtrackbar()
+        private void RedrawTrackbar()
         {
             int gw = splitContainer1.Panel2.Width;
-            int gh = splitContainer1.Panel2.Height;
 
-            BufferedGraphicsContext b;
-            BufferedGraphics bg;
-            Graphics g;
-
-            b = new BufferedGraphicsContext();
-            bg = b.Allocate(g1, new Rectangle(0, 0, splitContainer1.Panel2.Width, splitContainer1.Panel2.Height));
-            g = bg.Graphics;
+            BufferedGraphicsContext b = new BufferedGraphicsContext();
+            BufferedGraphics bg = b.Allocate(g1, new Rectangle(0, 0, splitContainer1.Panel2.Width, splitContainer1.Panel2.Height));
+            Graphics g = bg.Graphics;
 
             g.Clear(Color.Black);
 
-            g.DrawImage(m_trackleft, 0, 0);
-            g.DrawImage(m_trackmiddle, m_trackleft.Width, 0, gw - m_trackleft.Width, m_trackmiddle.Height);
-            g.DrawImage(m_trackright, gw - m_trackright.Width, 0);
-            g.DrawImage(m_trackthumb, m_thumbarea);
-            m_sndarea.X = splitContainer1.Panel2.Width - 71 + (int)(58 * m_soundvolume);
-            g.DrawImage(m_soundthumb, m_sndarea);
+            g.DrawImage(_trackleft, 0, 0);
+            g.DrawImage(_trackmiddle, _trackleft.Width, 0, gw - _trackleft.Width, _trackmiddle.Height);
+            g.DrawImage(_trackright, gw - _trackright.Width, 0);
+            g.DrawImage(_trackthumb, _thumbarea);
+            _sndarea.X = splitContainer1.Panel2.Width - 71 + (int)(58 * _soundvolume);
+            g.DrawImage(_soundthumb, _sndarea);
             bg.Render(g1);
 
         }
 
-        private bool m_thumbselected = false;
-        private bool m_soundselected = false;
+        private bool _thumbselected;
+        private bool _soundselected;
 
         private void splitContainer1_Panel2_MouseDown(object sender, MouseEventArgs e)
         {
-            if (m_thumbarea.Contains(e.Location))
+            Rectangle trackBarRect = new Rectangle(_thumbarea.Width / 2, 3, Width - _thumbarea.Width, _thumbarea.Height);
+
+            if (trackBarRect.Contains(e.Location))
             {
-                m_thumbselected = true;
+                _thumbselected = true;
                 playTimer.Enabled = false;
             }
-            if(m_sndarea .Contains(e.Location))
+            if(_sndarea .Contains(e.Location))
             {
-                m_soundselected = true;
+                _soundselected = true;
             }
         }
 
         private void splitContainer1_Panel2_MouseUp(object sender, MouseEventArgs e)
         {
-            if (m_thumbselected)
+            if (_thumbselected)
             {
-                double trackpercentage = (double)m_thumbarea.X / (splitContainer1.Panel2.Width - m_thumbarea.Width);
-                if (m_movie != null)
+                double trackpercentage = (double)(e.X-_thumbarea.Width / 2)/ (splitContainer1.Panel2.Width - _thumbarea.Width);
+                if (_movie != null)
                 {
-                    m_movie.CurrentPosition = m_movie.Duration * trackpercentage;
+                    _movie.CurrentPosition = _movie.Duration * trackpercentage;
                 }
                 else
                 {
-                    m_thumbarea.X = 0;
-                    redrawtrackbar();
+                    _thumbarea.X = 0;
+                    RedrawTrackbar();
                 }
             }
             
-            m_soundselected = false;
-            m_thumbselected = false;
+            _soundselected = false;
+            _thumbselected = false;
             playTimer.Enabled = true;
         }
 
         private void splitContainer1_Panel2_MouseMove(object sender, MouseEventArgs e)
         {
-            if (m_thumbselected)
+            Rectangle trackBarRect = new Rectangle(_thumbarea.Width/2, 3, Width - _thumbarea.Width, _thumbarea.Height);
+            if (_thumbselected)
             {
-                int x = e.X - m_thumbarea.Width / 2;
-                x = x < 0 ? 0 : x > splitContainer1.Panel2.Width - m_thumbarea.Width ? splitContainer1.Panel2.Width - m_thumbarea.Width : x;
-                m_thumbarea.X = x;
-                redrawtrackbar();
+                int x = e.X - _thumbarea.Width / 2;
+                x = x < 0 ? 0 : x > splitContainer1.Panel2.Width - _thumbarea.Width ? splitContainer1.Panel2.Width - _thumbarea.Width : x;
+                _thumbarea.X = x;
+                RedrawTrackbar();
             }
-            if (m_soundselected)
+            if (_soundselected)
             {
                 int sndmin = splitContainer1.Panel2.Width - 68;
-                m_soundvolume = (e.X - sndmin) / 58.0;
-                m_soundvolume = m_soundvolume < 0 ? 0 : m_soundvolume > 1 ? 1 : m_soundvolume;
-                m_sndarea.X = splitContainer1.Panel2.Width - 71 + (int)(58 * m_soundvolume);
-                if (m_movie != null)
+                _soundvolume = (e.X - sndmin) / 58.0;
+                _soundvolume = _soundvolume < 0 ? 0 : _soundvolume > 1 ? 1 : _soundvolume;
+                _sndarea.X = splitContainer1.Panel2.Width - 71 + (int)(58 * _soundvolume);
+                if (_movie != null)
                 {
-                    m_movie.Audio.Volume = ConvertVolume(m_soundvolume); ;
+                    _movie.Audio.Volume = ConvertVolume(_soundvolume); 
                 }
-                redrawtrackbar();
+                RedrawTrackbar();
+            }
+            if (_movie != null && trackBarRect.Contains(e.Location))
+            {
+                double trackpercentage = (double)(e.X - _thumbarea.Width / 2) / (splitContainer1.Panel2.Width - _thumbarea.Width);
+                msglabel.Text = translateTime(_movie.Duration * trackpercentage);
             }
         }
 
@@ -245,11 +233,11 @@ namespace VideoPlayer
 
         private void playTimer_Tick(object sender, EventArgs e)
         {
-            if (m_movie != null)
+            if (_movie != null)
             {
-                m_thumbarea.X = (int)((splitContainer1.Panel2.Width - m_thumbarea.Width) * (m_movie.CurrentPosition / m_movie.Duration));
-                msglabel.Text = string.Format("{0}/{1}", translateTime(m_movie.CurrentPosition), translateTime(m_movie.Duration));
-                redrawtrackbar();
+                _thumbarea.X = (int)((splitContainer1.Panel2.Width - _thumbarea.Width) * (_movie.CurrentPosition / _movie.Duration));
+                msglabel.Text = string.Format("{0}/{1}", translateTime(_movie.CurrentPosition), translateTime(_movie.Duration));
+                RedrawTrackbar();
                 
             }
         }
@@ -264,6 +252,5 @@ namespace VideoPlayer
             string msg = string.Format("{0}:{1}:{2}", h.ToString("D1"), m.ToString("D2"), sec.ToString("D2"));
             return msg;
         }
-
     }
 }
