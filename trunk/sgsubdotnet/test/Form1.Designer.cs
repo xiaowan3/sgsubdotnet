@@ -35,6 +35,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.syntaxHighlightingTextBox1 = new SGSControls.SyntaxHighlightingTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -107,11 +108,21 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // syntaxHighlightingTextBox1
+            // 
+            this.syntaxHighlightingTextBox1.Location = new System.Drawing.Point(33, 24);
+            this.syntaxHighlightingTextBox1.MaxUndoRedoSteps = 50;
+            this.syntaxHighlightingTextBox1.Name = "syntaxHighlightingTextBox1";
+            this.syntaxHighlightingTextBox1.Size = new System.Drawing.Size(422, 245);
+            this.syntaxHighlightingTextBox1.TabIndex = 7;
+            this.syntaxHighlightingTextBox1.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(622, 407);
+            this.Controls.Add(this.syntaxHighlightingTextBox1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -136,5 +147,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private SGSControls.SyntaxHighlightingTextBox syntaxHighlightingTextBox1;
     }
 }
