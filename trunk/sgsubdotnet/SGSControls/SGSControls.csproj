@@ -87,6 +87,12 @@
     <Compile Include="TimeOffsetDialog.designer.cs">
       <DependentUpon>TimeOffsetDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="TranslationEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TranslationEditor.Designer.cs">
+      <DependentUpon>TranslationEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="UndoRecord.cs" />
     <Compile Include="WaveFormViewer.cs">
       <SubType>UserControl</SubType>
@@ -120,6 +126,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TimeOffsetDialog.resx">
       <DependentUpon>TimeOffsetDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TranslationEditor.resx">
+      <DependentUpon>TranslationEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WaveFormViewer.resx">
