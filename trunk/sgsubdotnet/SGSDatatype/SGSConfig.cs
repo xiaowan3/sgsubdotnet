@@ -148,6 +148,34 @@ namespace SGSDatatype
         /// </summary>
         [DataMember]
         public int AutoSaveLifeTime { get; set; }
+        #region Syntax Highlighting
+
+        /// <summary>
+        /// 窗
+        /// </summary>
+        [DataMember]
+        public char UnknownPlaceholder;
+
+        /// <summary>
+        /// 注释
+        /// </summary>
+        [DataMember]
+        public char CommentSeparator;
+
+        /// <summary>
+        /// 存疑内容左
+        /// </summary>
+        [DataMember]
+        public char UncertainLeftSeparator;
+
+        /// <summary>
+        /// 存疑内容右
+        /// </summary>
+        [DataMember]
+        public char UncertainRightSeparator;
+
+
+        #endregion
 
         public SGSConfig()
         {

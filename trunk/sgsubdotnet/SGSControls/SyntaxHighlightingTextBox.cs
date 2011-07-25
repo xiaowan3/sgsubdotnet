@@ -7,6 +7,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.Text;
 using System.Runtime.InteropServices;
+using SGSDatatype;
 
 namespace SGSControls
 {
@@ -42,6 +43,14 @@ namespace SGSControls
         private bool _isUndo;
         private UndoRedoInfo _lastInfo = new UndoRedoInfo("", new Win32.POINT(), 0);
         private int _maxUndoRedoSteps = 50;
+        private SGSConfig _config;
+
+        private HighlightType _hlUnknown;
+        private HighlightType _hlComment;
+        private HighlightType _hlToolong;
+        private HighlightType _hlUncertain;
+
+
 
         #endregion
 
@@ -50,14 +59,33 @@ namespace SGSControls
 
         public SyntaxHighlightingTextBox()
         {
-            _separators.Add('#');
-            _separators.Add('%');
 
-            HighlightTypes.Add(new HighlightType("Text", Color.Black, null));
-            HighlightTypes.Add(new HighlightType("Text", Color.Red, null));
-            HighlightTypes.Add(new HighlightType("Text", Color.Blue, null));
-            HighlightTypes.Add(new HighlightType("Text", Color.Gray, null));
 
+        }
+
+        public void SetConfig(SGSConfig config)
+        {
+            _config = config;
+            RefreshConfig();
+
+            _hlUnknown = new HighlightType("Text", Color.Red, null);
+            HighlightTypes.Add(_hlUnknown);
+            _hlComment = new HighlightType("Text", Color.Gray, null);
+            HighlightTypes.Add(_hlComment);
+            _hlUncertain = new HighlightType("Text", Color.Blue, null);
+            HighlightTypes.Add(_hlUncertain);
+            _hlToolong = new HighlightType("Text", Color.Pink, null);
+            HighlightTypes.Add(_hlToolong);
+        }
+
+        public void RefreshConfig()
+        {
+            if(_config == null) throw new Exception("config is null");
+            _separators.Clear();
+            _separators.Add(_config.UnknownPlaceholder);
+            _separators.Add(_config.CommentSeparator);
+            _separators.Add(_config.UncertainLeftSeparator);
+            _separators.Add(_config.UncertainRightSeparator);
         }
 
         /// <summary>
@@ -100,6 +128,7 @@ namespace SGSControls
         /// <param name="e"></param>
         protected override void OnTextChanged(EventArgs e)
         {
+            if (_config == null) return;
             if (_parsing) return;
             _parsing = true;
             Win32.LockWindowUpdate(Handle);
@@ -168,31 +197,30 @@ namespace SGSControls
                 while (charIndex < lines[lineIndex].Length)
                 {
                     int segStart;
-                    if(lines[lineIndex].Length > 14)
+                    if(lines[lineIndex].Length > 14) //Too long.
                     {
-                        HighlightType highlightType = new HighlightType("Window", Color.Red, Font);
-                        SetHighlightTypeSettings(sb, highlightType, colors, fonts);
+                        SetHighlightTypeSettings(sb, _hlToolong, colors, fonts);
                         sb.Append(StrToRtf(lines[lineIndex]));
                         SetDefaultSettings(sb, colors, fonts);
                         break;
                     }
-                    else if (lines[lineIndex][charIndex] == '#')
+                    else if (lines[lineIndex][charIndex] == _config.UnknownPlaceholder) //Window
                     {
                         segStart = charIndex;
 
-                        for (; charIndex < lines[lineIndex].Length && lines[lineIndex][charIndex] == '#'; charIndex++)
+                        do
                         {
+                            charIndex ++;
+                        } while (charIndex < lines[lineIndex].Length && 
+                            lines[lineIndex][charIndex] == _config.UnknownPlaceholder);
 
-                        }
-                        HighlightType highlightType = new HighlightType("Window", Color.Blue, Font);
-                        SetHighlightTypeSettings(sb, highlightType, colors, fonts);
+                        SetHighlightTypeSettings(sb, _hlUnknown, colors, fonts);
                         sb.Append(lines[lineIndex].Substring(segStart, charIndex - segStart));
                         SetDefaultSettings(sb, colors, fonts);
                     }
-                    else if (lines[lineIndex][charIndex] == '%')
+                    else if (lines[lineIndex][charIndex] == _config.CommentSeparator)  //Comment
                     {
-                        HighlightType highlightType = new HighlightType("Window", Color.Gray, Font);
-                        SetHighlightTypeSettings(sb, highlightType, colors, fonts);
+                        SetHighlightTypeSettings(sb, _hlUncertain, colors, fonts);
                         sb.Append(StrToRtf(lines[lineIndex].Substring(charIndex)));
                         SetDefaultSettings(sb, colors, fonts);
                         break;
