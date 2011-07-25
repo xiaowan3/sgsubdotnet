@@ -17,14 +17,6 @@ namespace SGSControls
     public class SyntaxHighlightingTextBox : System.Windows.Forms.RichTextBox
     {
 
-        //public SyntaxHighlightingTextBox()
-        //{
-        //    HighlightTypes.Add(new HighlightType("Text", Color.Black, null));
-        //    HighlightTypes.Add(new HighlightType("Text", Color.Red, null));
-        //    HighlightTypes.Add(new HighlightType("Text", Color.Blue, null));
-        //    HighlightTypes.Add(new HighlightType("Text", Color.Gray, null));
-        //}
-
 
         #region Members
 
@@ -45,7 +37,7 @@ namespace SGSControls
         private int _maxUndoRedoSteps = 50;
         private SGSConfig _config;
 
-        private HighlightType _hlUnknown;
+        private HighlightType _hlHole;
         private HighlightType _hlComment;
         private HighlightType _hlToolong;
         private HighlightType _hlUncertain;
@@ -68,8 +60,8 @@ namespace SGSControls
             _config = config;
             RefreshConfig();
 
-            _hlUnknown = new HighlightType("Text", Color.Red, null);
-            HighlightTypes.Add(_hlUnknown);
+            _hlHole = new HighlightType("Text", Color.Red, null);
+            HighlightTypes.Add(_hlHole);
             _hlComment = new HighlightType("Text", Color.Gray, null);
             HighlightTypes.Add(_hlComment);
             _hlUncertain = new HighlightType("Text", Color.Blue, null);
@@ -82,10 +74,10 @@ namespace SGSControls
         {
             if(_config == null) throw new Exception("config is null");
             _separators.Clear();
-            _separators.Add(_config.UnknownPlaceholder);
-            _separators.Add(_config.CommentSeparator);
-            _separators.Add(_config.UncertainLeftSeparator);
-            _separators.Add(_config.UncertainRightSeparator);
+            _separators.Add(_config.HolePlaceholder);
+            _separators.Add(_config.CommentMark);
+            _separators.Add(_config.UncertainLeftMark);
+            _separators.Add(_config.UncertainRightMark);
         }
 
         /// <summary>
@@ -189,6 +181,8 @@ namespace SGSControls
             string[] lines = Text.Split('\n');
             for (int lineIndex = 0; lineIndex < lines.Length; lineIndex++)
             {
+                var tokens = new List<SyntaxToken>();
+                int lineLen = 0;
                 if (lineIndex != 0)
                 {
                     AddNewLine(sb);
@@ -197,14 +191,7 @@ namespace SGSControls
                 while (charIndex < lines[lineIndex].Length)
                 {
                     int segStart;
-                    if(lines[lineIndex].Length > 14) //Too long.
-                    {
-                        SetHighlightTypeSettings(sb, _hlToolong, colors, fonts);
-                        sb.Append(StrToRtf(lines[lineIndex]));
-                        SetDefaultSettings(sb, colors, fonts);
-                        break;
-                    }
-                    else if (lines[lineIndex][charIndex] == _config.UnknownPlaceholder) //Window
+                    if (lines[lineIndex][charIndex] == _config.HolePlaceholder) //Window
                     {
                         segStart = charIndex;
 
@@ -212,18 +199,38 @@ namespace SGSControls
                         {
                             charIndex ++;
                         } while (charIndex < lines[lineIndex].Length && 
-                            lines[lineIndex][charIndex] == _config.UnknownPlaceholder);
-
-                        SetHighlightTypeSettings(sb, _hlUnknown, colors, fonts);
-                        sb.Append(lines[lineIndex].Substring(segStart, charIndex - segStart));
-                        SetDefaultSettings(sb, colors, fonts);
+                            lines[lineIndex][charIndex] == _config.HolePlaceholder);
+                        var token = new SyntaxToken(TokenType.Hole,
+                                                    lines[lineIndex].Substring(segStart, charIndex - segStart));
+                        tokens.Add(token);
+                        lineLen += token.Length;
                     }
-                    else if (lines[lineIndex][charIndex] == _config.CommentSeparator)  //Comment
+                    else if (lines[lineIndex][charIndex] == _config.CommentMark)  //Comment
                     {
-                        SetHighlightTypeSettings(sb, _hlUncertain, colors, fonts);
-                        sb.Append(StrToRtf(lines[lineIndex].Substring(charIndex)));
-                        SetDefaultSettings(sb, colors, fonts);
+                        var token = new SyntaxToken(TokenType.Comment, lines[lineIndex].Substring(charIndex));
+                        tokens.Add(token);
+                        lineLen += token.Length;
                         break;
+                    }
+                    else if(lines[lineIndex][charIndex] == _config.UncertainLeftMark)
+                    {
+                        segStart = charIndex;
+                        int rightMark = lines[lineIndex].IndexOf(_config.UncertainRightMark, segStart + 1);
+                        if(rightMark == -1)
+                        {
+                            var token = new SyntaxToken(TokenType.Uncertain, lines[lineIndex].Substring(segStart));
+                            tokens.Add(token);
+                            lineLen += token.Length;
+                            break;
+                        }
+                        else
+                        {
+                            var token = new SyntaxToken(TokenType.Uncertain,
+                                                        lines[lineIndex].Substring(segStart, rightMark - segStart + 1));
+                            tokens.Add(token);
+                            lineLen += token.Length;
+                            charIndex = rightMark + 1;
+                        }
                     }
                     else
                     {
@@ -232,13 +239,43 @@ namespace SGSControls
                         {
                             charIndex++;
                         }
-                        sb.Append(StrToRtf(lines[lineIndex].Substring(segStart, charIndex - segStart)));
+                        var token = new SyntaxToken(TokenType.Text,
+                                                    lines[lineIndex].Substring(segStart, charIndex - segStart));
+                        tokens.Add(token);
+                        lineLen += token.Length;
                     }
+                }
+                foreach (SyntaxToken syntaxToken in tokens)
+                {
+                    switch(syntaxToken.Type)
+                    {
+                        case TokenType.Text:
+                            if( lineLen <= _config.LineLength)
+                            {
+                                SetDefaultSettings(sb,colors,fonts);
+                            }
+                            else
+                            {
+                                SetHighlightTypeSettings(sb,_hlToolong,colors,fonts);
+                            }
+                            break;
+                        case TokenType.Hole:
+                            SetHighlightTypeSettings(sb,_hlHole,colors,fonts);
+                            break;
+                        case TokenType.Comment:
+                            SetHighlightTypeSettings(sb, _hlComment, colors, fonts);
+                            break;
+                        case TokenType.Uncertain:
+                            SetHighlightTypeSettings(sb,_hlHole,colors,fonts);
+                            break;
+                    }
+                    sb.Append(syntaxToken.Rtf);
+                    
                 }
 
 
             }
-            //			System.Diagnostics.Debug.WriteLine(sb.ToString());
+
             Rtf = sb.ToString();
 
             //Restore cursor and scrollbars location.
