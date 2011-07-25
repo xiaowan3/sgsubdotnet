@@ -50,8 +50,8 @@ namespace sgsubtr
                 }
                 _layoutlist.Add(layoutname, previewImage);
                 listLayout.Items.Add(layoutname);
-                numAutosavePeriod.Value = _config.AutoSavePeriod/60;
-                numAutosaveLifeTime.Value = _config.AutoSaveLifeTime;
+
+
 
             }
             if (_config.LayoutName != null && _layoutlist.ContainsKey(_config.LayoutName))
@@ -63,6 +63,13 @@ namespace sgsubtr
             {
                 listLayout.SelectedIndex = 0;
             }
+            numAutosavePeriod.Value = _config.AutoSavePeriod / 60;
+            numAutosaveLifeTime.Value = _config.AutoSaveLifeTime;
+            numLineLength.Value = _config.LineLength;
+            textWindowChar.Text = _config.HolePlaceholder.ToString();
+            textCommentChar.Text = _config.CommentMark.ToString();
+            textUncertainLeft.Text = _config.UncertainLeftMark.ToString();
+            textUncertainRight.Text = _config.UncertainRightMark.ToString();
         }
 
         private void listLayout_SelectedIndexChanged(object sender, EventArgs e)
@@ -76,8 +83,19 @@ namespace sgsubtr
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             _config.LayoutName = listLayout.SelectedItem.ToString();
-            _config.AutoSavePeriod = (int)numAutosavePeriod.Value * 60;
+            _config.AutoSavePeriod = (int) numAutosavePeriod.Value*60;
             _config.AutoSaveLifeTime = (int) numAutosaveLifeTime.Value;
+            _config.LineLength = (int) numLineLength.Value;
+
+            if (textWindowChar.Text.Length > 0)
+                _config.HolePlaceholder = textWindowChar.Text[0];
+            if (textCommentChar.Text.Length > 0)
+                _config.CommentMark = textCommentChar.Text[0];
+            if (textUncertainLeft.Text.Length > 0)
+                _config.UncertainLeftMark = textUncertainLeft.Text[0];
+            if (textUncertainRight.Text.Length > 0)
+                _config.UncertainRightMark = textUncertainRight.Text[0];
+
             _config.Save();
             Close();
         }

@@ -31,29 +31,41 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.layoutConfig = new System.Windows.Forms.TabPage();
-            this.btnConfirm = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureLayout = new System.Windows.Forms.PictureBox();
             this.listLayout = new System.Windows.Forms.ListBox();
             this.parameterConfig = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.numAutosavePeriod = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.numAutosaveLifeTime = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numAutosaveLifeTime = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numAutosavePeriod = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnConfirm = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textWindowChar = new System.Windows.Forms.TextBox();
+            this.textCommentChar = new System.Windows.Forms.TextBox();
+            this.numLineLength = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textUncertainLeft = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textUncertainRight = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.layoutConfig.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLayout)).BeginInit();
             this.parameterConfig.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numAutosavePeriod)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAutosaveLifeTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAutosavePeriod)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numLineLength)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -78,16 +90,6 @@
             this.layoutConfig.Size = new System.Drawing.Size(625, 353);
             this.layoutConfig.TabIndex = 0;
             this.layoutConfig.Text = "布局管理";
-            // 
-            // btnConfirm
-            // 
-            this.btnConfirm.Location = new System.Drawing.Point(440, 13);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(75, 23);
-            this.btnConfirm.TabIndex = 3;
-            this.btnConfirm.Text = "确定";
-            this.btnConfirm.UseVisualStyleBackColor = true;
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // groupBox1
             // 
@@ -120,6 +122,17 @@
             // parameterConfig
             // 
             this.parameterConfig.BackColor = System.Drawing.SystemColors.Control;
+            this.parameterConfig.Controls.Add(this.textUncertainRight);
+            this.parameterConfig.Controls.Add(this.label10);
+            this.parameterConfig.Controls.Add(this.label9);
+            this.parameterConfig.Controls.Add(this.textUncertainLeft);
+            this.parameterConfig.Controls.Add(this.label8);
+            this.parameterConfig.Controls.Add(this.numLineLength);
+            this.parameterConfig.Controls.Add(this.textCommentChar);
+            this.parameterConfig.Controls.Add(this.textWindowChar);
+            this.parameterConfig.Controls.Add(this.label7);
+            this.parameterConfig.Controls.Add(this.label6);
+            this.parameterConfig.Controls.Add(this.label5);
             this.parameterConfig.Controls.Add(this.label4);
             this.parameterConfig.Controls.Add(this.label3);
             this.parameterConfig.Controls.Add(this.numAutosaveLifeTime);
@@ -133,37 +146,14 @@
             this.parameterConfig.TabIndex = 1;
             this.parameterConfig.Text = "参数设定";
             // 
-            // label1
+            // label4
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "自动保存间隔";
-            // 
-            // numAutosavePeriod
-            // 
-            this.numAutosavePeriod.Location = new System.Drawing.Point(121, 27);
-            this.numAutosavePeriod.Name = "numAutosavePeriod";
-            this.numAutosavePeriod.Size = new System.Drawing.Size(82, 21);
-            this.numAutosavePeriod.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(86, 71);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 12);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "删除";
-            // 
-            // numAutosaveLifeTime
-            // 
-            this.numAutosaveLifeTime.Location = new System.Drawing.Point(121, 67);
-            this.numAutosaveLifeTime.Name = "numAutosaveLifeTime";
-            this.numAutosaveLifeTime.Size = new System.Drawing.Size(82, 21);
-            this.numAutosaveLifeTime.TabIndex = 3;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(220, 31);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 12);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "分钟";
             // 
             // label3
             // 
@@ -174,14 +164,47 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "小时之前的记录";
             // 
-            // label4
+            // numAutosaveLifeTime
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(220, 31);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 12);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "分钟";
+            this.numAutosaveLifeTime.Location = new System.Drawing.Point(121, 67);
+            this.numAutosaveLifeTime.Name = "numAutosaveLifeTime";
+            this.numAutosaveLifeTime.Size = new System.Drawing.Size(82, 21);
+            this.numAutosaveLifeTime.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(86, 71);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "删除";
+            // 
+            // numAutosavePeriod
+            // 
+            this.numAutosavePeriod.Location = new System.Drawing.Point(121, 27);
+            this.numAutosavePeriod.Name = "numAutosavePeriod";
+            this.numAutosavePeriod.Size = new System.Drawing.Size(82, 21);
+            this.numAutosavePeriod.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(38, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "自动保存间隔";
+            // 
+            // btnConfirm
+            // 
+            this.btnConfirm.Location = new System.Drawing.Point(440, 13);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(75, 23);
+            this.btnConfirm.TabIndex = 3;
+            this.btnConfirm.Text = "确定";
+            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // btnCancel
             // 
@@ -214,9 +237,99 @@
             this.splitContainer1.SplitterDistance = 378;
             this.splitContainer1.TabIndex = 1;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(98, 141);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(17, 12);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "窗";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(86, 179);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 12);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "注释";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(38, 217);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(77, 12);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "每行字数报警";
+            // 
+            // textWindowChar
+            // 
+            this.textWindowChar.Location = new System.Drawing.Point(136, 137);
+            this.textWindowChar.MaxLength = 1;
+            this.textWindowChar.Name = "textWindowChar";
+            this.textWindowChar.Size = new System.Drawing.Size(100, 21);
+            this.textWindowChar.TabIndex = 9;
+            // 
+            // textCommentChar
+            // 
+            this.textCommentChar.Location = new System.Drawing.Point(136, 175);
+            this.textCommentChar.MaxLength = 1;
+            this.textCommentChar.Name = "textCommentChar";
+            this.textCommentChar.Size = new System.Drawing.Size(100, 21);
+            this.textCommentChar.TabIndex = 10;
+            // 
+            // numLineLength
+            // 
+            this.numLineLength.Location = new System.Drawing.Point(136, 213);
+            this.numLineLength.Name = "numLineLength";
+            this.numLineLength.Size = new System.Drawing.Size(100, 21);
+            this.numLineLength.TabIndex = 11;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(62, 255);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(53, 12);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "存疑标记";
+            // 
+            // textUncertainLeft
+            // 
+            this.textUncertainLeft.Location = new System.Drawing.Point(157, 251);
+            this.textUncertainLeft.Name = "textUncertainLeft";
+            this.textUncertainLeft.Size = new System.Drawing.Size(46, 21);
+            this.textUncertainLeft.TabIndex = 13;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(134, 255);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(17, 12);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "左";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(220, 255);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(17, 12);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "右";
+            // 
+            // textUncertainRight
+            // 
+            this.textUncertainRight.Location = new System.Drawing.Point(243, 251);
+            this.textUncertainRight.Name = "textUncertainRight";
+            this.textUncertainRight.Size = new System.Drawing.Size(46, 21);
+            this.textUncertainRight.TabIndex = 16;
+            // 
             // ConfigForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(633, 430);
             this.Controls.Add(this.splitContainer1);
@@ -233,11 +346,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureLayout)).EndInit();
             this.parameterConfig.ResumeLayout(false);
             this.parameterConfig.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numAutosavePeriod)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAutosaveLifeTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAutosavePeriod)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numLineLength)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -259,5 +373,16 @@
         private System.Windows.Forms.NumericUpDown numAutosaveLifeTime;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textCommentChar;
+        private System.Windows.Forms.TextBox textWindowChar;
+        private System.Windows.Forms.NumericUpDown numLineLength;
+        private System.Windows.Forms.TextBox textUncertainRight;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textUncertainLeft;
+        private System.Windows.Forms.Label label8;
     }
 }

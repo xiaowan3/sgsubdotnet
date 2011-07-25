@@ -154,26 +154,31 @@ namespace SGSDatatype
         /// 窗
         /// </summary>
         [DataMember]
-        public char UnknownPlaceholder;
+        public char HolePlaceholder{ get; set; }
 
         /// <summary>
         /// 注释
         /// </summary>
         [DataMember]
-        public char CommentSeparator;
+        public char CommentMark{ get; set; }
 
         /// <summary>
         /// 存疑内容左
         /// </summary>
         [DataMember]
-        public char UncertainLeftSeparator;
+        public char UncertainLeftMark{ get; set; }
 
         /// <summary>
         /// 存疑内容右
         /// </summary>
         [DataMember]
-        public char UncertainRightSeparator;
+        public char UncertainRightMark { get; set; }
 
+        /// <summary>
+        /// 每行字数检查
+        /// </summary>
+        [DataMember]
+        public int LineLength { get; set; }
 
         #endregion
 

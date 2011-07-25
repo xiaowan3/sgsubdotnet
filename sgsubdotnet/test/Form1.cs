@@ -16,7 +16,13 @@ namespace test
         public Form1()
         {
             InitializeComponent();
+
+            var _appFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\SGSUB";
+            _config = SGSConfig.FromFile(_appFolderPath + @"\config\config.xml");
+            syntaxHighlightingTextBox1.SetConfig(_config);
         }
+
+        private SGSConfig _config;
 
         private SubStationAlpha _sub = null;
         private SSAIndex _subindex = null;
