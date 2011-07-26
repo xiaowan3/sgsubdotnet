@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.IO;
 using System.Windows.Forms;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -42,6 +43,7 @@ namespace SGSControls
         private HighlightType _hlToolong;
         private HighlightType _hlUncertain;
 
+        private bool _saved = true;
 
 
         #endregion
@@ -80,6 +82,33 @@ namespace SGSControls
             _separators.Add(_config.UncertainRightMark);
         }
 
+        public void SetSaved()
+        {
+            _saved = true;
+        }
+
+        public void Save(string filename)
+        {
+            var file = new FileStream(filename,FileMode.Create,FileAccess.Write);
+            var ostream = new StreamWriter(file, Encoding.Unicode);
+            ostream.Write(Text);
+            ostream.Flush();
+            file.Flush();
+            _saved = true;
+        }
+
+        public void Open(string filename)
+        {
+            var file = new FileStream(filename, FileMode.Open, FileAccess.Read);
+            var reader = new StreamReader(file, Encoding.Default, true);
+            Text = reader.ReadToEnd();
+        }
+
+        public void Export(string filename)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Set the maximum amount of Undo/Redo steps.
         /// </summary>
@@ -95,6 +124,8 @@ namespace SGSControls
                 _maxUndoRedoSteps = value;
             }
         }
+
+        public bool Saved { get { return _saved; } }
 
 
 
@@ -120,6 +151,7 @@ namespace SGSControls
         /// <param name="e"></param>
         protected override void OnTextChanged(EventArgs e)
         {
+            _saved = false;
             if (_config == null) return;
             if (_parsing) return;
             _parsing = true;
