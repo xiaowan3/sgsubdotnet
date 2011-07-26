@@ -61,6 +61,7 @@ namespace sgsubtr
                     }
                     break;
                 case "SubEditor":
+                    _subEditerContainer = container.Controls;
                     container.Controls.Add(subEditor);
                     if (node.Attributes != null)
                         foreach (XmlAttribute attribute in node.Attributes)
@@ -167,6 +168,7 @@ namespace sgsubtr
         WaveFormViewer waveViewer = new WaveFormViewer();
         SubItemEditor subItemEditor = new SubItemEditor();
         VideoPlayer.DXVideoPlayer dxVideoPlayer = new VideoPlayer.DXVideoPlayer();
+        private TranslationEditor translationEditor = new TranslationEditor();
 
         Timer timer = new Timer();
 
@@ -183,6 +185,7 @@ namespace sgsubtr
         ToolStripMenuItem ConfigMenuItems = new ToolStripMenuItem("设置");
         ToolStripMenuItem KeyConfig = new ToolStripMenuItem("按键设置");
         ToolStripMenuItem Customize = new ToolStripMenuItem("自定义");
+        ToolStripMenuItem TranslationMode = new ToolStripMenuItem("翻译模式");
 
         ToolStripMenuItem HelpMenuItem = new ToolStripMenuItem("帮助");
         ToolStripMenuItem AboutSGSUBTR = new ToolStripMenuItem("关于 SGSUB.Net");
@@ -257,7 +260,7 @@ namespace sgsubtr
 
             #endregion
 
-            #region Build Layout);
+            #region Build Layout
 
             if (xmldoc.ChildNodes.Count <= 0) throw new Exception("Wrong XML File");
             XmlNode root = xmldoc.ChildNodes.Cast<XmlNode>().Where(node => node.Name == "SGSUBLayout").FirstOrDefault();
@@ -305,10 +308,12 @@ namespace sgsubtr
 
             ConfigMenuItems.DropDownItems.Add(KeyConfig);
             ConfigMenuItems.DropDownItems.Add(Customize);
+            ConfigMenuItems.DropDownItems.Add(TranslationMode);
 
             HelpMenuItem.DropDownItems.Add(AboutSGSUBTR);
 
             mainMenu.Size = new Size(200, 28);
+
 
 
 
@@ -330,9 +335,11 @@ namespace sgsubtr
             LayoutLoader(panel, root);
             #endregion
 
+            updateConfig();
 
-            subEditor.Config = _config;
+
             subEditor.Autosave = _autosave;
+
 
             waveViewer.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
             SubItemEditor.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
@@ -351,6 +358,7 @@ namespace sgsubtr
             exit.Click += new EventHandler(exit_Click);
             KeyConfig.Click += new EventHandler(KeyConfig_Click);
             Customize.Click += new EventHandler(Customize_Click);
+            TranslationMode.Click += new EventHandler(TranslationMode_Click);
             AboutSGSUBTR.Click += new EventHandler(AboutSGSUBTR_Click);
 
 
@@ -376,6 +384,13 @@ namespace sgsubtr
 
         }
 
+        void TranslationMode_Click(object sender, EventArgs e)
+        {
+            _subEditerContainer.Clear();
+            _subEditerContainer.Add(translationEditor);
+            translationEditor.Dock = DockStyle.Fill;
+        }
+
         void subEditor_AutosaveEvent(object sender, EventArgs e)
         {
             if (_currentSub != null) _autosave.SaveHistory(_currentSub, _subFilename);
@@ -397,6 +412,7 @@ namespace sgsubtr
         {
             var cfgform = new ConfigForm(_config, _startUpPath + @"\config\");
             cfgform.ShowDialog();
+            updateConfig();
         }
 
         void AboutSGSUBTR_Click(object sender, EventArgs e)
@@ -469,6 +485,7 @@ namespace sgsubtr
             if (keycfg.ShowDialog() == DialogResult.OK)
             {
                 _config.Save();
+                updateConfig();
             }
         }
 
@@ -553,6 +570,8 @@ namespace sgsubtr
         }
 
         #region Private Members
+
+        private Control.ControlCollection _subEditerContainer;
 
         private SubStationAlpha _currentSub;
         private string _subFilename;
@@ -733,6 +752,11 @@ namespace sgsubtr
             subItemEditor.CurrentSub = _currentSub;
         }
 
+        private void updateConfig()
+        {
+            subEditor.Config = _config;
+            translationEditor.SetConfig(_config);
+        }
 
         #endregion
 
