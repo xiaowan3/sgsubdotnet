@@ -42,6 +42,7 @@ namespace SGSControls
         private HighlightType _hlComment;
         private HighlightType _hlToolong;
         private HighlightType _hlUncertain;
+        private HighlightType _hlTimeTag;
 
         private bool _saved = true;
 
@@ -53,7 +54,6 @@ namespace SGSControls
 
         public SyntaxHighlightingTextBox()
         {
-
 
         }
 
@@ -68,8 +68,10 @@ namespace SGSControls
             HighlightTypes.Add(_hlComment);
             _hlUncertain = new HighlightType("Text", Color.Blue, null);
             HighlightTypes.Add(_hlUncertain);
-            _hlToolong = new HighlightType("Text", Color.Pink, null);
+            _hlToolong = new HighlightType("Text", Color.DarkRed, null);
             HighlightTypes.Add(_hlToolong);
+            _hlTimeTag = new HighlightType("Text", Color.Green, null);
+            HighlightTypes.Add(_hlTimeTag);
         }
 
         public void RefreshConfig()
@@ -94,6 +96,8 @@ namespace SGSControls
             ostream.Write(Text);
             ostream.Flush();
             file.Flush();
+            ostream.Close();
+            file.Close();
             _saved = true;
         }
 
@@ -141,6 +145,11 @@ namespace SGSControls
             }
         }
 
+        #endregion
+
+        #region Events
+
+        public event EventHandler<SummaryEventArgs> RefreshSummary = null;
         #endregion
 
         #region Overriden methods
@@ -211,8 +220,13 @@ namespace SGSControls
             SetDefaultSettings(sb, colors, fonts);
 
             string[] lines = Text.Split('\n');
-            for (int lineIndex = 0; lineIndex < lines.Length; lineIndex++)
+            int linecount = lines.Length;
+            var summaryEventArgs = new SummaryEventArgs {Lines = linecount};
+            for (int lineIndex = 0; lineIndex < linecount; lineIndex++)
             {
+                bool window = false;
+                bool uncertain = false;
+                bool toolong = false;
                 var tokens = new List<SyntaxToken>();
                 int lineLen = 0;
                 if (lineIndex != 0)
@@ -236,9 +250,23 @@ namespace SGSControls
                                                     lines[lineIndex].Substring(segStart, charIndex - segStart));
                         tokens.Add(token);
                         lineLen += token.Length;
+                        window = true;
                     }
                     else if (lines[lineIndex][charIndex] == _config.CommentMark)  //Comment
                     {
+                        int start = lines[lineIndex].LastIndexOf('[');
+                        int end = lines[lineIndex].LastIndexOf(']');
+                        int len = end - start - 1;
+                        if (start > charIndex && end > start
+                            && TimeTag.TryParse(lines[lineIndex].Substring(start + 1, len)) != null)
+                        {
+                            var token1 = new SyntaxToken(TokenType.Comment,
+                                                         lines[lineIndex].Substring(charIndex, start - charIndex));
+                            var token2 = new SyntaxToken(TokenType.TimeTag, lines[lineIndex].Substring(start));
+                            tokens.Add(token1);
+                            tokens.Add(token2);
+                            break;
+                        }
                         var token = new SyntaxToken(TokenType.Comment, lines[lineIndex].Substring(charIndex));
                         tokens.Add(token);
                         lineLen += token.Length;
@@ -263,6 +291,7 @@ namespace SGSControls
                             lineLen += token.Length;
                             charIndex = rightMark + 1;
                         }
+                        uncertain = true;
                     }
                     else
                     {
@@ -289,6 +318,7 @@ namespace SGSControls
                             else
                             {
                                 SetHighlightTypeSettings(sb,_hlToolong,colors,fonts);
+                                toolong = true;
                             }
                             break;
                         case TokenType.Hole:
@@ -300,12 +330,15 @@ namespace SGSControls
                         case TokenType.Uncertain:
                             SetHighlightTypeSettings(sb,_hlHole,colors,fonts);
                             break;
+                        case TokenType.TimeTag:
+                            SetHighlightTypeSettings(sb, _hlTimeTag, colors, fonts);
+                            break;
                     }
                     sb.Append(syntaxToken.Rtf);
-                    
                 }
-
-
+                if (window) summaryEventArgs.Windows++;
+                if (uncertain) summaryEventArgs.Uncertern++;
+                if (toolong) summaryEventArgs.Toolong++;
             }
 
             Rtf = sb.ToString();
@@ -319,7 +352,7 @@ namespace SGSControls
             Win32.LockWindowUpdate((IntPtr)0);
             Invalidate();
 
-
+            if (RefreshSummary != null) RefreshSummary(this, summaryEventArgs);
 
         }
 
@@ -643,4 +676,11 @@ namespace SGSControls
         #endregion
     }
 
+    public class SummaryEventArgs : EventArgs
+    {
+        public int Lines;
+        public int Windows;
+        public int Uncertern;
+        public int Toolong;
+    }
 }

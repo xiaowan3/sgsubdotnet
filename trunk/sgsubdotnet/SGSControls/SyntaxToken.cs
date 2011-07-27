@@ -32,6 +32,9 @@ namespace SGSControls
                 case TokenType.Uncertain:
                     Length = text.Length - 2;
                     break;
+                case TokenType.TimeTag:
+                    Length = 0;
+                    break;
             }
         }
 
@@ -86,5 +89,44 @@ namespace SGSControls
         }
 
     }
-    enum TokenType{Text,Hole,Uncertain,Comment}
+    enum TokenType{Text,Hole,Uncertain,Comment,TimeTag}
+
+    class TimeTag
+    {
+        public double StartTime;
+        public double Duration;
+        public static TimeTag TryParse(string text)
+        {
+            string[] segs = text.Split(',');
+            if(segs.Length != 2) return null;
+            string[] timesegs = segs[0].Split(':');
+            if(timesegs.Length >3) return null;
+            double time = 0;
+            double multiple = 1;
+            for(int i = timesegs.Length -1;i>=0;i--)
+            {
+                double value;
+                if (!double.TryParse(timesegs[i], out value)) return null;
+                time += value*multiple;
+                multiple *= 60;
+            }
+            double dur;
+            if(!double.TryParse(segs[1],out dur))return null;
+            return new TimeTag
+                       {
+                           Duration = dur,
+                           StartTime = time
+                       };
+        }
+        public static string CreateTag(double time,double duration)
+        {
+            double dsec = Math.Truncate(time);
+            double ms = time - dsec;
+            var sec = (int)dsec;
+            int h = sec / 3600;
+            int mm = (sec % 3600) / 60;
+            double ss = sec % 60 + ms;
+            return string.Format("[{0}:{1}:{2},{3}]", h.ToString("D1"), mm.ToString("D2"), ss.ToString("00.00"),duration.ToString("00.0"));
+        }
+    }
 }
