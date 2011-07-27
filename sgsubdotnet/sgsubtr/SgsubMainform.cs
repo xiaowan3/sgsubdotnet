@@ -379,6 +379,9 @@ namespace sgsubtr
             subItemEditor.ButtonClicked += new EventHandler<EventArgs>(subItemEditor_ButtonClicked);
             subItemEditor.PlayerControl += new EventHandler<PlayerControlEventArgs>(PlayerControlEventHandler);
 
+            translationEditor.SeekPlayer += new EventHandler<SeekEventArgs>(subEditor_Seek);
+            translationEditor.TimeEdit += new EventHandler<TimeEditEventArgs>(subEditor_TimeEdit);
+
             timer.Tick += new EventHandler(timer_Tick);
             #endregion
 
