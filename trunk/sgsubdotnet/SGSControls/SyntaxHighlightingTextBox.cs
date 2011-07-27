@@ -76,7 +76,7 @@ namespace SGSControls
 
         public void RefreshConfig()
         {
-            if(_config == null) throw new Exception("config is null");
+            if (_config == null) throw new Exception("config is null");
             _separators.Clear();
             _separators.Add(_config.HolePlaceholder);
             _separators.Add(_config.CommentMark);
@@ -91,7 +91,7 @@ namespace SGSControls
 
         public void Save(string filename)
         {
-            var file = new FileStream(filename,FileMode.Create,FileAccess.Write);
+            var file = new FileStream(filename, FileMode.Create, FileAccess.Write);
             var ostream = new StreamWriter(file, Encoding.Unicode);
             ostream.Write(Text);
             ostream.Flush();
@@ -150,6 +150,8 @@ namespace SGSControls
         #region Events
 
         public event EventHandler<SummaryEventArgs> RefreshSummary = null;
+        public event EventHandler<SeekEventArgs> SeekPlayer = null;
+        public event EventHandler<PlayerControlEventArgs> PlayerControl = null;
         #endregion
 
         #region Overriden methods
@@ -221,7 +223,7 @@ namespace SGSControls
 
             string[] lines = Text.Split('\n');
             int linecount = lines.Length;
-            var summaryEventArgs = new SummaryEventArgs {Lines = linecount};
+            var summaryEventArgs = new SummaryEventArgs { Lines = linecount };
             for (int lineIndex = 0; lineIndex < linecount; lineIndex++)
             {
                 bool window = false;
@@ -243,8 +245,8 @@ namespace SGSControls
 
                         do
                         {
-                            charIndex ++;
-                        } while (charIndex < lines[lineIndex].Length && 
+                            charIndex++;
+                        } while (charIndex < lines[lineIndex].Length &&
                             lines[lineIndex][charIndex] == _config.HolePlaceholder);
                         var token = new SyntaxToken(TokenType.Hole,
                                                     lines[lineIndex].Substring(segStart, charIndex - segStart));
@@ -272,11 +274,11 @@ namespace SGSControls
                         lineLen += token.Length;
                         break;
                     }
-                    else if(lines[lineIndex][charIndex] == _config.UncertainLeftMark)
+                    else if (lines[lineIndex][charIndex] == _config.UncertainLeftMark)
                     {
                         segStart = charIndex;
                         int rightMark = lines[lineIndex].IndexOf(_config.UncertainRightMark, segStart + 1);
-                        if(rightMark == -1)
+                        if (rightMark == -1)
                         {
                             var token = new SyntaxToken(TokenType.Uncertain, lines[lineIndex].Substring(segStart));
                             tokens.Add(token);
@@ -308,27 +310,27 @@ namespace SGSControls
                 }
                 foreach (SyntaxToken syntaxToken in tokens)
                 {
-                    switch(syntaxToken.Type)
+                    switch (syntaxToken.Type)
                     {
                         case TokenType.Text:
-                            if( lineLen <= _config.LineLength)
+                            if (lineLen <= _config.LineLength)
                             {
-                                SetDefaultSettings(sb,colors,fonts);
+                                SetDefaultSettings(sb, colors, fonts);
                             }
                             else
                             {
-                                SetHighlightTypeSettings(sb,_hlToolong,colors,fonts);
+                                SetHighlightTypeSettings(sb, _hlToolong, colors, fonts);
                                 toolong = true;
                             }
                             break;
                         case TokenType.Hole:
-                            SetHighlightTypeSettings(sb,_hlHole,colors,fonts);
+                            SetHighlightTypeSettings(sb, _hlHole, colors, fonts);
                             break;
                         case TokenType.Comment:
                             SetHighlightTypeSettings(sb, _hlComment, colors, fonts);
                             break;
                         case TokenType.Uncertain:
-                            SetHighlightTypeSettings(sb,_hlHole,colors,fonts);
+                            SetHighlightTypeSettings(sb, _hlHole, colors, fonts);
                             break;
                         case TokenType.TimeTag:
                             SetHighlightTypeSettings(sb, _hlTimeTag, colors, fonts);
@@ -434,20 +436,36 @@ namespace SGSControls
                     }
                 case Win32.WM_KEYDOWN:
                     {
-                        {
 
-                            if (((Keys)(int)m.WParam == Keys.Z) &&
-                                ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
-                            {
-                                Undo();
-                                return;
-                            }
-                            if (((Keys)(int)m.WParam == Keys.Y) &&
-                                ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
-                            {
-                                Redo();
-                                return;
-                            }
+                        if (((Keys)(int)m.WParam == Keys.Z) &&
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
+                        {
+                            Undo();
+                            return;
+                        }
+                        if (((Keys)(int)m.WParam == Keys.Y) &&
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
+                        {
+                            Redo();
+                            return;
+                        }
+                        if (((Keys)(int)m.WParam == Keys.Left) &&
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
+                        {
+                            SeekBack();
+                            return;
+                        }
+                        if (((Keys)(int)m.WParam == Keys.Right) &&
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
+                        {
+                            SeekForward();
+                            return;
+                        }
+                        if (((Keys)(int)m.WParam == Keys.Down) &&
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
+                        {
+                            TogglePlayer();
+                            return;
                         }
                         break;
                     }
@@ -538,6 +556,31 @@ namespace SGSControls
         }
         #endregion
 
+        #region Hot Keys
+        private void SeekBack()
+        {
+            if(SeekPlayer != null)
+            {
+                var seekEventArgs = new SeekEventArgs(SeekDir.CurrentPos,-_config.SeekStep);
+                SeekPlayer(this, seekEventArgs);
+            }
+        }
+        private void SeekForward()
+        {
+            if (SeekPlayer != null)
+            {
+                var seekEventArgs = new SeekEventArgs(SeekDir.CurrentPos, _config.SeekStep);
+                SeekPlayer(this, seekEventArgs);
+            }
+        }
+        private void TogglePlayer()
+        {
+            var playerControlEventArgs = new PlayerControlEventArgs(PlayerCommand.Toggle);
+            if (PlayerControl != null)
+                PlayerControl(this, playerControlEventArgs);
+        }
+
+        #endregion
 
         #region Rtf building helper functions
 
@@ -673,6 +716,18 @@ namespace SGSControls
             Win32.SendMessage(Handle, Win32.EM_SETSCROLLPOS, 0, ptr);
 
         }
+
+        private Win32.POINT _scrollPos;
+        public void LockScrollPos()
+        {
+            _scrollPos = GetScrollPos();
+
+        }
+        public void UnlockScrollPos()
+        {
+            SetScrollPos(_scrollPos);
+        }
+
         #endregion
     }
 
