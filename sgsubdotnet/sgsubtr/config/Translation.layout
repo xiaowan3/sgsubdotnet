@@ -1,0 +1,6 @@
+<SGSUBLayout Height="630" Width="800" PreviewFile="translation.png">
+  <SplitContainer Orientation="Horizontal" Dock ="Fill" SpliterDistance="220" BorderStyle="Fixed3D" FixedPanel="Panel1" IsSplitterFixed="false">
+      <VideoPlayer Dock="Fill"></VideoPlayer>
+      <SubEditor Dock="Fill"></SubEditor>
+  </SplitContainer>
+</SGSUBLayout>
