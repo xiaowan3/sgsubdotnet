@@ -32,8 +32,27 @@ namespace SGSControls
 
         #region Events
 
-        public event EventHandler<SeekEventArgs> SeekPlayer = null;
+        private event EventHandler<SeekEventArgs> _seekPlayer = null;
+
+        public event EventHandler<SeekEventArgs> SeekPlayer
+        {
+            add
+            {
+                _seekPlayer += value;
+                syntaxHighlightingTextBox1.SeekPlayer += value;
+            }
+            remove
+            {
+                _seekPlayer -= value;
+                syntaxHighlightingTextBox1.SeekPlayer -= value;
+            }
+        }
         public event EventHandler<TimeEditEventArgs> TimeEdit = null;
+        public event EventHandler<PlayerControlEventArgs> PlayerControl
+        {
+            add { syntaxHighlightingTextBox1.PlayerControl += value; }
+            remove { syntaxHighlightingTextBox1.PlayerControl -= value; }
+        }
 
         #endregion
 
@@ -93,9 +112,9 @@ namespace SGSControls
 
             string line = FindCurrentLine(out linestart, out linelen);
             var tag = FindTimeTag(line);
-            if (tag != null && SeekPlayer != null)
+            if (tag != null && _seekPlayer != null)
             {
-                SeekPlayer(this, new SeekEventArgs(SeekDir.Begin, tag.StartTime));
+                _seekPlayer(this, new SeekEventArgs(SeekDir.Begin, tag.StartTime));
             }
         }
 
@@ -105,6 +124,7 @@ namespace SGSControls
             int linebegin, linelen;
             string line = FindCurrentLine(out linebegin, out linelen);
             int pos = syntaxHighlightingTextBox1.SelectionStart;
+            syntaxHighlightingTextBox1.LockScrollPos();
             var timeEditEventArgs = new TimeEditEventArgs(TimeType.BeginTime, 0, true);
             if (TimeEdit != null) TimeEdit(this, timeEditEventArgs);
             if (timeEditEventArgs.CancelEvent) return;
@@ -125,6 +145,8 @@ namespace SGSControls
                 syntaxHighlightingTextBox1.Text = syntaxHighlightingTextBox1.Text.Insert(linebegin + linelen, tag);
             }
             syntaxHighlightingTextBox1.SelectionStart = pos;
+            syntaxHighlightingTextBox1.UnlockScrollPos();
+
         }
 
         #endregion

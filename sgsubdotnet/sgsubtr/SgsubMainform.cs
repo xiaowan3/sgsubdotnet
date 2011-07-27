@@ -381,6 +381,7 @@ namespace sgsubtr
 
             translationEditor.SeekPlayer += new EventHandler<SeekEventArgs>(subEditor_Seek);
             translationEditor.TimeEdit += new EventHandler<TimeEditEventArgs>(subEditor_TimeEdit);
+            translationEditor.PlayerControl += new EventHandler<PlayerControlEventArgs>(PlayerControlEventHandler);
 
             timer.Tick += new EventHandler(timer_Tick);
             #endregion
