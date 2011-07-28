@@ -10,44 +10,13 @@ namespace SGSDatatype
     {
         private string _filename;
 
+
+
         [DataMember]
         private string Version { get; set; }
 
-        /// <summary>
-        /// 布局名称
-        /// </summary>
-        [DataMember]
-        public string LayoutName { get; set; }
-        /// <summary>
-        /// 起始时间点相对于按键时刻的偏移量（负为提前）（秒）
-        /// </summary>
-        [DataMember]
-        public double StartOffset { get; set; }
+        #region Timeline hotkeys
 
-        /// <summary>
-        /// 终止时间点相对于按键时刻的偏移量（负为提前）（秒）
-        /// </summary>
-        [DataMember]
-        public double EndOffset { get; set; }
-
-        /// <summary>
-        /// 快进、退的步长（秒）
-        /// </summary>
-        [DataMember]
-        public double SeekStep { get; set; }
-
-        /// <summary>
-        /// 微调步长（秒）
-        /// </summary>
-        [DataMember]
-        public double MinitrimStep { get; set; }
-
-
-        /// <summary>
-        /// 高亮的行定位于第几行
-        /// </summary>
-        [DataMember]
-        public int SelectRowOffset { get; set; }
 
         /// <summary>
         /// 暂停、继续按键
@@ -131,6 +100,47 @@ namespace SGSDatatype
         [DataMember]
         public Keys SaveAss { get; set; }
 
+        #endregion
+
+        #region settings
+
+        /// <summary>
+        /// 布局名称
+        /// </summary>
+        [DataMember]
+        public string LayoutName { get; set; }
+        /// <summary>
+        /// 起始时间点相对于按键时刻的偏移量（负为提前）（秒）
+        /// </summary>
+        [DataMember]
+        public double StartOffset { get; set; }
+
+        /// <summary>
+        /// 终止时间点相对于按键时刻的偏移量（负为提前）（秒）
+        /// </summary>
+        [DataMember]
+        public double EndOffset { get; set; }
+
+        /// <summary>
+        /// 快进、退的步长（秒）
+        /// </summary>
+        [DataMember]
+        public double SeekStep { get; set; }
+
+        /// <summary>
+        /// 微调步长（秒）
+        /// </summary>
+        [DataMember]
+        public double MinitrimStep { get; set; }
+
+
+        /// <summary>
+        /// 高亮的行定位于第几行
+        /// </summary>
+        [DataMember]
+        public int SelectRowOffset { get; set; }
+
+
         [DataMember]
         public bool AutoOverlapCorrection { get; set; }
 
@@ -148,6 +158,9 @@ namespace SGSDatatype
         /// </summary>
         [DataMember]
         public int AutoSaveLifeTime { get; set; }
+
+        #endregion
+
         #region Syntax Highlighting
 
         /// <summary>
@@ -179,6 +192,28 @@ namespace SGSDatatype
         /// </summary>
         [DataMember]
         public int LineLength { get; set; }
+
+        #endregion
+
+        #region Translation Hotkeys
+
+        [DataMember]
+        public Keys PlayerFF { get; set; }
+
+        [DataMember]
+        public Keys PlayerRW { get; set; }
+
+        [DataMember]
+        public Keys PlayerTogglePause { get; set; }
+
+        [DataMember]
+        public Keys PlayerJumpto { get; set; }
+
+        [DataMember]
+        public Keys InsertTag { get; set; }
+
+        [DataMember]
+        public Keys SetEndTime { get; set; }
 
         #endregion
 

@@ -30,6 +30,9 @@ namespace sgsubtr
             MinitrimMKey = m_Config.MiniTrimMinus;
             MinitrimPKey = m_Config.MiniTrimPlus;
             MinitrimStep = m_Config.MinitrimStep;
+
+            PlayerFF = m_Config.PlayerFF;
+            PlayerRW = m_Config.PlayerRW;
         }
 
         public SGSConfig m_Config;
@@ -48,6 +51,10 @@ namespace sgsubtr
         public Keys SaveAssKey;
         public Keys MinitrimPKey;
         public Keys MinitrimMKey;
+
+        public Keys PlayerFF;
+        public Keys PlayerRW;
+
         private double m_sto;
         public double StartTimeOffset
         {
@@ -95,7 +102,10 @@ namespace sgsubtr
             numSS.Value = (decimal)SeekStep;
             numMTS.Value = (decimal) MinitrimStep*1000;
             checkAOC.Checked = AutoOC;
-            
+
+            btnKeyTFF.Text = PlayerFF.ToString();
+            btnKeyTRW.Text = PlayerRW.ToString();
+
         }
 
         private void btnBW_KeyDown(object sender, KeyEventArgs e)
@@ -160,6 +170,9 @@ namespace sgsubtr
             m_Config.SaveAss = SaveAssKey;
             m_Config.MiniTrimPlus = MinitrimPKey;
             m_Config.MiniTrimMinus = MinitrimMKey;
+
+            m_Config.PlayerFF = PlayerFF;
+            m_Config.PlayerRW = PlayerRW;
             DialogResult = DialogResult.OK;
         }
 
@@ -215,5 +228,19 @@ namespace sgsubtr
             MinitrimPKey = e.KeyCode;
             btnMinitrimP.Text = MinitrimPKey.ToString();
         }
+
+        private void btnKeyTFF_KeyDown(object sender, KeyEventArgs e)
+        {
+            PlayerFF = e.KeyCode;
+            btnKeyTFF.Text = PlayerFF.ToString();
+        }
+
+        private void btnKeyTRW_KeyDown(object sender, KeyEventArgs e)
+        {
+            PlayerRW = e.KeyCode;
+            btnKeyTRW.Text = PlayerRW.ToString();
+        }
+
+
     }
 }
