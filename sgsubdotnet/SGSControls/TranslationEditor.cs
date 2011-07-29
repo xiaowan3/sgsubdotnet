@@ -27,12 +27,16 @@ namespace SGSControls
         {
             syntaxHighlightingTextBox1.SetConfig(config);
             _config = config;
+            labelRW.Text = "后退：Ctrl+" + _config.PlayerRW;
+            labelFF.Text = "前进：Ctrl+" + _config.PlayerFF;
+            labelToggle.Text = "暂停：Ctrl+" + _config.PlayerTogglePause;
         }
         #endregion
 
         #region Events
 
         private event EventHandler<SeekEventArgs> _seekPlayer = null;
+        private event EventHandler<PlayerControlEventArgs> _playerControl = null;
 
         public event EventHandler<SeekEventArgs> SeekPlayer
         {
@@ -50,8 +54,17 @@ namespace SGSControls
         public event EventHandler<TimeEditEventArgs> TimeEdit = null;
         public event EventHandler<PlayerControlEventArgs> PlayerControl
         {
-            add { syntaxHighlightingTextBox1.PlayerControl += value; }
-            remove { syntaxHighlightingTextBox1.PlayerControl -= value; }
+            add
+            {
+                syntaxHighlightingTextBox1.PlayerControl += value;
+                _playerControl += value;
+            }
+
+            remove
+            {
+                syntaxHighlightingTextBox1.PlayerControl -= value;
+                _playerControl -= value;
+            }
         }
 
         #endregion
@@ -89,7 +102,7 @@ namespace SGSControls
 
         private void menuItemExport_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("还没做好。");
         }
 
         private void syntaxHighlightingTextBox1_RefreshSummary(object sender, SummaryEventArgs e)
@@ -116,6 +129,7 @@ namespace SGSControls
             {
                 _seekPlayer(this, new SeekEventArgs(SeekDir.Begin, tag.StartTime));
             }
+            syntaxHighlightingTextBox1.Focus();
         }
 
         private void btnInsertTimeTag_Click(object sender, EventArgs e)
@@ -146,6 +160,7 @@ namespace SGSControls
             }
             syntaxHighlightingTextBox1.SelectionStart = pos;
             syntaxHighlightingTextBox1.UnlockScrollPos();
+            syntaxHighlightingTextBox1.Focus();
 
         }
 
@@ -160,7 +175,7 @@ namespace SGSControls
         {
             if(!syntaxHighlightingTextBox1.Saved)
             {
-                switch (MessageBox.Show("", "", MessageBoxButtons.YesNoCancel))
+                switch (MessageBox.Show("内容已更改，是否保存？", "是否保存", MessageBoxButtons.YesNoCancel))
                 {
                     case DialogResult.Yes:
                         if (Save()) return true;
@@ -271,6 +286,44 @@ namespace SGSControls
             last = last == -1 ? totalLen - 1 : last - 1;
             len = last - first + 1;
             return syntaxHighlightingTextBox1.Text.Substring(first, len);
+        }
+
+        private void MenuItemCopy_Click(object sender, EventArgs e)
+        {
+            syntaxHighlightingTextBox1.Copy();
+        }
+
+        private void MenuItemCut_Click(object sender, EventArgs e)
+        {
+            syntaxHighlightingTextBox1.Cut();
+        }
+
+        private void MenuItemPaste_Click(object sender, EventArgs e)
+        {
+            syntaxHighlightingTextBox1.Paste();
+        }
+
+        private void btnToggle_Click(object sender, EventArgs e)
+        {
+            if (_playerControl != null)
+            {
+                _playerControl(this ,new PlayerControlEventArgs(PlayerCommand.Toggle));
+            }
+            syntaxHighlightingTextBox1.Focus();
+        }
+
+        private void btnRW_Click(object sender, EventArgs e)
+        {
+            if (_seekPlayer != null)
+                _seekPlayer(this, new SeekEventArgs(SeekDir.CurrentPos, -_config.SeekStep));
+            syntaxHighlightingTextBox1.Focus();
+        }
+
+        private void btnFF_Click(object sender, EventArgs e)
+        {
+            if (_seekPlayer != null)
+                _seekPlayer(this, new SeekEventArgs(SeekDir.CurrentPos, _config.SeekStep));
+            syntaxHighlightingTextBox1.Focus();
         }
 
     }

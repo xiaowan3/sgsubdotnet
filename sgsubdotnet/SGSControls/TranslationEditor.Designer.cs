@@ -28,7 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TranslationEditor));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnToggle = new System.Windows.Forms.Button();
+            this.labelToggle = new System.Windows.Forms.Label();
+            this.labelFF = new System.Windows.Forms.Label();
+            this.labelRW = new System.Windows.Forms.Label();
             this.btnSeek = new System.Windows.Forms.Button();
             this.btnInsertTimeTag = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -36,7 +41,6 @@
             this.labelUncertain = new System.Windows.Forms.Label();
             this.labelWindows = new System.Windows.Forms.Label();
             this.labelLines = new System.Windows.Forms.Label();
-            this.syntaxHighlightingTextBox1 = new SGSControls.SyntaxHighlightingTextBox();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.menuItemFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,14 +49,15 @@
             this.menuItemSaveas = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemExport = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.复制ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.剪切ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.粘贴ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemCut = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemPaste = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.查找ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.替换ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.syntaxHighlightingTextBox1 = new SGSControls.SyntaxHighlightingTextBox();
+            this.btnRW = new System.Windows.Forms.Button();
+            this.btnFF = new System.Windows.Forms.Button();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -70,9 +75,12 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.label3);
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
+            this.splitContainer1.Panel1.Controls.Add(this.btnRW);
+            this.splitContainer1.Panel1.Controls.Add(this.btnFF);
+            this.splitContainer1.Panel1.Controls.Add(this.btnToggle);
+            this.splitContainer1.Panel1.Controls.Add(this.labelToggle);
+            this.splitContainer1.Panel1.Controls.Add(this.labelFF);
+            this.splitContainer1.Panel1.Controls.Add(this.labelRW);
             this.splitContainer1.Panel1.Controls.Add(this.btnSeek);
             this.splitContainer1.Panel1.Controls.Add(this.btnInsertTimeTag);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
@@ -84,22 +92,61 @@
             this.splitContainer1.SplitterDistance = 207;
             this.splitContainer1.TabIndex = 1;
             // 
+            // btnToggle
+            // 
+            this.btnToggle.Image = global::SGSControls.Properties.Resources.toggle;
+            this.btnToggle.Location = new System.Drawing.Point(39, 134);
+            this.btnToggle.Name = "btnToggle";
+            this.btnToggle.Size = new System.Drawing.Size(25, 23);
+            this.btnToggle.TabIndex = 6;
+            this.btnToggle.UseVisualStyleBackColor = true;
+            this.btnToggle.Click += new System.EventHandler(this.btnToggle_Click);
+            // 
+            // labelToggle
+            // 
+            this.labelToggle.AutoSize = true;
+            this.labelToggle.Location = new System.Drawing.Point(20, 281);
+            this.labelToggle.Name = "labelToggle";
+            this.labelToggle.Size = new System.Drawing.Size(83, 12);
+            this.labelToggle.TabIndex = 5;
+            this.labelToggle.Text = "暂停：Ctrl+↓";
+            // 
+            // labelFF
+            // 
+            this.labelFF.AutoSize = true;
+            this.labelFF.Location = new System.Drawing.Point(20, 256);
+            this.labelFF.Name = "labelFF";
+            this.labelFF.Size = new System.Drawing.Size(83, 12);
+            this.labelFF.TabIndex = 4;
+            this.labelFF.Text = "前进：Ctrl+→";
+            // 
+            // labelRW
+            // 
+            this.labelRW.AutoSize = true;
+            this.labelRW.Location = new System.Drawing.Point(20, 231);
+            this.labelRW.Name = "labelRW";
+            this.labelRW.Size = new System.Drawing.Size(83, 12);
+            this.labelRW.TabIndex = 3;
+            this.labelRW.Text = "后退：Ctrl+←";
+            // 
             // btnSeek
             // 
-            this.btnSeek.Location = new System.Drawing.Point(103, 125);
+            this.btnSeek.Location = new System.Drawing.Point(103, 177);
             this.btnSeek.Name = "btnSeek";
             this.btnSeek.Size = new System.Drawing.Size(75, 28);
             this.btnSeek.TabIndex = 2;
+            this.btnSeek.TabStop = false;
             this.btnSeek.Text = "跳转";
             this.btnSeek.UseVisualStyleBackColor = true;
             this.btnSeek.Click += new System.EventHandler(this.btnSeek_Click);
             // 
             // btnInsertTimeTag
             // 
-            this.btnInsertTimeTag.Location = new System.Drawing.Point(22, 125);
+            this.btnInsertTimeTag.Location = new System.Drawing.Point(22, 177);
             this.btnInsertTimeTag.Name = "btnInsertTimeTag";
             this.btnInsertTimeTag.Size = new System.Drawing.Size(75, 28);
             this.btnInsertTimeTag.TabIndex = 1;
+            this.btnInsertTimeTag.TabStop = false;
             this.btnInsertTimeTag.Text = "插入标签";
             this.btnInsertTimeTag.UseVisualStyleBackColor = true;
             this.btnInsertTimeTag.Click += new System.EventHandler(this.btnInsertTimeTag_Click);
@@ -154,18 +201,6 @@
             this.labelLines.Size = new System.Drawing.Size(29, 12);
             this.labelLines.TabIndex = 0;
             this.labelLines.Text = "行数";
-            // 
-            // syntaxHighlightingTextBox1
-            // 
-            this.syntaxHighlightingTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.syntaxHighlightingTextBox1.HideSelection = false;
-            this.syntaxHighlightingTextBox1.Location = new System.Drawing.Point(0, 0);
-            this.syntaxHighlightingTextBox1.MaxUndoRedoSteps = 50;
-            this.syntaxHighlightingTextBox1.Name = "syntaxHighlightingTextBox1";
-            this.syntaxHighlightingTextBox1.Size = new System.Drawing.Size(280, 370);
-            this.syntaxHighlightingTextBox1.TabIndex = 0;
-            this.syntaxHighlightingTextBox1.Text = "";
-            this.syntaxHighlightingTextBox1.RefreshSummary += new System.EventHandler<SGSControls.SummaryEventArgs>(this.syntaxHighlightingTextBox1_RefreshSummary);
             // 
             // mainMenu
             // 
@@ -229,32 +264,41 @@
             // menuItemEdit
             // 
             this.menuItemEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.复制ToolStripMenuItem,
-            this.剪切ToolStripMenuItem,
-            this.粘贴ToolStripMenuItem,
+            this.MenuItemCopy,
+            this.MenuItemCut,
+            this.MenuItemPaste,
+            this.toolStripSeparator1,
             this.查找ToolStripMenuItem,
             this.替换ToolStripMenuItem});
             this.menuItemEdit.Name = "menuItemEdit";
             this.menuItemEdit.Size = new System.Drawing.Size(41, 20);
             this.menuItemEdit.Text = "编辑";
             // 
-            // 复制ToolStripMenuItem
+            // MenuItemCopy
             // 
-            this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
-            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
-            this.复制ToolStripMenuItem.Text = "复制";
+            this.MenuItemCopy.Name = "MenuItemCopy";
+            this.MenuItemCopy.Size = new System.Drawing.Size(94, 22);
+            this.MenuItemCopy.Text = "复制";
+            this.MenuItemCopy.Click += new System.EventHandler(this.MenuItemCopy_Click);
             // 
-            // 剪切ToolStripMenuItem
+            // MenuItemCut
             // 
-            this.剪切ToolStripMenuItem.Name = "剪切ToolStripMenuItem";
-            this.剪切ToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
-            this.剪切ToolStripMenuItem.Text = "剪切";
+            this.MenuItemCut.Name = "MenuItemCut";
+            this.MenuItemCut.Size = new System.Drawing.Size(94, 22);
+            this.MenuItemCut.Text = "剪切";
+            this.MenuItemCut.Click += new System.EventHandler(this.MenuItemCut_Click);
             // 
-            // 粘贴ToolStripMenuItem
+            // MenuItemPaste
             // 
-            this.粘贴ToolStripMenuItem.Name = "粘贴ToolStripMenuItem";
-            this.粘贴ToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
-            this.粘贴ToolStripMenuItem.Text = "粘贴";
+            this.MenuItemPaste.Name = "MenuItemPaste";
+            this.MenuItemPaste.Size = new System.Drawing.Size(94, 22);
+            this.MenuItemPaste.Text = "粘贴";
+            this.MenuItemPaste.Click += new System.EventHandler(this.MenuItemPaste_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(91, 6);
             // 
             // 查找ToolStripMenuItem
             // 
@@ -268,32 +312,37 @@
             this.替换ToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
             this.替换ToolStripMenuItem.Text = "替换";
             // 
-            // label1
+            // syntaxHighlightingTextBox1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 179);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 12);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "后退：Ctrl+←";
+            this.syntaxHighlightingTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.syntaxHighlightingTextBox1.HideSelection = false;
+            this.syntaxHighlightingTextBox1.Location = new System.Drawing.Point(0, 0);
+            this.syntaxHighlightingTextBox1.MaxUndoRedoSteps = 50;
+            this.syntaxHighlightingTextBox1.Name = "syntaxHighlightingTextBox1";
+            this.syntaxHighlightingTextBox1.Size = new System.Drawing.Size(280, 370);
+            this.syntaxHighlightingTextBox1.TabIndex = 0;
+            this.syntaxHighlightingTextBox1.Text = "";
+            this.syntaxHighlightingTextBox1.RefreshSummary += new System.EventHandler<SGSControls.SummaryEventArgs>(this.syntaxHighlightingTextBox1_RefreshSummary);
             // 
-            // label2
+            // btnRW
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 204);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 12);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "前进：Ctrl+→";
+            this.btnRW.Image = ((System.Drawing.Image)(resources.GetObject("btnRW.Image")));
+            this.btnRW.Location = new System.Drawing.Point(92, 134);
+            this.btnRW.Name = "btnRW";
+            this.btnRW.Size = new System.Drawing.Size(25, 23);
+            this.btnRW.TabIndex = 9;
+            this.btnRW.UseVisualStyleBackColor = true;
+            this.btnRW.Click += new System.EventHandler(this.btnRW_Click);
             // 
-            // label3
+            // btnFF
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 229);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(83, 12);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "暂停：Ctrl+↓";
+            this.btnFF.Image = global::SGSControls.Properties.Resources.ff;
+            this.btnFF.Location = new System.Drawing.Point(123, 134);
+            this.btnFF.Name = "btnFF";
+            this.btnFF.Size = new System.Drawing.Size(25, 23);
+            this.btnFF.TabIndex = 8;
+            this.btnFF.UseVisualStyleBackColor = true;
+            this.btnFF.Click += new System.EventHandler(this.btnFF_Click);
             // 
             // TranslationEditor
             // 
@@ -328,9 +377,9 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemSave;
         private System.Windows.Forms.ToolStripMenuItem menuItemSaveas;
         private System.Windows.Forms.ToolStripMenuItem menuItemExport;
-        private System.Windows.Forms.ToolStripMenuItem 复制ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 剪切ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 粘贴ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemCopy;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemCut;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemPaste;
         private System.Windows.Forms.ToolStripMenuItem 查找ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 替换ToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -340,9 +389,13 @@
         private System.Windows.Forms.Label labelToolong;
         private System.Windows.Forms.Button btnSeek;
         private System.Windows.Forms.Button btnInsertTimeTag;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelToggle;
+        private System.Windows.Forms.Label labelFF;
+        private System.Windows.Forms.Label labelRW;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.Button btnRW;
+        private System.Windows.Forms.Button btnFF;
+        private System.Windows.Forms.Button btnToggle;
 
     }
 }
