@@ -81,7 +81,7 @@ namespace SGSControls
             _separators.Add(_config.HolePlaceholder);
             _separators.Add(_config.CommentMark);
             _separators.Add(_config.UncertainLeftMark);
-            _separators.Add(_config.UncertainRightMark);
+          //  _separators.Add(_config.UncertainRightMark);      
         }
 
         public void SetSaved()
@@ -449,19 +449,19 @@ namespace SGSControls
                             Redo();
                             return;
                         }
-                        if (((Keys)(int)m.WParam == Keys.Left) &&
+                        if (((Keys)(int)m.WParam == _config.PlayerRW) &&
                             ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
                         {
                             SeekBack();
                             return;
                         }
-                        if (((Keys)(int)m.WParam == Keys.Right) &&
+                        if (((Keys)(int)m.WParam == _config.PlayerFF) &&
                             ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
                         {
                             SeekForward();
                             return;
                         }
-                        if (((Keys)(int)m.WParam == Keys.Down) &&
+                        if (((Keys)(int)m.WParam == _config.PlayerTogglePause) &&
                             ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
                         {
                             TogglePlayer();

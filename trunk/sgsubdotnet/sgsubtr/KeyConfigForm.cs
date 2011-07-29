@@ -33,6 +33,8 @@ namespace sgsubtr
 
             PlayerFF = m_Config.PlayerFF;
             PlayerRW = m_Config.PlayerRW;
+            PlayerToggle = m_Config.PlayerTogglePause;
+
         }
 
         public SGSConfig m_Config;
@@ -54,6 +56,7 @@ namespace sgsubtr
 
         public Keys PlayerFF;
         public Keys PlayerRW;
+        public Keys PlayerToggle;
 
         private double m_sto;
         public double StartTimeOffset
@@ -173,6 +176,7 @@ namespace sgsubtr
 
             m_Config.PlayerFF = PlayerFF;
             m_Config.PlayerRW = PlayerRW;
+            m_Config.PlayerTogglePause = PlayerToggle;
             DialogResult = DialogResult.OK;
         }
 
@@ -239,6 +243,12 @@ namespace sgsubtr
         {
             PlayerRW = e.KeyCode;
             btnKeyTRW.Text = PlayerRW.ToString();
+        }
+
+        private void btnKeyTPause_KeyDown(object sender, KeyEventArgs e)
+        {
+            PlayerToggle = e.KeyCode;
+            btnKeyTPause.Text = PlayerToggle.ToString();
         }
 
 
