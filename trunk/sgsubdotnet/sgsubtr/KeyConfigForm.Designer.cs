@@ -179,7 +179,7 @@
             this.label1.Location = new System.Drawing.Point(21, 283);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 12);
+            this.label1.Size = new System.Drawing.Size(105, 14);
             this.label1.TabIndex = 6;
             this.label1.Text = "起始点反应时间";
             // 
@@ -189,7 +189,7 @@
             this.label2.Location = new System.Drawing.Point(28, 315);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 12);
+            this.label2.Size = new System.Drawing.Size(105, 14);
             this.label2.TabIndex = 7;
             this.label2.Text = "终止点反应时间";
             // 
@@ -213,7 +213,7 @@
             0,
             -2147483648});
             this.numST.Name = "numST";
-            this.numST.Size = new System.Drawing.Size(99, 21);
+            this.numST.Size = new System.Drawing.Size(99, 22);
             this.numST.TabIndex = 8;
             this.numST.Value = new decimal(new int[] {
             300,
@@ -241,7 +241,7 @@
             0,
             -2147483648});
             this.numET.Name = "numET";
-            this.numET.Size = new System.Drawing.Size(99, 21);
+            this.numET.Size = new System.Drawing.Size(99, 22);
             this.numET.TabIndex = 9;
             this.numET.Value = new decimal(new int[] {
             300,
@@ -277,7 +277,7 @@
             this.label3.Location = new System.Drawing.Point(274, 282);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(17, 12);
+            this.label3.Size = new System.Drawing.Size(21, 14);
             this.label3.TabIndex = 12;
             this.label3.Text = "ms";
             // 
@@ -287,7 +287,7 @@
             this.label4.Location = new System.Drawing.Point(274, 315);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(17, 12);
+            this.label4.Size = new System.Drawing.Size(21, 14);
             this.label4.TabIndex = 13;
             this.label4.Text = "ms";
             // 
@@ -297,7 +297,7 @@
             this.label5.Location = new System.Drawing.Point(28, 359);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(83, 12);
+            this.label5.Size = new System.Drawing.Size(98, 14);
             this.label5.TabIndex = 14;
             this.label5.Text = "前进/后退步长";
             // 
@@ -306,7 +306,7 @@
             this.numSS.Location = new System.Drawing.Point(167, 355);
             this.numSS.Margin = new System.Windows.Forms.Padding(4);
             this.numSS.Name = "numSS";
-            this.numSS.Size = new System.Drawing.Size(99, 21);
+            this.numSS.Size = new System.Drawing.Size(99, 22);
             this.numSS.TabIndex = 15;
             this.numSS.Value = new decimal(new int[] {
             2,
@@ -320,7 +320,7 @@
             this.label6.Location = new System.Drawing.Point(274, 359);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(11, 12);
+            this.label6.Size = new System.Drawing.Size(14, 14);
             this.label6.TabIndex = 16;
             this.label6.Text = "s";
             // 
@@ -330,7 +330,7 @@
             this.checkAOC.Location = new System.Drawing.Point(115, 439);
             this.checkAOC.Margin = new System.Windows.Forms.Padding(4);
             this.checkAOC.Name = "checkAOC";
-            this.checkAOC.Size = new System.Drawing.Size(96, 16);
+            this.checkAOC.Size = new System.Drawing.Size(113, 18);
             this.checkAOC.TabIndex = 17;
             this.checkAOC.Text = "自动重叠修正";
             this.checkAOC.UseVisualStyleBackColor = true;
@@ -385,7 +385,7 @@
             this.label7.Location = new System.Drawing.Point(93, 21);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(41, 12);
+            this.label7.Size = new System.Drawing.Size(49, 14);
             this.label7.TabIndex = 22;
             this.label7.Text = "后退：";
             // 
@@ -395,7 +395,7 @@
             this.label8.Location = new System.Drawing.Point(93, 53);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(41, 12);
+            this.label8.Size = new System.Drawing.Size(49, 14);
             this.label8.TabIndex = 23;
             this.label8.Text = "前进：";
             // 
@@ -405,7 +405,7 @@
             this.label9.Location = new System.Drawing.Point(93, 85);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(41, 12);
+            this.label9.Size = new System.Drawing.Size(49, 14);
             this.label9.TabIndex = 24;
             this.label9.Text = "暂停：";
             // 
@@ -415,7 +415,7 @@
             this.label10.Location = new System.Drawing.Point(290, 26);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(77, 12);
+            this.label10.Size = new System.Drawing.Size(91, 14);
             this.label10.TabIndex = 25;
             this.label10.Text = "跳至当前行：";
             // 
@@ -425,7 +425,7 @@
             this.label11.Location = new System.Drawing.Point(290, 69);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(77, 12);
+            this.label11.Size = new System.Drawing.Size(91, 14);
             this.label11.TabIndex = 26;
             this.label11.Text = "跳至上一行：";
             // 
@@ -435,7 +435,7 @@
             this.label12.Location = new System.Drawing.Point(21, 137);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(113, 12);
+            this.label12.Size = new System.Drawing.Size(133, 14);
             this.label12.TabIndex = 27;
             this.label12.Text = "插入时间（按行）：";
             // 
@@ -445,7 +445,7 @@
             this.label13.Location = new System.Drawing.Point(9, 169);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(125, 12);
+            this.label13.Size = new System.Drawing.Size(147, 14);
             this.label13.TabIndex = 28;
             this.label13.Text = "插入时间（单元格）：";
             // 
@@ -455,7 +455,7 @@
             this.label14.Location = new System.Drawing.Point(21, 201);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(113, 12);
+            this.label14.Size = new System.Drawing.Size(133, 14);
             this.label14.TabIndex = 29;
             this.label14.Text = "插入时间（连续）：";
             // 
@@ -476,7 +476,7 @@
             this.label15.Location = new System.Drawing.Point(278, 137);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(89, 12);
+            this.label15.Size = new System.Drawing.Size(105, 14);
             this.label15.TabIndex = 31;
             this.label15.Text = "插入起始时间：";
             // 
@@ -486,7 +486,7 @@
             this.label16.Location = new System.Drawing.Point(278, 169);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(89, 12);
+            this.label16.Size = new System.Drawing.Size(105, 14);
             this.label16.TabIndex = 32;
             this.label16.Text = "插入结束时间：";
             // 
@@ -496,7 +496,7 @@
             this.label17.Location = new System.Drawing.Point(57, 233);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(77, 12);
+            this.label17.Size = new System.Drawing.Size(91, 14);
             this.label17.TabIndex = 33;
             this.label17.Text = "编辑单元格：";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -532,7 +532,7 @@
             this.label18.Location = new System.Drawing.Point(278, 233);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(65, 12);
+            this.label18.Size = new System.Drawing.Size(77, 14);
             this.label18.TabIndex = 35;
             this.label18.Text = "保存字幕：";
             // 
@@ -564,7 +564,7 @@
             this.label19.Location = new System.Drawing.Point(278, 201);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(41, 12);
+            this.label19.Size = new System.Drawing.Size(49, 14);
             this.label19.TabIndex = 38;
             this.label19.Text = "微调：";
             // 
@@ -574,7 +574,7 @@
             this.label20.Location = new System.Drawing.Point(339, 201);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(11, 12);
+            this.label20.Size = new System.Drawing.Size(14, 14);
             this.label20.TabIndex = 39;
             this.label20.Text = "-";
             // 
@@ -584,7 +584,7 @@
             this.label21.Location = new System.Drawing.Point(424, 201);
             this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(11, 12);
+            this.label21.Size = new System.Drawing.Size(14, 14);
             this.label21.TabIndex = 40;
             this.label21.Text = "+";
             // 
@@ -605,7 +605,7 @@
             this.label22.Location = new System.Drawing.Point(28, 402);
             this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(53, 12);
+            this.label22.Size = new System.Drawing.Size(63, 14);
             this.label22.TabIndex = 42;
             this.label22.Text = "微调步长";
             // 
@@ -615,7 +615,7 @@
             this.label23.Location = new System.Drawing.Point(274, 402);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(17, 12);
+            this.label23.Size = new System.Drawing.Size(21, 14);
             this.label23.TabIndex = 44;
             this.label23.Text = "ms";
             // 
@@ -634,7 +634,7 @@
             0,
             0});
             this.numMTS.Name = "numMTS";
-            this.numMTS.Size = new System.Drawing.Size(99, 21);
+            this.numMTS.Size = new System.Drawing.Size(99, 22);
             this.numMTS.TabIndex = 43;
             this.numMTS.Value = new decimal(new int[] {
             2,
@@ -699,10 +699,10 @@
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.numSS);
             this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Location = new System.Drawing.Point(4, 21);
+            this.tabPage1.Location = new System.Drawing.Point(4, 23);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(547, 468);
+            this.tabPage1.Size = new System.Drawing.Size(547, 466);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "时间轴按键";
             // 
@@ -724,10 +724,10 @@
             this.tabPage2.Controls.Add(this.label26);
             this.tabPage2.Controls.Add(this.label25);
             this.tabPage2.Controls.Add(this.label24);
-            this.tabPage2.Location = new System.Drawing.Point(4, 21);
+            this.tabPage2.Location = new System.Drawing.Point(4, 23);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(547, 468);
+            this.tabPage2.Size = new System.Drawing.Size(547, 466);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "翻译按键";
             // 
@@ -735,14 +735,16 @@
             // 
             this.textKeyTimetag1.Location = new System.Drawing.Point(209, 198);
             this.textKeyTimetag1.Name = "textKeyTimetag1";
-            this.textKeyTimetag1.Size = new System.Drawing.Size(61, 21);
+            this.textKeyTimetag1.Size = new System.Drawing.Size(61, 22);
             this.textKeyTimetag1.TabIndex = 23;
+            this.textKeyTimetag1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textKeyTimetag1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textKeyTimetag1_KeyDown);
             // 
             // textKeySeek1
             // 
             this.textKeySeek1.Location = new System.Drawing.Point(209, 155);
             this.textKeySeek1.Name = "textKeySeek1";
-            this.textKeySeek1.Size = new System.Drawing.Size(61, 21);
+            this.textKeySeek1.Size = new System.Drawing.Size(61, 22);
             this.textKeySeek1.TabIndex = 22;
             this.textKeySeek1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textKeySeek1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textKeySeek1_KeyDown);
@@ -751,7 +753,7 @@
             // 
             this.textKeyToggle1.Location = new System.Drawing.Point(209, 112);
             this.textKeyToggle1.Name = "textKeyToggle1";
-            this.textKeyToggle1.Size = new System.Drawing.Size(61, 21);
+            this.textKeyToggle1.Size = new System.Drawing.Size(61, 22);
             this.textKeyToggle1.TabIndex = 21;
             this.textKeyToggle1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textKeyToggle1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textKeyToggle1_KeyDown);
@@ -760,7 +762,7 @@
             // 
             this.textKeyRW1.Location = new System.Drawing.Point(209, 69);
             this.textKeyRW1.Name = "textKeyRW1";
-            this.textKeyRW1.Size = new System.Drawing.Size(61, 21);
+            this.textKeyRW1.Size = new System.Drawing.Size(61, 22);
             this.textKeyRW1.TabIndex = 20;
             this.textKeyRW1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textKeyRW1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textKeyRW1_KeyDown);
@@ -769,7 +771,7 @@
             // 
             this.textKeyFF1.Location = new System.Drawing.Point(209, 26);
             this.textKeyFF1.Name = "textKeyFF1";
-            this.textKeyFF1.Size = new System.Drawing.Size(61, 21);
+            this.textKeyFF1.Size = new System.Drawing.Size(61, 22);
             this.textKeyFF1.TabIndex = 19;
             this.textKeyFF1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textKeyFF1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textKeyFF1_KeyDown);
@@ -779,7 +781,7 @@
             this.label37.AutoSize = true;
             this.label37.Location = new System.Drawing.Point(162, 201);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(41, 12);
+            this.label37.Size = new System.Drawing.Size(49, 14);
             this.label37.TabIndex = 13;
             this.label37.Text = "Ctrl +";
             // 
@@ -788,7 +790,7 @@
             this.label36.AutoSize = true;
             this.label36.Location = new System.Drawing.Point(162, 158);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(41, 12);
+            this.label36.Size = new System.Drawing.Size(49, 14);
             this.label36.TabIndex = 12;
             this.label36.Text = "Ctrl +";
             // 
@@ -797,7 +799,7 @@
             this.label35.AutoSize = true;
             this.label35.Location = new System.Drawing.Point(162, 115);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(41, 12);
+            this.label35.Size = new System.Drawing.Size(49, 14);
             this.label35.TabIndex = 11;
             this.label35.Text = "Ctrl +";
             // 
@@ -806,7 +808,7 @@
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(162, 72);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(41, 12);
+            this.label34.Size = new System.Drawing.Size(49, 14);
             this.label34.TabIndex = 10;
             this.label34.Text = "Ctrl +";
             // 
@@ -815,7 +817,7 @@
             this.label29.AutoSize = true;
             this.label29.Location = new System.Drawing.Point(162, 29);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(41, 12);
+            this.label29.Size = new System.Drawing.Size(49, 14);
             this.label29.TabIndex = 5;
             this.label29.Text = "Ctrl +";
             // 
@@ -824,7 +826,7 @@
             this.label28.AutoSize = true;
             this.label28.Location = new System.Drawing.Point(86, 158);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(41, 12);
+            this.label28.Size = new System.Drawing.Size(49, 14);
             this.label28.TabIndex = 4;
             this.label28.Text = "跳转：";
             // 
@@ -833,7 +835,7 @@
             this.label27.AutoSize = true;
             this.label27.Location = new System.Drawing.Point(38, 201);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(89, 12);
+            this.label27.Size = new System.Drawing.Size(105, 14);
             this.label27.TabIndex = 3;
             this.label27.Text = "插入时间标签：";
             // 
@@ -842,7 +844,7 @@
             this.label26.AutoSize = true;
             this.label26.Location = new System.Drawing.Point(56, 115);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(71, 12);
+            this.label26.Size = new System.Drawing.Size(84, 14);
             this.label26.TabIndex = 2;
             this.label26.Text = "暂停/播放：";
             // 
@@ -851,7 +853,7 @@
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(86, 72);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(41, 12);
+            this.label25.Size = new System.Drawing.Size(49, 14);
             this.label25.TabIndex = 1;
             this.label25.Text = "后退：";
             // 
@@ -860,7 +862,7 @@
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(86, 29);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(41, 12);
+            this.label24.Size = new System.Drawing.Size(49, 14);
             this.label24.TabIndex = 0;
             this.label24.Text = "快进：";
             // 
@@ -890,6 +892,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(555, 544);
             this.Controls.Add(this.splitContainer1);
+            this.Font = new System.Drawing.Font("SimSun", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);

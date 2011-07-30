@@ -176,6 +176,7 @@ namespace SGSControls
         public event EventHandler<SummaryEventArgs> RefreshSummary = null;
         public event EventHandler<SeekEventArgs> SeekPlayer = null;
         public event EventHandler<PlayerControlEventArgs> PlayerControl = null;
+        public event EventHandler<TimeEditEventArgs> TimeEdit = null;
         #endregion
 
         #region Overriden methods
@@ -491,6 +492,18 @@ namespace SGSControls
                             TogglePlayer();
                             return;
                         }
+                        if (((Keys)(int)m.WParam == _config.PlayerJumpto) &&
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
+                        {
+                            SeekToCurrentLine();
+                            return;
+                        }
+                        if (((Keys)(int)m.WParam == _config.InsertTag) &&
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
+                        {
+                            InsertTimeTag();
+                            return;
+                        }
                         break;
                     }
                 case Win32.WM_CHAR:
@@ -752,6 +765,84 @@ namespace SGSControls
             SetScrollPos(_scrollPos);
         }
 
+        #endregion
+
+        #region TimeTag
+
+        public void SeekToCurrentLine()
+        {
+            int linestart, linelen;
+
+            string line = FindCurrentLine(out linestart, out linelen);
+            var tag = FindTimeTag(line);
+            if (tag != null && SeekPlayer != null)
+            {
+                SeekPlayer(this, new SeekEventArgs(SeekDir.Begin, tag.StartTime));
+            }
+        }
+
+        public void InsertTimeTag()
+        {
+            if (_config == null) return;
+            int linebegin, linelen;
+            string line = FindCurrentLine(out linebegin, out linelen);
+            int pos = SelectionStart;
+            LockScrollPos();
+            var timeEditEventArgs = new TimeEditEventArgs(TimeType.BeginTime, 0, true);
+            if (TimeEdit != null) TimeEdit(this, timeEditEventArgs);
+            if (timeEditEventArgs.CancelEvent) return;
+            string tag = TimeTag.CreateTag(timeEditEventArgs.TimeValue, 1);
+            if (FindTimeTag(line) != null)
+            {
+                string text = Text;
+                int l = text.LastIndexOf('[', linebegin + linelen - 1);
+                int len = text.IndexOf(']', l) - l + 1;
+                Text = text.Remove(l, len).Insert(l, tag);
+            }
+            else
+            {
+                if (line.LastIndexOf(_config.CommentMark) == -1)
+                {
+                    tag = "%" + tag;
+                }
+                Text = Text.Insert(linebegin + linelen, tag);
+            }
+            SelectionStart = pos;
+            UnlockScrollPos();
+        }
+
+        private TimeTag FindTimeTag(string line)
+        {
+            int commentmark = line.LastIndexOf(_config.CommentMark);
+            if (commentmark == -1) return null;
+            int tagstart = line.LastIndexOf('[');
+            if (tagstart == -1) return null;
+            int tagend = line.LastIndexOf(']');
+            if (tagend == -1) return null;
+            if (tagend < tagstart) return null;
+            var tag = TimeTag.TryParse(line.Substring(tagstart + 1, tagend - tagstart - 1));
+            return tag;
+        }
+
+        private string FindCurrentLine(out int first, out int len)
+        {
+            int pos = SelectionStart;
+            int totalLen = Text.Length;
+            if (totalLen == 0)
+            {
+                first = 0;
+                len = 0;
+                return "";
+            }
+            if (pos >= totalLen) pos = totalLen - 1;
+            if (pos == 0) pos = 1;
+            int linebegin = Text.LastIndexOf('\n', pos - 1);
+            first = linebegin + 1; //行的第一个字符位置
+            int last = Text.IndexOf('\n', first);
+            last = last == -1 ? totalLen - 1 : last - 1;
+            len = last - first + 1;
+            return Text.Substring(first, len);
+        }
         #endregion
     }
 

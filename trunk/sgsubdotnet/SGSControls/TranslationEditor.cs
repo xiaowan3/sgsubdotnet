@@ -51,7 +51,11 @@ namespace SGSControls
                 syntaxHighlightingTextBox1.SeekPlayer -= value;
             }
         }
-        public event EventHandler<TimeEditEventArgs> TimeEdit = null;
+        public event EventHandler<TimeEditEventArgs> TimeEdit
+        {
+            add { syntaxHighlightingTextBox1.TimeEdit += value; }
+            remove { syntaxHighlightingTextBox1.TimeEdit -= value; }
+        }
         public event EventHandler<PlayerControlEventArgs> PlayerControl
         {
             add
@@ -121,47 +125,14 @@ namespace SGSControls
         /// <param name="e"></param>
         private void btnSeek_Click(object sender, EventArgs e)
         {
-            int linestart, linelen;
-
-            string line = FindCurrentLine(out linestart, out linelen);
-            var tag = FindTimeTag(line);
-            if (tag != null && _seekPlayer != null)
-            {
-                _seekPlayer(this, new SeekEventArgs(SeekDir.Begin, tag.StartTime));
-            }
+            syntaxHighlightingTextBox1.SeekToCurrentLine();
             syntaxHighlightingTextBox1.Focus();
         }
 
         private void btnInsertTimeTag_Click(object sender, EventArgs e)
         {
-            if (_config == null) return;
-            int linebegin, linelen;
-            string line = FindCurrentLine(out linebegin, out linelen);
-            int pos = syntaxHighlightingTextBox1.SelectionStart;
-            syntaxHighlightingTextBox1.LockScrollPos();
-            var timeEditEventArgs = new TimeEditEventArgs(TimeType.BeginTime, 0, true);
-            if (TimeEdit != null) TimeEdit(this, timeEditEventArgs);
-            if (timeEditEventArgs.CancelEvent) return;
-            string tag = TimeTag.CreateTag(timeEditEventArgs.TimeValue, 1);
-            if (FindTimeTag(line) != null)
-            {
-                string text = syntaxHighlightingTextBox1.Text;
-                int l = text.LastIndexOf('[', linebegin + linelen - 1);
-                int len = text.IndexOf(']', l) - l + 1;
-                syntaxHighlightingTextBox1.Text = text.Remove(l, len).Insert(l, tag);
-            }
-            else
-            {
-                if (line.LastIndexOf(_config.CommentMark) == -1)
-                {
-                    tag = "%" + tag;
-                }
-                syntaxHighlightingTextBox1.Text = syntaxHighlightingTextBox1.Text.Insert(linebegin + linelen, tag);
-            }
-            syntaxHighlightingTextBox1.SelectionStart = pos;
-            syntaxHighlightingTextBox1.UnlockScrollPos();
+            syntaxHighlightingTextBox1.InsertTimeTag();
             syntaxHighlightingTextBox1.Focus();
-
         }
 
         private void MenuItemCopy_Click(object sender, EventArgs e)
@@ -308,38 +279,38 @@ namespace SGSControls
         #endregion
 
  
-        private TimeTag FindTimeTag(string line)
-        {
-            int commentmark = line.LastIndexOf(_config.CommentMark);
-            if (commentmark == -1) return null;
-            int tagstart = line.LastIndexOf('[');
-            if (tagstart == -1) return null;
-            int tagend = line.LastIndexOf(']');
-            if (tagend == -1) return null;
-            if (tagend < tagstart) return null;
-            var tag = TimeTag.TryParse(line.Substring(tagstart + 1, tagend - tagstart - 1));
-            return tag;
-        }
+        //private TimeTag FindTimeTag(string line)
+        //{
+        //    int commentmark = line.LastIndexOf(_config.CommentMark);
+        //    if (commentmark == -1) return null;
+        //    int tagstart = line.LastIndexOf('[');
+        //    if (tagstart == -1) return null;
+        //    int tagend = line.LastIndexOf(']');
+        //    if (tagend == -1) return null;
+        //    if (tagend < tagstart) return null;
+        //    var tag = TimeTag.TryParse(line.Substring(tagstart + 1, tagend - tagstart - 1));
+        //    return tag;
+        //}
 
-        private string FindCurrentLine(out int first, out int len)
-        {
-            int pos = syntaxHighlightingTextBox1.SelectionStart;
-            int totalLen = syntaxHighlightingTextBox1.Text.Length;
-            if (totalLen == 0)
-            {
-                first = 0;
-                len = 0;
-                return "";
-            }
-            if (pos >= totalLen) pos = totalLen - 1;
-            if (pos == 0) pos = 1; 
-            int linebegin = syntaxHighlightingTextBox1.Text.LastIndexOf('\n', pos - 1);
-            first = linebegin + 1; //行的第一个字符位置
-            int last = syntaxHighlightingTextBox1.Text.IndexOf('\n', first);
-            last = last == -1 ? totalLen - 1 : last - 1;
-            len = last - first + 1;
-            return syntaxHighlightingTextBox1.Text.Substring(first, len);
-        }
+        //private string FindCurrentLine(out int first, out int len)
+        //{
+        //    int pos = syntaxHighlightingTextBox1.SelectionStart;
+        //    int totalLen = syntaxHighlightingTextBox1.Text.Length;
+        //    if (totalLen == 0)
+        //    {
+        //        first = 0;
+        //        len = 0;
+        //        return "";
+        //    }
+        //    if (pos >= totalLen) pos = totalLen - 1;
+        //    if (pos == 0) pos = 1; 
+        //    int linebegin = syntaxHighlightingTextBox1.Text.LastIndexOf('\n', pos - 1);
+        //    first = linebegin + 1; //行的第一个字符位置
+        //    int last = syntaxHighlightingTextBox1.Text.IndexOf('\n', first);
+        //    last = last == -1 ? totalLen - 1 : last - 1;
+        //    len = last - first + 1;
+        //    return syntaxHighlightingTextBox1.Text.Substring(first, len);
+        //}
 
  
     }
