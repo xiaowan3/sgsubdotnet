@@ -34,6 +34,8 @@ namespace sgsubtr
             PlayerFF = m_Config.PlayerFF;
             PlayerRW = m_Config.PlayerRW;
             PlayerToggle = m_Config.PlayerTogglePause;
+            PlayerSeek = m_Config.PlayerJumpto;
+            InsertTag = m_Config.InsertTag;
 
         }
 
@@ -57,6 +59,8 @@ namespace sgsubtr
         public Keys PlayerFF;
         public Keys PlayerRW;
         public Keys PlayerToggle;
+        public Keys PlayerSeek;
+        public Keys InsertTag;
 
         private double m_sto;
         public double StartTimeOffset
@@ -109,6 +113,8 @@ namespace sgsubtr
             textKeyFF1.Text = PlayerFF.ToString();
             textKeyRW1.Text = PlayerRW.ToString();
             textKeyToggle1.Text = PlayerToggle.ToString();
+            textKeySeek1.Text = PlayerSeek.ToString();
+            textKeyTimetag1.Text = InsertTag.ToString();
 
         }
 
@@ -178,6 +184,8 @@ namespace sgsubtr
             m_Config.PlayerFF = PlayerFF;
             m_Config.PlayerRW = PlayerRW;
             m_Config.PlayerTogglePause = PlayerToggle;
+            m_Config.PlayerJumpto = PlayerSeek;
+            m_Config.InsertTag = InsertTag;
             DialogResult = DialogResult.OK;
         }
 
@@ -234,23 +242,6 @@ namespace sgsubtr
             btnMinitrimP.Text = MinitrimPKey.ToString();
         }
 
-        //private void btnKeyTFF_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    PlayerFF = e.KeyCode;
-        //    btnKeyTFF.Text = PlayerFF.ToString();
-        //}
-
-        //private void btnKeyTRW_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    PlayerRW = e.KeyCode;
-        //    btnKeyTRW.Text = PlayerRW.ToString();
-        //}
-
-        //private void btnKeyTPause_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    PlayerToggle = e.KeyCode;
-        //    btnKeyTPause.Text = PlayerToggle.ToString();
-        //}
 
         private void textKeyFF1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -275,7 +266,16 @@ namespace sgsubtr
 
         private void textKeySeek1_KeyDown(object sender, KeyEventArgs e)
         {
-            
+            PlayerSeek = e.KeyCode;
+            textKeySeek1.Text = PlayerSeek.ToString();
+            e.SuppressKeyPress = true;
+        }
+
+        private void textKeyTimetag1_KeyDown(object sender, KeyEventArgs e)
+        {
+            InsertTag = e.KeyCode;
+            textKeyTimetag1.Text = InsertTag.ToString();
+            e.SuppressKeyPress = true;
         }
 
 
