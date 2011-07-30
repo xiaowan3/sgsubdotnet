@@ -106,8 +106,9 @@ namespace sgsubtr
             numMTS.Value = (decimal) MinitrimStep*1000;
             checkAOC.Checked = AutoOC;
 
-            btnKeyTFF.Text = PlayerFF.ToString();
-            btnKeyTRW.Text = PlayerRW.ToString();
+            textKeyFF1.Text = PlayerFF.ToString();
+            textKeyRW1.Text = PlayerRW.ToString();
+            textKeyToggle1.Text = PlayerToggle.ToString();
 
         }
 
@@ -233,22 +234,48 @@ namespace sgsubtr
             btnMinitrimP.Text = MinitrimPKey.ToString();
         }
 
-        private void btnKeyTFF_KeyDown(object sender, KeyEventArgs e)
+        //private void btnKeyTFF_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    PlayerFF = e.KeyCode;
+        //    btnKeyTFF.Text = PlayerFF.ToString();
+        //}
+
+        //private void btnKeyTRW_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    PlayerRW = e.KeyCode;
+        //    btnKeyTRW.Text = PlayerRW.ToString();
+        //}
+
+        //private void btnKeyTPause_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    PlayerToggle = e.KeyCode;
+        //    btnKeyTPause.Text = PlayerToggle.ToString();
+        //}
+
+        private void textKeyFF1_KeyDown(object sender, KeyEventArgs e)
         {
             PlayerFF = e.KeyCode;
-            btnKeyTFF.Text = PlayerFF.ToString();
+            textKeyFF1.Text = PlayerFF.ToString();
+            e.SuppressKeyPress = true;
         }
 
-        private void btnKeyTRW_KeyDown(object sender, KeyEventArgs e)
+        private void textKeyRW1_KeyDown(object sender, KeyEventArgs e)
         {
             PlayerRW = e.KeyCode;
-            btnKeyTRW.Text = PlayerRW.ToString();
+            textKeyRW1.Text = PlayerRW.ToString();
+            e.SuppressKeyPress = true;
         }
 
-        private void btnKeyTPause_KeyDown(object sender, KeyEventArgs e)
+        private void textKeyToggle1_KeyDown(object sender, KeyEventArgs e)
         {
             PlayerToggle = e.KeyCode;
-            btnKeyTPause.Text = PlayerToggle.ToString();
+            textKeyToggle1.Text = PlayerToggle.ToString();
+            e.SuppressKeyPress = true;
+        }
+
+        private void textKeySeek1_KeyDown(object sender, KeyEventArgs e)
+        {
+            
         }
 
 

@@ -102,7 +102,7 @@ namespace SGSControls
 
         private void menuItemExport_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("还没做好。");
+            Export();
         }
 
         private void syntaxHighlightingTextBox1_RefreshSummary(object sender, SummaryEventArgs e)
@@ -163,6 +163,45 @@ namespace SGSControls
             syntaxHighlightingTextBox1.Focus();
 
         }
+
+        private void MenuItemCopy_Click(object sender, EventArgs e)
+        {
+            syntaxHighlightingTextBox1.Copy();
+        }
+
+        private void MenuItemCut_Click(object sender, EventArgs e)
+        {
+            syntaxHighlightingTextBox1.Cut();
+        }
+
+        private void MenuItemPaste_Click(object sender, EventArgs e)
+        {
+            syntaxHighlightingTextBox1.Paste();
+        }
+
+        private void btnToggle_Click(object sender, EventArgs e)
+        {
+            if (_playerControl != null)
+            {
+                _playerControl(this, new PlayerControlEventArgs(PlayerCommand.Toggle));
+            }
+            syntaxHighlightingTextBox1.Focus();
+        }
+
+        private void btnRW_Click(object sender, EventArgs e)
+        {
+            if (_seekPlayer != null)
+                _seekPlayer(this, new SeekEventArgs(SeekDir.CurrentPos, -_config.SeekStep));
+            syntaxHighlightingTextBox1.Focus();
+        }
+
+        private void btnFF_Click(object sender, EventArgs e)
+        {
+            if (_seekPlayer != null)
+                _seekPlayer(this, new SeekEventArgs(SeekDir.CurrentPos, _config.SeekStep));
+            syntaxHighlightingTextBox1.Focus();
+        }
+
 
         #endregion
 
@@ -252,6 +291,20 @@ namespace SGSControls
             return false;
         }
 
+        private void Export()
+        {
+            var saveFileDialog = new SaveFileDialog
+                                     {
+                                         AddExtension = true,
+                                         DefaultExt = "txt",
+                                         Filter = @"文本文件 (*.txt)|*.txt||"
+                                     };
+            if(saveFileDialog.ShowDialog()==DialogResult.OK)
+            {
+                syntaxHighlightingTextBox1.Export(saveFileDialog.FileName);
+            }
+        }
+
         #endregion
 
  
@@ -288,43 +341,6 @@ namespace SGSControls
             return syntaxHighlightingTextBox1.Text.Substring(first, len);
         }
 
-        private void MenuItemCopy_Click(object sender, EventArgs e)
-        {
-            syntaxHighlightingTextBox1.Copy();
-        }
-
-        private void MenuItemCut_Click(object sender, EventArgs e)
-        {
-            syntaxHighlightingTextBox1.Cut();
-        }
-
-        private void MenuItemPaste_Click(object sender, EventArgs e)
-        {
-            syntaxHighlightingTextBox1.Paste();
-        }
-
-        private void btnToggle_Click(object sender, EventArgs e)
-        {
-            if (_playerControl != null)
-            {
-                _playerControl(this ,new PlayerControlEventArgs(PlayerCommand.Toggle));
-            }
-            syntaxHighlightingTextBox1.Focus();
-        }
-
-        private void btnRW_Click(object sender, EventArgs e)
-        {
-            if (_seekPlayer != null)
-                _seekPlayer(this, new SeekEventArgs(SeekDir.CurrentPos, -_config.SeekStep));
-            syntaxHighlightingTextBox1.Focus();
-        }
-
-        private void btnFF_Click(object sender, EventArgs e)
-        {
-            if (_seekPlayer != null)
-                _seekPlayer(this, new SeekEventArgs(SeekDir.CurrentPos, _config.SeekStep));
-            syntaxHighlightingTextBox1.Focus();
-        }
-
+ 
     }
 }

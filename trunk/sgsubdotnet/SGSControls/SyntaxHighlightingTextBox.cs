@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.IO;
+using System.Security.AccessControl;
 using System.Windows.Forms;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -81,7 +82,7 @@ namespace SGSControls
             _separators.Add(_config.HolePlaceholder);
             _separators.Add(_config.CommentMark);
             _separators.Add(_config.UncertainLeftMark);
-          //  _separators.Add(_config.UncertainRightMark);      
+  
         }
 
         public void SetSaved()
@@ -110,7 +111,30 @@ namespace SGSControls
 
         public void Export(string filename)
         {
-            throw new NotImplementedException();
+            var file = new FileStream(filename, FileMode.Create, FileAccess.Write);
+            var writer = new StreamWriter(file, Encoding.Unicode);
+            string[] lines = Text.Split('\n');
+            foreach (string line in lines)
+            {
+                var currentline = line;
+                int c = line.IndexOf(_config.CommentMark);
+                int mark;
+                if (c != -1) currentline = line.Substring(0, c);
+                while ((mark = currentline.IndexOf(_config.UncertainLeftMark)) != -1)
+                {
+                    currentline = currentline.Remove(mark, 1);
+                }
+                while ((mark = currentline.IndexOf(_config.UncertainRightMark)) != -1)
+                {
+                    currentline = currentline.Remove(mark, 1);
+                }
+                writer.WriteLine(currentline);
+    
+            }
+            writer.Flush();
+            file.Flush();
+            writer.Close();
+            file.Close();
         }
 
         /// <summary>

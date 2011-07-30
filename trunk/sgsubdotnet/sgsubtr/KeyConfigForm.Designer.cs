@@ -78,11 +78,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnKeyTag = new System.Windows.Forms.Button();
-            this.btnKeyTSeek = new System.Windows.Forms.Button();
-            this.btnKeyTPause = new System.Windows.Forms.Button();
-            this.btnKeyTRW = new System.Windows.Forms.Button();
-            this.btnKeyTFF = new System.Windows.Forms.Button();
+            this.textKeyTimetag1 = new System.Windows.Forms.TextBox();
+            this.textKeySeek1 = new System.Windows.Forms.TextBox();
+            this.textKeyToggle1 = new System.Windows.Forms.TextBox();
+            this.textKeyRW1 = new System.Windows.Forms.TextBox();
+            this.textKeyFF1 = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
@@ -709,11 +709,11 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.btnKeyTag);
-            this.tabPage2.Controls.Add(this.btnKeyTSeek);
-            this.tabPage2.Controls.Add(this.btnKeyTPause);
-            this.tabPage2.Controls.Add(this.btnKeyTRW);
-            this.tabPage2.Controls.Add(this.btnKeyTFF);
+            this.tabPage2.Controls.Add(this.textKeyTimetag1);
+            this.tabPage2.Controls.Add(this.textKeySeek1);
+            this.tabPage2.Controls.Add(this.textKeyToggle1);
+            this.tabPage2.Controls.Add(this.textKeyRW1);
+            this.tabPage2.Controls.Add(this.textKeyFF1);
             this.tabPage2.Controls.Add(this.label37);
             this.tabPage2.Controls.Add(this.label36);
             this.tabPage2.Controls.Add(this.label35);
@@ -731,53 +731,48 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "翻译按键";
             // 
-            // btnKeyTag
+            // textKeyTimetag1
             // 
-            this.btnKeyTag.Location = new System.Drawing.Point(225, 196);
-            this.btnKeyTag.Name = "btnKeyTag";
-            this.btnKeyTag.Size = new System.Drawing.Size(75, 23);
-            this.btnKeyTag.TabIndex = 18;
-            this.btnKeyTag.Text = "TIME";
-            this.btnKeyTag.UseVisualStyleBackColor = true;
+            this.textKeyTimetag1.Location = new System.Drawing.Point(209, 198);
+            this.textKeyTimetag1.Name = "textKeyTimetag1";
+            this.textKeyTimetag1.Size = new System.Drawing.Size(61, 21);
+            this.textKeyTimetag1.TabIndex = 23;
             // 
-            // btnKeyTSeek
+            // textKeySeek1
             // 
-            this.btnKeyTSeek.Location = new System.Drawing.Point(225, 153);
-            this.btnKeyTSeek.Name = "btnKeyTSeek";
-            this.btnKeyTSeek.Size = new System.Drawing.Size(75, 23);
-            this.btnKeyTSeek.TabIndex = 17;
-            this.btnKeyTSeek.Text = "SK";
-            this.btnKeyTSeek.UseVisualStyleBackColor = true;
+            this.textKeySeek1.Location = new System.Drawing.Point(209, 155);
+            this.textKeySeek1.Name = "textKeySeek1";
+            this.textKeySeek1.Size = new System.Drawing.Size(61, 21);
+            this.textKeySeek1.TabIndex = 22;
+            this.textKeySeek1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textKeySeek1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textKeySeek1_KeyDown);
             // 
-            // btnKeyTPause
+            // textKeyToggle1
             // 
-            this.btnKeyTPause.Location = new System.Drawing.Point(225, 110);
-            this.btnKeyTPause.Name = "btnKeyTPause";
-            this.btnKeyTPause.Size = new System.Drawing.Size(75, 23);
-            this.btnKeyTPause.TabIndex = 16;
-            this.btnKeyTPause.Text = "P";
-            this.btnKeyTPause.UseVisualStyleBackColor = true;
-            this.btnKeyTPause.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnKeyTPause_KeyDown);
+            this.textKeyToggle1.Location = new System.Drawing.Point(209, 112);
+            this.textKeyToggle1.Name = "textKeyToggle1";
+            this.textKeyToggle1.Size = new System.Drawing.Size(61, 21);
+            this.textKeyToggle1.TabIndex = 21;
+            this.textKeyToggle1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textKeyToggle1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textKeyToggle1_KeyDown);
             // 
-            // btnKeyTRW
+            // textKeyRW1
             // 
-            this.btnKeyTRW.Location = new System.Drawing.Point(225, 67);
-            this.btnKeyTRW.Name = "btnKeyTRW";
-            this.btnKeyTRW.Size = new System.Drawing.Size(75, 23);
-            this.btnKeyTRW.TabIndex = 15;
-            this.btnKeyTRW.Text = "RW";
-            this.btnKeyTRW.UseVisualStyleBackColor = true;
-            this.btnKeyTRW.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnKeyTRW_KeyDown);
+            this.textKeyRW1.Location = new System.Drawing.Point(209, 69);
+            this.textKeyRW1.Name = "textKeyRW1";
+            this.textKeyRW1.Size = new System.Drawing.Size(61, 21);
+            this.textKeyRW1.TabIndex = 20;
+            this.textKeyRW1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textKeyRW1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textKeyRW1_KeyDown);
             // 
-            // btnKeyTFF
+            // textKeyFF1
             // 
-            this.btnKeyTFF.Location = new System.Drawing.Point(225, 24);
-            this.btnKeyTFF.Name = "btnKeyTFF";
-            this.btnKeyTFF.Size = new System.Drawing.Size(75, 23);
-            this.btnKeyTFF.TabIndex = 14;
-            this.btnKeyTFF.Text = "FF";
-            this.btnKeyTFF.UseVisualStyleBackColor = true;
-            this.btnKeyTFF.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnKeyTFF_KeyDown);
+            this.textKeyFF1.Location = new System.Drawing.Point(209, 26);
+            this.textKeyFF1.Name = "textKeyFF1";
+            this.textKeyFF1.Size = new System.Drawing.Size(61, 21);
+            this.textKeyFF1.TabIndex = 19;
+            this.textKeyFF1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textKeyFF1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textKeyFF1_KeyDown);
             // 
             // label37
             // 
@@ -984,10 +979,10 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Button btnKeyTag;
-        private System.Windows.Forms.Button btnKeyTSeek;
-        private System.Windows.Forms.Button btnKeyTPause;
-        private System.Windows.Forms.Button btnKeyTRW;
-        private System.Windows.Forms.Button btnKeyTFF;
+        private System.Windows.Forms.TextBox textKeyFF1;
+        private System.Windows.Forms.TextBox textKeyTimetag1;
+        private System.Windows.Forms.TextBox textKeySeek1;
+        private System.Windows.Forms.TextBox textKeyToggle1;
+        private System.Windows.Forms.TextBox textKeyRW1;
     }
 }
