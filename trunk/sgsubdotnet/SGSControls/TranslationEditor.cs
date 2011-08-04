@@ -31,6 +31,84 @@ namespace SGSControls
             labelFF.Text = "前进：Ctrl+" + _config.PlayerFF;
             labelToggle.Text = "暂停：Ctrl+" + _config.PlayerTogglePause;
         }
+
+        public void New()
+        {
+            if (AskSave())
+            {
+                syntaxHighlightingTextBox1.Text = "";
+                syntaxHighlightingTextBox1.SetSaved();
+                _filename = "";
+            }
+        }
+
+        public void Open()
+        {
+            if (AskSave())
+            {
+                OpenTranslation();
+            }
+        }
+
+        /// <summary>
+        /// Save the file. If filename is unknown, show SaveFileDialog.
+        /// </summary>
+        /// <returns>Return true when saved, false when cancelled.</returns>
+        public bool Save()
+        {
+            if (_filename.Length == 0)
+            {
+                var saveFileDialog = new SaveFileDialog
+                {
+                    AddExtension = true,
+                    DefaultExt = "trn",
+                    Filter = @"翻译文本 (*.trn)|*.trn||"
+                };
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    _filename = saveFileDialog.FileName;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            syntaxHighlightingTextBox1.Save(_filename);
+            return true;
+        }
+
+        public bool SaveAs()
+        {
+            var saveFileDialog = new SaveFileDialog
+            {
+                AddExtension = true,
+                DefaultExt = "trn",
+                Filter = @"翻译文本 (*.trn)|*.trn||"
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                syntaxHighlightingTextBox1.Save(saveFileDialog.FileName);
+                _filename = saveFileDialog.FileName;
+                return true;
+            }
+            return false;
+        }
+
+        public void ExportPlainScript()
+        {
+            var saveFileDialog = new SaveFileDialog
+            {
+                AddExtension = true,
+                DefaultExt = "txt",
+                Filter = @"文本文件 (*.txt)|*.txt||"
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                syntaxHighlightingTextBox1.Export(saveFileDialog.FileName);
+            }
+        }
+
+
         #endregion
 
         #region Events
@@ -74,40 +152,8 @@ namespace SGSControls
         #endregion
 
         #region event handlers
-        private void menuItemNew_Click(object sender, EventArgs e)
-        {
-            if (AskSave())
-            {
-                syntaxHighlightingTextBox1.Text = "";
-                syntaxHighlightingTextBox1.SetSaved();
-                _filename = "";
-            }
-        }
 
 
-        private void menuItemOpen_Click(object sender, EventArgs e)
-        {
-            if(AskSave())
-            {
-                Open();
-            }
-        }
-
-
-        private void menuItemSave_Click(object sender, EventArgs e)
-        {
-            Save();
-        }
-
-        private void menuItemSaveas_Click(object sender, EventArgs e)
-        {
-            SaveAs();
-        }
-
-        private void menuItemExport_Click(object sender, EventArgs e)
-        {
-            Export();
-        }
 
         private void syntaxHighlightingTextBox1_RefreshSummary(object sender, SummaryEventArgs e)
         {
@@ -118,11 +164,7 @@ namespace SGSControls
 
         }
 
-        /// <summary>
-        /// 这算法有这么麻烦吗，囧
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
         private void btnSeek_Click(object sender, EventArgs e)
         {
             syntaxHighlightingTextBox1.SeekToCurrentLine();
@@ -199,52 +241,11 @@ namespace SGSControls
             return true;
         }
 
-        /// <summary>
-        /// Save the file. If filename is unknown, show SaveFileDialog.
-        /// </summary>
-        /// <returns>Return true when saved, false when cancelled.</returns>
-        private bool Save()
-        {
-            if (_filename.Length == 0)
-            {
-                var saveFileDialog = new SaveFileDialog
-                                         {
-                                             AddExtension = true,
-                                             DefaultExt = "trn",
-                                             Filter = @"翻译文本 (*.trn)|*.trn||"
-                                         };
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    _filename = saveFileDialog.FileName;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            syntaxHighlightingTextBox1.Save(_filename);
-            return true;
-        }
-
-        private bool SaveAs()
-        {
-            var saveFileDialog = new SaveFileDialog
-            {
-                AddExtension = true,
-                DefaultExt = "trn",
-                Filter = @"翻译文本 (*.trn)|*.trn||"
-            };
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                syntaxHighlightingTextBox1.Save(saveFileDialog.FileName);
-                _filename = saveFileDialog.FileName;
-                return true;
-            }
-            return false;
-        }
 
 
-        private bool Open()
+
+
+        private bool OpenTranslation()
         {
             var openFileDialog = new OpenFileDialog
                                      {
@@ -260,20 +261,6 @@ namespace SGSControls
                 return true;
             }
             return false;
-        }
-
-        private void Export()
-        {
-            var saveFileDialog = new SaveFileDialog
-                                     {
-                                         AddExtension = true,
-                                         DefaultExt = "txt",
-                                         Filter = @"文本文件 (*.txt)|*.txt||"
-                                     };
-            if(saveFileDialog.ShowDialog()==DialogResult.OK)
-            {
-                syntaxHighlightingTextBox1.Export(saveFileDialog.FileName);
-            }
         }
 
         #endregion

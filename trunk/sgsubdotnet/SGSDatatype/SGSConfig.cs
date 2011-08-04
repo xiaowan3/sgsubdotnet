@@ -212,6 +212,23 @@ namespace SGSDatatype
         [DataMember]
         public Keys InsertTag { get; set; }
 
+
+        [DataMember]
+        public Keys PlayerFF2 { get; set; }
+
+        [DataMember]
+        public Keys PlayerRW2 { get; set; }
+
+        [DataMember]
+        public Keys PlayerTogglePause2 { get; set; }
+
+        [DataMember]
+        public Keys PlayerJumpto2 { get; set; }
+
+        [DataMember]
+        public Keys InsertTag2 { get; set; }
+
+
         [DataMember]
         public Keys SetEndTime { get; set; }
 
