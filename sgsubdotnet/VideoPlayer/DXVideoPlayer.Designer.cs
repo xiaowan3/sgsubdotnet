@@ -61,7 +61,7 @@
             this.splitContainer1.Panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.splitContainer1_Panel2_MouseDown);
             this.splitContainer1.Panel2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.splitContainer1_Panel2_MouseUp);
             this.splitContainer1.Size = new System.Drawing.Size(315, 272);
-            this.splitContainer1.SplitterDistance = 238;
+            this.splitContainer1.SplitterDistance = 239;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -76,12 +76,12 @@
             // msglabel
             // 
             this.msglabel.AutoSize = true;
-            this.msglabel.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.msglabel.Font = new System.Drawing.Font("SimSun", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(134)));
             this.msglabel.ForeColor = System.Drawing.Color.White;
             this.msglabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.msglabel.Location = new System.Drawing.Point(3, 16);
             this.msglabel.Name = "msglabel";
-            this.msglabel.Size = new System.Drawing.Size(143, 15);
+            this.msglabel.Size = new System.Drawing.Size(126, 13);
             this.msglabel.TabIndex = 0;
             this.msglabel.Text = "00:00:00/00:00:00";
             // 
@@ -97,6 +97,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.CausesValidation = false;
             this.Controls.Add(this.splitContainer1);
+            this.Font = new System.Drawing.Font("SimSun", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "DXVideoPlayer";
             this.Size = new System.Drawing.Size(315, 272);

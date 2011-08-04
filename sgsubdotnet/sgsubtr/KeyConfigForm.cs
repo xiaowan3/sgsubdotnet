@@ -9,64 +9,52 @@ namespace sgsubtr
         public KeyConfigForm(SGSConfig config)
         {
             InitializeComponent();
-            m_Config = config;
+            _config = config;
 
-            BWKey = m_Config.SeekBackword;
-            FFKey = m_Config.SeekForward;
-            PauseKey = m_Config.Pause;
-            TimeKey = m_Config.AddTimePoint;
-            STKey = m_Config.AddStartTime;
-            ETKey = m_Config.AddEndTime;
-            StartTimeOffset = m_Config.StartOffset;
-            EndTimeOffset = m_Config.EndOffset;
-            SeekStep = m_Config.SeekStep;
-            AutoOC = m_Config.AutoOverlapCorrection;
-            GCKey = m_Config.GotoCurrent;
-            GPKey = m_Config.GotoPrevious;
-            CTimeKey = m_Config.AddContTimePoint;
-            EEMKey = m_Config.EnterEditMode;
-            CellTimeKey = m_Config.AddCellTime;
-            SaveAssKey = m_Config.SaveAss;
-            MinitrimMKey = m_Config.MiniTrimMinus;
-            MinitrimPKey = m_Config.MiniTrimPlus;
-            MinitrimStep = m_Config.MinitrimStep;
+            textTRW.AssiciateKey = _config.SeekBackword;
+            textTFF.AssiciateKey = _config.SeekForward;
+            textTPause.AssiciateKey = _config.Pause;
+            textTSeekTo.AssiciateKey = _config.GotoCurrent;
+            textTSeekPre.AssiciateKey = _config.GotoPrevious;
+            textTAddTime.AssiciateKey = _config.AddTimePoint;
+            textTAddCellTime.AssiciateKey = _config.AddCellTime;
+            textTAddContTime.AssiciateKey = _config.AddContTimePoint;
+            textTEnterEdit.AssiciateKey = _config.EnterEditMode;
+            textTAddStartTime.AssiciateKey = _config.AddStartTime;
+            textTAddEndTime.AssiciateKey = _config.AddEndTime;
+            textTMTMinus.AssiciateKey = _config.MiniTrimMinus;
+            textTMTPlus.AssiciateKey = _config.MiniTrimPlus;
+            textTSaveAss.AssiciateKey = _config.SaveAss;
 
-            PlayerFF = m_Config.PlayerFF;
-            PlayerRW = m_Config.PlayerRW;
-            PlayerToggle = m_Config.PlayerTogglePause;
-            PlayerSeek = m_Config.PlayerJumpto;
-            InsertTag = m_Config.InsertTag;
+            StartTimeOffset = _config.StartOffset;
+            EndTimeOffset = _config.EndOffset;
+            SeekStep = _config.SeekStep;
+            AutoOC = _config.AutoOverlapCorrection;
+
+            MinitrimStep = _config.MinitrimStep;
+
+            textKeyFF1.AssiciateKey = _config.PlayerFF;
+            textKeyRW1.AssiciateKey = _config.PlayerRW;
+            textKeyToggle1.AssiciateKey = _config.PlayerTogglePause;
+            textKeySeek1.AssiciateKey = _config.PlayerJumpto;
+            textKeyTimetag1.AssiciateKey = _config.InsertTag;
+
+            textKeyFF2.AssiciateKey = _config.PlayerFF2;
+            textKeyRW2.AssiciateKey = _config.PlayerRW2;
+            textKeyToggle2.AssiciateKey = _config.PlayerTogglePause2;
+            textKeySeek2.AssiciateKey = _config.PlayerJumpto2;
+            textKeyTimetag2.AssiciateKey = _config.InsertTag2;
 
         }
 
-        public SGSConfig m_Config;
-
-        public Keys BWKey;
-        public Keys FFKey;
-        public Keys PauseKey;
-        public Keys TimeKey;
-        public Keys CTimeKey;
-        public Keys STKey;
-        public Keys ETKey;
-        public Keys GCKey;
-        public Keys GPKey;
-        public Keys EEMKey;
-        public Keys CellTimeKey;
-        public Keys SaveAssKey;
-        public Keys MinitrimPKey;
-        public Keys MinitrimMKey;
-
-        public Keys PlayerFF;
-        public Keys PlayerRW;
-        public Keys PlayerToggle;
-        public Keys PlayerSeek;
-        public Keys InsertTag;
+        public SGSConfig _config;
 
         private double m_sto;
         public double StartTimeOffset
         {
             get { return m_sto; }
-            set {
+            set
+            {
                 if (value > 1) m_sto = 1;
                 else if (value < -1) m_sto = -1;
                 else m_sto = value;
@@ -90,102 +78,55 @@ namespace sgsubtr
 
         private void KeyConfigForm_Load(object sender, EventArgs e)
         {
-            btnBW.Text = BWKey.ToString();
-            btnFF.Text = FFKey.ToString();
-            btnP.Text = PauseKey.ToString();
-            btnT.Text =  TimeKey.ToString();
-            btnST.Text =  STKey.ToString();
-            btnET.Text =  ETKey.ToString();
-            btnGC.Text = GCKey.ToString();
-            btnGP.Text =  GPKey.ToString();
-            btnCT.Text =  CTimeKey.ToString();
-            btnEEM.Text =  EEMKey.ToString();
-            btnCellT.Text = CellTimeKey.ToString();
-            btnSaveAss.Text = SaveAssKey.ToString();
-            btnMinitrimM.Text = MinitrimMKey.ToString();
-            btnMinitrimP.Text = MinitrimPKey.ToString();
             numET.Value = (decimal)EndTimeOffset * 1000;
             numST.Value = (decimal)StartTimeOffset * 1000;
             numSS.Value = (decimal)SeekStep;
-            numMTS.Value = (decimal) MinitrimStep*1000;
+            numMTS.Value = (decimal)MinitrimStep * 1000;
             checkAOC.Checked = AutoOC;
-
-            textKeyFF1.Text = PlayerFF.ToString();
-            textKeyRW1.Text = PlayerRW.ToString();
-            textKeyToggle1.Text = PlayerToggle.ToString();
-            textKeySeek1.Text = PlayerSeek.ToString();
-            textKeyTimetag1.Text = InsertTag.ToString();
-
         }
 
-        private void btnBW_KeyDown(object sender, KeyEventArgs e)
-        {
-            BWKey = e.KeyCode;
-            btnBW.Text = BWKey.ToString();
-        }
-
-        private void btnFF_KeyDown(object sender, KeyEventArgs e)
-        {
-            FFKey = e.KeyCode;
-            btnFF.Text = FFKey.ToString();
-        }
-
-        private void btnP_KeyDown(object sender, KeyEventArgs e)
-        {
-            PauseKey = e.KeyCode;
-            btnP.Text = PauseKey.ToString();
-        }
-
-        private void btnT_KeyDown(object sender, KeyEventArgs e)
-        {
-            TimeKey = e.KeyCode;
-            btnT.Text =  TimeKey.ToString();
-        }
-
-        private void btnST_KeyDown(object sender, KeyEventArgs e)
-        {
-            STKey = e.KeyCode;
-            btnST.Text = STKey.ToString();
-        }
-
-        private void btnET_KeyDown(object sender, KeyEventArgs e)
-        {
-            ETKey = e.KeyCode;
-            btnET.Text =  ETKey.ToString();
-        }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
             EndTimeOffset = (double)(numET.Value) / 1000.0;
             StartTimeOffset = (double)(numST.Value) / 1000.0;
-            m_Config.MinitrimStep = (double) (numMTS.Value)/1000.0;
+            _config.MinitrimStep = (double)(numMTS.Value) / 1000.0;
             SeekStep = (double)(numSS.Value);
             AutoOC = checkAOC.Checked;
 
-            m_Config.SeekBackword = BWKey;
-            m_Config.SeekForward = FFKey;
-            m_Config.Pause = PauseKey;
-            m_Config.AddTimePoint = TimeKey;
-            m_Config.AddStartTime = STKey;
-            m_Config.AddEndTime = ETKey;
-            m_Config.StartOffset = StartTimeOffset;
-            m_Config.EndOffset = EndTimeOffset;
-            m_Config.SeekStep = SeekStep;
-            m_Config.AutoOverlapCorrection = AutoOC;
-            m_Config.GotoCurrent = GCKey;
-            m_Config.GotoPrevious = GPKey;
-            m_Config.AddContTimePoint = CTimeKey;
-            m_Config.EnterEditMode = EEMKey;
-            m_Config.AddCellTime = CellTimeKey;
-            m_Config.SaveAss = SaveAssKey;
-            m_Config.MiniTrimPlus = MinitrimPKey;
-            m_Config.MiniTrimMinus = MinitrimMKey;
+            _config.SeekBackword = textTRW.AssiciateKey;
+            _config.SeekForward = textTFF.AssiciateKey;
+            _config.Pause = textTPause.AssiciateKey;
+            _config.GotoCurrent = textTSeekTo.AssiciateKey;
+            _config.GotoPrevious = textTSeekPre.AssiciateKey;
+            _config.AddTimePoint = textTAddTime.AssiciateKey;
+            _config.AddContTimePoint = textTAddContTime.AssiciateKey;
+            _config.EnterEditMode = textTEnterEdit.AssiciateKey;
+            _config.AddCellTime = textTAddCellTime.AssiciateKey;
+            _config.AddStartTime = textTAddStartTime.AssiciateKey;
+            _config.AddEndTime = textTAddEndTime.AssiciateKey;
+            _config.MiniTrimPlus = textTMTPlus.AssiciateKey;
+            _config.MiniTrimMinus = textTMTMinus.AssiciateKey;
+            _config.SaveAss = textTSaveAss.AssiciateKey;
 
-            m_Config.PlayerFF = PlayerFF;
-            m_Config.PlayerRW = PlayerRW;
-            m_Config.PlayerTogglePause = PlayerToggle;
-            m_Config.PlayerJumpto = PlayerSeek;
-            m_Config.InsertTag = InsertTag;
+
+            _config.StartOffset = StartTimeOffset;
+            _config.EndOffset = EndTimeOffset;
+            _config.SeekStep = SeekStep;
+            _config.AutoOverlapCorrection = AutoOC;
+
+            _config.PlayerFF = textKeyFF1.AssiciateKey;
+            _config.PlayerRW = textKeyRW1.AssiciateKey;
+            _config.PlayerTogglePause = textKeyToggle1.AssiciateKey;
+            _config.PlayerJumpto = textKeySeek1.AssiciateKey;
+            _config.InsertTag = textKeyTimetag1.AssiciateKey;
+
+            _config.PlayerFF2 = textKeyFF2.AssiciateKey;
+            _config.PlayerRW2 = textKeyRW2.AssiciateKey;
+            _config.PlayerTogglePause2 = textKeyToggle2.AssiciateKey;
+            _config.PlayerJumpto2 = textKeySeek2.AssiciateKey;
+            _config.InsertTag2 = textKeyTimetag2.AssiciateKey;
+
             DialogResult = DialogResult.OK;
         }
 
@@ -194,90 +135,24 @@ namespace sgsubtr
             DialogResult = DialogResult.Cancel;
         }
 
-        private void btnGotoCurrent_KeyDown(object sender, KeyEventArgs e)
+        private void KeyconfigText_KeyDown(object sender, KeyEventArgs e)
         {
-            GCKey = e.KeyCode;
-            btnGC.Text = GCKey.ToString();
-        }
-
-        private void btnGotoPrevious_KeyDown(object sender, KeyEventArgs e)
-        {
-            GPKey = e.KeyCode;
-            btnGP.Text =  GPKey.ToString();
-        }
-
-        private void btnCT_KeyDown(object sender, KeyEventArgs e)
-        {
-            CTimeKey = e.KeyCode;
-            btnCT.Text =  CTimeKey.ToString();
-        }
-
-        private void btnEEM_KeyDown(object sender, KeyEventArgs e)
-        {
-            EEMKey = e.KeyCode;
-            btnEEM.Text = EEMKey.ToString();
-        }
-
-        private void btnCellT_KeyDown(object sender, KeyEventArgs e)
-        {
-            CellTimeKey = e.KeyCode;
-            btnCellT.Text = CellTimeKey.ToString();
-        }
-
-        private void btnSaveAss_KeyDown(object sender, KeyEventArgs e)
-        {
-            SaveAssKey = e.KeyCode;
-            btnSaveAss.Text = SaveAssKey.ToString();
-        }
-
-        private void btnMinitrimM_KeyDown(object sender, KeyEventArgs e)
-        {
-            MinitrimMKey = e.KeyCode;
-            btnMinitrimM.Text = MinitrimMKey.ToString();
-        }
-
-        private void btnMinitrimP_KeyDown(object sender, KeyEventArgs e)
-        {
-            MinitrimPKey = e.KeyCode;
-            btnMinitrimP.Text = MinitrimPKey.ToString();
-        }
-
-
-        private void textKeyFF1_KeyDown(object sender, KeyEventArgs e)
-        {
-            PlayerFF = e.KeyCode;
-            textKeyFF1.Text = PlayerFF.ToString();
+            var senderTextbox = (KeyConfigTextBox)sender;
+            senderTextbox.AssiciateKey = e.KeyCode;
             e.SuppressKeyPress = true;
         }
-
-        private void textKeyRW1_KeyDown(object sender, KeyEventArgs e)
+    }
+    class KeyConfigTextBox : TextBox
+    {
+        private Keys _associateKey;
+        public Keys AssiciateKey
         {
-            PlayerRW = e.KeyCode;
-            textKeyRW1.Text = PlayerRW.ToString();
-            e.SuppressKeyPress = true;
+            get { return _associateKey; }
+            set
+            {
+                _associateKey = value;
+                Text = _associateKey.ToString();
+            }
         }
-
-        private void textKeyToggle1_KeyDown(object sender, KeyEventArgs e)
-        {
-            PlayerToggle = e.KeyCode;
-            textKeyToggle1.Text = PlayerToggle.ToString();
-            e.SuppressKeyPress = true;
-        }
-
-        private void textKeySeek1_KeyDown(object sender, KeyEventArgs e)
-        {
-            PlayerSeek = e.KeyCode;
-            textKeySeek1.Text = PlayerSeek.ToString();
-            e.SuppressKeyPress = true;
-        }
-
-        private void textKeyTimetag1_KeyDown(object sender, KeyEventArgs e)
-        {
-            InsertTag = e.KeyCode;
-            textKeyTimetag1.Text = InsertTag.ToString();
-            e.SuppressKeyPress = true;
-        }
-
-
     }
 }

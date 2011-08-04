@@ -121,13 +121,10 @@
   <data name="btnRW.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALDwAA
-        Cw8BkvkDpQAAAGVJREFUOE+lkuEOACAEhOv9H1pqYxK7Rps/uj5yJhGN1tmATrQen+5Rdf4eS94uJZ8C
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALDgAA
+        Cw4BQL7hQQAAAGVJREFUOE+lkuEOACAEhOv9H1pqYxK7Rps/uj5yJhGN1tmATrQen+5Rdf4eS94uJZ8C
         tkDCAnz+AViBBaR5oUcClNMZIGF2fw2xAgldKM/AW1V2IQKV9gAtmLr3K8x0cJVRgTZgAZVwOOUIoEfn
         AAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="mainMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
 </root>

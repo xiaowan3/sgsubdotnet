@@ -193,9 +193,144 @@ namespace sgsubtr
         StatusStrip statusStrip = new StatusStrip();
         ToolStripStatusLabel statusLabel = new ToolStripStatusLabel();
 
+        ToolStripMenuItem openTranslationScript = new ToolStripMenuItem("打开翻译原稿");
+        ToolStripMenuItem exportTranslation = new ToolStripMenuItem("导出翻译文本");
+        ToolStripMenuItem saveTranslation = new ToolStripMenuItem("保存翻译原稿");
+        ToolStripMenuItem saveTranslationas = new ToolStripMenuItem("翻译原稿另存为");
+
+        ToolStripMenuItem TimingMode = new ToolStripMenuItem("时间轴模式");
 
         #endregion
 
+        private void buildMenuItems()
+        {
+            //Build mainMenu
+            mainMenu.Items.Add(fileMenuItems);
+            mainMenu.Items.Add(ConfigMenuItems);
+            mainMenu.Items.Add(HelpMenuItem);
+
+            openSub.Image = global::sgsubtr.Properties.Resources.openass;
+            openSub.ImageTransparentColor = Color.Magenta;
+
+            openTXT.Image = global::sgsubtr.Properties.Resources.opentxt;
+            openTXT.ImageTransparentColor = Color.Magenta;
+
+            openMedia.Image = global::sgsubtr.Properties.Resources.openvideo;
+            openMedia.ImageTransparentColor = Color.Magenta;
+
+            saveSub.Image = global::sgsubtr.Properties.Resources.save;
+            saveSub.ImageTransparentColor = Color.Magenta;
+
+            saveTranslation.Image = global::sgsubtr.Properties.Resources.save;
+            saveTranslation.ImageTransparentColor = Color.Magenta;
+
+            fileMenuItems.DropDownItems.Add(openSub);
+            fileMenuItems.DropDownItems.Add(openTXT);
+            fileMenuItems.DropDownItems.Add(openMedia);
+            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
+            fileMenuItems.DropDownItems.Add(saveSub);
+            fileMenuItems.DropDownItems.Add(saveSubAs);
+            fileMenuItems.DropDownItems.Add(autoSaveRecord);
+            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
+            fileMenuItems.DropDownItems.Add(exit);
+
+            ConfigMenuItems.DropDownItems.Add(KeyConfig);
+            ConfigMenuItems.DropDownItems.Add(Customize);
+            ConfigMenuItems.DropDownItems.Add(TranslationMode);
+
+            HelpMenuItem.DropDownItems.Add(AboutSGSUBTR);
+
+            mainMenu.Size = new Size(200, 28);
+
+
+            openSub.Click += new EventHandler(openSub_Click);
+            openTXT.Click += new EventHandler(openTXT_Click);
+            openMedia.Click += new EventHandler(openMedia_Click);
+            openTranslationScript.Click += new EventHandler(openTranslationScript_Click);
+            exportTranslation.Click += new EventHandler(exportTranslation_Click);
+            saveTranslation.Click += new EventHandler(saveTranslation_Click);
+            saveTranslationas.Click += new EventHandler(saveTranslationas_Click);
+            saveSub.Click += new EventHandler(saveSub_Click);
+            saveSubAs.Click += new EventHandler(saveSubAs_Click);
+            autoSaveRecord.Click += new EventHandler(autoSaveRecord_Click);
+            exit.Click += new EventHandler(exit_Click);
+            KeyConfig.Click += new EventHandler(KeyConfig_Click);
+            Customize.Click += new EventHandler(Customize_Click);
+            TranslationMode.Click += new EventHandler(TranslationMode_Click);
+            TimingMode.Click += new EventHandler(TimingMode_Click);
+            AboutSGSUBTR.Click += new EventHandler(AboutSGSUBTR_Click);
+
+        }
+
+        void saveTranslationas_Click(object sender, EventArgs e)
+        {
+            translationEditor.SaveAs();
+        }
+
+        void TimingMode_Click(object sender, EventArgs e)
+        {
+            SetTimingMode();
+        }
+
+        void saveTranslation_Click(object sender, EventArgs e)
+        {
+            translationEditor.Save();
+        }
+
+        void exportTranslation_Click(object sender, EventArgs e)
+        {
+            translationEditor.ExportPlainScript();
+        }
+
+        void openTranslationScript_Click(object sender, EventArgs e)
+        {
+            translationEditor.Open();
+        }
+
+        private void SetTranslationMode()
+        {
+            _subEditerContainer.Clear();
+            _subEditerContainer.Add(translationEditor);
+            translationEditor.Dock = DockStyle.Fill;
+
+            fileMenuItems.DropDownItems.Clear();
+            fileMenuItems.DropDownItems.Add(openTranslationScript);
+            fileMenuItems.DropDownItems.Add(openMedia);
+            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
+            fileMenuItems.DropDownItems.Add(saveTranslation);
+            fileMenuItems.DropDownItems.Add(saveTranslationas);
+            fileMenuItems.DropDownItems.Add(exportTranslation);
+            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
+            fileMenuItems.DropDownItems.Add(exit);
+
+            ConfigMenuItems.DropDownItems.Clear();
+            ConfigMenuItems.DropDownItems.Add(KeyConfig);
+            ConfigMenuItems.DropDownItems.Add(Customize);
+            ConfigMenuItems.DropDownItems.Add(TimingMode);
+
+        }
+        private void SetTimingMode()
+        {
+            _subEditerContainer.Clear();
+            _subEditerContainer.Add(subEditor);
+            translationEditor.Dock = DockStyle.Fill;
+
+            fileMenuItems.DropDownItems.Clear();
+            fileMenuItems.DropDownItems.Add(openSub);
+            fileMenuItems.DropDownItems.Add(openTXT);
+            fileMenuItems.DropDownItems.Add(openMedia);
+            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
+            fileMenuItems.DropDownItems.Add(saveSub);
+            fileMenuItems.DropDownItems.Add(saveSubAs);
+            fileMenuItems.DropDownItems.Add(autoSaveRecord);
+            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
+            fileMenuItems.DropDownItems.Add(exit);
+
+            ConfigMenuItems.DropDownItems.Clear();
+            ConfigMenuItems.DropDownItems.Add(KeyConfig);
+            ConfigMenuItems.DropDownItems.Add(Customize);
+            ConfigMenuItems.DropDownItems.Add(TranslationMode);
+        }
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -279,40 +414,7 @@ namespace sgsubtr
             SuspendLayout();
 
             //Build Mainmenu
-            mainMenu.Items.Add(fileMenuItems);
-            mainMenu.Items.Add(ConfigMenuItems);
-            mainMenu.Items.Add(HelpMenuItem);
-
-            openSub.Image = global::sgsubtr.Properties.Resources.openass;
-            openSub.ImageTransparentColor = Color.Magenta;
-
-            openTXT.Image = global::sgsubtr.Properties.Resources.opentxt;
-            openTXT.ImageTransparentColor = Color.Magenta;
-
-            openMedia.Image = global::sgsubtr.Properties.Resources.openvideo;
-            openMedia.ImageTransparentColor = Color.Magenta;
-
-            saveSub.Image = global::sgsubtr.Properties.Resources.save;
-            saveSub.ImageTransparentColor = Color.Magenta;
-
-
-            fileMenuItems.DropDownItems.Add(openSub);
-            fileMenuItems.DropDownItems.Add(openTXT);
-            fileMenuItems.DropDownItems.Add(openMedia);
-            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
-            fileMenuItems.DropDownItems.Add(saveSub);
-            fileMenuItems.DropDownItems.Add(saveSubAs);
-            fileMenuItems.DropDownItems.Add(autoSaveRecord);
-            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
-            fileMenuItems.DropDownItems.Add(exit);
-
-            ConfigMenuItems.DropDownItems.Add(KeyConfig);
-            ConfigMenuItems.DropDownItems.Add(Customize);
-            ConfigMenuItems.DropDownItems.Add(TranslationMode);
-
-            HelpMenuItem.DropDownItems.Add(AboutSGSUBTR);
-
-            mainMenu.Size = new Size(200, 28);
+            buildMenuItems();
 
 
 
@@ -349,17 +451,7 @@ namespace sgsubtr
             DragEnter += new DragEventHandler(SgsubMainform_DragEnter);
             FormClosing += new FormClosingEventHandler(SgsubMainform_FormClosing);
 
-            openSub.Click += new EventHandler(openSub_Click);
-            openTXT.Click += new EventHandler(openTXT_Click);
-            openMedia.Click += new EventHandler(openMedia_Click);
-            saveSub.Click += new EventHandler(saveSub_Click);
-            saveSubAs.Click += new EventHandler(saveSubAs_Click);
-            autoSaveRecord.Click += new EventHandler(autoSaveRecord_Click);
-            exit.Click += new EventHandler(exit_Click);
-            KeyConfig.Click += new EventHandler(KeyConfig_Click);
-            Customize.Click += new EventHandler(Customize_Click);
-            TranslationMode.Click += new EventHandler(TranslationMode_Click);
-            AboutSGSUBTR.Click += new EventHandler(AboutSGSUBTR_Click);
+
 
 
             waveViewer.BTNOpenAss += new EventHandler(openSub_Click);
@@ -390,9 +482,8 @@ namespace sgsubtr
 
         void TranslationMode_Click(object sender, EventArgs e)
         {
-            _subEditerContainer.Clear();
-            _subEditerContainer.Add(translationEditor);
-            translationEditor.Dock = DockStyle.Fill;
+
+            SetTranslationMode();
         }
 
         void subEditor_AutosaveEvent(object sender, EventArgs e)
