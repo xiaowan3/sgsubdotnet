@@ -559,143 +559,129 @@
             // 
             // textTSaveAss
             // 
-            this.textTSaveAss.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTSaveAss.Key = System.Windows.Forms.Keys.None;
             this.textTSaveAss.Location = new System.Drawing.Point(395, 228);
             this.textTSaveAss.Name = "textTSaveAss";
             this.textTSaveAss.Size = new System.Drawing.Size(52, 22);
             this.textTSaveAss.TabIndex = 58;
             this.textTSaveAss.Text = "None";
-            this.textTSaveAss.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textTMTPlus
             // 
-            this.textTMTPlus.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTMTPlus.Key = System.Windows.Forms.Keys.None;
             this.textTMTPlus.Location = new System.Drawing.Point(433, 196);
             this.textTMTPlus.Name = "textTMTPlus";
             this.textTMTPlus.Size = new System.Drawing.Size(52, 22);
             this.textTMTPlus.TabIndex = 57;
             this.textTMTPlus.Text = "None";
-            this.textTMTPlus.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textTMTMinus
             // 
-            this.textTMTMinus.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTMTMinus.Key = System.Windows.Forms.Keys.None;
             this.textTMTMinus.Location = new System.Drawing.Point(356, 196);
             this.textTMTMinus.Name = "textTMTMinus";
             this.textTMTMinus.Size = new System.Drawing.Size(52, 22);
             this.textTMTMinus.TabIndex = 56;
             this.textTMTMinus.Text = "None";
-            this.textTMTMinus.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textTAddEndTime
             // 
-            this.textTAddEndTime.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTAddEndTime.Key = System.Windows.Forms.Keys.None;
             this.textTAddEndTime.Location = new System.Drawing.Point(395, 164);
             this.textTAddEndTime.Name = "textTAddEndTime";
             this.textTAddEndTime.Size = new System.Drawing.Size(52, 22);
             this.textTAddEndTime.TabIndex = 55;
             this.textTAddEndTime.Text = "None";
-            this.textTAddEndTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textTAddStartTime
             // 
-            this.textTAddStartTime.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTAddStartTime.Key = System.Windows.Forms.Keys.None;
             this.textTAddStartTime.Location = new System.Drawing.Point(395, 132);
             this.textTAddStartTime.Name = "textTAddStartTime";
             this.textTAddStartTime.Size = new System.Drawing.Size(52, 22);
             this.textTAddStartTime.TabIndex = 54;
             this.textTAddStartTime.Text = "None";
-            this.textTAddStartTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textTEnterEdit
             // 
-            this.textTEnterEdit.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTEnterEdit.Key = System.Windows.Forms.Keys.None;
             this.textTEnterEdit.Location = new System.Drawing.Point(152, 228);
             this.textTEnterEdit.Name = "textTEnterEdit";
             this.textTEnterEdit.Size = new System.Drawing.Size(52, 22);
             this.textTEnterEdit.TabIndex = 53;
             this.textTEnterEdit.Text = "None";
-            this.textTEnterEdit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textTAddContTime
             // 
-            this.textTAddContTime.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTAddContTime.Key = System.Windows.Forms.Keys.None;
             this.textTAddContTime.Location = new System.Drawing.Point(152, 196);
             this.textTAddContTime.Name = "textTAddContTime";
             this.textTAddContTime.Size = new System.Drawing.Size(52, 22);
             this.textTAddContTime.TabIndex = 52;
             this.textTAddContTime.Text = "None";
-            this.textTAddContTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textTAddCellTime
             // 
-            this.textTAddCellTime.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTAddCellTime.Key = System.Windows.Forms.Keys.None;
             this.textTAddCellTime.Location = new System.Drawing.Point(152, 164);
             this.textTAddCellTime.Name = "textTAddCellTime";
             this.textTAddCellTime.Size = new System.Drawing.Size(52, 22);
             this.textTAddCellTime.TabIndex = 51;
             this.textTAddCellTime.Text = "None";
-            this.textTAddCellTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textTAddTime
             // 
-            this.textTAddTime.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTAddTime.Key = System.Windows.Forms.Keys.None;
             this.textTAddTime.Location = new System.Drawing.Point(152, 132);
             this.textTAddTime.Name = "textTAddTime";
             this.textTAddTime.Size = new System.Drawing.Size(52, 22);
             this.textTAddTime.TabIndex = 50;
             this.textTAddTime.Text = "None";
-            this.textTAddTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textTSeekPre
             // 
-            this.textTSeekPre.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTSeekPre.Key = System.Windows.Forms.Keys.None;
             this.textTSeekPre.Location = new System.Drawing.Point(395, 63);
             this.textTSeekPre.Name = "textTSeekPre";
             this.textTSeekPre.Size = new System.Drawing.Size(52, 22);
             this.textTSeekPre.TabIndex = 49;
             this.textTSeekPre.Text = "None";
-            this.textTSeekPre.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textTSeekTo
             // 
-            this.textTSeekTo.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTSeekTo.Key = System.Windows.Forms.Keys.None;
             this.textTSeekTo.Location = new System.Drawing.Point(395, 20);
             this.textTSeekTo.Name = "textTSeekTo";
             this.textTSeekTo.Size = new System.Drawing.Size(52, 22);
             this.textTSeekTo.TabIndex = 48;
             this.textTSeekTo.Text = "None";
-            this.textTSeekTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textTPause
             // 
-            this.textTPause.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTPause.Key = System.Windows.Forms.Keys.None;
             this.textTPause.Location = new System.Drawing.Point(152, 82);
             this.textTPause.Name = "textTPause";
             this.textTPause.Size = new System.Drawing.Size(52, 22);
             this.textTPause.TabIndex = 47;
             this.textTPause.Text = "None";
-            this.textTPause.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textTFF
             // 
-            this.textTFF.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTFF.Key = System.Windows.Forms.Keys.None;
             this.textTFF.Location = new System.Drawing.Point(152, 51);
             this.textTFF.Name = "textTFF";
             this.textTFF.Size = new System.Drawing.Size(52, 22);
             this.textTFF.TabIndex = 46;
             this.textTFF.Text = "None";
-            this.textTFF.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textTRW
             // 
-            this.textTRW.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textTRW.Key = System.Windows.Forms.Keys.None;
             this.textTRW.Location = new System.Drawing.Point(152, 16);
             this.textTRW.Name = "textTRW";
             this.textTRW.Size = new System.Drawing.Size(52, 22);
             this.textTRW.TabIndex = 45;
             this.textTRW.Text = "None";
-            this.textTRW.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // tabPage2
             // 
@@ -729,108 +715,98 @@
             // 
             // textKeyTimetag2
             // 
-            this.textKeyTimetag2.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textKeyTimetag2.Key = System.Windows.Forms.Keys.None;
             this.textKeyTimetag2.Location = new System.Drawing.Point(138, 196);
             this.textKeyTimetag2.Name = "textKeyTimetag2";
             this.textKeyTimetag2.Size = new System.Drawing.Size(61, 22);
             this.textKeyTimetag2.TabIndex = 28;
             this.textKeyTimetag2.Text = "None";
-            this.textKeyTimetag2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textKeySeek2
             // 
-            this.textKeySeek2.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textKeySeek2.Key = System.Windows.Forms.Keys.None;
             this.textKeySeek2.Location = new System.Drawing.Point(138, 153);
             this.textKeySeek2.Name = "textKeySeek2";
             this.textKeySeek2.Size = new System.Drawing.Size(61, 22);
             this.textKeySeek2.TabIndex = 27;
             this.textKeySeek2.Text = "None";
-            this.textKeySeek2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textKeyToggle2
             // 
-            this.textKeyToggle2.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textKeyToggle2.Key = System.Windows.Forms.Keys.None;
             this.textKeyToggle2.Location = new System.Drawing.Point(138, 110);
             this.textKeyToggle2.Name = "textKeyToggle2";
             this.textKeyToggle2.Size = new System.Drawing.Size(61, 22);
             this.textKeyToggle2.TabIndex = 26;
             this.textKeyToggle2.Text = "None";
-            this.textKeyToggle2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textKeyRW2
             // 
-            this.textKeyRW2.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textKeyRW2.Key = System.Windows.Forms.Keys.None;
             this.textKeyRW2.Location = new System.Drawing.Point(138, 67);
             this.textKeyRW2.Name = "textKeyRW2";
             this.textKeyRW2.Size = new System.Drawing.Size(61, 22);
             this.textKeyRW2.TabIndex = 25;
             this.textKeyRW2.Text = "None";
-            this.textKeyRW2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textKeyFF2
             // 
-            this.textKeyFF2.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textKeyFF2.Key = System.Windows.Forms.Keys.None;
             this.textKeyFF2.Location = new System.Drawing.Point(138, 24);
             this.textKeyFF2.Name = "textKeyFF2";
             this.textKeyFF2.Size = new System.Drawing.Size(61, 22);
             this.textKeyFF2.TabIndex = 24;
             this.textKeyFF2.Text = "None";
-            this.textKeyFF2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textKeyTimetag1
             // 
-            this.textKeyTimetag1.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textKeyTimetag1.Key = System.Windows.Forms.Keys.None;
             this.textKeyTimetag1.Location = new System.Drawing.Point(280, 196);
             this.textKeyTimetag1.Name = "textKeyTimetag1";
             this.textKeyTimetag1.Size = new System.Drawing.Size(61, 22);
             this.textKeyTimetag1.TabIndex = 23;
             this.textKeyTimetag1.Text = "None";
             this.textKeyTimetag1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textKeyTimetag1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textKeySeek1
             // 
-            this.textKeySeek1.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textKeySeek1.Key = System.Windows.Forms.Keys.None;
             this.textKeySeek1.Location = new System.Drawing.Point(280, 153);
             this.textKeySeek1.Name = "textKeySeek1";
             this.textKeySeek1.Size = new System.Drawing.Size(61, 22);
             this.textKeySeek1.TabIndex = 22;
             this.textKeySeek1.Text = "None";
             this.textKeySeek1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textKeySeek1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textKeyToggle1
             // 
-            this.textKeyToggle1.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textKeyToggle1.Key = System.Windows.Forms.Keys.None;
             this.textKeyToggle1.Location = new System.Drawing.Point(280, 110);
             this.textKeyToggle1.Name = "textKeyToggle1";
             this.textKeyToggle1.Size = new System.Drawing.Size(61, 22);
             this.textKeyToggle1.TabIndex = 21;
             this.textKeyToggle1.Text = "None";
             this.textKeyToggle1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textKeyToggle1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textKeyRW1
             // 
-            this.textKeyRW1.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textKeyRW1.Key = System.Windows.Forms.Keys.None;
             this.textKeyRW1.Location = new System.Drawing.Point(280, 67);
             this.textKeyRW1.Name = "textKeyRW1";
             this.textKeyRW1.Size = new System.Drawing.Size(61, 22);
             this.textKeyRW1.TabIndex = 20;
             this.textKeyRW1.Text = "None";
             this.textKeyRW1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textKeyRW1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // textKeyFF1
             // 
-            this.textKeyFF1.AssiciateKey = System.Windows.Forms.Keys.None;
+            this.textKeyFF1.Key = System.Windows.Forms.Keys.None;
             this.textKeyFF1.Location = new System.Drawing.Point(280, 24);
             this.textKeyFF1.Name = "textKeyFF1";
             this.textKeyFF1.Size = new System.Drawing.Size(61, 22);
             this.textKeyFF1.TabIndex = 19;
             this.textKeyFF1.Text = "None";
             this.textKeyFF1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textKeyFF1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyconfigText_KeyDown);
             // 
             // label37
             // 
