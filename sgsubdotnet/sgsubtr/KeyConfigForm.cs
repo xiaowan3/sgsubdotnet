@@ -11,20 +11,20 @@ namespace sgsubtr
             InitializeComponent();
             _config = config;
 
-            textTRW.AssiciateKey = _config.SeekBackword;
-            textTFF.AssiciateKey = _config.SeekForward;
-            textTPause.AssiciateKey = _config.Pause;
-            textTSeekTo.AssiciateKey = _config.GotoCurrent;
-            textTSeekPre.AssiciateKey = _config.GotoPrevious;
-            textTAddTime.AssiciateKey = _config.AddTimePoint;
-            textTAddCellTime.AssiciateKey = _config.AddCellTime;
-            textTAddContTime.AssiciateKey = _config.AddContTimePoint;
-            textTEnterEdit.AssiciateKey = _config.EnterEditMode;
-            textTAddStartTime.AssiciateKey = _config.AddStartTime;
-            textTAddEndTime.AssiciateKey = _config.AddEndTime;
-            textTMTMinus.AssiciateKey = _config.MiniTrimMinus;
-            textTMTPlus.AssiciateKey = _config.MiniTrimPlus;
-            textTSaveAss.AssiciateKey = _config.SaveAss;
+            textTRW.Key = _config.SeekBackword;
+            textTFF.Key = _config.SeekForward;
+            textTPause.Key = _config.Pause;
+            textTSeekTo.Key = _config.GotoCurrent;
+            textTSeekPre.Key = _config.GotoPrevious;
+            textTAddTime.Key = _config.AddTimePoint;
+            textTAddCellTime.Key = _config.AddCellTime;
+            textTAddContTime.Key = _config.AddContTimePoint;
+            textTEnterEdit.Key = _config.EnterEditMode;
+            textTAddStartTime.Key = _config.AddStartTime;
+            textTAddEndTime.Key = _config.AddEndTime;
+            textTMTMinus.Key = _config.MiniTrimMinus;
+            textTMTPlus.Key = _config.MiniTrimPlus;
+            textTSaveAss.Key = _config.SaveAss;
 
             StartTimeOffset = _config.StartOffset;
             EndTimeOffset = _config.EndOffset;
@@ -33,17 +33,17 @@ namespace sgsubtr
 
             MinitrimStep = _config.MinitrimStep;
 
-            textKeyFF1.AssiciateKey = _config.PlayerFF;
-            textKeyRW1.AssiciateKey = _config.PlayerRW;
-            textKeyToggle1.AssiciateKey = _config.PlayerTogglePause;
-            textKeySeek1.AssiciateKey = _config.PlayerJumpto;
-            textKeyTimetag1.AssiciateKey = _config.InsertTag;
+            textKeyFF1.Key = _config.PlayerFF;
+            textKeyRW1.Key = _config.PlayerRW;
+            textKeyToggle1.Key = _config.PlayerTogglePause;
+            textKeySeek1.Key = _config.PlayerJumpto;
+            textKeyTimetag1.Key = _config.InsertTag;
 
-            textKeyFF2.AssiciateKey = _config.PlayerFF2;
-            textKeyRW2.AssiciateKey = _config.PlayerRW2;
-            textKeyToggle2.AssiciateKey = _config.PlayerTogglePause2;
-            textKeySeek2.AssiciateKey = _config.PlayerJumpto2;
-            textKeyTimetag2.AssiciateKey = _config.InsertTag2;
+            textKeyFF2.Key = _config.PlayerFF2;
+            textKeyRW2.Key = _config.PlayerRW2;
+            textKeyToggle2.Key = _config.PlayerTogglePause2;
+            textKeySeek2.Key = _config.PlayerJumpto2;
+            textKeyTimetag2.Key = _config.InsertTag2;
 
         }
 
@@ -94,20 +94,20 @@ namespace sgsubtr
             SeekStep = (double)(numSS.Value);
             AutoOC = checkAOC.Checked;
 
-            _config.SeekBackword = textTRW.AssiciateKey;
-            _config.SeekForward = textTFF.AssiciateKey;
-            _config.Pause = textTPause.AssiciateKey;
-            _config.GotoCurrent = textTSeekTo.AssiciateKey;
-            _config.GotoPrevious = textTSeekPre.AssiciateKey;
-            _config.AddTimePoint = textTAddTime.AssiciateKey;
-            _config.AddContTimePoint = textTAddContTime.AssiciateKey;
-            _config.EnterEditMode = textTEnterEdit.AssiciateKey;
-            _config.AddCellTime = textTAddCellTime.AssiciateKey;
-            _config.AddStartTime = textTAddStartTime.AssiciateKey;
-            _config.AddEndTime = textTAddEndTime.AssiciateKey;
-            _config.MiniTrimPlus = textTMTPlus.AssiciateKey;
-            _config.MiniTrimMinus = textTMTMinus.AssiciateKey;
-            _config.SaveAss = textTSaveAss.AssiciateKey;
+            _config.SeekBackword = textTRW.Key;
+            _config.SeekForward = textTFF.Key;
+            _config.Pause = textTPause.Key;
+            _config.GotoCurrent = textTSeekTo.Key;
+            _config.GotoPrevious = textTSeekPre.Key;
+            _config.AddTimePoint = textTAddTime.Key;
+            _config.AddContTimePoint = textTAddContTime.Key;
+            _config.EnterEditMode = textTEnterEdit.Key;
+            _config.AddCellTime = textTAddCellTime.Key;
+            _config.AddStartTime = textTAddStartTime.Key;
+            _config.AddEndTime = textTAddEndTime.Key;
+            _config.MiniTrimPlus = textTMTPlus.Key;
+            _config.MiniTrimMinus = textTMTMinus.Key;
+            _config.SaveAss = textTSaveAss.Key;
 
 
             _config.StartOffset = StartTimeOffset;
@@ -115,17 +115,17 @@ namespace sgsubtr
             _config.SeekStep = SeekStep;
             _config.AutoOverlapCorrection = AutoOC;
 
-            _config.PlayerFF = textKeyFF1.AssiciateKey;
-            _config.PlayerRW = textKeyRW1.AssiciateKey;
-            _config.PlayerTogglePause = textKeyToggle1.AssiciateKey;
-            _config.PlayerJumpto = textKeySeek1.AssiciateKey;
-            _config.InsertTag = textKeyTimetag1.AssiciateKey;
+            _config.PlayerFF = textKeyFF1.Key;
+            _config.PlayerRW = textKeyRW1.Key;
+            _config.PlayerTogglePause = textKeyToggle1.Key;
+            _config.PlayerJumpto = textKeySeek1.Key;
+            _config.InsertTag = textKeyTimetag1.Key;
 
-            _config.PlayerFF2 = textKeyFF2.AssiciateKey;
-            _config.PlayerRW2 = textKeyRW2.AssiciateKey;
-            _config.PlayerTogglePause2 = textKeyToggle2.AssiciateKey;
-            _config.PlayerJumpto2 = textKeySeek2.AssiciateKey;
-            _config.InsertTag2 = textKeyTimetag2.AssiciateKey;
+            _config.PlayerFF2 = textKeyFF2.Key;
+            _config.PlayerRW2 = textKeyRW2.Key;
+            _config.PlayerTogglePause2 = textKeyToggle2.Key;
+            _config.PlayerJumpto2 = textKeySeek2.Key;
+            _config.InsertTag2 = textKeyTimetag2.Key;
 
             DialogResult = DialogResult.OK;
         }
@@ -134,25 +134,25 @@ namespace sgsubtr
         {
             DialogResult = DialogResult.Cancel;
         }
-
-        private void KeyconfigText_KeyDown(object sender, KeyEventArgs e)
-        {
-            var senderTextbox = (KeyConfigTextBox)sender;
-            senderTextbox.AssiciateKey = e.KeyCode;
-            e.SuppressKeyPress = true;
-        }
     }
     class KeyConfigTextBox : TextBox
     {
-        private Keys _associateKey;
-        public Keys AssiciateKey
+        private Keys _key;
+        public Keys Key
         {
-            get { return _associateKey; }
+            get { return _key; }
             set
             {
-                _associateKey = value;
-                Text = _associateKey.ToString();
+                _key = value;
+                Text = _key.ToString();
             }
+        }
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            _key = e.KeyCode;
+            Text = e.KeyCode.ToString();
+            e.SuppressKeyPress = true;
+            base.OnKeyDown(e);
         }
     }
 }
