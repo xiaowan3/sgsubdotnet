@@ -50,6 +50,15 @@ namespace SGSControls
             }
         }
 
+        public void Cut()
+        {
+            syntaxHighlightingTextBox1.Cut();
+        }
+        public void Paste()
+        {
+            syntaxHighlightingTextBox1.Paste();
+        }
+
         /// <summary>
         /// Save the file. If filename is unknown, show SaveFileDialog.
         /// </summary>
@@ -108,6 +117,15 @@ namespace SGSControls
             }
         }
 
+        public void Undo()
+        {
+            syntaxHighlightingTextBox1.Undo();
+        }
+
+        public void Copy()
+        {
+            syntaxHighlightingTextBox1.Copy();
+        }
 
         #endregion
 

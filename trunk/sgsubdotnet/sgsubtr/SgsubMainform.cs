@@ -184,7 +184,6 @@ namespace sgsubtr
 
         ToolStripMenuItem _menuEdit = new ToolStripMenuItem("编辑");
         ToolStripMenuItem _menuItemUndoSub = new ToolStripMenuItem("撤消");
-        ToolStripMenuItem _menuItemCutSub = new ToolStripMenuItem("剪切");
         ToolStripMenuItem _menuItemCopySub = new ToolStripMenuItem("复制");
         ToolStripMenuItem _menuItemPasteSub = new ToolStripMenuItem("粘贴");
 
@@ -248,7 +247,6 @@ namespace sgsubtr
 
             _menuEdit.DropDownItems.Add(_menuItemUndoSub);
             _menuEdit.DropDownItems.Add(new ToolStripSeparator());
-            _menuEdit.DropDownItems.Add(_menuItemCutSub);
             _menuEdit.DropDownItems.Add(_menuItemCopySub);
             _menuEdit.DropDownItems.Add(_menuItemPasteSub);
 
@@ -272,12 +270,56 @@ namespace sgsubtr
             _menuItemSaveSubAs.Click += new EventHandler(saveSubAs_Click);
             _menuItemAutoSaveRecord.Click += new EventHandler(autoSaveRecord_Click);
             _menuItemExit.Click += new EventHandler(exit_Click);
+
+            _menuItemUndoSub.Click += new EventHandler(_menuItemUndoSub_Click);
+            _menuItemCopySub.Click += new EventHandler(_menuItemCopySub_Click);
+            _menuItemPasteSub.Click += new EventHandler(_menuItemPasteSub_Click);
+            _menuItemUndoTrn.Click += new EventHandler(_menuItemUndoTrn_Click);
+            _menuItemCopyTrn.Click += new EventHandler(_menuItemCopyTrn_Click);
+            _menuItemCutTrn.Click += new EventHandler(_menuItemCutTrn_Click);
+            _menuItemPasteTrn.Click += new EventHandler(_menuItemPasteTrn_Click);
+
             _menuItemKeyConfig.Click += new EventHandler(KeyConfig_Click);
             _menuItemCustomize.Click += new EventHandler(Customize_Click);
             _menuItemTranslationMode.Click += new EventHandler(TranslationMode_Click);
             _menuItemTimingMode.Click += new EventHandler(TimingMode_Click);
             _menuItemAboutSGSUBTR.Click += new EventHandler(AboutSGSUBTR_Click);
 
+        }
+
+        void _menuItemPasteTrn_Click(object sender, EventArgs e)
+        {
+            translationEditor.Paste();
+        }
+
+        void _menuItemCutTrn_Click(object sender, EventArgs e)
+        {
+            translationEditor.Cut();
+        }
+
+        void _menuItemCopyTrn_Click(object sender, EventArgs e)
+        {
+            translationEditor.Copy();
+        }
+
+        void _menuItemUndoTrn_Click(object sender, EventArgs e)
+        {
+            translationEditor.Undo();
+        }
+
+        void _menuItemPasteSub_Click(object sender, EventArgs e)
+        {
+            subEditor.Paste();
+        }
+
+        void _menuItemCopySub_Click(object sender, EventArgs e)
+        {
+            subEditor.Copy();
+        }
+
+        void _menuItemUndoSub_Click(object sender, EventArgs e)
+        {
+            subEditor.Undo();
         }
 
         void saveTranslationas_Click(object sender, EventArgs e)
@@ -354,7 +396,6 @@ namespace sgsubtr
             _menuEdit.DropDownItems.Clear();
             _menuEdit.DropDownItems.Add(_menuItemUndoSub);
             _menuEdit.DropDownItems.Add(new ToolStripSeparator());
-            _menuEdit.DropDownItems.Add(_menuItemCutSub);
             _menuEdit.DropDownItems.Add(_menuItemCopySub);
             _menuEdit.DropDownItems.Add(_menuItemPasteSub);
 

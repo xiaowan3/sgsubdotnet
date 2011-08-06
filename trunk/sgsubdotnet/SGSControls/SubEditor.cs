@@ -142,7 +142,6 @@ namespace SGSControls
                 subtitleEdited();
             }
         }
-
         public void EditCellTime(int rowIndex, int colIndex, double value)
         {
             int lastrowindex = dataGridSubtitles.RowCount - 2;
@@ -169,11 +168,86 @@ namespace SGSControls
                 }
             }
         }
-
         public void DisplayTime(double time)
         {
             if (_subLoaded)
                 labelSub.Text = _subIndex.GetSubtitle(time);
+        }
+
+        public void Copy()
+        {
+            if (dataGridSubtitles.CurrentCell != null)
+            {
+                int lastrowindex = dataGridSubtitles.RowCount - 2;
+                string cb = "";
+                //行，列的取值范围
+                int cmin = dataGridSubtitles.ColumnCount;
+                int cmax = 0;
+                int rmin = lastrowindex;
+                int rmax = 0;
+                foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
+                {
+                    if (cell.RowIndex > lastrowindex) continue;
+                    if (cell.ColumnIndex < cmin) cmin = cell.ColumnIndex;
+                    if (cell.ColumnIndex > cmax) cmax = cell.ColumnIndex;
+                    if (cell.RowIndex < rmin) rmin = cell.RowIndex;
+                    if (cell.RowIndex > rmax) rmax = cell.RowIndex;
+                }
+                //行，列的个数
+                int nr = rmax - rmin + 1;
+                int nc = cmax - cmin + 1;
+                //内容
+                var content = new string[nr,nc];
+                foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
+                {
+                    if (cell.RowIndex > lastrowindex) continue;
+                    content[cell.RowIndex - rmin, cell.ColumnIndex - cmin] = cell.Value.ToString();
+                }
+                for (int r = 0; r < nr; r++)
+                {
+                    for (int c = 0; c < nc; c++)
+                    {
+                        cb += content[r, c];
+                        if (c != nc - 1) cb += "\t";
+                    }
+                    cb += Environment.NewLine;
+                }
+                Clipboard.SetText(cb);
+            }
+        }
+
+        public void Paste()
+        {
+            if (dataGridSubtitles.CurrentRow == null) return;
+            int lastrowindex = dataGridSubtitles.RowCount - 2;
+            if (dataGridSubtitles.CurrentRow.Index <= lastrowindex && Clipboard.ContainsText())
+            {
+                int cC = dataGridSubtitles.CurrentCell.ColumnIndex;
+                int cR = dataGridSubtitles.CurrentCell.RowIndex;
+                string[] cells;
+                char[] spliter = { '\t' };
+                var strReader = new StringReader(Clipboard.GetText());
+                string line = strReader.ReadLine();
+                _undoRec.BeginMultiCells(); //开始Undo记录
+                while (line != null)
+                {
+                    cells = line.Split(spliter, 3 - cC);
+                    for (int i = 0; i < cells.Length; i++)
+                    {
+                        if (cells[i].Length != 0)
+                        {
+                            _undoRec.EditMultiCells(cR, cC + i, dataGridSubtitles.Rows[cR].Cells[cC + i].Value.ToString());
+                            dataGridSubtitles.Rows[cR].Cells[cC + i].Value = cells[i];
+                        }
+                    }
+                    cR++;
+                    if (cR > lastrowindex) break;
+                    line = strReader.ReadLine();
+                }
+                _undoRec.EndEditMultiCells();//结束Undo记录
+                subtitleEdited();
+                _subIndex.RefreshIndex();
+            }
         }
         #endregion
 
@@ -322,6 +396,11 @@ namespace SGSControls
 
         private void tsbtnUndo_Click(object sender, EventArgs e)
         {
+            Undo();
+        }
+
+        public void Undo()
+        {
             dataGridSubtitles.EndEdit();
             _selectCells.Reset();
             _undoRec.Undo(_currentSub);
@@ -329,7 +408,6 @@ namespace SGSControls
             _subIndex.RefreshIndex();
             subtitleEdited();
         }
-
 
         private enum TimeCheckStatus { Ok = 0, Overlap, Error };
 
@@ -667,77 +745,12 @@ namespace SGSControls
                 //复制，支持多个单元格的复制和粘贴
             else if (e.KeyCode == Keys.C && e.Modifiers == Keys.Control && !_mKeyhold[(int)e.KeyCode])
             {
-                if (dataGridSubtitles.CurrentCell != null)
-                {
-                    string cb = "";
-                    //行，列的取值范围
-                    int cmin = dataGridSubtitles.ColumnCount;
-                    int cmax = 0;
-                    int rmin = lastrowindex;
-                    int rmax = 0;
-                    foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
-                    {
-                        if (cell.RowIndex > lastrowindex) continue;
-                        if (cell.ColumnIndex < cmin) cmin = cell.ColumnIndex;
-                        if (cell.ColumnIndex > cmax) cmax = cell.ColumnIndex;
-                        if (cell.RowIndex < rmin) rmin = cell.RowIndex;
-                        if (cell.RowIndex > rmax) rmax = cell.RowIndex;
-                    }
-                    //行，列的个数
-                    int nr = rmax - rmin + 1;
-                    int nc = cmax - cmin + 1;
-                    //内容
-                    var content = new string[nr, nc];
-                    foreach (DataGridViewCell cell in dataGridSubtitles.SelectedCells)
-                    {
-                        if (cell.RowIndex > lastrowindex) continue;
-                        content[cell.RowIndex - rmin, cell.ColumnIndex - cmin] = cell.Value.ToString();
-                    }
-                    for (int r = 0; r < nr; r++)
-                    {
-                        for (int c = 0; c < nc; c++)
-                        {
-                            cb += content[r, c];
-                            if (c != nc - 1) cb += "\t";
-                        }
-                        cb += Environment.NewLine;
-                    }
-                    Clipboard.SetText(cb);
-                }
-
+                Copy();
             }
                 //粘贴，支持多个单元格的复制和粘贴
             else if (e.KeyCode == Keys.V && e.Modifiers == Keys.Control && !_mKeyhold[(int)e.KeyCode])
             {
-                if (dataGridSubtitles.CurrentRow != null && dataGridSubtitles.CurrentRow.Index <= lastrowindex
-                    && Clipboard.ContainsText())
-                {
-                    int cC = dataGridSubtitles.CurrentCell.ColumnIndex;
-                    int cR = dataGridSubtitles.CurrentCell.RowIndex;
-                    string[] cells;
-                    char[] spliter = { '\t' };
-                    var strReader = new StringReader(Clipboard.GetText());
-                    string line = strReader.ReadLine();
-                    _undoRec.BeginMultiCells(); //开始Undo记录
-                    while (line != null)
-                    {
-                        cells = line.Split(spliter, 3 - cC);
-                        for (int i = 0; i < cells.Length; i++)
-                        {
-                            if (cells[i].Length != 0)
-                            {
-                                _undoRec.EditMultiCells(cR, cC + i, dataGridSubtitles.Rows[cR].Cells[cC + i].Value.ToString());
-                                dataGridSubtitles.Rows[cR].Cells[cC + i].Value = cells[i];
-                            }
-                        }
-                        cR++;
-                        if (cR > lastrowindex) break;
-                        line = strReader.ReadLine();
-                    }
-                    _undoRec.EndEditMultiCells();//结束Undo记录
-                    subtitleEdited();
-                    _subIndex.RefreshIndex();
-                }
+                Paste();
             }
 
             else if (e.KeyCode == Config.EnterEditMode)
