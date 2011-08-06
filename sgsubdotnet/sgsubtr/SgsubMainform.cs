@@ -173,92 +173,110 @@ namespace sgsubtr
         Timer timer = new Timer();
 
         MenuStrip mainMenu = new MenuStrip();
-        ToolStripMenuItem fileMenuItems = new ToolStripMenuItem("文件");
-        ToolStripMenuItem openSub = new ToolStripMenuItem("打开时间轴");
-        ToolStripMenuItem openTXT = new ToolStripMenuItem("打开翻译文本");
-        ToolStripMenuItem openMedia = new ToolStripMenuItem("打开视频");
-        ToolStripMenuItem saveSub = new ToolStripMenuItem("保存时间轴");
-        ToolStripMenuItem saveSubAs = new ToolStripMenuItem("另存为时间轴");
-        ToolStripMenuItem autoSaveRecord = new ToolStripMenuItem("查看自动保存记录");
-        ToolStripMenuItem exit = new ToolStripMenuItem("退出");
+        ToolStripMenuItem _menuFile = new ToolStripMenuItem("文件");
+        ToolStripMenuItem _menuItemOpenSub = new ToolStripMenuItem("打开时间轴");
+        ToolStripMenuItem _menuItemOpenTXT = new ToolStripMenuItem("打开翻译文本");
+        ToolStripMenuItem _menuItemOpenMedia = new ToolStripMenuItem("打开视频");
+        ToolStripMenuItem _menuItemSaveSub = new ToolStripMenuItem("保存时间轴");
+        ToolStripMenuItem _menuItemSaveSubAs = new ToolStripMenuItem("另存为时间轴");
+        ToolStripMenuItem _menuItemAutoSaveRecord = new ToolStripMenuItem("查看自动保存记录");
+        ToolStripMenuItem _menuItemExit = new ToolStripMenuItem("退出");
 
-        ToolStripMenuItem ConfigMenuItems = new ToolStripMenuItem("设置");
-        ToolStripMenuItem KeyConfig = new ToolStripMenuItem("按键设置");
-        ToolStripMenuItem Customize = new ToolStripMenuItem("自定义");
-        ToolStripMenuItem TranslationMode = new ToolStripMenuItem("翻译模式");
+        ToolStripMenuItem _menuEdit = new ToolStripMenuItem("编辑");
+        ToolStripMenuItem _menuItemUndoSub = new ToolStripMenuItem("撤消");
+        ToolStripMenuItem _menuItemCutSub = new ToolStripMenuItem("剪切");
+        ToolStripMenuItem _menuItemCopySub = new ToolStripMenuItem("复制");
+        ToolStripMenuItem _menuItemPasteSub = new ToolStripMenuItem("粘贴");
 
-        ToolStripMenuItem HelpMenuItem = new ToolStripMenuItem("帮助");
-        ToolStripMenuItem AboutSGSUBTR = new ToolStripMenuItem("关于 SGSUB.Net");
+        ToolStripMenuItem _menuConfig = new ToolStripMenuItem("设置");
+        ToolStripMenuItem _menuItemKeyConfig = new ToolStripMenuItem("按键设置");
+        ToolStripMenuItem _menuItemCustomize = new ToolStripMenuItem("自定义");
+        ToolStripMenuItem _menuItemTranslationMode = new ToolStripMenuItem("翻译模式");
+
+        ToolStripMenuItem _menuHelp = new ToolStripMenuItem("帮助");
+        ToolStripMenuItem _menuItemAboutSGSUBTR = new ToolStripMenuItem("关于 SGSUB.Net");
 
         StatusStrip statusStrip = new StatusStrip();
         ToolStripStatusLabel statusLabel = new ToolStripStatusLabel();
+        //Translation Mode menu items.
+        ToolStripMenuItem _menuItemOpenScript = new ToolStripMenuItem("打开翻译原稿");
+        ToolStripMenuItem _menuItemExportTxt = new ToolStripMenuItem("导出翻译文本");
+        ToolStripMenuItem _menuItemSaveTrn = new ToolStripMenuItem("保存翻译原稿");
+        ToolStripMenuItem _menuItemSaveTrnAs = new ToolStripMenuItem("翻译原稿另存为");
 
-        ToolStripMenuItem openTranslationScript = new ToolStripMenuItem("打开翻译原稿");
-        ToolStripMenuItem exportTranslation = new ToolStripMenuItem("导出翻译文本");
-        ToolStripMenuItem saveTranslation = new ToolStripMenuItem("保存翻译原稿");
-        ToolStripMenuItem saveTranslationas = new ToolStripMenuItem("翻译原稿另存为");
+        ToolStripMenuItem _menuItemUndoTrn = new ToolStripMenuItem("撤消");
+        ToolStripMenuItem _menuItemCutTrn = new ToolStripMenuItem("剪切");
+        ToolStripMenuItem _menuItemCopyTrn = new ToolStripMenuItem("复制");
+        ToolStripMenuItem _menuItemPasteTrn = new ToolStripMenuItem("粘贴");
 
-        ToolStripMenuItem TimingMode = new ToolStripMenuItem("时间轴模式");
+        ToolStripMenuItem _menuItemTimingMode = new ToolStripMenuItem("时间轴模式");
 
         #endregion
 
         private void buildMenuItems()
         {
             //Build mainMenu
-            mainMenu.Items.Add(fileMenuItems);
-            mainMenu.Items.Add(ConfigMenuItems);
-            mainMenu.Items.Add(HelpMenuItem);
+            mainMenu.Items.Add(_menuFile);
+            mainMenu.Items.Add(_menuEdit);
+            mainMenu.Items.Add(_menuConfig);
+            mainMenu.Items.Add(_menuHelp);
 
-            openSub.Image = global::sgsubtr.Properties.Resources.openass;
-            openSub.ImageTransparentColor = Color.Magenta;
+            _menuItemOpenSub.Image = Properties.Resources.openass;
+            _menuItemOpenSub.ImageTransparentColor = Color.Magenta;
 
-            openTXT.Image = global::sgsubtr.Properties.Resources.opentxt;
-            openTXT.ImageTransparentColor = Color.Magenta;
+            _menuItemOpenTXT.Image = Properties.Resources.opentxt;
+            _menuItemOpenTXT.ImageTransparentColor = Color.Magenta;
 
-            openMedia.Image = global::sgsubtr.Properties.Resources.openvideo;
-            openMedia.ImageTransparentColor = Color.Magenta;
+            _menuItemOpenMedia.Image = Properties.Resources.openvideo;
+            _menuItemOpenMedia.ImageTransparentColor = Color.Magenta;
 
-            saveSub.Image = global::sgsubtr.Properties.Resources.save;
-            saveSub.ImageTransparentColor = Color.Magenta;
+            _menuItemSaveSub.Image = Properties.Resources.save;
+            _menuItemSaveSub.ImageTransparentColor = Color.Magenta;
 
-            saveTranslation.Image = global::sgsubtr.Properties.Resources.save;
-            saveTranslation.ImageTransparentColor = Color.Magenta;
+            _menuItemSaveTrn.Image = Properties.Resources.save;
+            _menuItemSaveTrn.ImageTransparentColor = Color.Magenta;
 
-            fileMenuItems.DropDownItems.Add(openSub);
-            fileMenuItems.DropDownItems.Add(openTXT);
-            fileMenuItems.DropDownItems.Add(openMedia);
-            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
-            fileMenuItems.DropDownItems.Add(saveSub);
-            fileMenuItems.DropDownItems.Add(saveSubAs);
-            fileMenuItems.DropDownItems.Add(autoSaveRecord);
-            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
-            fileMenuItems.DropDownItems.Add(exit);
+            _menuFile.DropDownItems.Add(_menuItemOpenSub);
+            _menuFile.DropDownItems.Add(_menuItemOpenTXT);
+            _menuFile.DropDownItems.Add(_menuItemOpenMedia);
+            _menuFile.DropDownItems.Add(new ToolStripSeparator());
+            _menuFile.DropDownItems.Add(_menuItemSaveSub);
+            _menuFile.DropDownItems.Add(_menuItemSaveSubAs);
+            _menuFile.DropDownItems.Add(_menuItemAutoSaveRecord);
+            _menuFile.DropDownItems.Add(new ToolStripSeparator());
+            _menuFile.DropDownItems.Add(_menuItemExit);
 
-            ConfigMenuItems.DropDownItems.Add(KeyConfig);
-            ConfigMenuItems.DropDownItems.Add(Customize);
-            ConfigMenuItems.DropDownItems.Add(TranslationMode);
+            _menuEdit.DropDownItems.Add(_menuItemUndoSub);
+            _menuEdit.DropDownItems.Add(new ToolStripSeparator());
+            _menuEdit.DropDownItems.Add(_menuItemCutSub);
+            _menuEdit.DropDownItems.Add(_menuItemCopySub);
+            _menuEdit.DropDownItems.Add(_menuItemPasteSub);
 
-            HelpMenuItem.DropDownItems.Add(AboutSGSUBTR);
+            _menuConfig.DropDownItems.Add(_menuItemKeyConfig);
+            _menuConfig.DropDownItems.Add(_menuItemCustomize);
+            _menuConfig.DropDownItems.Add(_menuItemTranslationMode);
+
+            _menuHelp.DropDownItems.Add(_menuItemAboutSGSUBTR);
 
             mainMenu.Size = new Size(200, 28);
 
 
-            openSub.Click += new EventHandler(openSub_Click);
-            openTXT.Click += new EventHandler(openTXT_Click);
-            openMedia.Click += new EventHandler(openMedia_Click);
-            openTranslationScript.Click += new EventHandler(openTranslationScript_Click);
-            exportTranslation.Click += new EventHandler(exportTranslation_Click);
-            saveTranslation.Click += new EventHandler(saveTranslation_Click);
-            saveTranslationas.Click += new EventHandler(saveTranslationas_Click);
-            saveSub.Click += new EventHandler(saveSub_Click);
-            saveSubAs.Click += new EventHandler(saveSubAs_Click);
-            autoSaveRecord.Click += new EventHandler(autoSaveRecord_Click);
-            exit.Click += new EventHandler(exit_Click);
-            KeyConfig.Click += new EventHandler(KeyConfig_Click);
-            Customize.Click += new EventHandler(Customize_Click);
-            TranslationMode.Click += new EventHandler(TranslationMode_Click);
-            TimingMode.Click += new EventHandler(TimingMode_Click);
-            AboutSGSUBTR.Click += new EventHandler(AboutSGSUBTR_Click);
+            _menuItemOpenSub.Click += new EventHandler(openSub_Click);
+            _menuItemOpenTXT.Click += new EventHandler(openTXT_Click);
+            _menuItemOpenMedia.Click += new EventHandler(openMedia_Click);
+            _menuItemOpenScript.Click += new EventHandler(openTranslationScript_Click);
+            _menuItemExportTxt.Click += new EventHandler(exportTranslation_Click);
+            _menuItemSaveTrn.Click += new EventHandler(saveTranslation_Click);
+            _menuItemSaveTrnAs.Click += new EventHandler(saveTranslationas_Click);
+            _menuItemSaveSub.Click += new EventHandler(saveSub_Click);
+            _menuItemSaveSubAs.Click += new EventHandler(saveSubAs_Click);
+            _menuItemAutoSaveRecord.Click += new EventHandler(autoSaveRecord_Click);
+            _menuItemExit.Click += new EventHandler(exit_Click);
+            _menuItemKeyConfig.Click += new EventHandler(KeyConfig_Click);
+            _menuItemCustomize.Click += new EventHandler(Customize_Click);
+            _menuItemTranslationMode.Click += new EventHandler(TranslationMode_Click);
+            _menuItemTimingMode.Click += new EventHandler(TimingMode_Click);
+            _menuItemAboutSGSUBTR.Click += new EventHandler(AboutSGSUBTR_Click);
 
         }
 
@@ -293,20 +311,27 @@ namespace sgsubtr
             _subEditerContainer.Add(translationEditor);
             translationEditor.Dock = DockStyle.Fill;
 
-            fileMenuItems.DropDownItems.Clear();
-            fileMenuItems.DropDownItems.Add(openTranslationScript);
-            fileMenuItems.DropDownItems.Add(openMedia);
-            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
-            fileMenuItems.DropDownItems.Add(saveTranslation);
-            fileMenuItems.DropDownItems.Add(saveTranslationas);
-            fileMenuItems.DropDownItems.Add(exportTranslation);
-            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
-            fileMenuItems.DropDownItems.Add(exit);
+            _menuFile.DropDownItems.Clear();
+            _menuFile.DropDownItems.Add(_menuItemOpenScript);
+            _menuFile.DropDownItems.Add(_menuItemOpenMedia);
+            _menuFile.DropDownItems.Add(new ToolStripSeparator());
+            _menuFile.DropDownItems.Add(_menuItemSaveTrn);
+            _menuFile.DropDownItems.Add(_menuItemSaveTrnAs);
+            _menuFile.DropDownItems.Add(_menuItemExportTxt);
+            _menuFile.DropDownItems.Add(new ToolStripSeparator());
+            _menuFile.DropDownItems.Add(_menuItemExit);
 
-            ConfigMenuItems.DropDownItems.Clear();
-            ConfigMenuItems.DropDownItems.Add(KeyConfig);
-            ConfigMenuItems.DropDownItems.Add(Customize);
-            ConfigMenuItems.DropDownItems.Add(TimingMode);
+            _menuEdit.DropDownItems.Clear();
+            _menuEdit.DropDownItems.Add(_menuItemUndoTrn);
+            _menuEdit.DropDownItems.Add(new ToolStripSeparator());
+            _menuEdit.DropDownItems.Add(_menuItemCutTrn);
+            _menuEdit.DropDownItems.Add(_menuItemCopyTrn);
+            _menuEdit.DropDownItems.Add(_menuItemPasteTrn);
+
+            _menuConfig.DropDownItems.Clear();
+            _menuConfig.DropDownItems.Add(_menuItemKeyConfig);
+            _menuConfig.DropDownItems.Add(_menuItemCustomize);
+            _menuConfig.DropDownItems.Add(_menuItemTimingMode);
 
         }
         private void SetTimingMode()
@@ -315,21 +340,28 @@ namespace sgsubtr
             _subEditerContainer.Add(subEditor);
             translationEditor.Dock = DockStyle.Fill;
 
-            fileMenuItems.DropDownItems.Clear();
-            fileMenuItems.DropDownItems.Add(openSub);
-            fileMenuItems.DropDownItems.Add(openTXT);
-            fileMenuItems.DropDownItems.Add(openMedia);
-            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
-            fileMenuItems.DropDownItems.Add(saveSub);
-            fileMenuItems.DropDownItems.Add(saveSubAs);
-            fileMenuItems.DropDownItems.Add(autoSaveRecord);
-            fileMenuItems.DropDownItems.Add(new ToolStripSeparator());
-            fileMenuItems.DropDownItems.Add(exit);
+            _menuFile.DropDownItems.Clear();
+            _menuFile.DropDownItems.Add(_menuItemOpenSub);
+            _menuFile.DropDownItems.Add(_menuItemOpenTXT);
+            _menuFile.DropDownItems.Add(_menuItemOpenMedia);
+            _menuFile.DropDownItems.Add(new ToolStripSeparator());
+            _menuFile.DropDownItems.Add(_menuItemSaveSub);
+            _menuFile.DropDownItems.Add(_menuItemSaveSubAs);
+            _menuFile.DropDownItems.Add(_menuItemAutoSaveRecord);
+            _menuFile.DropDownItems.Add(new ToolStripSeparator());
+            _menuFile.DropDownItems.Add(_menuItemExit);
 
-            ConfigMenuItems.DropDownItems.Clear();
-            ConfigMenuItems.DropDownItems.Add(KeyConfig);
-            ConfigMenuItems.DropDownItems.Add(Customize);
-            ConfigMenuItems.DropDownItems.Add(TranslationMode);
+            _menuEdit.DropDownItems.Clear();
+            _menuEdit.DropDownItems.Add(_menuItemUndoSub);
+            _menuEdit.DropDownItems.Add(new ToolStripSeparator());
+            _menuEdit.DropDownItems.Add(_menuItemCutSub);
+            _menuEdit.DropDownItems.Add(_menuItemCopySub);
+            _menuEdit.DropDownItems.Add(_menuItemPasteSub);
+
+            _menuConfig.DropDownItems.Clear();
+            _menuConfig.DropDownItems.Add(_menuItemKeyConfig);
+            _menuConfig.DropDownItems.Add(_menuItemCustomize);
+            _menuConfig.DropDownItems.Add(_menuItemTranslationMode);
         }
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -340,7 +372,7 @@ namespace sgsubtr
             components = new Container();
             AutoScaleMode = AutoScaleMode.None;
             Text = @"SGSUB.Net Tita Russell";
-            Icon = global::sgsubtr.Properties.Resources.tita;
+            Icon = Properties.Resources.tita;
             AllowDrop = true;
             statusLabel.Text = StatusMessages[0];
 
