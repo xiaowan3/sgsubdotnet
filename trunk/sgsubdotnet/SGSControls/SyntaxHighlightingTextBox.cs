@@ -475,31 +475,41 @@ namespace SGSControls
                             return;
                         }
                         if (((Keys)(int)m.WParam == _config.PlayerRW) &&
-                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0) ||
+                            ((Keys)(int)m.WParam == _config.PlayerRW2) &&
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) == 0))
                         {
                             SeekBack();
                             return;
                         }
                         if (((Keys)(int)m.WParam == _config.PlayerFF) &&
-                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0) ||
+                            ((Keys)(int)m.WParam == _config.PlayerFF2) &&
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) == 0))
                         {
                             SeekForward();
                             return;
                         }
                         if (((Keys)(int)m.WParam == _config.PlayerTogglePause) &&
-                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0) ||
+                            ((Keys)(int)m.WParam == _config.PlayerTogglePause2) &&
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) == 0))
                         {
                             TogglePlayer();
                             return;
                         }
                         if (((Keys)(int)m.WParam == _config.PlayerJumpto) &&
-                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0) ||
+                            ((Keys)(int)m.WParam == _config.PlayerJumpto2) &&
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) == 0))
                         {
                             SeekToCurrentLine();
                             return;
                         }
                         if (((Keys)(int)m.WParam == _config.InsertTag) &&
-                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0))
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) != 0) ||
+                            ((Keys)(int)m.WParam == _config.InsertTag2) &&
+                            ((Win32.GetKeyState(Win32.VK_CONTROL) & Win32.KS_KEYDOWN) == 0))
                         {
                             InsertTimeTag();
                             return;

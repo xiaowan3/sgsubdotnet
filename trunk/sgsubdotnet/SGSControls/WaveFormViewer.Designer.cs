@@ -149,9 +149,9 @@
             // 
             this.labelArrow.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelArrow.AutoSize = true;
-            this.labelArrow.Location = new System.Drawing.Point(10, 152);
+            this.labelArrow.Location = new System.Drawing.Point(6, 151);
             this.labelArrow.Name = "labelArrow";
-            this.labelArrow.Size = new System.Drawing.Size(17, 12);
+            this.labelArrow.Size = new System.Drawing.Size(21, 13);
             this.labelArrow.TabIndex = 4;
             this.labelArrow.Text = "->";
             // 
@@ -160,7 +160,7 @@
             this.labelLastDuration.AutoSize = true;
             this.labelLastDuration.Location = new System.Drawing.Point(442, 125);
             this.labelLastDuration.Name = "labelLastDuration";
-            this.labelLastDuration.Size = new System.Drawing.Size(65, 12);
+            this.labelLastDuration.Size = new System.Drawing.Size(63, 22);
             this.labelLastDuration.TabIndex = 5;
             this.labelLastDuration.Text = "-:--:--.--";
             // 
@@ -169,7 +169,7 @@
             this.labelThisDuration.AutoSize = true;
             this.labelThisDuration.Location = new System.Drawing.Point(442, 147);
             this.labelThisDuration.Name = "labelThisDuration";
-            this.labelThisDuration.Size = new System.Drawing.Size(65, 12);
+            this.labelThisDuration.Size = new System.Drawing.Size(63, 22);
             this.labelThisDuration.TabIndex = 6;
             this.labelThisDuration.Text = "-:--:--.--";
             // 
@@ -178,7 +178,7 @@
             this.labelNextDuration.AutoSize = true;
             this.labelNextDuration.Location = new System.Drawing.Point(442, 169);
             this.labelNextDuration.Name = "labelNextDuration";
-            this.labelNextDuration.Size = new System.Drawing.Size(65, 12);
+            this.labelNextDuration.Size = new System.Drawing.Size(63, 22);
             this.labelNextDuration.TabIndex = 7;
             this.labelNextDuration.Text = "-:--:--.--";
             // 
@@ -195,7 +195,7 @@
             this.tsbtnFFT});
             this.tsFile.Location = new System.Drawing.Point(3, 0);
             this.tsFile.Name = "tsFile";
-            this.tsFile.Size = new System.Drawing.Size(170, 25);
+            this.tsFile.Size = new System.Drawing.Size(139, 25);
             this.tsFile.TabIndex = 0;
             // 
             // tsbtnOpenAss
@@ -258,6 +258,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.toolStripWaveFormViewer);
+            this.Font = new System.Drawing.Font("SimSun", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(134)));
             this.Name = "WaveFormViewer";
             this.Size = new System.Drawing.Size(514, 245);
             this.toolStripWaveFormViewer.ContentPanel.ResumeLayout(false);
