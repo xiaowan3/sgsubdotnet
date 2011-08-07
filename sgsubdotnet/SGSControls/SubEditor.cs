@@ -63,6 +63,7 @@ namespace SGSControls
                 }
                 else
                 {
+                    dataGridSubtitles.DataSource = null;
                     dataGridSubtitles.AllowUserToAddRows = false;
                     _subLoaded = false;
                     Edited = false;

@@ -69,6 +69,13 @@ namespace SGSControls
                 else
                 {
                     _subLoaded = false;
+                    labelLastLine.Text = "";
+                    labelLastDuration.Text = @"-:--:--.--";
+                    labelThisLine.Text = "";
+                    labelThisDuration.Text = @"-:--:--.--";
+                    labelNextLine.Text = "";
+                    labelNextDuration.Text = @"-:--:--.--";
+                    waveScope.Redraw();
                 }
             }
         }
@@ -142,6 +149,16 @@ namespace SGSControls
                     labelNextLine.Text = "";
                     labelNextDuration.Text = @"-:--:--.--";
                 }
+                waveScope.Redraw();
+            }
+            else
+            {
+                labelLastLine.Text = "";
+                labelLastDuration.Text = @"-:--:--.--";
+                labelThisLine.Text = "";
+                labelThisDuration.Text = @"-:--:--.--";
+                labelNextLine.Text = "";
+                labelNextDuration.Text = @"-:--:--.--";
                 waveScope.Redraw();
             }
         }
