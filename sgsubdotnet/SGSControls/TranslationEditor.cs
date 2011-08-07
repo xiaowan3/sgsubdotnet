@@ -27,9 +27,9 @@ namespace SGSControls
         {
             syntaxHighlightingTextBox1.SetConfig(config);
             _config = config;
-            labelRW.Text = "后退：Ctrl+" + _config.PlayerRW;
-            labelFF.Text = "前进：Ctrl+" + _config.PlayerFF;
-            labelToggle.Text = "暂停：Ctrl+" + _config.PlayerTogglePause;
+            labelRW.Text = string.Format("后退：Ctrl+{0},{1}", _config.PlayerRW, _config.PlayerRW2);
+            labelFF.Text = string.Format("前进：Ctrl+{0},{1}", _config.PlayerFF, _config.PlayerFF2);
+            labelToggle.Text = string.Format("暂停：Ctrl+{0},{1}", _config.PlayerTogglePause, _config.PlayerTogglePause2);
         }
 
         public void New()
@@ -283,40 +283,5 @@ namespace SGSControls
 
         #endregion
 
- 
-        //private TimeTag FindTimeTag(string line)
-        //{
-        //    int commentmark = line.LastIndexOf(_config.CommentMark);
-        //    if (commentmark == -1) return null;
-        //    int tagstart = line.LastIndexOf('[');
-        //    if (tagstart == -1) return null;
-        //    int tagend = line.LastIndexOf(']');
-        //    if (tagend == -1) return null;
-        //    if (tagend < tagstart) return null;
-        //    var tag = TimeTag.TryParse(line.Substring(tagstart + 1, tagend - tagstart - 1));
-        //    return tag;
-        //}
-
-        //private string FindCurrentLine(out int first, out int len)
-        //{
-        //    int pos = syntaxHighlightingTextBox1.SelectionStart;
-        //    int totalLen = syntaxHighlightingTextBox1.Text.Length;
-        //    if (totalLen == 0)
-        //    {
-        //        first = 0;
-        //        len = 0;
-        //        return "";
-        //    }
-        //    if (pos >= totalLen) pos = totalLen - 1;
-        //    if (pos == 0) pos = 1; 
-        //    int linebegin = syntaxHighlightingTextBox1.Text.LastIndexOf('\n', pos - 1);
-        //    first = linebegin + 1; //行的第一个字符位置
-        //    int last = syntaxHighlightingTextBox1.Text.IndexOf('\n', first);
-        //    last = last == -1 ? totalLen - 1 : last - 1;
-        //    len = last - first + 1;
-        //    return syntaxHighlightingTextBox1.Text.Substring(first, len);
-        //}
-
- 
     }
 }

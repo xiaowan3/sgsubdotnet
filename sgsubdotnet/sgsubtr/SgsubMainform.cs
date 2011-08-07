@@ -352,6 +352,8 @@ namespace sgsubtr
             _subEditerContainer.Clear();
             _subEditerContainer.Add(translationEditor);
             translationEditor.Dock = DockStyle.Fill;
+            _messageMode = 2;
+            statusLabel.Text = StatusMessages[_messageMode];
 
             _menuFile.DropDownItems.Clear();
             _menuFile.DropDownItems.Add(_menuItemOpenScript);
@@ -381,6 +383,8 @@ namespace sgsubtr
             _subEditerContainer.Clear();
             _subEditerContainer.Add(subEditor);
             translationEditor.Dock = DockStyle.Fill;
+            _messageMode = 1;
+            statusLabel.Text = StatusMessages[_messageMode];
 
             _menuFile.DropDownItems.Clear();
             _menuFile.DropDownItems.Add(_menuItemOpenSub);
@@ -415,7 +419,7 @@ namespace sgsubtr
             Text = @"SGSUB.Net Tita Russell";
             Icon = Properties.Resources.tita;
             AllowDrop = true;
-            statusLabel.Text = StatusMessages[0];
+            statusLabel.Text = StatusMessages[_messageMode];
 
             XmlTextReader layoutReader; 
             var xmldoc = new XmlDocument();
@@ -533,6 +537,8 @@ namespace sgsubtr
             waveViewer.BTNSaveAss += new EventHandler(saveSub_Click);
             waveViewer.WaveFormMouseDown += new EventHandler<WaveReader.WFMouseEventArgs>(waveViewer_WaveFormMouseDown);
             waveViewer.PlayerControl += new EventHandler<PlayerControlEventArgs>(PlayerControlEventHandler);
+            waveViewer.MouseLeave += new EventHandler(waveViewer_MouseLeave);
+            waveViewer.MouseEnter += new EventHandler(waveViewer_MouseEnter);
 
             subEditor.TimeEdit += new EventHandler<TimeEditEventArgs>(subEditor_TimeEdit);
             subEditor.CurrentRowChanged += new EventHandler<CurrentRowChangeEventArgs>(subEditor_CurrentRowChanged);
@@ -551,6 +557,16 @@ namespace sgsubtr
             timer.Tick += new EventHandler(timer_Tick);
             #endregion
 
+        }
+
+        void waveViewer_MouseEnter(object sender, EventArgs e)
+        {
+            statusLabel.Text = StatusMessages[1];
+        }
+
+        void waveViewer_MouseLeave(object sender, EventArgs e)
+        {
+            statusLabel.Text = StatusMessages[_messageMode];
         }
 
         void TranslationMode_Click(object sender, EventArgs e)
@@ -752,10 +768,12 @@ namespace sgsubtr
 
         private string[] StatusMessages =
         {
-            "复制:Ctrl-C  粘贴:Ctrl-V  清空单元格:Delete  删除选中行:Ctrl-Delete",
-            "鼠标左键:设置字幕开始时间   鼠标右键:设置字幕结束时间"
+            "时间轴模式  复制:Ctrl+C  粘贴:Ctrl+V  清空单元格:Delete  删除选中行:Ctrl-Delete",
+            "鼠标左键:设置字幕开始时间   鼠标右键:设置字幕结束时间",
+            "翻译模式  复制:Ctrl+C  粘贴:Ctrl+V  撤消:Ctrl+Z  重做:Ctrl+Y"            
         };
 
+        private int _messageMode = 0;
         #endregion
 
         void exit_Click(object sender, EventArgs e)

@@ -42,6 +42,16 @@ namespace SGSControls
             add { tsbtnSaveASS.Click += value; }
             remove { tsbtnSaveASS.Click -= value; }
         }
+        public new event EventHandler MouseEnter
+        {
+            add { waveScope.MouseEnter += value; }
+            remove { waveScope.MouseEnter -= value; }
+        }
+        public new event EventHandler MouseLeave
+        {
+            add { waveScope.MouseLeave += value; }
+            remove { waveScope.MouseLeave -= value; }
+        }
         public event EventHandler<PlayerControlEventArgs> PlayerControl = null;
         #endregion
         #region Public Properties
