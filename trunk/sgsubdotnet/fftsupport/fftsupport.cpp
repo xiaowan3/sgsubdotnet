@@ -17,7 +17,7 @@ extern "C" __declspec( dllexport ) FFTBUF* CreateFFTBuffer(int len)
 	r->input = new double[len * 2];
 	r->output = new double[len * 2];
 	r->len = len;
-	r->plan = fftw_plan_r2r_1d(len * 2,r->input,r->output,FFTW_DHT,FFTW_MEASURE);
+	r->plan = fftw_plan_r2r_1d(len * 2,r->input,r->output,FFTW_REDFT10,FFTW_MEASURE);
 	memset(r->input,0,len * 2 * sizeof(double));
 	return r;
 }

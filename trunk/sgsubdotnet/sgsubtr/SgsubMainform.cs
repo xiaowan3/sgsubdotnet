@@ -349,6 +349,9 @@ namespace sgsubtr
 
         private void SetTranslationMode()
         {
+            if (!AskSave()) return;
+            _currentSub = null;
+            SetCurrentSub();
             _subEditerContainer.Clear();
             _subEditerContainer.Add(translationEditor);
             translationEditor.Dock = DockStyle.Fill;
@@ -383,7 +386,7 @@ namespace sgsubtr
             _subEditerContainer.Clear();
             _subEditerContainer.Add(subEditor);
             translationEditor.Dock = DockStyle.Fill;
-            _messageMode = 1;
+            _messageMode = 0;
             statusLabel.Text = StatusMessages[_messageMode];
 
             _menuFile.DropDownItems.Clear();
