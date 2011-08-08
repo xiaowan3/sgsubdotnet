@@ -3,6 +3,8 @@
 #ifndef _FFTW_
 
 /*
+FFT Algorithms from http://www.kurims.kyoto-u.ac.jp/~ooura/fft.html
+
 Fast Fourier/Cosine/Sine Transform
     dimension   :one
     data length :power of 2
