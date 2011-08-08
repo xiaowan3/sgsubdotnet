@@ -149,7 +149,7 @@ namespace WaveReader
             }
             wavfm.Length = wavfm._mWaveform.Length * wavfm.DeltaT;
 
-
+            FFT.ReleaseBuffer(fftbuf);
             return wavfm;
         }
 
@@ -212,5 +212,8 @@ namespace WaveReader
 
         [DllImport("fftsupport.dll")]
         public static extern void DoFFT(IntPtr fftbuf, [MarshalAs(UnmanagedType.LPArray)]Byte[] input, int inlen, int inoffset, [MarshalAs(UnmanagedType.LPArray)] Byte[] output);
+
+        [DllImport("fftsupport.dll")]
+        public static extern void ReleaseBuffer(IntPtr fftbuf);
     }
 }
