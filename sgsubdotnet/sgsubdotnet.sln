@@ -13,6 +13,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoPlayer", "VideoPlayer\VideoPlayer.csproj", "{919513CF-DF3A-4F66-8BAC-2988EF98EB97}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGSControls", "SGSControls\SGSControls.csproj", "{BDFF0BC9-EE7E-4378-A319-D0CAF96E2CA1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{00973297-A474-4389-BC88-014EBBAB9D2A} = {00973297-A474-4389-BC88-014EBBAB9D2A}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{1A4FC202-FBE8-4752-AA83-1FEC1171318D}"
 EndProject
