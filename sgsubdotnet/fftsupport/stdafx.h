@@ -14,4 +14,6 @@
 typedef __int16 Int16;
 typedef unsigned __int8 UInt8;
 
+#define _FFTW_
+
 // TODO: reference additional headers your program requires here
