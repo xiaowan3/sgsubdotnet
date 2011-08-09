@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml;
@@ -25,15 +26,24 @@ namespace SGSDatatype
             PreviousSaveTime = DateTime.Now;
         }
 
+        /// <summary>
+        /// Generate autosave file list from autosave path.
+        /// </summary>
         public void Load()
         {
             AutoSaveFileBindingSource.Clear();
             var savefiles = Directory.GetFiles(_savePath, "*.save");
+            var savefileList = new List<SaveFileIndex>();
             foreach (var savefile in savefiles)
             {
                 var autosaverec = AutoSaveRecord.Fromfile(savefile);
                 var item = new SaveFileIndex(savefile, autosaverec.Filename, autosaverec.SaveDate);
-                AutoSaveFileBindingSource.Add(item);
+                savefileList.Add(item);
+            }
+            savefileList.Sort(new Comparison<SaveFileIndex>(SaveFileIndex.Compare));
+            foreach (SaveFileIndex saveFileIndex in savefileList)
+            {
+                AutoSaveFileBindingSource.Add(saveFileIndex);
             }
         }
 
@@ -63,16 +73,17 @@ namespace SGSDatatype
         {
 
             var savefiles = Directory.GetFiles(_savePath, "*.save");
+
             foreach (var savefile in savefiles)
-            {
-                FileInfo fileinfo = new FileInfo(savefile);
-                var editedtime = fileinfo.LastWriteTime;
-                var offset = DateTime.Now.Subtract(editedtime);
-                if (offset.TotalHours > hours)
                 {
-                    File.Delete(savefile);
+                    FileInfo fileinfo = new FileInfo(savefile);
+                    var editedtime = fileinfo.LastWriteTime;
+                    var offset = DateTime.Now.Subtract(editedtime);
+                    if (offset.TotalHours > hours)
+                    {
+                        File.Delete(savefile);
+                    }
                 }
-            }
             Load();
         }
     }
@@ -86,6 +97,20 @@ namespace SGSDatatype
             Filename = filename;
             SaveTime = saveTime;
         }
+
+        public static int Compare(SaveFileIndex x, SaveFileIndex y)
+        {
+            if (x == null)
+            {
+                if (y == null) return 0;
+                return -1;
+            }
+            if (y == null) return 1;
+            if (x.SaveTime.Subtract(y.SaveTime).TotalSeconds > 0) return 1;
+            if (x.SaveTime.Subtract(y.SaveTime).TotalSeconds == 0) return 0;
+            return -1;
+        }
+
 
         [DataMember]
         public string SaveFile { get; set; }
@@ -142,6 +167,7 @@ namespace SGSDatatype
         }
 
 
+
         [DataMember]
         public DateTime SaveDate;
 
@@ -151,4 +177,5 @@ namespace SGSDatatype
         [DataMember]
         public SubStationAlpha Subtitle;
     }
+
 }
