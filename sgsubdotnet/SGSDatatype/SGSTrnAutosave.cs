@@ -10,7 +10,7 @@ using System.Xml;
 
 namespace SGSDatatype
 {
-    class SGSTrnAutosave
+    public class SGSTrnAutosave
     {
         public readonly BindingSource AutoSaveFileBindingSource;
         private readonly string _savePath;
@@ -49,8 +49,29 @@ namespace SGSDatatype
         {
 
             var autosaverec = new TrnAutosaveRec(DateTime.Now, text, filename);
-            autosaverec.Save(string.Format("{0}\\{1}.save", _savePath, Guid.NewGuid()));
+            autosaverec.Save(string.Format("{0}\\{1}.tbk", _savePath, Guid.NewGuid()));
             PreviousSaveTime = DateTime.Now;
+        }
+        /// <summary>
+        /// Delete old autosave records.
+        /// </summary>
+        /// <param name="hours"></param>
+        public void DeleteOld(int hours)
+        {
+
+            var savefiles = Directory.GetFiles(_savePath, "*.tbk");
+
+            foreach (var savefile in savefiles)
+            {
+                FileInfo fileinfo = new FileInfo(savefile);
+                var editedtime = fileinfo.LastWriteTime;
+                var offset = DateTime.Now.Subtract(editedtime);
+                if (offset.TotalHours > hours)
+                {
+                    File.Delete(savefile);
+                }
+            }
+            Load();
         }
     }
 
@@ -109,7 +130,7 @@ namespace SGSDatatype
         {
             var fs = new FileStream(filename, FileMode.Create);
             var zipwriter = new GZipStream(fs, CompressionMode.Compress);
-            var ser = new DataContractSerializer(typeof(AutoSaveRecord));
+            var ser = new DataContractSerializer(typeof(TrnAutosaveRec));
             ser.WriteObject(zipwriter, this);
             zipwriter.Flush();
             fs.Flush();

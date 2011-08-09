@@ -95,6 +95,12 @@
     <Compile Include="TranslationEditor.Designer.cs">
       <DependentUpon>TranslationEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="TrnAutosaveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrnAutosaveForm.Designer.cs">
+      <DependentUpon>TrnAutosaveForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UndoRecord.cs" />
     <Compile Include="WaveFormViewer.cs">
       <SubType>UserControl</SubType>
@@ -133,6 +139,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TranslationEditor.resx">
       <DependentUpon>TranslationEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrnAutosaveForm.resx">
+      <DependentUpon>TrnAutosaveForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WaveFormViewer.resx">

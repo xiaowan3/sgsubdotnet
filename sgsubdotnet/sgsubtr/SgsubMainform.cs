@@ -202,6 +202,7 @@ namespace sgsubtr
         ToolStripMenuItem _menuItemExportTxt = new ToolStripMenuItem("导出翻译文本");
         ToolStripMenuItem _menuItemSaveTrn = new ToolStripMenuItem("保存翻译原稿");
         ToolStripMenuItem _menuItemSaveTrnAs = new ToolStripMenuItem("翻译原稿另存为");
+        ToolStripMenuItem _menuItemTrnAutoSave = new ToolStripMenuItem("查看自动保存记录");
 
         ToolStripMenuItem _menuItemUndoTrn = new ToolStripMenuItem("撤消");
         ToolStripMenuItem _menuItemCutTrn = new ToolStripMenuItem("剪切");
@@ -269,6 +270,7 @@ namespace sgsubtr
             _menuItemSaveSub.Click += new EventHandler(saveSub_Click);
             _menuItemSaveSubAs.Click += new EventHandler(saveSubAs_Click);
             _menuItemAutoSaveRecord.Click += new EventHandler(autoSaveRecord_Click);
+            _menuItemTrnAutoSave.Click += new EventHandler(_menuItemTrnAutoSave_Click);
             _menuItemExit.Click += new EventHandler(exit_Click);
 
             _menuItemUndoSub.Click += new EventHandler(_menuItemUndoSub_Click);
@@ -285,6 +287,11 @@ namespace sgsubtr
             _menuItemTimingMode.Click += new EventHandler(TimingMode_Click);
             _menuItemAboutSGSUBTR.Click += new EventHandler(AboutSGSUBTR_Click);
 
+        }
+
+        void _menuItemTrnAutoSave_Click(object sender, EventArgs e)
+        {
+            translationEditor.ShowAutosaveDlg();
         }
 
         void _menuItemPasteTrn_Click(object sender, EventArgs e)
@@ -365,6 +372,7 @@ namespace sgsubtr
             _menuFile.DropDownItems.Add(_menuItemSaveTrn);
             _menuFile.DropDownItems.Add(_menuItemSaveTrnAs);
             _menuFile.DropDownItems.Add(_menuItemExportTxt);
+            _menuFile.DropDownItems.Add(_menuItemTrnAutoSave);
             _menuFile.DropDownItems.Add(new ToolStripSeparator());
             _menuFile.DropDownItems.Add(_menuItemExit);
 
@@ -468,10 +476,14 @@ namespace sgsubtr
                 layoutReader = new XmlTextReader(layoutfilename);
                 xmldoc.Load(layoutReader);
             }
+
+            updateConfig();
+
+
             //AutoSave
             _autosave = new SGSAutoSave(_appFolderPath + @"\autosave");
             _autosave.DeleteOld(_config.AutoSaveLifeTime);
-
+            translationEditor.SetAutosavePath(_appFolderPath + @"\autosave");
 
             #endregion
 
@@ -516,8 +528,6 @@ namespace sgsubtr
             statusStrip.Items.Add(statusLabel);
             LayoutLoader(panel, root);
             #endregion
-
-            updateConfig();
 
 
             subEditor.Autosave = _autosave;

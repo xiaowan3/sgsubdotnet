@@ -217,6 +217,7 @@
             this.syntaxHighlightingTextBox1.Size = new System.Drawing.Size(280, 394);
             this.syntaxHighlightingTextBox1.TabIndex = 0;
             this.syntaxHighlightingTextBox1.Text = "";
+            this.syntaxHighlightingTextBox1.CheckAutosave += new System.EventHandler(this.syntaxHighlightingTextBox1_CheckAutosave);
             this.syntaxHighlightingTextBox1.RefreshSummary += new System.EventHandler<SGSControls.SummaryEventArgs>(this.syntaxHighlightingTextBox1_RefreshSummary);
             // 
             // TranslationEditor
