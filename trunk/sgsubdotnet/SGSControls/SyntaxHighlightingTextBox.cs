@@ -177,6 +177,7 @@ namespace SGSControls
         public event EventHandler<SeekEventArgs> SeekPlayer = null;
         public event EventHandler<PlayerControlEventArgs> PlayerControl = null;
         public event EventHandler<TimeEditEventArgs> TimeEdit = null;
+        public event EventHandler CheckAutosave = null;
         #endregion
 
         #region Overriden methods
@@ -380,7 +381,7 @@ namespace SGSControls
             Invalidate();
 
             if (RefreshSummary != null) RefreshSummary(this, summaryEventArgs);
-
+            if (CheckAutosave != null) CheckAutosave(this, new EventArgs());
         }
 
         ///   <summary>

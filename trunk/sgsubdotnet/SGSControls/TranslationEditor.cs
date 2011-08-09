@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SGSDatatype;
 
 namespace SGSControls
 {
@@ -19,6 +20,7 @@ namespace SGSControls
 
         private string _filename = "";
         private SGSDatatype.SGSConfig _config = null;
+        private SGSDatatype.SGSTrnAutosave _autosave;
 
         #endregion
 
@@ -30,6 +32,13 @@ namespace SGSControls
             labelRW.Text = string.Format("后退：Ctrl+{0},{1}", _config.PlayerRW, _config.PlayerRW2);
             labelFF.Text = string.Format("前进：Ctrl+{0},{1}", _config.PlayerFF, _config.PlayerFF2);
             labelToggle.Text = string.Format("暂停：Ctrl+{0},{1}", _config.PlayerTogglePause, _config.PlayerTogglePause2);
+        }
+
+        public void SetAutosavePath(string path)
+        {
+            _autosave = new SGSTrnAutosave(path);
+            _autosave.DeleteOld(_config.AutoSaveLifeTime);
+            //_autosave.Load(); Do not needed.
         }
 
         public void New()
@@ -127,6 +136,15 @@ namespace SGSControls
             syntaxHighlightingTextBox1.Copy();
         }
 
+        public void ShowAutosaveDlg()
+        {
+            var saveDlg = new TrnAutosaveForm(_autosave);
+            if (saveDlg.ShowDialog() == DialogResult.OK)
+            {
+                syntaxHighlightingTextBox1.Text = saveDlg.TranslationText;
+                _filename = null;
+            }
+        }
         #endregion
 
         #region Events
@@ -195,21 +213,6 @@ namespace SGSControls
             syntaxHighlightingTextBox1.Focus();
         }
 
-        private void MenuItemCopy_Click(object sender, EventArgs e)
-        {
-            syntaxHighlightingTextBox1.Copy();
-        }
-
-        private void MenuItemCut_Click(object sender, EventArgs e)
-        {
-            syntaxHighlightingTextBox1.Cut();
-        }
-
-        private void MenuItemPaste_Click(object sender, EventArgs e)
-        {
-            syntaxHighlightingTextBox1.Paste();
-        }
-
         private void btnToggle_Click(object sender, EventArgs e)
         {
             if (_playerControl != null)
@@ -233,6 +236,16 @@ namespace SGSControls
             syntaxHighlightingTextBox1.Focus();
         }
 
+
+        private void syntaxHighlightingTextBox1_CheckAutosave(object sender, EventArgs e)
+        {
+            if (_autosave == null) return;
+            var offset = DateTime.Now.Subtract(_autosave.PreviousSaveTime);
+            if (offset.TotalSeconds > _config.AutoSavePeriod)
+            {
+                _autosave.SaveHistory(syntaxHighlightingTextBox1.Text, _filename);
+            }
+        }
 
         #endregion
 
@@ -261,8 +274,6 @@ namespace SGSControls
 
 
 
-
-
         private bool OpenTranslation()
         {
             var openFileDialog = new OpenFileDialog
@@ -282,6 +293,7 @@ namespace SGSControls
         }
 
         #endregion
+
 
     }
 }
