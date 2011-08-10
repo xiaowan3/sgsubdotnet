@@ -47,6 +47,10 @@ HRESULT PlayMovieInWindow(LPCWSTR file)
 {
     USES_CONVERSION;
     HRESULT hr;
+	if(g_psCurrent != Init)
+	{
+		CloseClip();
+	}
 
 
     // Clear open dialog remnants before calling RenderFile()
@@ -232,6 +236,21 @@ void StopClip(void)
         hr = pMC->Pause();
     }
 
+}
+
+void SeekClip(double pos)
+{
+	HRESULT hr;
+
+    if (!pMP) return;
+	REFTIME time;
+	hr = pMP->get_Duration(&time);
+	if (pos >= time) return;
+    if((g_psCurrent == Paused) || (g_psCurrent == Running))
+    {
+		time = pos;
+		hr = pMP->put_CurrentPosition(time);
+    }
 }
 
 
