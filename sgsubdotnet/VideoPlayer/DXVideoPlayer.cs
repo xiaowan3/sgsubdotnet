@@ -5,17 +5,18 @@ using Microsoft.DirectX.AudioVideoPlayback;
 
 namespace VideoPlayer
 {
-    public partial class DXVideoPlayer : UserControl
+    public partial class DXVideoPlayer : PlayerControl
     {
         private Video _movie;
         public DXVideoPlayer()
         {
             InitializeComponent();
             g1 = splitContainer1.Panel2.CreateGraphics();
-            MediaOpened = false;
+            _mediaOpened = false;
         }
-        public bool Paused { get; set; }
-        public bool MediaOpened { get; private set; }
+
+        private bool _paused;
+        private bool _mediaOpened;
         private readonly Image _trackleft = Resources.PANEL_Left;
         private readonly Image _trackright = Resources.PANEL_Right;
         private readonly Image _trackmiddle = Resources.PANEL_Fill;
@@ -30,44 +31,56 @@ namespace VideoPlayer
 
         private Graphics g1;
 
-
         public string Filename { get; private set; }
 
-        public double Duration
+        protected override double GetDuration()
         {
-            get
-            {
-                if (_movie != null) return _movie.Duration;
-                return 0;
-            }
+            if (_movie != null) return _movie.Duration;
+            return 0;
         }
 
-        public double CurrentPosition
+        protected override bool IsPaused()
         {
-            get
-            {
-                if (_movie != null) return _movie.CurrentPosition;
-                return 0;
-            }
-            set
-            {
-                if (_movie != null)
-                {
-                    if (value >= 0 && value < _movie.Duration) _movie.CurrentPosition = value;
-                } 
-            }
+            return _paused;
         }
 
-        public void Pause()
+        protected override double GetPosition()
+        {
+            if (_movie != null) return _movie.CurrentPosition;
+            return 0;
+        }
+
+        protected override void SetPosition(double pos)
+        {
+            if (_movie != null)
+            {
+                if (pos >= 0 && pos < _movie.Duration) _movie.CurrentPosition = pos;
+            } 
+        }
+
+        protected override bool IsMediaOpened()
+        {
+            return _mediaOpened;
+        }
+
+        public override void Init()
+        {
+        }
+
+        public override void Uninit()
+        {
+        }
+
+        public override void Pause()
         {
             if (_movie != null)
             {
                 _movie.Pause();
-                Paused = true;
+                _paused = true;
             }
         }
 
-        public void OpenVideo(string filename)
+        public override void OpenVideo(string filename)
         {
             if (_movie != null)
             {
@@ -83,12 +96,12 @@ namespace VideoPlayer
                 ResizeScreen(splitContainer1.Panel1.Width, splitContainer1.Panel1.Height);
                 _movie.Audio.Volume = ConvertVolume(_soundvolume);
                 Filename.Substring(Filename.LastIndexOf('\\') + 1);
-                MediaOpened = true;
+                _mediaOpened = true;
             }
             catch (Exception)
             {
                 Filename = "";
-                MediaOpened = false;
+                _mediaOpened = false;
                 throw;
             }
         }
@@ -112,12 +125,12 @@ namespace VideoPlayer
 
         }
 
-        public void Play()
+        public override void Play()
         {
             if (_movie != null)
             {
                 _movie.Play();
-                Paused = false;
+                _paused = false;
             }
         }
 
@@ -153,6 +166,7 @@ namespace VideoPlayer
             bg.Render(g1);
 
         }
+
 
         private bool _thumbselected;
         private bool _soundselected;

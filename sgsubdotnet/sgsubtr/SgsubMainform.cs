@@ -167,7 +167,8 @@ namespace sgsubtr
         SubEditor subEditor = new SubEditor();
         WaveFormViewer waveViewer = new WaveFormViewer();
         SubItemEditor subItemEditor = new SubItemEditor();
-        VideoPlayer.DXVideoPlayer dxVideoPlayer = new VideoPlayer.DXVideoPlayer();
+       // VideoPlayer.PlayerControl dxVideoPlayer = new VideoPlayer.DXVideoPlayer();
+        private VideoPlayer.PlayerControl dxVideoPlayer = new VideoPlayer.DShowPlayer();
         private TranslationEditor translationEditor = new TranslationEditor();
 
         Timer timer = new Timer();
@@ -532,6 +533,7 @@ namespace sgsubtr
 
             subEditor.Autosave = _autosave;
 
+            dxVideoPlayer.Init();
 
             waveViewer.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
             SubItemEditor.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
@@ -622,6 +624,10 @@ namespace sgsubtr
         void SgsubMainform_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!AskSave()) e.Cancel = true;
+            else
+            {
+                dxVideoPlayer.Uninit();
+            }
         }
 
         void SgsubMainform_DragEnter(object sender, DragEventArgs e)
