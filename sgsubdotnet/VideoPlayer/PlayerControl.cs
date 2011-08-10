@@ -10,6 +10,7 @@ namespace VideoPlayer
         public abstract void Pause();
         public abstract void OpenVideo(string filename);
         public abstract void Play();
+        public abstract void TogglePause();
         protected abstract double GetPosition();
         protected abstract void SetPosition(double pos);
         protected abstract bool IsPaused();

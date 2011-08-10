@@ -15,7 +15,7 @@ namespace VideoPlayer
             _mediaOpened = false;
         }
 
-        private bool _paused;
+    //    private bool _paused;
         private bool _mediaOpened;
         private readonly Image _trackleft = Resources.PANEL_Left;
         private readonly Image _trackright = Resources.PANEL_Right;
@@ -41,8 +41,25 @@ namespace VideoPlayer
 
         protected override bool IsPaused()
         {
-            return _paused;
+            if (_movie != null) return _movie.Paused;
+            return false;
         }
+
+        public override void TogglePause()
+        {
+            if (_movie != null)
+            {
+                if (_movie.Paused)
+                {
+                    _movie.Play();
+                }
+                else
+                {
+                    _movie.Pause();
+                }
+            }
+        }
+        
 
         protected override double GetPosition()
         {
@@ -76,7 +93,6 @@ namespace VideoPlayer
             if (_movie != null)
             {
                 _movie.Pause();
-                _paused = true;
             }
         }
 
@@ -130,7 +146,6 @@ namespace VideoPlayer
             if (_movie != null)
             {
                 _movie.Play();
-                _paused = false;
             }
         }
 

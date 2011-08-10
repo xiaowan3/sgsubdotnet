@@ -717,10 +717,7 @@ namespace sgsubtr
                     dxVideoPlayer.Play();
                     break;
                 case PlayerCommand.Toggle:
-                    if (dxVideoPlayer.Paused)
-                        dxVideoPlayer.Play();
-                    else
-                        dxVideoPlayer.Pause();
+                    dxVideoPlayer.TogglePause();
                     break;
             }
         }
