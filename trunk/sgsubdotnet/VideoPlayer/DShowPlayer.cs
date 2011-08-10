@@ -16,11 +16,9 @@ namespace VideoPlayer
         {
             InitializeComponent();
             g1 = splitContainer1.Panel2.CreateGraphics();
-            _mediaOpened = false;
         }
 
-        private bool _paused;
-        private bool _mediaOpened;
+
         private readonly Image _trackleft = Resources.PANEL_Left;
         private readonly Image _trackright = Resources.PANEL_Right;
         private readonly Image _trackmiddle = Resources.PANEL_Fill;
@@ -32,8 +30,6 @@ namespace VideoPlayer
 
         private bool _thumbselected;
         private bool _soundselected;
-
-        private double _aspectRatio = 1;
 
         private Graphics g1;
 
@@ -178,7 +174,11 @@ namespace VideoPlayer
 
         public override void Pause()
         {
-            throw new NotImplementedException();
+            PlayState ps = DShowSupport.GetPlayState();
+            if (ps == PlayState.Running)
+            {
+                DShowSupport.TogglePause();
+            }
         }
 
         public override void OpenVideo(string filename)
@@ -188,7 +188,16 @@ namespace VideoPlayer
 
         public override void Play()
         {
-      //      throw new NotImplementedException();
+            PlayState ps = DShowSupport.GetPlayState();
+            if (ps == PlayState.Paused || ps == PlayState.Stopped)
+            {
+                DShowSupport.TogglePause();
+            }
+        }
+
+        public override void TogglePause()
+        {
+            DShowSupport.TogglePause(); 
         }
 
         protected override double GetPosition()
