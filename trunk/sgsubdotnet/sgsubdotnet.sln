@@ -11,6 +11,9 @@ EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SGSUBInstall", "SGSUBInstall\SGSUBInstall.vdproj", "{2FB0A15E-CD4D-4C47-890A-99C160F914B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoPlayer", "VideoPlayer\VideoPlayer.csproj", "{919513CF-DF3A-4F66-8BAC-2988EF98EB97}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C498ACB5-61D2-489B-ACB6-11DE2233C965} = {C498ACB5-61D2-489B-ACB6-11DE2233C965}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGSControls", "SGSControls\SGSControls.csproj", "{BDFF0BC9-EE7E-4378-A319-D0CAF96E2CA1}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -24,6 +27,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wsolalib", "wsolalib\wsolalib.vcproj", "{00973297-A474-4389-BC88-014EBBAB9D2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGSDatatype", "SGSDatatype\SGSDatatype.csproj", "{76586FC3-5D8E-40EB-8662-32B4F2950C5F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dshowplayer", "dshowplayer\dshowplayer.vcproj", "{C498ACB5-61D2-489B-ACB6-11DE2233C965}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +70,9 @@ Global
 		{76586FC3-5D8E-40EB-8662-32B4F2950C5F}.Debug|x86.Build.0 = Debug|x86
 		{76586FC3-5D8E-40EB-8662-32B4F2950C5F}.Release|x86.ActiveCfg = Release|x86
 		{76586FC3-5D8E-40EB-8662-32B4F2950C5F}.Release|x86.Build.0 = Release|x86
+		{C498ACB5-61D2-489B-ACB6-11DE2233C965}.Debug|x86.ActiveCfg = Debug|Win32
+		{C498ACB5-61D2-489B-ACB6-11DE2233C965}.Debug|x86.Build.0 = Debug|Win32
+		{C498ACB5-61D2-489B-ACB6-11DE2233C965}.Release|x86.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

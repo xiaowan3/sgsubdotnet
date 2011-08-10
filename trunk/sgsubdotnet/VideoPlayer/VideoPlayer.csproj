@@ -47,11 +47,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DShowPlayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DShowPlayer.Designer.cs">
+      <DependentUpon>DShowPlayer.cs</DependentUpon>
+    </Compile>
     <Compile Include="DXVideoPlayer.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="DXVideoPlayer.Designer.cs">
       <DependentUpon>DXVideoPlayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlayerControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
