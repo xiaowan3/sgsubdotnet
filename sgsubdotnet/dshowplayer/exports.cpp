@@ -63,3 +63,8 @@ extern "C" __declspec( dllexport ) void TogglePause()
 {
 	PauseClip();
 }
+
+extern "C" __declspec( dllexport ) void Seek(double pos)
+{
+	SeekClip(pos);
+}

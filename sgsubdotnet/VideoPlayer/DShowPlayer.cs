@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
 
 namespace VideoPlayer
@@ -34,7 +29,7 @@ namespace VideoPlayer
         private Graphics g1;
 
 
-        void screen_SizeChanged(object sender, System.EventArgs e)
+        void screen_SizeChanged(object sender, EventArgs e)
         {
             DShowSupport.Resize();
         }
@@ -129,6 +124,7 @@ namespace VideoPlayer
                 _thumbarea.X = 0;
                 RedrawTrackbar();
             }
+            DShowSupport.HandleGraphEvent();
         }
 
         private void RedrawTrackbar()
@@ -207,7 +203,7 @@ namespace VideoPlayer
 
         protected override void SetPosition(double pos)
         {
-          //  throw new NotImplementedException();
+            DShowSupport.Seek(pos);
         }
 
         protected override bool IsPaused()
@@ -257,6 +253,9 @@ namespace VideoPlayer
 
         [DllImport("dshowplayer.dll")]
         public static extern void TogglePause();
+
+        [DllImport("dshowplayer.dll")]
+        public static extern void Seek(double pos);
     }
     enum PlayState { Stopped = 0, Paused = 1, Running = 2, Init = 3 }
 }

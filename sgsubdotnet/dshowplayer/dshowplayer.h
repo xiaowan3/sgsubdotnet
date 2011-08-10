@@ -30,6 +30,7 @@ void CloseInterfaces(void);
 
 
 void PauseClip(void);
+void SeekClip(double);
 void StopClip(void);
 void CloseClip(void);
 double GetTime(void);
