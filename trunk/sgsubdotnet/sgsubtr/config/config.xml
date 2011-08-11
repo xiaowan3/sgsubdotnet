@@ -5,25 +5,31 @@
   <AddStartTime>Z</AddStartTime>
   <AddTimePoint>A</AddTimePoint>
   <AutoOverlapCorrection>true</AutoOverlapCorrection>
-  <AutoSaveLifeTime>24</AutoSaveLifeTime>
-  <AutoSavePeriod>300</AutoSavePeriod>
+  <AutoSaveLifeTime>72</AutoSaveLifeTime>
+  <AutoSavePeriod>180</AutoSavePeriod>
   <CommentMark>37</CommentMark>
   <EndOffset>-0.1</EndOffset>
   <EnterEditMode>F1</EnterEditMode>
   <GotoCurrent>E</GotoCurrent>
   <GotoPrevious>R</GotoPrevious>
   <HolePlaceholder>35</HolePlaceholder>
-  <InsertTag>None</InsertTag>
-  <LayoutName>Translation</LayoutName>
-  <LineLength>16</LineLength>
+  <InsertTag>T</InsertTag>
+  <InsertTag2>F5</InsertTag2>
+  <LayoutName>Wide</LayoutName>
+  <LineLength>20</LineLength>
   <MiniTrimMinus>O</MiniTrimMinus>
   <MiniTrimPlus>P</MiniTrimPlus>
   <MinitrimStep>0.2</MinitrimStep>
   <Pause>Space</Pause>
+  <Player>DShowPlayer</Player>
   <PlayerFF>F</PlayerFF>
-  <PlayerJumpto>None</PlayerJumpto>
+  <PlayerFF2>F2</PlayerFF2>
+  <PlayerJumpto>G</PlayerJumpto>
+  <PlayerJumpto2>F4</PlayerJumpto2>
   <PlayerRW>B</PlayerRW>
+  <PlayerRW2>F1</PlayerRW2>
   <PlayerTogglePause>P</PlayerTogglePause>
+  <PlayerTogglePause2>F3</PlayerTogglePause2>
   <SaveAss>F2</SaveAss>
   <SeekBackword>Q</SeekBackword>
   <SeekForward>W</SeekForward>
@@ -34,5 +40,5 @@
   <TemplateName i:nil="true"/>
   <UncertainLeftMark>91</UncertainLeftMark>
   <UncertainRightMark>93</UncertainRightMark>
-  <Version>1.1.0.1</Version>
+  <Version>1.2.0.1</Version>
 </SGSConfig>

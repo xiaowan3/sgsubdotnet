@@ -36,6 +36,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbtnPause = new System.Windows.Forms.ToolStripButton();
             this.tsbtnPlay = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnStep = new System.Windows.Forms.ToolStripButton();
             this.tsbtnJumpto = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtnDuplicate = new System.Windows.Forms.ToolStripButton();
@@ -50,7 +51,6 @@
             this.tsbtnTimeOffset = new System.Windows.Forms.ToolStripButton();
             this.tsbtnSlow = new System.Windows.Forms.ToolStripButton();
             this.tsbtnExportClip = new System.Windows.Forms.ToolStripButton();
-            this.tsbtnStep = new System.Windows.Forms.ToolStripButton();
             this.subeditorSpliter.Panel1.SuspendLayout();
             this.subeditorSpliter.Panel2.SuspendLayout();
             this.subeditorSpliter.SuspendLayout();
@@ -175,6 +175,16 @@
             this.tsbtnPlay.Size = new System.Drawing.Size(23, 22);
             this.tsbtnPlay.Text = "播放";
             this.tsbtnPlay.Click += new System.EventHandler(this.tsbtnPlay_Click);
+            // 
+            // tsbtnStep
+            // 
+            this.tsbtnStep.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnStep.Image = global::SGSControls.Properties.Resources.step;
+            this.tsbtnStep.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnStep.Name = "tsbtnStep";
+            this.tsbtnStep.Size = new System.Drawing.Size(23, 22);
+            this.tsbtnStep.Text = "单帧步进";
+            this.tsbtnStep.Click += new System.EventHandler(this.tsbtnStep_Click);
             // 
             // tsbtnJumpto
             // 
@@ -305,16 +315,6 @@
             this.tsbtnExportClip.Size = new System.Drawing.Size(23, 22);
             this.tsbtnExportClip.Text = "导出一行音频";
             this.tsbtnExportClip.Click += new System.EventHandler(this.tsbtnExportClip_Click);
-            // 
-            // tsbtnStep
-            // 
-            this.tsbtnStep.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnStep.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnStep.Image")));
-            this.tsbtnStep.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnStep.Name = "tsbtnStep";
-            this.tsbtnStep.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnStep.Text = "toolStripButton1";
-            this.tsbtnStep.Click += new System.EventHandler(this.tsbtnStep_Click);
             // 
             // SubEditor
             // 

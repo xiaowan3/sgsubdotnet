@@ -218,6 +218,7 @@
     <None Include="resources\exportclip.bmp" />
     <Content Include="resources\ff.png" />
     <None Include="resources\slow.bmp" />
+    <None Include="resources\step.bmp" />
     <Content Include="resources\toggle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
