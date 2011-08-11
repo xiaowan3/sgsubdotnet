@@ -72,3 +72,13 @@ extern "C" __declspec( dllexport ) void SetVolume(double vol)
 {
 	set_volume(vol);
 }
+
+extern "C" __declspec( dllexport ) bool CanStep()
+{
+	return _canStep();
+}
+
+extern "C" __declspec( dllexport ) void Step()
+{
+	StepOneFrame();
+}

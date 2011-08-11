@@ -123,6 +123,10 @@ HRESULT PlayMovieInWindow(LPCWSTR file)
     return hr;
 }
 
+bool _canStep()
+{
+	return pFS != NULL;
+}
 
 
 
