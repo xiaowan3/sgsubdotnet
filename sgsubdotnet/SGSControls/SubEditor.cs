@@ -921,6 +921,12 @@ namespace SGSControls
                 }
             }
         }
+
+        private void tsbtnStep_Click(object sender, EventArgs e)
+        {
+            var arg = new PlayerControlEventArgs(PlayerCommand.Step);
+            if (PlayerControl != null) PlayerControl(this, arg);
+        }
     }
 
     public class SeekEventArgs : EventArgs
@@ -957,7 +963,7 @@ namespace SGSControls
         }
         public readonly PlayerCommand ControlCMD;
     }
-    public enum PlayerCommand{Play,Pause,Toggle};
+    public enum PlayerCommand{Play,Pause,Toggle,Step};
 
     public class CurrentRowChangeEventArgs : EventArgs
     {

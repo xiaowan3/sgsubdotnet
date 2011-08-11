@@ -706,6 +706,9 @@ namespace sgsubtr
                 case PlayerCommand.Toggle:
                     _player.TogglePause();
                     break;
+                case PlayerCommand.Step:
+                    _player.Step();
+                    break;
             }
         }
 
@@ -736,7 +739,7 @@ namespace sgsubtr
 
         void subEditor_TimeEdit(object sender, TimeEditEventArgs e)
         {
-            if (_player.MediaOpened && !_player.Paused)
+            if (_player.MediaOpened)
             {
                 e.TimeValue = _player.CurrentPosition;
                 e.CancelEvent = false;

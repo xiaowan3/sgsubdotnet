@@ -193,6 +193,11 @@ namespace VideoPlayer
             DShowSupport.TogglePause(); 
         }
 
+        public void Step()
+        {
+            DShowSupport.Step();
+        }
+
         public double CurrentPosition
         {
             get { return DShowSupport.GetPlayerPos(); }
@@ -216,6 +221,8 @@ namespace VideoPlayer
                 return ps != PlayState.Init;
             }
         }
+
+        public bool CanStep { get { return DShowSupport.CanStep(); } }
 
         public double Duration
         {
@@ -260,6 +267,12 @@ namespace VideoPlayer
 
         [DllImport("dshowplayer.dll")]
         public static extern void SetVolume(double volume);
+
+        [DllImport("dshowplayer.dll")]
+        public static extern bool CanStep();
+
+        [DllImport("dshowplayer.dll")]
+        public static extern void Step();
     }
     enum PlayState { Stopped = 0, Paused = 1, Running = 2, Init = 3 }
 }

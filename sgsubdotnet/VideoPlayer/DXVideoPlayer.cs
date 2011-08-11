@@ -32,6 +32,10 @@ namespace VideoPlayer
 
         public string Filename { get; private set; }
 
+        public void Step()
+        {
+        }
+
         public void TogglePause()
         {
             if (_movie != null)
@@ -76,6 +80,8 @@ namespace VideoPlayer
         {
             get { return _mediaOpened; }
         }
+
+        public bool CanStep { get { return false; } }
 
         public double Duration
         {

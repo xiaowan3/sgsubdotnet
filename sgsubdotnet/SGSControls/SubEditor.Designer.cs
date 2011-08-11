@@ -28,20 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubEditor));
             this.subeditorSpliter = new System.Windows.Forms.SplitContainer();
             this.labelSub = new System.Windows.Forms.Label();
             this.subEditorToolStrip = new System.Windows.Forms.ToolStripContainer();
             this.dataGridSubtitles = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtnPause = new System.Windows.Forms.ToolStripButton();
             this.tsbtnPlay = new System.Windows.Forms.ToolStripButton();
             this.tsbtnJumpto = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtnDuplicate = new System.Windows.Forms.ToolStripButton();
             this.tsbtnDelete = new System.Windows.Forms.ToolStripButton();
             this.tsbtnInsAfter = new System.Windows.Forms.ToolStripButton();
             this.tsbtnInsBefore = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtnTimeLineScan = new System.Windows.Forms.ToolStripButton();
             this.tsbtnUndo = new System.Windows.Forms.ToolStripButton();
             this.tsbtnMarkCells = new System.Windows.Forms.ToolStripButton();
@@ -49,6 +50,7 @@
             this.tsbtnTimeOffset = new System.Windows.Forms.ToolStripButton();
             this.tsbtnSlow = new System.Windows.Forms.ToolStripButton();
             this.tsbtnExportClip = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnStep = new System.Windows.Forms.ToolStripButton();
             this.subeditorSpliter.Panel1.SuspendLayout();
             this.subeditorSpliter.Panel2.SuspendLayout();
             this.subeditorSpliter.SuspendLayout();
@@ -134,6 +136,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbtnPause,
             this.tsbtnPlay,
+            this.tsbtnStep,
             this.tsbtnJumpto,
             this.toolStripSeparator1,
             this.tsbtnDuplicate,
@@ -150,18 +153,8 @@
             this.tsbtnExportClip});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(377, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(400, 25);
             this.toolStrip1.TabIndex = 0;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // tsbtnPause
             // 
@@ -192,6 +185,11 @@
             this.tsbtnJumpto.Size = new System.Drawing.Size(23, 22);
             this.tsbtnJumpto.Text = "跳至当前行";
             this.tsbtnJumpto.Click += new System.EventHandler(this.tsbtnJumpto_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // tsbtnDuplicate
             // 
@@ -232,6 +230,11 @@
             this.tsbtnInsBefore.Size = new System.Drawing.Size(23, 22);
             this.tsbtnInsBefore.Text = "在之前插入空行";
             this.tsbtnInsBefore.Click += new System.EventHandler(this.tsbtnInsBefore_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // tsbtnTimeLineScan
             // 
@@ -286,7 +289,7 @@
             // tsbtnSlow
             // 
             this.tsbtnSlow.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnSlow.Image = global::SGSControls.Properties.Resources.slow;
+            this.tsbtnSlow.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnSlow.Image")));
             this.tsbtnSlow.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnSlow.Name = "tsbtnSlow";
             this.tsbtnSlow.Size = new System.Drawing.Size(23, 22);
@@ -302,6 +305,16 @@
             this.tsbtnExportClip.Size = new System.Drawing.Size(23, 22);
             this.tsbtnExportClip.Text = "导出一行音频";
             this.tsbtnExportClip.Click += new System.EventHandler(this.tsbtnExportClip_Click);
+            // 
+            // tsbtnStep
+            // 
+            this.tsbtnStep.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnStep.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnStep.Image")));
+            this.tsbtnStep.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnStep.Name = "tsbtnStep";
+            this.tsbtnStep.Size = new System.Drawing.Size(23, 22);
+            this.tsbtnStep.Text = "toolStripButton1";
+            this.tsbtnStep.Click += new System.EventHandler(this.tsbtnStep_Click);
             // 
             // SubEditor
             // 
@@ -348,5 +361,6 @@
         private System.Windows.Forms.ToolStripButton tsbtnTimeOffset;
         private System.Windows.Forms.ToolStripButton tsbtnSlow;
         private System.Windows.Forms.ToolStripButton tsbtnExportClip;
+        private System.Windows.Forms.ToolStripButton tsbtnStep;
     }
 }
