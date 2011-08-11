@@ -105,6 +105,11 @@ namespace SGSControls
             }
         }
         
+        public bool EnableStep
+        {
+            set { tsbtnStep.Enabled = value; }
+        }
+
         public int CurrentRowIndex
         {
             get

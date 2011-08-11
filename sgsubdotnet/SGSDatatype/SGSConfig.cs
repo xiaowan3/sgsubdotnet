@@ -112,6 +112,13 @@ namespace SGSDatatype
         /// </summary>
         [DataMember]
         public string LayoutName { get; set; }
+
+        /// <summary>
+        /// 选择播放器
+        /// </summary>
+        [DataMember]
+        public PlayerType Player { get; set; }
+
         /// <summary>
         /// 起始时间点相对于按键时刻的偏移量（负为提前）（秒）
         /// </summary>
@@ -283,4 +290,5 @@ namespace SGSDatatype
         }
         
     }
+    public enum PlayerType { DShowPlayer = 0, MDXPlayer = 1 }
 }

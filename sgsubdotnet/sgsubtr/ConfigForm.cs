@@ -69,6 +69,7 @@ namespace sgsubtr
             textCommentChar.Text = _config.CommentMark.ToString();
             textUncertainLeft.Text = _config.UncertainLeftMark.ToString();
             textUncertainRight.Text = _config.UncertainRightMark.ToString();
+            comboPlayer.SelectedIndex = (int) _config.Player;
         }
 
         private void listLayout_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,7 +86,7 @@ namespace sgsubtr
             _config.AutoSavePeriod = (int) numAutosavePeriod.Value*60;
             _config.AutoSaveLifeTime = (int) numAutosaveLifeTime.Value;
             _config.LineLength = (int) numLineLength.Value;
-
+            _config.Player = (PlayerType) comboPlayer.SelectedIndex;
             if (textWindowChar.Text.Length > 0)
                 _config.HolePlaceholder = textWindowChar.Text[0];
             if (textCommentChar.Text.Length > 0)

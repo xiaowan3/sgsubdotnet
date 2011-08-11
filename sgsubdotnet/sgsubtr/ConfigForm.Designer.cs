@@ -35,6 +35,17 @@
             this.pictureLayout = new System.Windows.Forms.PictureBox();
             this.listLayout = new System.Windows.Forms.ListBox();
             this.parameterConfig = new System.Windows.Forms.TabPage();
+            this.textUncertainRight = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textUncertainLeft = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.numLineLength = new System.Windows.Forms.NumericUpDown();
+            this.textCommentChar = new System.Windows.Forms.TextBox();
+            this.textWindowChar = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.numAutosaveLifeTime = new System.Windows.Forms.NumericUpDown();
@@ -44,28 +55,19 @@
             this.btnConfirm = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textWindowChar = new System.Windows.Forms.TextBox();
-            this.textCommentChar = new System.Windows.Forms.TextBox();
-            this.numLineLength = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textUncertainLeft = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.textUncertainRight = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.comboPlayer = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.layoutConfig.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLayout)).BeginInit();
             this.parameterConfig.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numLineLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAutosaveLifeTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAutosavePeriod)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numLineLength)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -122,6 +124,8 @@
             // parameterConfig
             // 
             this.parameterConfig.BackColor = System.Drawing.SystemColors.Control;
+            this.parameterConfig.Controls.Add(this.comboPlayer);
+            this.parameterConfig.Controls.Add(this.label11);
             this.parameterConfig.Controls.Add(this.textUncertainRight);
             this.parameterConfig.Controls.Add(this.label10);
             this.parameterConfig.Controls.Add(this.label9);
@@ -145,6 +149,97 @@
             this.parameterConfig.Size = new System.Drawing.Size(625, 353);
             this.parameterConfig.TabIndex = 1;
             this.parameterConfig.Text = "参数设定";
+            // 
+            // textUncertainRight
+            // 
+            this.textUncertainRight.Location = new System.Drawing.Point(243, 251);
+            this.textUncertainRight.Name = "textUncertainRight";
+            this.textUncertainRight.Size = new System.Drawing.Size(46, 21);
+            this.textUncertainRight.TabIndex = 16;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(220, 255);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(17, 12);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "右";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(134, 255);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(17, 12);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "左";
+            // 
+            // textUncertainLeft
+            // 
+            this.textUncertainLeft.Location = new System.Drawing.Point(157, 251);
+            this.textUncertainLeft.Name = "textUncertainLeft";
+            this.textUncertainLeft.Size = new System.Drawing.Size(46, 21);
+            this.textUncertainLeft.TabIndex = 13;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(62, 255);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(53, 12);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "存疑标记";
+            // 
+            // numLineLength
+            // 
+            this.numLineLength.Location = new System.Drawing.Point(136, 213);
+            this.numLineLength.Name = "numLineLength";
+            this.numLineLength.Size = new System.Drawing.Size(100, 21);
+            this.numLineLength.TabIndex = 11;
+            // 
+            // textCommentChar
+            // 
+            this.textCommentChar.Location = new System.Drawing.Point(136, 175);
+            this.textCommentChar.MaxLength = 1;
+            this.textCommentChar.Name = "textCommentChar";
+            this.textCommentChar.Size = new System.Drawing.Size(100, 21);
+            this.textCommentChar.TabIndex = 10;
+            // 
+            // textWindowChar
+            // 
+            this.textWindowChar.Location = new System.Drawing.Point(136, 137);
+            this.textWindowChar.MaxLength = 1;
+            this.textWindowChar.Name = "textWindowChar";
+            this.textWindowChar.Size = new System.Drawing.Size(100, 21);
+            this.textWindowChar.TabIndex = 9;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(38, 217);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(77, 12);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "每行字数报警";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(86, 179);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 12);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "注释";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(98, 141);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(17, 12);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "窗";
             // 
             // label4
             // 
@@ -237,96 +332,26 @@
             this.splitContainer1.SplitterDistance = 378;
             this.splitContainer1.TabIndex = 1;
             // 
-            // label5
+            // label11
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(98, 141);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(17, 12);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "窗";
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(349, 31);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(41, 12);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "播放器";
             // 
-            // label6
+            // comboPlayer
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(86, 179);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 12);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "注释";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(38, 217);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(77, 12);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "每行字数报警";
-            // 
-            // textWindowChar
-            // 
-            this.textWindowChar.Location = new System.Drawing.Point(136, 137);
-            this.textWindowChar.MaxLength = 1;
-            this.textWindowChar.Name = "textWindowChar";
-            this.textWindowChar.Size = new System.Drawing.Size(100, 21);
-            this.textWindowChar.TabIndex = 9;
-            // 
-            // textCommentChar
-            // 
-            this.textCommentChar.Location = new System.Drawing.Point(136, 175);
-            this.textCommentChar.MaxLength = 1;
-            this.textCommentChar.Name = "textCommentChar";
-            this.textCommentChar.Size = new System.Drawing.Size(100, 21);
-            this.textCommentChar.TabIndex = 10;
-            // 
-            // numLineLength
-            // 
-            this.numLineLength.Location = new System.Drawing.Point(136, 213);
-            this.numLineLength.Name = "numLineLength";
-            this.numLineLength.Size = new System.Drawing.Size(100, 21);
-            this.numLineLength.TabIndex = 11;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(62, 255);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(53, 12);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "存疑标记";
-            // 
-            // textUncertainLeft
-            // 
-            this.textUncertainLeft.Location = new System.Drawing.Point(157, 251);
-            this.textUncertainLeft.Name = "textUncertainLeft";
-            this.textUncertainLeft.Size = new System.Drawing.Size(46, 21);
-            this.textUncertainLeft.TabIndex = 13;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(134, 255);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(17, 12);
-            this.label9.TabIndex = 14;
-            this.label9.Text = "左";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(220, 255);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(17, 12);
-            this.label10.TabIndex = 15;
-            this.label10.Text = "右";
-            // 
-            // textUncertainRight
-            // 
-            this.textUncertainRight.Location = new System.Drawing.Point(243, 251);
-            this.textUncertainRight.Name = "textUncertainRight";
-            this.textUncertainRight.Size = new System.Drawing.Size(46, 21);
-            this.textUncertainRight.TabIndex = 16;
+            this.comboPlayer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboPlayer.FormattingEnabled = true;
+            this.comboPlayer.Items.AddRange(new object[] {
+            "DShow 播放器",
+            "MDX 播放器"});
+            this.comboPlayer.Location = new System.Drawing.Point(396, 27);
+            this.comboPlayer.Name = "comboPlayer";
+            this.comboPlayer.Size = new System.Drawing.Size(115, 20);
+            this.comboPlayer.TabIndex = 18;
             // 
             // ConfigForm
             // 
@@ -346,12 +371,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureLayout)).EndInit();
             this.parameterConfig.ResumeLayout(false);
             this.parameterConfig.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numLineLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAutosaveLifeTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAutosavePeriod)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numLineLength)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -384,5 +409,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textUncertainLeft;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox comboPlayer;
+        private System.Windows.Forms.Label label11;
     }
 }

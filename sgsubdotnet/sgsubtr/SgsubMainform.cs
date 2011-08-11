@@ -23,6 +23,42 @@ namespace sgsubtr
             SGSConfig.AutosavePath = _appFolderPath + @"\autosave\";
             SGSConfig.ConfigPath = _appFolderPath + @"\config\";
 
+
+            if (!System.IO.Directory.Exists(_appFolderPath))
+            {
+                System.IO.Directory.CreateDirectory(_appFolderPath);
+            }
+            if (!System.IO.Directory.Exists(_appFolderPath + @"\config"))
+            {
+                System.IO.Directory.CreateDirectory(_appFolderPath + @"\config");
+            }
+            var defaultcfg = SGSConfig.FromFile(Application.StartupPath + @"\config\config.xml");
+
+            if (!System.IO.File.Exists(_appFolderPath + @"\config\config.xml"))
+            {
+                _config = defaultcfg;
+                _config.Save(_appFolderPath + @"\config\config.xml");
+            }
+            else
+            {
+                _config = SGSConfig.FromFile(_appFolderPath + @"\config\config.xml");
+                if (!defaultcfg.Compatible(_config))
+                {
+                    _config = defaultcfg;
+                    _config.Save(_appFolderPath + @"\config\config.xml");
+                }
+            }
+            switch (_config.Player)
+            {
+                case PlayerType.DShowPlayer:
+                    _playerControl = new DShowPlayer();
+                    break;
+                case PlayerType.MDXPlayer:
+                    _playerControl = new DXVideoPlayer();
+                    break;
+            }
+            _player = (ISGSPlayer)_playerControl;
+
             InitializeComponent();
         }
 
@@ -98,7 +134,6 @@ namespace sgsubtr
                     break;
                 case "VideoPlayer":
                     container.Controls.Add(_playerControl);
-                    _player = (ISGSPlayer) _playerControl;
                     if (node.Attributes != null)
                         foreach (XmlAttribute attribute in node.Attributes)
                         {
@@ -165,7 +200,7 @@ namespace sgsubtr
         WaveFormViewer waveViewer = new WaveFormViewer();
       //  SubItemEditor subItemEditor = new SubItemEditor();
        // VideoPlayer.PlayerControl dxVideoPlayer = new VideoPlayer.DXVideoPlayer();
-        private UserControl _playerControl = new DShowPlayer();
+        private UserControl _playerControl;
         private ISGSPlayer _player;
         private TranslationEditor translationEditor = new TranslationEditor();
 
@@ -437,30 +472,6 @@ namespace sgsubtr
 
             #region Load Config
             
-            if (!System.IO.Directory.Exists(_appFolderPath))
-            {
-                System.IO.Directory.CreateDirectory(_appFolderPath);
-            }
-            if (!System.IO.Directory.Exists(_appFolderPath + @"\config"))
-            {
-                System.IO.Directory.CreateDirectory(_appFolderPath + @"\config");
-            }
-            var defaultcfg = SGSConfig.FromFile(Application.StartupPath + @"\config\config.xml");
-
-            if (!System.IO.File.Exists(_appFolderPath + @"\config\config.xml"))
-            {
-                _config = defaultcfg;
-                _config.Save(_appFolderPath + @"\config\config.xml");
-            }
-            else
-            {
-                _config = SGSConfig.FromFile(_appFolderPath + @"\config\config.xml");
-                if(!defaultcfg.Compatible(_config))
-                {
-                    _config = defaultcfg;
-                    _config.Save(_appFolderPath + @"\config\config.xml");
-                }
-            }
             //Load Layout
             var layoutfilename = string.Format(@"{0}\config\{1}.layout", _startUpPath, _config.LayoutName);
             if (!System.IO.File.Exists(layoutfilename))
@@ -778,7 +789,7 @@ namespace sgsubtr
             "翻译模式  复制:Ctrl+C  粘贴:Ctrl+V  撤消:Ctrl+Z  重做:Ctrl+Y"            
         };
 
-        private int _messageMode = 0;
+        private int _messageMode;
         #endregion
 
         void exit_Click(object sender, EventArgs e)
@@ -859,6 +870,7 @@ namespace sgsubtr
                 _player.OpenVideo(filename);
                 subEditor.VideoLength = _player.Duration;
                 subEditor.MediaFile = filename;
+                subEditor.EnableStep = _player.CanStep;
                 waveViewer.MediaFilename = filename;
                 _player.Play();
                 timer.Interval = 100;

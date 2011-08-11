@@ -186,6 +186,13 @@ namespace SGSControls.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap step {
+            get {
+                object obj = ResourceManager.GetObject("step", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap timeoffset {
             get {
                 object obj = ResourceManager.GetObject("timeoffset", resourceCulture);
