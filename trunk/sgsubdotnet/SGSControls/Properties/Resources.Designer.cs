@@ -81,6 +81,13 @@ namespace SGSControls.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap exportclip {
+            get {
+                object obj = ResourceManager.GetObject("exportclip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap ff {
             get {
                 object obj = ResourceManager.GetObject("ff", resourceCulture);
@@ -182,6 +189,13 @@ namespace SGSControls.Properties {
         internal static System.Drawing.Bitmap slow {
             get {
                 object obj = ResourceManager.GetObject("slow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap slow1 {
+            get {
+                object obj = ResourceManager.GetObject("slow1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -225,7 +225,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\bk.png" />
+    <None Include="resources\exportclip.bmp" />
     <Content Include="resources\ff.png" />
+    <None Include="resources\slow.bmp" />
     <Content Include="resources\toggle.png" />
     <None Include="resources\slower.png" />
     <None Include="resources\slow.png" />
