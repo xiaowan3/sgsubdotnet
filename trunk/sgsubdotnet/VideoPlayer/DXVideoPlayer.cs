@@ -87,25 +87,6 @@ namespace VideoPlayer
         }
 
 
-        //protected override double GetPosition()
-        //{
-        //    if (_movie != null) return _movie.CurrentPosition;
-        //    return 0;
-        //}
-
-        //protected override void SetPosition(double pos)
-        //{
-        //    if (_movie != null)
-        //    {
-        //        if (pos >= 0 && pos < _movie.Duration) _movie.CurrentPosition = pos;
-        //    } 
-        //}
-
-        //protected override bool IsMediaOpened()
-        //{
-        //    return _mediaOpened;
-        //}
-
         public void Init()
         {
         }

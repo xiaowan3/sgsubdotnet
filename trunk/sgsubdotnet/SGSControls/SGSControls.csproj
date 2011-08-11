@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DogEar.cs" />
+    <Compile Include="WSOLA.cs" />
     <Compile Include="FFTForm.cs">
       <SubType>Form</SubType>
     </Compile>

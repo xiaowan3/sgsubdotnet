@@ -36,9 +36,8 @@ namespace SGSControls
 
         public void SetAutosavePath(string path)
         {
-            _autosave = new SGSTrnAutosave(path);
+            _autosave = new SGSTrnAutosave();
             _autosave.DeleteOld(_config.AutoSaveLifeTime);
-            //_autosave.Load(); Do not needed.
         }
 
         public void New()

@@ -68,3 +68,7 @@ extern "C" __declspec( dllexport ) void Seek(double pos)
 {
 	SeekClip(pos);
 }
+extern "C" __declspec( dllexport ) void SetVolume(double vol)
+{
+	set_volume(vol);
+}

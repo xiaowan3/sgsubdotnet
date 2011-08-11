@@ -12,17 +12,15 @@ namespace SGSDatatype
     public class SGSAutoSave
     {
         public readonly BindingSource AutoSaveFileBindingSource;
-        private readonly string _savePath;
         public DateTime PreviousSaveTime { get; private set; }
 
-        public SGSAutoSave(string savePath)
+        public SGSAutoSave()
         {
             AutoSaveFileBindingSource = new BindingSource();
-            if (!Directory.Exists(savePath))
+            if (!Directory.Exists(SGSConfig.AutosavePath))
             {
-                Directory.CreateDirectory(savePath);
+                Directory.CreateDirectory(SGSConfig.AutosavePath);
             }
-            _savePath = savePath;
             PreviousSaveTime = DateTime.Now;
         }
 
@@ -32,7 +30,7 @@ namespace SGSDatatype
         public void Load()
         {
             AutoSaveFileBindingSource.Clear();
-            var savefiles = Directory.GetFiles(_savePath, "*.save");
+            var savefiles = Directory.GetFiles(SGSConfig.AutosavePath, "*.save");
             var savefileList = new List<SaveFileIndex>();
             foreach (var savefile in savefiles)
             {
@@ -61,7 +59,7 @@ namespace SGSDatatype
         {
 
             var autosaverec = new AutoSaveRecord(DateTime.Now, sub, filename);
-            autosaverec.Save(string.Format("{0}\\{1}.save", _savePath, Guid.NewGuid()));
+            autosaverec.Save(string.Format("{0}\\{1}.save", SGSConfig.AutosavePath, Guid.NewGuid()));
             PreviousSaveTime = DateTime.Now;
         }
 
@@ -72,7 +70,7 @@ namespace SGSDatatype
         public void DeleteOld(int hours)
         {
 
-            var savefiles = Directory.GetFiles(_savePath, "*.save");
+            var savefiles = Directory.GetFiles(SGSConfig.AutosavePath, "*.save");
 
             foreach (var savefile in savefiles)
                 {

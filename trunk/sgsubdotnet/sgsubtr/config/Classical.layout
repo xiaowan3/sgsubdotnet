@@ -4,9 +4,6 @@
       <VideoPlayer Dock="Fill"></VideoPlayer>
       <WaveFormViewer Dock="Fill"></WaveFormViewer>
     </SplitContainer>
-    <SplitContainer Orientation="Vertical" Dock ="Fill" SpliterDistance="500" BorderStyle="Fixed3D" FixedPanel="Panel2" IsSplitterFixed="false">
       <SubEditor Dock="Fill"></SubEditor>
-      <SubItemEditor Dock="Fill"></SubItemEditor>
-    </SplitContainer>
   </SplitContainer>
 </SGSUBLayout>

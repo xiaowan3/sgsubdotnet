@@ -9,7 +9,7 @@ using System.IO;
 
 namespace SGSControls
 {
-    class DogEar
+    class WSOLA
     {
         Microsoft.DirectX.DirectSound.Device dev = new Microsoft.DirectX.DirectSound.Device();
 
@@ -25,10 +25,10 @@ namespace SGSControls
 
         public int MaxBuffer = 10;
 
-        public DogEar(System.Windows.Forms.Control owner,string mediafile, string FFMpegPath)
+        public WSOLA(System.Windows.Forms.Control owner,string mediafile)
         {
             _mediaFile = mediafile;
-            AudioFileIO.FFmpegpath = FFMpegPath;
+            AudioFileIO.FFmpegpath = SGSDatatype.SGSConfig.FFMpegPath;
             dev.SetCooperativeLevel(owner, Microsoft.DirectX.DirectSound.CooperativeLevel.Normal);
         }
 
@@ -61,10 +61,10 @@ namespace SGSControls
                 switch (clip.Type)
                 {
                     case EarType.Cat:
-                        WSOLA.ScaleAudio(rawStream, clip.ScaledStream, CatCoef, Hanning_Duration, Hanning_Overlap, Delta_Divisor, wavInfo);
+                        WSOLASupport.ScaleAudio(rawStream, clip.ScaledStream, CatCoef, Hanning_Duration, Hanning_Overlap, Delta_Divisor, wavInfo);
                         break;
                     case EarType.Rabbit:
-                        WSOLA.ScaleAudio(rawStream, clip.ScaledStream, RabbitCoef, Hanning_Duration, Hanning_Overlap, Delta_Divisor, wavInfo);
+                        WSOLASupport.ScaleAudio(rawStream, clip.ScaledStream, RabbitCoef, Hanning_Duration, Hanning_Overlap, Delta_Divisor, wavInfo);
                         break;
                 }
                 _audioList.Add(clip);
@@ -327,7 +327,7 @@ namespace SGSControls
     }
 
 
-    static class WSOLA
+    static class WSOLASupport
     {
         static public void ScaleAudio(Stream src, Stream dst, double coef, double hdur, double hover, double del, Wavinfo wavinf)
         {

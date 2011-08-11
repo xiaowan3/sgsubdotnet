@@ -35,6 +35,7 @@ void StopClip(void);
 void CloseClip(void);
 double GetTime(void);
 double GetDur(void);
+HRESULT set_volume(double volume);
 int GrabImg(LPCWSTR filename);
 
 void Msg(TCHAR *szFormat, ...);

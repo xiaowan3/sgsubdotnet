@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubEditor));
             this.subeditorSpliter = new System.Windows.Forms.SplitContainer();
             this.labelSub = new System.Windows.Forms.Label();
             this.subEditorToolStrip = new System.Windows.Forms.ToolStripContainer();
@@ -47,6 +48,8 @@
             this.tsbtnMarkCells = new System.Windows.Forms.ToolStripButton();
             this.tsbtnUnmarkAll = new System.Windows.Forms.ToolStripButton();
             this.tsbtnTimeOffset = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnSlow = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnSlower = new System.Windows.Forms.ToolStripButton();
             this.subeditorSpliter.Panel1.SuspendLayout();
             this.subeditorSpliter.Panel2.SuspendLayout();
             this.subeditorSpliter.SuspendLayout();
@@ -143,10 +146,12 @@
             this.tsbtnUndo,
             this.tsbtnMarkCells,
             this.tsbtnUnmarkAll,
-            this.tsbtnTimeOffset});
+            this.tsbtnTimeOffset,
+            this.tsbtnSlow,
+            this.tsbtnSlower});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(331, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(377, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // tsbtnPause
@@ -279,6 +284,26 @@
             this.tsbtnTimeOffset.Text = "时间平衡";
             this.tsbtnTimeOffset.Click += new System.EventHandler(this.tsbtnTimeOffset_Click);
             // 
+            // tsbtnSlow
+            // 
+            this.tsbtnSlow.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnSlow.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnSlow.Image")));
+            this.tsbtnSlow.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnSlow.Name = "tsbtnSlow";
+            this.tsbtnSlow.Size = new System.Drawing.Size(23, 22);
+            this.tsbtnSlow.Text = "慢放当前行";
+            this.tsbtnSlow.Click += new System.EventHandler(this.tsbtnSlow_Click);
+            // 
+            // tsbtnSlower
+            // 
+            this.tsbtnSlower.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnSlower.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnSlower.Image")));
+            this.tsbtnSlower.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnSlower.Name = "tsbtnSlower";
+            this.tsbtnSlower.Size = new System.Drawing.Size(23, 22);
+            this.tsbtnSlower.Text = "更慢放当前行";
+            this.tsbtnSlower.Click += new System.EventHandler(this.tsbtnSlower_Click);
+            // 
             // SubEditor
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -322,5 +347,7 @@
         private System.Windows.Forms.ToolStripButton tsbtnMarkCells;
         private System.Windows.Forms.ToolStripButton tsbtnUnmarkAll;
         private System.Windows.Forms.ToolStripButton tsbtnTimeOffset;
+        private System.Windows.Forms.ToolStripButton tsbtnSlow;
+        private System.Windows.Forms.ToolStripButton tsbtnSlower;
     }
 }

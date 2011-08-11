@@ -45,6 +45,7 @@ namespace SGSControls
         private double _videoLength;
         private readonly UndoRecord _undoRec = new UndoRecord();
         private readonly SelectCells _selectCells = new SelectCells();
+        private WSOLA _wsola;
         #endregion
 
         public SubStationAlpha CurrentSub
@@ -88,6 +89,21 @@ namespace SGSControls
 
         }
 
+        public string MediaFile
+        {
+            set
+            {
+                _wsola = new WSOLA(this, value)
+                {
+                    Hanning_Duration = 0.09,
+                    Hanning_Overlap = 0.4,
+                    Delta_Divisor = 18,
+                    CatCoef = 1.5,
+                    RabbitCoef = 2.6
+                };
+            }
+        }
+        
         public int CurrentRowIndex
         {
             get
@@ -102,6 +118,7 @@ namespace SGSControls
                 }
             }
         }
+
 
         public bool Edited { get; set; }
         #region Events
@@ -848,6 +865,46 @@ namespace SGSControls
         new public bool Focus()
         {
             return dataGridSubtitles.Focus();
+        }
+
+        private void tsbtnSlow_Click(object sender, EventArgs e)
+        {
+            V4Event item;
+            if (_wsola != null && dataGridSubtitles.CurrentRow != null && _subLoaded
+                && (item = (V4Event) (dataGridSubtitles.CurrentRow.DataBoundItem)) != null
+                )
+            {
+                double duration = item.End.Value - item.Start.Value;
+                if (duration > 30)
+                {
+                    MessageBox.Show(@"囧，句子太长了，我会傲娇的。");
+                }
+                else
+                {
+                    if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
+                    _wsola.EarAClip(item.Start.Value, item.End.Value - item.Start.Value, EarType.Cat);
+                }
+            }
+        }
+
+        private void tsbtnSlower_Click(object sender, EventArgs e)
+        {
+            V4Event item;
+            if (_wsola != null && dataGridSubtitles.CurrentRow != null && _subLoaded
+                && (item = (V4Event)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
+                )
+            {
+                double duration = item.End.Value - item.Start.Value;
+                if (duration > 30)
+                {
+                    MessageBox.Show(@"囧，句子太长了，我会傲娇的。");
+                }
+                else
+                {
+                    if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
+                    _wsola.EarAClip(item.Start.Value, item.End.Value - item.Start.Value, EarType.Rabbit);
+                }
+            }
         }
 
     }

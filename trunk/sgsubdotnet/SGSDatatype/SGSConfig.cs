@@ -10,7 +10,10 @@ namespace SGSDatatype
     {
         private string _filename;
 
-
+        public static string FFMpegPath;
+        public static string AutosavePath;
+        public static string ConfigPath;
+        public static string DefaultCfgPath;
 
         [DataMember]
         private string Version { get; set; }

@@ -6,7 +6,7 @@ namespace SGSControls
 {
     public partial class SubItemEditor : UserControl
     {
-        public static string FFMpegPath;
+     //   public static string FFMpegPath;
         public SubItemEditor()
         {
             InitializeComponent();
@@ -17,16 +17,15 @@ namespace SGSControls
         public event EventHandler<EventArgs> ButtonClicked = null;
         #endregion
         string _mediaFile;
-        private DogEar _dogEar;
+        private WSOLA _wsola;
         public SubStationAlpha CurrentSub;
-        public int CurrentIndex { get; set; }
+        public int CurrentIndex { private get; set; }
         public string MediaFile
         {
-            get { return _mediaFile; }
             set
             {
                 _mediaFile = value;
-                _dogEar = new DogEar(this, value, FFMpegPath)
+                _wsola = new WSOLA(this, value)
                               {
                                   Hanning_Duration = 0.09,
                                   Hanning_Overlap = 0.4,
@@ -39,7 +38,7 @@ namespace SGSControls
 
         private void btnHumanear_Click(object sender, EventArgs e)
         {
-            if (CurrentSub != null && _dogEar != null && CurrentIndex >= 0 && 
+            if (CurrentSub != null && _wsola != null && CurrentIndex >= 0 && 
                 CurrentIndex < CurrentSub.EventsSection.EventList.Count)
             {
                 var item = (V4Event)(CurrentSub.EventsSection.EventList[CurrentIndex]);
@@ -51,7 +50,7 @@ namespace SGSControls
                 else if (duration > 0.1)
                 {
                     if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
-                    _dogEar.EarAClip(item.Start.Value, duration, EarType.Human);
+                    _wsola.EarAClip(item.Start.Value, duration, EarType.Human);
                 }
             }
             if (ButtonClicked != null) ButtonClicked(this, new EventArgs());
@@ -59,7 +58,7 @@ namespace SGSControls
 
         private void btnDogear_Click(object sender, EventArgs e)
         {
-            if (CurrentSub != null && _dogEar != null && CurrentIndex >= 0 && 
+            if (CurrentSub != null && _wsola != null && CurrentIndex >= 0 && 
                 CurrentIndex < CurrentSub.EventsSection.EventList.Count)
             {
                 var item = (V4Event)(CurrentSub.EventsSection.EventList[CurrentIndex]);
@@ -71,7 +70,7 @@ namespace SGSControls
                 if (duration > 0.1)
                 {
                     if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
-                    _dogEar.EarAClip(item.Start.Value, duration, EarType.Cat);
+                    _wsola.EarAClip(item.Start.Value, duration, EarType.Cat);
                 }
             }
             if (ButtonClicked != null) ButtonClicked(this, new EventArgs());
@@ -79,13 +78,13 @@ namespace SGSControls
 
         private void btnRabbitear_Click(object sender, EventArgs e)
         {
-            if (CurrentSub != null && _dogEar != null && CurrentIndex >= 0 && CurrentIndex < CurrentSub.EventsSection.EventList.Count)
+            if (CurrentSub != null && _wsola != null && CurrentIndex >= 0 && CurrentIndex < CurrentSub.EventsSection.EventList.Count)
             {
                 var item = (V4Event)(CurrentSub.EventsSection.EventList[CurrentIndex]);
                 if (item.End.Value - item.Start.Value > 0.1)
                 {
                     if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
-                    _dogEar.EarAClip(item.Start.Value, item.End.Value - item.Start.Value, EarType.Rabbit);
+                    _wsola.EarAClip(item.Start.Value, item.End.Value - item.Start.Value, EarType.Rabbit);
                 }
             }
             if (ButtonClicked != null) ButtonClicked(this, new EventArgs());
