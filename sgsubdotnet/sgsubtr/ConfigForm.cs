@@ -15,15 +15,14 @@ namespace sgsubtr
     public partial class ConfigForm : Form
     {
         private readonly SGSConfig _config;
-        private readonly string _configDir;
         private readonly Dictionary<string, Image> _layoutlist = new Dictionary<string, Image>();
-        public ConfigForm(SGSConfig config, string configDir)
+        public ConfigForm(SGSConfig config)
         {
             _config = config;
             InitializeComponent();
-            _configDir = configDir;
-            if (!Directory.Exists(configDir)) throw new Exception("Directory not exist.");
-            var files = Directory.GetFiles(configDir, @"*.layout");
+
+            if (!Directory.Exists(SGSConfig.DefaultCfgPath)) throw new Exception("Directory not exist.");
+            var files = Directory.GetFiles(SGSConfig.DefaultCfgPath, @"*.layout");
             if (files.Count() == 0) throw new Exception(("No layout found"));
             foreach (var file in files)
             {
@@ -38,11 +37,11 @@ namespace sgsubtr
                 if (xmlnode == null) continue;
                 if (xmlnode.Attributes == null) continue;
                 Image previewImage;
-                Image defaultPreview = Image.FromFile(_configDir + "defaultpic.png");
+                Image defaultPreview = Image.FromFile(SGSConfig.DefaultCfgPath + "defaultpic.png");
                     
                 try
                 {
-                    previewImage = Image.FromFile(_configDir + xmlnode.Attributes["PreviewFile"].Value);
+                    previewImage = Image.FromFile(SGSConfig.DefaultCfgPath + xmlnode.Attributes["PreviewFile"].Value);
                 }
                 catch
                 {

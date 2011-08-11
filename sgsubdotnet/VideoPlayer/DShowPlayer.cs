@@ -56,10 +56,7 @@ namespace VideoPlayer
                 _soundvolume = (e.X - sndmin) / 58.0;
                 _soundvolume = _soundvolume < 0 ? 0 : _soundvolume > 1 ? 1 : _soundvolume;
                 _sndarea.X = splitContainer1.Panel2.Width - 71 + (int)(58 * _soundvolume);
-                //if (_movie != null)
-                //{
-                //    _movie.Audio.Volume = ConvertVolume(_soundvolume);
-                //}
+                DShowSupport.SetVolume(_soundvolume);
                 RedrawTrackbar();
             }
             PlayState ps = DShowSupport.GetPlayState();
@@ -224,34 +221,9 @@ namespace VideoPlayer
         {
             get { return DShowSupport.GetDuration(); }
         }
-
-        //protected double GetPosition()
-        //{
-        //    return DShowSupport.GetPlayerPos();
-        //}
-
-        //protected void SetPosition(double pos)
-        //{
-            
-        //}
-
-        //protected bool IsPaused()
-        //{
-        //    return false;
-        //}
-
-        //protected bool IsMediaOpened()
-        //{
-        //    return true;
-        //}
-
-        //protected  double GetDuration()
-        //{
-        //    return DShowSupport.GetDuration();
-        //}
     }
 
-    class DShowSupport
+    static class DShowSupport
     {
         [DllImport("dshowplayer.dll")]
         public static extern bool InitPlayer(IntPtr hWnd);
@@ -285,6 +257,9 @@ namespace VideoPlayer
 
         [DllImport("dshowplayer.dll")]
         public static extern void Seek(double pos);
+
+        [DllImport("dshowplayer.dll")]
+        public static extern void SetVolume(double volume);
     }
     enum PlayState { Stopped = 0, Paused = 1, Running = 2, Init = 3 }
 }

@@ -15,6 +15,14 @@ namespace sgsubtr
     {
         public SgsubMainform()
         {
+            _startUpPath = Application.StartupPath;
+            _appFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + Application.CompanyName;
+            //Setup path
+            SGSConfig.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
+            SGSConfig.DefaultCfgPath = _startUpPath + @"\config\";
+            SGSConfig.AutosavePath = _appFolderPath + @"\autosave\";
+            SGSConfig.ConfigPath = _appFolderPath + @"\config\";
+
             InitializeComponent();
         }
 
@@ -125,19 +133,6 @@ namespace sgsubtr
                         }
                     }
                     break;
-                case "SubItemEditor":
-                    container.Controls.Add(subItemEditor);
-                    if (node.Attributes != null)
-                        foreach (XmlAttribute attribute in node.Attributes)
-                        {
-                            switch (attribute.Name)
-                            {
-                                case "Dock":
-                                    subItemEditor.Dock = (DockStyle)Enum.Parse(typeof(DockStyle), attribute.Value);
-                                    break;
-                            }
-                        }
-                    break;
                 default:
                     break;
             }
@@ -168,7 +163,7 @@ namespace sgsubtr
         #region Controls
         SubEditor subEditor = new SubEditor();
         WaveFormViewer waveViewer = new WaveFormViewer();
-        SubItemEditor subItemEditor = new SubItemEditor();
+      //  SubItemEditor subItemEditor = new SubItemEditor();
        // VideoPlayer.PlayerControl dxVideoPlayer = new VideoPlayer.DXVideoPlayer();
         private UserControl _playerControl = new DShowPlayer();
         private ISGSPlayer _player;
@@ -438,10 +433,10 @@ namespace sgsubtr
 
             XmlTextReader layoutReader; 
             var xmldoc = new XmlDocument();
-            _startUpPath = Application.StartupPath;
+            
 
             #region Load Config
-            _appFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + Application.CompanyName;
+            
             if (!System.IO.Directory.Exists(_appFolderPath))
             {
                 System.IO.Directory.CreateDirectory(_appFolderPath);
@@ -485,7 +480,7 @@ namespace sgsubtr
 
 
             //AutoSave
-            _autosave = new SGSAutoSave(_appFolderPath + @"\autosave");
+            _autosave = new SGSAutoSave();
             _autosave.DeleteOld(_config.AutoSaveLifeTime);
             translationEditor.SetAutosavePath(_appFolderPath + @"\autosave");
 
@@ -538,9 +533,6 @@ namespace sgsubtr
 
             _player.Init();
 
-            waveViewer.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
-            SubItemEditor.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
-
             #region Event Handlers
             DragDrop += new DragEventHandler(SgsubMainform_DragDrop);
             DragEnter += new DragEventHandler(SgsubMainform_DragEnter);
@@ -564,9 +556,6 @@ namespace sgsubtr
             subEditor.Seek += new EventHandler<SeekEventArgs>(subEditor_Seek);
             subEditor.KeySaveAss += new EventHandler(saveSub_Click);
             subEditor.AutosaveEvent += new EventHandler(subEditor_AutosaveEvent);
-
-            subItemEditor.ButtonClicked += new EventHandler<EventArgs>(subItemEditor_ButtonClicked);
-            subItemEditor.PlayerControl += new EventHandler<PlayerControlEventArgs>(PlayerControlEventHandler);
 
             translationEditor.SeekPlayer += new EventHandler<SeekEventArgs>(subEditor_Seek);
             translationEditor.TimeEdit += new EventHandler<TimeEditEventArgs>(subEditor_TimeEdit);
@@ -612,7 +601,7 @@ namespace sgsubtr
 
         void Customize_Click(object sender, EventArgs e)
         {
-            var cfgform = new ConfigForm(_config, _startUpPath + @"\config\");
+            var cfgform = new ConfigForm(_config);
             cfgform.ShowDialog();
             updateConfig();
         }
@@ -680,11 +669,6 @@ namespace sgsubtr
             }
         }
 
-        void subItemEditor_ButtonClicked(object sender, EventArgs e)
-        {
-            subEditor.Focus();
-        }
-
         void KeyConfig_Click(object sender, EventArgs e)
         {
             var keycfg = new KeyConfigForm(_config);
@@ -728,7 +712,6 @@ namespace sgsubtr
         void subEditor_CurrentRowChanged(object sender, CurrentRowChangeEventArgs e)
         {
             waveViewer.CurrentLineIndex = e.CurrentRowIndex;
-            subItemEditor.CurrentIndex = e.CurrentRowIndex;
         }
 
         void waveViewer_WaveFormMouseDown(object sender, WaveReader.WFMouseEventArgs e)
@@ -872,11 +855,11 @@ namespace sgsubtr
             {
                 _player.OpenVideo(filename);
                 subEditor.VideoLength = _player.Duration;
+                subEditor.MediaFile = filename;
                 waveViewer.MediaFilename = filename;
                 _player.Play();
                 timer.Interval = 100;
                 timer.Start();
-                subItemEditor.MediaFile = filename;
             }
             catch (Exception exception)
             {
@@ -954,7 +937,6 @@ namespace sgsubtr
         {
             subEditor.CurrentSub = _currentSub;
             waveViewer.CurrentSub = _currentSub;
-            subItemEditor.CurrentSub = _currentSub;
         }
 
         private void updateConfig()

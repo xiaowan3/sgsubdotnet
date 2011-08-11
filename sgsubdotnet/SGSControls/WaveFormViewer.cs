@@ -172,7 +172,6 @@ namespace SGSControls
                 PlayerControl(this, arg);
             }
 
-            FFTForm.FFMpegPath = FFMpegPath;
             FFTForm fftForm = new FFTForm();
             fftForm.ExtractWave(filename);
             fftForm.ShowDialog();
@@ -180,7 +179,6 @@ namespace SGSControls
             waveScope.Redraw();
         }
         public string MediaFilename;
-        public string FFMpegPath;
         #endregion
 
         private void tsbtnFFT_Click(object sender, EventArgs e)

@@ -2,10 +2,7 @@
   <SplitContainer Orientation="Horizontal" Dock ="Fill" SpliterDistance="220" BorderStyle="Fixed3D" FixedPanel="Panel1" IsSplitterFixed="false">
     <VideoPlayer Dock="Fill"></VideoPlayer>
     <SplitContainer Orientation="Vertical" Dock ="Fill" SpliterDistance="350" BorderStyle="Fixed3D" FixedPanel="Panel1" IsSplitterFixed="false">
-      <SplitContainer Orientation="Horizontal" Dock ="Fill" SpliterDistance="50" BorderStyle="None" FixedPanel="Panel1" IsSplitterFixed="true">
-        <SubItemEditor Dock="Fill"></SubItemEditor>
-        <WaveFormViewer Dock="Fill"></WaveFormViewer>
-      </SplitContainer>
+      <WaveFormViewer Dock="Fill"></WaveFormViewer>
       <SubEditor Dock="Fill"></SubEditor>
     </SplitContainer>
   </SplitContainer>

@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-
+#include <cmath>
 
 
 #include "dshowplayer.h"
@@ -423,6 +423,18 @@ HRESULT ToggleMute(void)
 
 
     return hr;
+}
+
+HRESULT set_volume(double volume)
+{
+	HRESULT hr=S_OK;
+	if ((!pGB) || (!pBA))        return S_OK;
+	long v = -(long)(pow(10, (1 - volume))) * 1000 + 1000;
+	if (v >= 0) v = 0;
+	if (v <= -10000) v = -10000;
+	g_lVolume = v;
+	JIF(pBA->put_Volume(g_lVolume));
+	return hr;
 }
 
 

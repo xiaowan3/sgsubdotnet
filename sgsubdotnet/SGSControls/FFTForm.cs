@@ -13,7 +13,6 @@ namespace SGSControls
     public partial class FFTForm : Form
     {
         public WaveReader.WaveForm Waveform;
-        public static string FFMpegPath;
         private Thread _extractThread;
         private string _filename;
         public FFTForm()
@@ -29,7 +28,7 @@ namespace SGSControls
         }
         private void WaveExtractFunction()
         {
-            WaveReader.WaveForm.FFmpegpath = FFMpegPath;
+            WaveReader.WaveForm.FFmpegpath = SGSDatatype.SGSConfig.FFMpegPath;
             Waveform = WaveReader.WaveForm.ExtractWave(_filename);
             EnableOk();
 

@@ -13,24 +13,22 @@ namespace SGSDatatype
     public class SGSTrnAutosave
     {
         public readonly BindingSource AutoSaveFileBindingSource;
-        private readonly string _savePath;
         public DateTime PreviousSaveTime { get; private set; }
 
-        public SGSTrnAutosave(string savePath)
+        public SGSTrnAutosave()
         {
             AutoSaveFileBindingSource = new BindingSource();
-            if (!Directory.Exists(savePath))
+            if (!Directory.Exists(SGSConfig.AutosavePath))
             {
-                Directory.CreateDirectory(savePath);
+                Directory.CreateDirectory(SGSConfig.AutosavePath);
             }
-            _savePath = savePath;
             PreviousSaveTime = DateTime.Now;
         }
 
         public void Load()
         {
             AutoSaveFileBindingSource.Clear();
-            var savefiles = Directory.GetFiles(_savePath, "*.tbk");
+            var savefiles = Directory.GetFiles(SGSConfig.AutosavePath, "*.tbk");
             var savefileList = new List<TrnSaveFileIndex>();
             foreach (var savefile in savefiles)
             {
@@ -49,7 +47,7 @@ namespace SGSDatatype
         {
 
             var autosaverec = new TrnAutosaveRec(DateTime.Now, text, filename);
-            autosaverec.Save(string.Format("{0}\\{1}.tbk", _savePath, Guid.NewGuid()));
+            autosaverec.Save(string.Format("{0}\\{1}.tbk", SGSConfig.AutosavePath, Guid.NewGuid()));
             PreviousSaveTime = DateTime.Now;
         }
         /// <summary>
@@ -59,7 +57,7 @@ namespace SGSDatatype
         public void DeleteOld(int hours)
         {
 
-            var savefiles = Directory.GetFiles(_savePath, "*.tbk");
+            var savefiles = Directory.GetFiles(SGSConfig.AutosavePath, "*.tbk");
 
             foreach (var savefile in savefiles)
             {
