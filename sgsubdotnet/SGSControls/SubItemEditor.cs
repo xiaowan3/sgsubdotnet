@@ -30,8 +30,7 @@ namespace SGSControls
                                   Hanning_Duration = 0.09,
                                   Hanning_Overlap = 0.4,
                                   Delta_Divisor = 18,
-                                  CatCoef = 1.5,
-                                  RabbitCoef = 2.6
+                                  SlowCoef = 1.5,
                               };
             }
         }
@@ -50,7 +49,7 @@ namespace SGSControls
                 else if (duration > 0.1)
                 {
                     if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
-                    _wsola.EarAClip(item.Start.Value, duration, EarType.Human);
+                    _wsola.EarAClip(item.Start.Value, duration);
                 }
             }
             if (ButtonClicked != null) ButtonClicked(this, new EventArgs());
@@ -70,7 +69,7 @@ namespace SGSControls
                 if (duration > 0.1)
                 {
                     if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
-                    _wsola.EarAClip(item.Start.Value, duration, EarType.Cat);
+                    _wsola.EarAClip(item.Start.Value, duration);
                 }
             }
             if (ButtonClicked != null) ButtonClicked(this, new EventArgs());
@@ -84,7 +83,7 @@ namespace SGSControls
                 if (item.End.Value - item.Start.Value > 0.1)
                 {
                     if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
-                    _wsola.EarAClip(item.Start.Value, item.End.Value - item.Start.Value, EarType.Rabbit);
+                    _wsola.EarAClip(item.Start.Value, item.End.Value - item.Start.Value);
                 }
             }
             if (ButtonClicked != null) ButtonClicked(this, new EventArgs());

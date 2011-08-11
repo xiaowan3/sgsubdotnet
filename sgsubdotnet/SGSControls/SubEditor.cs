@@ -46,6 +46,7 @@ namespace SGSControls
         private readonly UndoRecord _undoRec = new UndoRecord();
         private readonly SelectCells _selectCells = new SelectCells();
         private WSOLA _wsola;
+        private string _mediaFile;
         #endregion
 
         public SubStationAlpha CurrentSub
@@ -98,9 +99,9 @@ namespace SGSControls
                     Hanning_Duration = 0.09,
                     Hanning_Overlap = 0.4,
                     Delta_Divisor = 18,
-                    CatCoef = 1.5,
-                    RabbitCoef = 2.6
+                    SlowCoef = 1.7,
                 };
+                _mediaFile = value;
             }
         }
         
@@ -871,26 +872,6 @@ namespace SGSControls
         {
             V4Event item;
             if (_wsola != null && dataGridSubtitles.CurrentRow != null && _subLoaded
-                && (item = (V4Event) (dataGridSubtitles.CurrentRow.DataBoundItem)) != null
-                )
-            {
-                double duration = item.End.Value - item.Start.Value;
-                if (duration > 30)
-                {
-                    MessageBox.Show(@"囧，句子太长了，我会傲娇的。");
-                }
-                else
-                {
-                    if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
-                    _wsola.EarAClip(item.Start.Value, item.End.Value - item.Start.Value, EarType.Cat);
-                }
-            }
-        }
-
-        private void tsbtnSlower_Click(object sender, EventArgs e)
-        {
-            V4Event item;
-            if (_wsola != null && dataGridSubtitles.CurrentRow != null && _subLoaded
                 && (item = (V4Event)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
                 )
             {
@@ -899,14 +880,47 @@ namespace SGSControls
                 {
                     MessageBox.Show(@"囧，句子太长了，我会傲娇的。");
                 }
+                else if (duration < 1)
+                {
+                    MessageBox.Show(@"囧，这句有点儿短了吧。");
+                }
                 else
                 {
                     if (PlayerControl != null) PlayerControl(this, new PlayerControlEventArgs(PlayerCommand.Pause));
-                    _wsola.EarAClip(item.Start.Value, item.End.Value - item.Start.Value, EarType.Rabbit);
+                    _wsola.EarAClip(item.Start.Value, item.End.Value - item.Start.Value);
                 }
             }
         }
 
+        private void tsbtnExportClip_Click(object sender, EventArgs e)
+        {
+            V4Event item;
+            if (_wsola != null && dataGridSubtitles.CurrentRow != null && _subLoaded
+                && (item = (V4Event)(dataGridSubtitles.CurrentRow.DataBoundItem)) != null
+                )
+            {
+                double duration = item.End.Value - item.Start.Value;
+                if (duration < 1)
+                {
+                    MessageBox.Show(@"囧，这句有点儿短了吧。");
+                }
+                else
+                {
+                    var saveFiledlg = new SaveFileDialog
+                    {
+                        Filter =
+                            @"MP3 File (*.mp3)|*.mp3||",
+                        AddExtension = true,
+                        DefaultExt = "mp3"
+                    };
+                    if (saveFiledlg.ShowDialog() == DialogResult.OK)
+                    {
+                        AudioFileIO.ExportAudioClip(_mediaFile, item.Start.Value.ToString("F1"), duration.ToString("F1"),
+                                                    "160k", saveFiledlg.FileName);
+                    }
+                }
+            }
+        }
     }
 
     public class SeekEventArgs : EventArgs

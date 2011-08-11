@@ -49,7 +49,7 @@
             this.tsbtnUnmarkAll = new System.Windows.Forms.ToolStripButton();
             this.tsbtnTimeOffset = new System.Windows.Forms.ToolStripButton();
             this.tsbtnSlow = new System.Windows.Forms.ToolStripButton();
-            this.tsbtnSlower = new System.Windows.Forms.ToolStripButton();
+            this.tsbtnExportClip = new System.Windows.Forms.ToolStripButton();
             this.subeditorSpliter.Panel1.SuspendLayout();
             this.subeditorSpliter.Panel2.SuspendLayout();
             this.subeditorSpliter.SuspendLayout();
@@ -148,7 +148,7 @@
             this.tsbtnUnmarkAll,
             this.tsbtnTimeOffset,
             this.tsbtnSlow,
-            this.tsbtnSlower});
+            this.tsbtnExportClip});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(377, 25);
@@ -294,15 +294,15 @@
             this.tsbtnSlow.Text = "慢放当前行";
             this.tsbtnSlow.Click += new System.EventHandler(this.tsbtnSlow_Click);
             // 
-            // tsbtnSlower
+            // tsbtnExportClip
             // 
-            this.tsbtnSlower.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnSlower.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnSlower.Image")));
-            this.tsbtnSlower.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnSlower.Name = "tsbtnSlower";
-            this.tsbtnSlower.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnSlower.Text = "更慢放当前行";
-            this.tsbtnSlower.Click += new System.EventHandler(this.tsbtnSlower_Click);
+            this.tsbtnExportClip.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnExportClip.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnExportClip.Image")));
+            this.tsbtnExportClip.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnExportClip.Name = "tsbtnExportClip";
+            this.tsbtnExportClip.Size = new System.Drawing.Size(23, 22);
+            this.tsbtnExportClip.Text = "截取该行音频";
+            this.tsbtnExportClip.Click += new System.EventHandler(this.tsbtnExportClip_Click);
             // 
             // SubEditor
             // 
@@ -348,6 +348,6 @@
         private System.Windows.Forms.ToolStripButton tsbtnUnmarkAll;
         private System.Windows.Forms.ToolStripButton tsbtnTimeOffset;
         private System.Windows.Forms.ToolStripButton tsbtnSlow;
-        private System.Windows.Forms.ToolStripButton tsbtnSlower;
+        private System.Windows.Forms.ToolStripButton tsbtnExportClip;
     }
 }
