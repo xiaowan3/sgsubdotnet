@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace VideoPlayer
 {
-    public partial class DShowPlayer : PlayerControl
+    public partial class DShowPlayer : UserControl, ISGSPlayer
     {
         public DShowPlayer()
         {
@@ -94,7 +94,7 @@ namespace VideoPlayer
                 PlayState ps = DShowSupport.GetPlayState();
                 if (ps == PlayState.Running || ps == PlayState.Paused)
                 {
-                    SetPosition( DShowSupport.GetDuration() * trackpercentage);
+                    DShowSupport.Seek(DShowSupport.GetDuration() * trackpercentage);
                 }
                 else
                 {
@@ -158,17 +158,17 @@ namespace VideoPlayer
             return msg;
         }
 
-        public override void Init()
+        public  void Init()
         {
             DShowSupport.InitPlayer(screen.Handle);
         }
 
-        public override void Uninit()
+        public  void Uninit()
         {
             DShowSupport.UninitPlayer();
         }
 
-        public override void Pause()
+        public  void Pause()
         {
             PlayState ps = DShowSupport.GetPlayState();
             if (ps == PlayState.Running)
@@ -177,12 +177,12 @@ namespace VideoPlayer
             }
         }
 
-        public override void OpenVideo(string filename)
+        public  void OpenVideo(string filename)
         {
             DShowSupport.PlayMovie(filename);
         }
 
-        public override void Play()
+        public  void Play()
         {
             PlayState ps = DShowSupport.GetPlayState();
             if (ps == PlayState.Paused || ps == PlayState.Stopped)
@@ -191,35 +191,64 @@ namespace VideoPlayer
             }
         }
 
-        public override void TogglePause()
+        public  void TogglePause()
         {
             DShowSupport.TogglePause(); 
         }
 
-        protected override double GetPosition()
+        public double CurrentPosition
         {
-            return DShowSupport.GetPlayerPos();
+            get { return DShowSupport.GetPlayerPos(); }
+            set { DShowSupport.Seek(value); }
         }
 
-        protected override void SetPosition(double pos)
+        public bool Paused
         {
-            DShowSupport.Seek(pos);
+            get
+            {
+                PlayState ps = DShowSupport.GetPlayState();
+                return ps == PlayState.Stopped || ps == PlayState.Paused;
+            }
         }
 
-        protected override bool IsPaused()
+        public bool MediaOpened
         {
-            return false;
+            get
+            {
+                PlayState ps = DShowSupport.GetPlayState();
+                return ps != PlayState.Init;
+            }
         }
 
-        protected override bool IsMediaOpened()
+        public double Duration
         {
-            return true;
+            get { return DShowSupport.GetDuration(); }
         }
 
-        protected override double GetDuration()
-        {
-            return DShowSupport.GetDuration();
-        }
+        //protected double GetPosition()
+        //{
+        //    return DShowSupport.GetPlayerPos();
+        //}
+
+        //protected void SetPosition(double pos)
+        //{
+            
+        //}
+
+        //protected bool IsPaused()
+        //{
+        //    return false;
+        //}
+
+        //protected bool IsMediaOpened()
+        //{
+        //    return true;
+        //}
+
+        //protected  double GetDuration()
+        //{
+        //    return DShowSupport.GetDuration();
+        //}
     }
 
     class DShowSupport

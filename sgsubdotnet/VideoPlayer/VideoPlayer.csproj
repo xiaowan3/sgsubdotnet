@@ -59,9 +59,7 @@
     <Compile Include="DXVideoPlayer.Designer.cs">
       <DependentUpon>DXVideoPlayer.cs</DependentUpon>
     </Compile>
-    <Compile Include="PlayerControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ISGSPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

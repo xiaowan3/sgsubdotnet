@@ -5,7 +5,7 @@ using Microsoft.DirectX.AudioVideoPlayback;
 
 namespace VideoPlayer
 {
-    public partial class DXVideoPlayer : PlayerControl
+    public partial class DXVideoPlayer :UserControl,ISGSPlayer
     {
         private Video _movie;
         public DXVideoPlayer()
@@ -15,7 +15,6 @@ namespace VideoPlayer
             _mediaOpened = false;
         }
 
-    //    private bool _paused;
         private bool _mediaOpened;
         private readonly Image _trackleft = Resources.PANEL_Left;
         private readonly Image _trackright = Resources.PANEL_Right;
@@ -33,19 +32,7 @@ namespace VideoPlayer
 
         public string Filename { get; private set; }
 
-        protected override double GetDuration()
-        {
-            if (_movie != null) return _movie.Duration;
-            return 0;
-        }
-
-        protected override bool IsPaused()
-        {
-            if (_movie != null) return _movie.Paused;
-            return false;
-        }
-
-        public override void TogglePause()
+        public void TogglePause()
         {
             if (_movie != null)
             {
@@ -59,36 +46,75 @@ namespace VideoPlayer
                 }
             }
         }
-        
 
-        protected override double GetPosition()
+        public double CurrentPosition
         {
-            if (_movie != null) return _movie.CurrentPosition;
-            return 0;
-        }
-
-        protected override void SetPosition(double pos)
-        {
-            if (_movie != null)
+            get
             {
-                if (pos >= 0 && pos < _movie.Duration) _movie.CurrentPosition = pos;
-            } 
+                if (_movie != null) return _movie.CurrentPosition;
+                return 0;
+            }
+            set
+            {
+                if (_movie != null)
+                {
+                    if (value >= 0 && value < _movie.Duration) _movie.CurrentPosition = value;
+                }
+            }
         }
 
-        protected override bool IsMediaOpened()
+        public bool Paused
         {
-            return _mediaOpened;
+            get
+            {
+                if (_movie != null) return _movie.Paused;
+                return false;
+            }
         }
 
-        public override void Init()
+        public bool MediaOpened
+        {
+            get { return _mediaOpened; }
+        }
+
+        public double Duration
+        {
+            get
+            {
+                if (_movie != null) return _movie.Duration;
+                return 0;
+            }
+        }
+
+
+        //protected override double GetPosition()
+        //{
+        //    if (_movie != null) return _movie.CurrentPosition;
+        //    return 0;
+        //}
+
+        //protected override void SetPosition(double pos)
+        //{
+        //    if (_movie != null)
+        //    {
+        //        if (pos >= 0 && pos < _movie.Duration) _movie.CurrentPosition = pos;
+        //    } 
+        //}
+
+        //protected override bool IsMediaOpened()
+        //{
+        //    return _mediaOpened;
+        //}
+
+        public void Init()
         {
         }
 
-        public override void Uninit()
+        public void Uninit()
         {
         }
 
-        public override void Pause()
+        public void Pause()
         {
             if (_movie != null)
             {
@@ -96,7 +122,7 @@ namespace VideoPlayer
             }
         }
 
-        public override void OpenVideo(string filename)
+        public void OpenVideo(string filename)
         {
             if (_movie != null)
             {
@@ -141,7 +167,7 @@ namespace VideoPlayer
 
         }
 
-        public override void Play()
+        public void Play()
         {
             if (_movie != null)
             {
