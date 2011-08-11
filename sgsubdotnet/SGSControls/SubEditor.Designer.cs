@@ -286,7 +286,7 @@
             // tsbtnSlow
             // 
             this.tsbtnSlow.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnSlow.Image = global::SGSControls.Properties.Resources.slow1;
+            this.tsbtnSlow.Image = global::SGSControls.Properties.Resources.slow;
             this.tsbtnSlow.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnSlow.Name = "tsbtnSlow";
             this.tsbtnSlow.Size = new System.Drawing.Size(23, 22);

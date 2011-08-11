@@ -130,13 +130,6 @@ namespace SGSControls.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap normal {
-            get {
-                object obj = ResourceManager.GetObject("normal", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap olscan {
             get {
                 object obj = ResourceManager.GetObject("olscan", resourceCulture);
@@ -189,20 +182,6 @@ namespace SGSControls.Properties {
         internal static System.Drawing.Bitmap slow {
             get {
                 object obj = ResourceManager.GetObject("slow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap slow1 {
-            get {
-                object obj = ResourceManager.GetObject("slow1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap slower {
-            get {
-                object obj = ResourceManager.GetObject("slower", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

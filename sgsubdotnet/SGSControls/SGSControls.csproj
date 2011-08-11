@@ -219,9 +219,6 @@
     <Content Include="resources\ff.png" />
     <None Include="resources\slow.bmp" />
     <Content Include="resources\toggle.png" />
-    <None Include="resources\slower.png" />
-    <None Include="resources\slow.png" />
-    <None Include="resources\normal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
