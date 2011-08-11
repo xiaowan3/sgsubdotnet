@@ -7,6 +7,7 @@ using System.Xml;
 using System.Windows.Forms;
 using SGSControls;
 using SGSDatatype;
+using VideoPlayer;
 
 namespace sgsubtr
 {
@@ -88,14 +89,15 @@ namespace sgsubtr
                         }
                     break;
                 case "VideoPlayer":
-                    container.Controls.Add(dxVideoPlayer);
+                    container.Controls.Add(_playerControl);
+                    _player = (ISGSPlayer) _playerControl;
                     if (node.Attributes != null)
                         foreach (XmlAttribute attribute in node.Attributes)
                         {
                             switch (attribute.Name)
                             {
                                 case "Dock":
-                                    dxVideoPlayer.Dock = (DockStyle)Enum.Parse(typeof(DockStyle), attribute.Value);
+                                    _playerControl.Dock = (DockStyle)Enum.Parse(typeof(DockStyle), attribute.Value);
                                     break;
                             }
                         }
@@ -168,7 +170,8 @@ namespace sgsubtr
         WaveFormViewer waveViewer = new WaveFormViewer();
         SubItemEditor subItemEditor = new SubItemEditor();
        // VideoPlayer.PlayerControl dxVideoPlayer = new VideoPlayer.DXVideoPlayer();
-        private VideoPlayer.PlayerControl dxVideoPlayer = new VideoPlayer.DShowPlayer();
+        private UserControl _playerControl = new DShowPlayer();
+        private ISGSPlayer _player;
         private TranslationEditor translationEditor = new TranslationEditor();
 
         Timer timer = new Timer();
@@ -533,7 +536,7 @@ namespace sgsubtr
 
             subEditor.Autosave = _autosave;
 
-            dxVideoPlayer.Init();
+            _player.Init();
 
             waveViewer.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
             SubItemEditor.FFMpegPath = _startUpPath + @"\ffmpeg.exe";
@@ -626,7 +629,7 @@ namespace sgsubtr
             if (!AskSave()) e.Cancel = true;
             else
             {
-                dxVideoPlayer.Uninit();
+                _player.Uninit();
             }
         }
 
@@ -697,10 +700,10 @@ namespace sgsubtr
             switch (e.SeekDirection)
             {
                 case SeekDir.Begin:
-                    dxVideoPlayer.CurrentPosition = e.SeekOffset;
+                    _player.CurrentPosition = e.SeekOffset;
                     break;
                 case SeekDir.CurrentPos:
-                    dxVideoPlayer.CurrentPosition += e.SeekOffset;
+                    _player.CurrentPosition += e.SeekOffset;
                     break;
             }
         }
@@ -711,13 +714,13 @@ namespace sgsubtr
             switch (e.ControlCMD)
             {
                 case PlayerCommand.Pause:
-                    dxVideoPlayer.Pause();
+                    _player.Pause();
                     break;
                 case PlayerCommand.Play:
-                    dxVideoPlayer.Play();
+                    _player.Play();
                     break;
                 case PlayerCommand.Toggle:
-                    dxVideoPlayer.TogglePause();
+                    _player.TogglePause();
                     break;
             }
         }
@@ -730,7 +733,7 @@ namespace sgsubtr
 
         void waveViewer_WaveFormMouseDown(object sender, WaveReader.WFMouseEventArgs e)
         {
-            if (dxVideoPlayer.MediaOpened)
+            if (_player.MediaOpened)
             {
                 switch (e.Button)
                 {
@@ -750,9 +753,9 @@ namespace sgsubtr
 
         void subEditor_TimeEdit(object sender, TimeEditEventArgs e)
         {
-            if (dxVideoPlayer.MediaOpened && !dxVideoPlayer.Paused)
+            if (_player.MediaOpened && !_player.Paused)
             {
-                e.TimeValue = dxVideoPlayer.CurrentPosition;
+                e.TimeValue = _player.CurrentPosition;
                 e.CancelEvent = false;
             }
         }
@@ -762,10 +765,10 @@ namespace sgsubtr
         /// </summary>
         void timer_Tick(object sender, EventArgs e)
         {
-            if (dxVideoPlayer.MediaOpened)
+            if (_player.MediaOpened)
             {
-                subEditor.DisplayTime(dxVideoPlayer.CurrentPosition);
-                waveViewer.CurrentPosition = dxVideoPlayer.CurrentPosition;
+                subEditor.DisplayTime(_player.CurrentPosition);
+                waveViewer.CurrentPosition = _player.CurrentPosition;
             }
         }
 
@@ -867,10 +870,10 @@ namespace sgsubtr
         {
             try
             {
-                dxVideoPlayer.OpenVideo(filename);
-                subEditor.VideoLength = dxVideoPlayer.Duration;
+                _player.OpenVideo(filename);
+                subEditor.VideoLength = _player.Duration;
                 waveViewer.MediaFilename = filename;
-                dxVideoPlayer.Play();
+                _player.Play();
                 timer.Interval = 100;
                 timer.Start();
                 subItemEditor.MediaFile = filename;
