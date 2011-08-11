@@ -16,8 +16,8 @@ namespace SGSControls
         private readonly List<AudioClip> _audioList = new List<AudioClip>();
         private readonly string _mediaFile;
 
-        public double CatCoef { get; set; }
-        public double RabbitCoef { get; set; }
+        public double SlowCoef { get; set; }
+      //  public double RabbitCoef { get; set; }
 
         public double Hanning_Duration { get; set; }
         public double Hanning_Overlap { get; set; }
@@ -32,86 +32,70 @@ namespace SGSControls
             dev.SetCooperativeLevel(owner, Microsoft.DirectX.DirectSound.CooperativeLevel.Normal);
         }
 
-        public void EarAClip(double begin, double duration, EarType type)
+        public void EarAClip(double begin, double duration)
         {
-            AudioClip clip = _audioList.FirstOrDefault(t => t.Equivalent(begin, duration, type));
+            AudioClip clip = _audioList.FirstOrDefault(t => t.Equivalent(begin, duration));
             if (clip == null)
             {
                 clip = new AudioClip
                            {
                                BeginTime = begin,
                                Duration = duration,
-                               Type = type == EarType.Human ? EarType.Cat : type
                            };
                 var wavInfo = new Wavinfo();
-                var rawStream = AudioFileIO.ExtractWave(_mediaFile, ref wavInfo, begin.ToString("F1"), duration.ToString("F1"));
-                clip.OriginalStream = new MemoryStream();
+                var rawStream = AudioFileIO.ExtractWave(_mediaFile, ref wavInfo, begin.ToString("F1"),
+                                                        duration.ToString("F1"));
+                var origStream = new MemoryStream();
                 clip.ScaledStream = new MemoryStream();
-                AudioFileIO.WriteHead(clip.OriginalStream, wavInfo);
+                AudioFileIO.WriteHead(origStream, wavInfo);
                 var buff = new byte[2048];
                 rawStream.Seek(0, SeekOrigin.Begin);
                 int read;
                 do
                 {
                     read = rawStream.Read(buff, 0, 2048);
-                    clip.OriginalStream.Write(buff, 0, read);
+                    origStream.Write(buff, 0, read);
                 } while (read > 0);
-                AudioFileIO.WriteStreamLen(clip.OriginalStream);
-                
-                switch (clip.Type)
-                {
-                    case EarType.Cat:
-                        WSOLASupport.ScaleAudio(rawStream, clip.ScaledStream, CatCoef, Hanning_Duration, Hanning_Overlap, Delta_Divisor, wavInfo);
-                        break;
-                    case EarType.Rabbit:
-                        WSOLASupport.ScaleAudio(rawStream, clip.ScaledStream, RabbitCoef, Hanning_Duration, Hanning_Overlap, Delta_Divisor, wavInfo);
-                        break;
-                }
+                AudioFileIO.WriteStreamLen(origStream);
+
+                WSOLASupport.ScaleAudio(rawStream, clip.ScaledStream, SlowCoef, Hanning_Duration, Hanning_Overlap,
+                                        Delta_Divisor, wavInfo);
+
                 _audioList.Add(clip);
-                if(_audioList.Count > MaxBuffer)_audioList.RemoveAt(0);
+                if (_audioList.Count > MaxBuffer) _audioList.RemoveAt(0);
             }
             //play it
-            if (type != EarType.Human)
-            {
-                clip.ScaledStream.Seek(0, SeekOrigin.Begin);
-                var secbuf = new Microsoft.DirectX.DirectSound.SecondaryBuffer(clip.ScaledStream, dev);
-                secbuf.Play(0, Microsoft.DirectX.DirectSound.BufferPlayFlags.Default);
-            }
-            else
-            {
-                clip.OriginalStream.Seek(0, SeekOrigin.Begin);
-                var secbuf = new Microsoft.DirectX.DirectSound.SecondaryBuffer(clip.OriginalStream, dev);
-                secbuf.Play(0, Microsoft.DirectX.DirectSound.BufferPlayFlags.Default);
-            }
+
+            clip.ScaledStream.Seek(0, SeekOrigin.Begin);
+            var secbuf = new Microsoft.DirectX.DirectSound.SecondaryBuffer(clip.ScaledStream, dev);
+            secbuf.Play(0, Microsoft.DirectX.DirectSound.BufferPlayFlags.Default);
+
         }
 
 
 
     }
 
-    enum EarType { Human = 0, Cat, Rabbit }
+   // enum EarType { Human = 0, Cat, Rabbit }
 
     class AudioClip
     {
-        public EarType Type = EarType.Human;
-        public Stream OriginalStream = null;
+//        public Stream OriginalStream = null;
         public Stream ScaledStream = null;
         public double BeginTime = 0;
         public double Duration = 0;
         public bool Equivalent(AudioClip clip)
         {
             if (Math.Abs(BeginTime - clip.BeginTime) < 0.1 &&
-                Math.Abs(Duration - clip.Duration) < 0.1 &&
-                Type == clip.Type) 
+                Math.Abs(Duration - clip.Duration) < 0.1 ) 
                 return true;
             return false;
         }
 
-        public bool Equivalent(double beginTime, double duration, EarType type)
+        public bool Equivalent(double beginTime, double duration)
         {
             if (Math.Abs(BeginTime - beginTime) < 0.1 &&
-                Math.Abs(Duration - duration) < 0.1 &&
-                (Type == type || type == EarType.Human))
+                Math.Abs(Duration - duration) < 0.1)
                 return true;
             return false;
         }
