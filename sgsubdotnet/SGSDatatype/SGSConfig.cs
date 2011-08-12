@@ -290,5 +290,5 @@ namespace SGSDatatype
         }
         
     }
-    public enum PlayerType { DShowPlayer = 0, MDXPlayer = 1 }
+    public enum PlayerType { DShowPlayer = 0, MDXPlayer = 1, WMPlayer = 2 }
 }

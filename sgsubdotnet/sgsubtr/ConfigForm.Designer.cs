@@ -35,6 +35,8 @@
             this.pictureLayout = new System.Windows.Forms.PictureBox();
             this.listLayout = new System.Windows.Forms.ListBox();
             this.parameterConfig = new System.Windows.Forms.TabPage();
+            this.comboPlayer = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.textUncertainRight = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -55,8 +57,7 @@
             this.btnConfirm = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label11 = new System.Windows.Forms.Label();
-            this.comboPlayer = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.layoutConfig.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -124,6 +125,7 @@
             // parameterConfig
             // 
             this.parameterConfig.BackColor = System.Drawing.SystemColors.Control;
+            this.parameterConfig.Controls.Add(this.label12);
             this.parameterConfig.Controls.Add(this.comboPlayer);
             this.parameterConfig.Controls.Add(this.label11);
             this.parameterConfig.Controls.Add(this.textUncertainRight);
@@ -149,6 +151,28 @@
             this.parameterConfig.Size = new System.Drawing.Size(625, 353);
             this.parameterConfig.TabIndex = 1;
             this.parameterConfig.Text = "参数设定";
+            // 
+            // comboPlayer
+            // 
+            this.comboPlayer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboPlayer.FormattingEnabled = true;
+            this.comboPlayer.Items.AddRange(new object[] {
+            "DShow 播放器",
+            "MDX 播放器",
+            "WMP 播放器"});
+            this.comboPlayer.Location = new System.Drawing.Point(381, 27);
+            this.comboPlayer.Name = "comboPlayer";
+            this.comboPlayer.Size = new System.Drawing.Size(115, 20);
+            this.comboPlayer.TabIndex = 18;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(334, 31);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(41, 12);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "播放器";
             // 
             // textUncertainRight
             // 
@@ -332,26 +356,14 @@
             this.splitContainer1.SplitterDistance = 378;
             this.splitContainer1.TabIndex = 1;
             // 
-            // label11
+            // label12
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(349, 31);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(41, 12);
-            this.label11.TabIndex = 17;
-            this.label11.Text = "播放器";
-            // 
-            // comboPlayer
-            // 
-            this.comboPlayer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboPlayer.FormattingEnabled = true;
-            this.comboPlayer.Items.AddRange(new object[] {
-            "DShow 播放器",
-            "MDX 播放器"});
-            this.comboPlayer.Location = new System.Drawing.Point(396, 27);
-            this.comboPlayer.Name = "comboPlayer";
-            this.comboPlayer.Size = new System.Drawing.Size(115, 20);
-            this.comboPlayer.TabIndex = 18;
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(506, 31);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(113, 12);
+            this.label12.TabIndex = 19;
+            this.label12.Text = "更改后请重启此程序";
             // 
             // ConfigForm
             // 
@@ -411,5 +423,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboPlayer;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
     }
 }

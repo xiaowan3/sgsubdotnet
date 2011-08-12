@@ -56,6 +56,9 @@ namespace sgsubtr
                 case PlayerType.MDXPlayer:
                     _playerControl = new DXVideoPlayer();
                     break;
+                case PlayerType.WMPlayer:
+                    _playerControl = new WMPlayer();
+                    break;
             }
             _player = (ISGSPlayer)_playerControl;
 
@@ -200,7 +203,7 @@ namespace sgsubtr
         WaveFormViewer waveViewer = new WaveFormViewer();
       //  SubItemEditor subItemEditor = new SubItemEditor();
        // VideoPlayer.PlayerControl dxVideoPlayer = new VideoPlayer.DXVideoPlayer();
-        private UserControl _playerControl;
+        private Control _playerControl;
         private ISGSPlayer _player;
         private TranslationEditor translationEditor = new TranslationEditor();
 
