@@ -286,7 +286,7 @@ namespace SGSControls
             subtitleEdited();
         }
 
-        private void InsertNewRow(int index, DataGridViewRow currentRow)
+        private void InsertNewRow(int index)
         {
             V4Event i = _currentSub.CreateEmptyEvent("");//((V4Event)(currentRow.DataBoundItem)).Clone();
             _currentSub.EventsSection.EventList.Insert(index, i);
@@ -347,7 +347,7 @@ namespace SGSControls
                 && dataGridSubtitles.CurrentRow.DataBoundItem != null
                 )
             {
-                InsertNewRow(dataGridSubtitles.CurrentRow.Index, dataGridSubtitles.CurrentRow);
+                InsertNewRow(dataGridSubtitles.CurrentRow.Index);
             }
         }
 
@@ -358,7 +358,7 @@ namespace SGSControls
                 && dataGridSubtitles.CurrentRow.DataBoundItem != null
                 )
             {
-                InsertNewRow(dataGridSubtitles.CurrentRow.Index + 1, dataGridSubtitles.CurrentRow);
+                InsertNewRow(dataGridSubtitles.CurrentRow.Index + 1);
             }
         }
 
@@ -574,14 +574,17 @@ namespace SGSControls
                 {
                     var timeEditArgs = new TimeEditEventArgs(TimeType.BeginTime, 0, true);
                     if (TimeEdit != null) TimeEdit(this, timeEditArgs);
-                    double time = timeEditArgs.TimeValue + Config.StartOffset;
                     if (!timeEditArgs.CancelEvent)
                     {
+                        double time = timeEditArgs.Paused
+                                          ? timeEditArgs.TimeValue
+                                          : timeEditArgs.TimeValue + Config.StartOffset;
                         if (rowIndex > 0 && Config.AutoOverlapCorrection)
                         {
-                            V4Event lastitem = ((V4Event)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
+                            V4Event lastitem = ((V4Event) (dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
                             if (lastitem.End.Value - time > 0 &&
-                                lastitem.End.Value - time < Math.Max(Math.Abs(Config.StartOffset), Math.Abs(Config.EndOffset)))
+                                lastitem.End.Value - time <
+                                Math.Max(Math.Abs(Config.StartOffset), Math.Abs(Config.EndOffset)))
                             {
                                 EditEndTime(rowIndex - 1, time - 0.01);
                             }
@@ -598,14 +601,18 @@ namespace SGSControls
                 {
                     TimeEditEventArgs timeEditArgs = new TimeEditEventArgs(TimeType.BeginTime, 0, true);
                     if (TimeEdit != null) TimeEdit(this, timeEditArgs);
-                    double time = timeEditArgs.TimeValue + Config.StartOffset;
+
                     if (!timeEditArgs.CancelEvent)
                     {
+                        double time = timeEditArgs.Paused
+                                          ? timeEditArgs.TimeValue
+                                          : timeEditArgs.TimeValue + Config.StartOffset;
                         if (rowIndex > 0 && Config.AutoOverlapCorrection)
                         {
-                            V4Event lastitem = ((V4Event)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
+                            V4Event lastitem = ((V4Event) (dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
                             if (lastitem.End.Value - time > 0 &&
-                                lastitem.End.Value - time < Math.Max(Math.Abs(Config.StartOffset), Math.Abs(Config.EndOffset)))
+                                lastitem.End.Value - time <
+                                Math.Max(Math.Abs(Config.StartOffset), Math.Abs(Config.EndOffset)))
                             {
                                 EditEndTime(rowIndex - 1, time - 0.01);
                             }
@@ -622,9 +629,11 @@ namespace SGSControls
                 {
                     TimeEditEventArgs timeEditArgs = new TimeEditEventArgs(TimeType.EndTime, 0, true);
                     if (TimeEdit != null) TimeEdit(this, timeEditArgs);
-                    double time = timeEditArgs.TimeValue + Config.EndOffset;
                     if (!timeEditArgs.CancelEvent)
                     {
+                        double time = timeEditArgs.Paused
+                                          ? timeEditArgs.TimeValue
+                                          : timeEditArgs.TimeValue + Config.EndOffset;
                         EditEndTime(rowIndex, time);
                         if (rowIndex < lastrowindex)
                             dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex + 1].Cells[0];
@@ -640,9 +649,11 @@ namespace SGSControls
                 {
                     TimeEditEventArgs timeEditArgs = new TimeEditEventArgs(TimeType.Unknown, 0, true);
                     if (TimeEdit != null) TimeEdit(this, timeEditArgs);
-                    double time = timeEditArgs.TimeValue + Config.StartOffset;
                     if (!timeEditArgs.CancelEvent)
                     {
+                        double time = timeEditArgs.Paused
+                                          ? timeEditArgs.TimeValue
+                                          : timeEditArgs.TimeValue + Config.StartOffset;
                         EditEndTime(rowIndex, time - 0.01);
                         if (rowIndex < lastrowindex)
                         {
@@ -664,15 +675,18 @@ namespace SGSControls
                     if (TimeEdit != null) TimeEdit(this, timeEditArgs);
                     if (!timeEditArgs.CancelEvent)
                     {
-                        double time = timeEditArgs.TimeValue + Config.StartOffset;
+                        double time = timeEditArgs.Paused
+                                          ? timeEditArgs.TimeValue
+                                          : timeEditArgs.TimeValue + Config.StartOffset;
                         int colIndex = dataGridSubtitles.CurrentCell.ColumnIndex;
                         if (colIndex == 0) //插入开始时间
                         {
                             if (rowIndex > 0 && Config.AutoOverlapCorrection)
                             {
-                                var lastitem = ((V4Event)(dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
+                                var lastitem = ((V4Event) (dataGridSubtitles.Rows[rowIndex - 1].DataBoundItem));
                                 if (lastitem.End.Value - time > 0 &&
-                                    lastitem.End.Value - time < Math.Max(Math.Abs(Config.StartOffset), Math.Abs(Config.EndOffset)))
+                                    lastitem.End.Value - time <
+                                    Math.Max(Math.Abs(Config.StartOffset), Math.Abs(Config.EndOffset)))
                                 {
                                     EditEndTime(rowIndex - 1, time - 0.01);
                                 }
@@ -680,7 +694,7 @@ namespace SGSControls
                             EditStartTime(rowIndex, time);
                             dataGridSubtitles.CurrentCell = dataGridSubtitles.Rows[rowIndex].Cells[1];
                         }
-                        else if (colIndex == 1)//插入结束时间
+                        else if (colIndex == 1) //插入结束时间
                         {
                             EditEndTime(rowIndex, time);
                             if (rowIndex < lastrowindex)
@@ -951,11 +965,13 @@ namespace SGSControls
         public TimeType EditTime;
         public double TimeValue;
         public bool CancelEvent;
+        public bool Paused;
         public TimeEditEventArgs(TimeType editTime, double timevalue, bool cancelEvent)
         {
             EditTime = editTime;
             TimeValue = timevalue;
             CancelEvent = cancelEvent;
+            Paused = false;
         }
     }
     public enum TimeType { BeginTime, EndTime, Unknown };
