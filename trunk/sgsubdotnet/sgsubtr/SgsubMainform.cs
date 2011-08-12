@@ -57,7 +57,8 @@ namespace sgsubtr
                     _playerControl = new DXVideoPlayer();
                     break;
                 case PlayerType.WMPlayer:
-                    _playerControl = new WMPlayer();
+                   // _playerControl = new WMPlayer();
+                    _playerControl = new MPlayer();
                     break;
             }
             _player = (ISGSPlayer)_playerControl;
