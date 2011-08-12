@@ -754,6 +754,7 @@ namespace sgsubtr
             {
                 e.TimeValue = _player.CurrentPosition;
                 e.CancelEvent = false;
+                e.Paused = _player.Paused;
             }
         }
 
