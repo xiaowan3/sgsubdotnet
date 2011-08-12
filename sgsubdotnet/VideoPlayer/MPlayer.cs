@@ -258,7 +258,7 @@ namespace VideoPlayer
                 int segv = str.IndexOf("V:");
                 if (sega == 0)
                 {
-                    _timePos = Double.Parse(str.Substring(sega + 3, segv - 3));
+                    _timePos = Double.Parse(str.Substring( 2, segv - 2));
                     if (_waitStart) _waitStartEvent.Set();
 
                 }
