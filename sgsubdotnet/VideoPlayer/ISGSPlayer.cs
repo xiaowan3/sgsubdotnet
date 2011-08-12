@@ -17,9 +17,9 @@ namespace VideoPlayer
         void TogglePause();
 
         double CurrentPosition{get; set; }
-         bool Paused { get; }
-         bool MediaOpened { get; }
+        bool Paused { get; }
+        bool MediaOpened { get; }
         bool CanStep { get; }
-         double Duration { get; }
+        double Duration { get; }
     }
 }
