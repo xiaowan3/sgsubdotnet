@@ -14,7 +14,7 @@
 //
 // To enable registration in this sample, define REGISTER_FILTERGRAPH.
 //
-#define REGISTER_FILTERGRAPH
+//#define REGISTER_FILTERGRAPH
 
 //
 // Global data
@@ -92,12 +92,6 @@ HRESULT PlayMovieInWindow(LPCWSTR file)
 
             JIF(InitVideoWindow(1, 1));
             GetFrameStepInterface();
-        }
-        else
-        {
-            // Initialize the default player size and enable playback menu items
-//            JIF(InitPlayerWindow());
-//            EnablePlaybackMenu(TRUE, AUDIO);
         }
 
         // Complete window initialization
@@ -214,7 +208,6 @@ void PauseClip(void)
             g_psCurrent = Paused;
     }
 
-//    UpdateMainTitle();
 }
 
 
@@ -440,39 +433,6 @@ HRESULT set_volume(double volume)
 	JIF(pBA->put_Volume(g_lVolume));
 	return hr;
 }
-
-
-void GetFilename(TCHAR *pszFull, TCHAR *pszFile)
-{
-    int nLength;
-    TCHAR szPath[MAX_PATH]={0};
-    BOOL bSetFilename=FALSE;
-
-    // Strip path and return just the file's name
-    (void)StringCchCopy(szPath, MAX_PATH, pszFull);
-    szPath[MAX_PATH-1] = 0;
-
-    nLength = (int) _tcslen(szPath);
-
-    for (int i=nLength-1; i>=0; i--)
-    {
-        if ((szPath[i] == '\\') || (szPath[i] == '/'))
-        {
-            szPath[i] = '\0';
-            lstrcpyn(pszFile, &szPath[i+1], MAX_PATH);
-            bSetFilename = TRUE;
-            break;
-        }
-    }
-
-    // If there was no path given (just a file name), then
-    // just copy the full path to the target path.
-    if (!bSetFilename)
-        (void)StringCchCopy(pszFile, MAX_PATH, pszFull);
-
-    pszFile[MAX_PATH-1] = 0;        // Ensure null-termination
-}
-
 
 HRESULT ToggleFullScreen(void)
 {

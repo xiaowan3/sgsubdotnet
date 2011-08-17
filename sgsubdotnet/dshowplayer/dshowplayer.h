@@ -62,8 +62,7 @@ void RemoveGraphFromRot(DWORD pdwRegister);
 #define MINIMUM_VIDEO_WIDTH     200
 #define MINIMUM_VIDEO_HEIGHT    120
 
-#define APPLICATIONNAME TEXT("PlayWnd Media Player\0")
-#define CLASSNAME       TEXT("PlayWndMediaPlayer\0")
+
 
 #define WM_GRAPHNOTIFY  WM_USER+13
 
@@ -79,30 +78,3 @@ enum PLAYSTATE {Stopped = 0, Paused = 1, Running = 2, Init = 3};
 
 #define LIF(x) if (FAILED(hr=(x))) \
     {Msg(TEXT("FAILED(hr=0x%x) in ") TEXT(#x) TEXT("\n\0"), hr);}
-
-//
-// Resource constants
-//
-//#define IDI_PLAYWND                     100
-//#define IDR_MENU                        101
-//#define IDD_ABOUTBOX                    200
-//#define ID_FILE_OPENCLIP                40001
-//#define ID_FILE_EXIT                    40002
-//#define ID_FILE_PAUSE                   40003
-//#define ID_FILE_STOP                    40004
-//#define ID_FILE_CLOSE                   40005
-//#define ID_FILE_MUTE                    40006
-//#define ID_FILE_FULLSCREEN              40007
-//#define ID_FILE_SIZE_NORMAL             40008
-//#define ID_FILE_SIZE_HALF               40009
-//#define ID_FILE_SIZE_DOUBLE             40010
-//#define ID_FILE_SIZE_QUARTER            40011
-//#define ID_FILE_SIZE_THREEQUARTER       40012
-//#define ID_HELP_ABOUT                   40014
-//#define ID_RATE_INCREASE                40020
-//#define ID_RATE_DECREASE                40021
-//#define ID_RATE_NORMAL                  40022
-//#define ID_RATE_DOUBLE                  40023
-//#define ID_RATE_HALF                    40024
-//#define ID_SINGLE_STEP                  40025
-
