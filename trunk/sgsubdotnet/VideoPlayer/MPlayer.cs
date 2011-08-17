@@ -33,6 +33,19 @@ namespace VideoPlayer
         private Graphics g1;
 
         #region mplayer members
+
+        public string MPlayerPath
+        {
+            set
+            {
+                _mplayerPath = value;
+                _mplayerWorkingDir = _mplayerPath.Substring(0,_mplayerPath.LastIndexOf('\\') + 1);
+            }
+        }
+
+        private string _mplayerPath;
+        private string _mplayerWorkingDir;
+
         private Thread _mplayerController;
         private Process _mplayerProcess;
         private StreamReader _mplayerOut;
@@ -43,15 +56,15 @@ namespace VideoPlayer
         private ManualResetEvent _waitStartEvent = new ManualResetEvent(false);
         private ManualResetEvent _readPauseEvent = new ManualResetEvent(false);
         private bool _waitStart;
+        private bool _mediaOpened;
         private double _timePos
         {
             get
             {
-                double _t;
                 _timePosLock.AcquireReaderLock(1000);
-                _t = _timePosValue;
+                double t = _timePosValue;
                 _timePosLock.ReleaseReaderLock();
-                return _t;
+                return t;
             }
             set
             {
@@ -91,7 +104,8 @@ namespace VideoPlayer
                 _soundvolume = (e.X - sndmin) / 58.0;
                 _soundvolume = _soundvolume < 0 ? 0 : _soundvolume > 1 ? 1 : _soundvolume;
                 _sndarea.X = splitContainer1.Panel2.Width - 71 + (int)(58 * _soundvolume);
-  //              DShowSupport.SetVolume(_soundvolume);
+                string cmd = string.Format("volume {0} 1", _soundvolume*100);
+                if (MediaOpened) _mplayerIn.WriteLine(cmd);
                 RedrawTrackbar();
             }
             if (MediaOpened && trackBarRect.Contains(e.Location))
@@ -186,13 +200,20 @@ namespace VideoPlayer
             return msg;
         }
 
-        public  void Init()
+        public void Init()
         {
         }
 
         public  void Uninit()
         {
-    //        throw new NotImplementedException(); 
+            if(_mplayerProcess != null && !_mplayerProcess .HasExited)
+            {
+                _mplayerIn.WriteLine("quit");
+                if(!_mplayerProcess.WaitForExit(500))
+                {
+                    _mplayerProcess.Kill();
+                }
+            }
         }
 
         public  void Pause()
@@ -207,45 +228,45 @@ namespace VideoPlayer
         {
             _waitStart = true;
             _waitStartEvent.Reset();
-            if (_mplayerProcess == null)
+            if (_mplayerProcess == null  || _mplayerProcess.HasExited)
             {
                 ThreadStart ts = new ThreadStart(mpctThread);
                 _mplayerController = new Thread(ts);
                 string arg =
                     string.Format(
-                        @"-nomouseinput -colorkey 0x010101  -noquiet -nofs -slave -vo directx -ao dsound -priority abovenormal -framedrop -wid {0} {1}",
+                        @"-nomouseinput -colorkey 0x010101 -noquiet -nofs -slave -vo directx -ao dsound -priority abovenormal -framedrop -wid {0} {1} -loop 0",
                         screen.Handle.ToInt32(), filename);
                 _mplayerProcess = new Process
-                {
-                    StartInfo =
-                    {
-                        FileName = @"D:\MPlayer\bin\mplayer.exe",
-                        Arguments = arg,
-                        CreateNoWindow = true,
-                        RedirectStandardOutput = true,
-                        RedirectStandardInput = true,
-                        UseShellExecute = false,
-                        WorkingDirectory = @"D:\MPlayer\bin\"
-                    },
-                    EnableRaisingEvents = true
-                };
+                                      {
+                                          StartInfo =
+                                              {
+                                                  FileName = _mplayerPath,
+                                                  Arguments = arg,
+                                                  CreateNoWindow = true,
+                                                  RedirectStandardOutput = true,
+                                                  RedirectStandardInput = true,
+                                                  UseShellExecute = false,
+                                                  WorkingDirectory = _mplayerWorkingDir
+                                              },
+                                          EnableRaisingEvents = true
+                                      };
                 _mplayerProcess.Exited += new EventHandler(mplayerProcess_Exited);
                 _mplayerProcess.Start();
                 _mplayerOut = _mplayerProcess.StandardOutput;
                 _mplayerIn = _mplayerProcess.StandardInput;
                 _mplayerController.Start();
-                _mplayerIn.WriteLine("loop -1");
             }
             else
             {
                 string fn = filename.Replace('\\', '/');
                 string cmd = string.Format("loadfile {0} 0", fn);
                 _mplayerIn.WriteLine(cmd);
-                _mplayerIn.WriteLine("loop -1");
             }
+            _mediaOpened = true;
             _durRead = false;
             _waitStartEvent.WaitOne(1000);
             playTimer.Start();
+            _mplayerIn.WriteLine("loop 0 1");
         }
 
         private void mpctThread()
@@ -277,6 +298,9 @@ namespace VideoPlayer
                             _duration = double.Parse(val);
                             _readDurEvent.Set();
                             break;
+                        case "ANS_TIME_POSITION":
+                            _timePos = Double.Parse(val);
+                            break;
                     }
                 }
             }
@@ -285,6 +309,7 @@ namespace VideoPlayer
 
         private void mplayerProcess_Exited(object sender, EventArgs e)
         {
+            _mediaOpened = false;
             _mplayerProcess = null;
             playTimer.Stop();
         }
@@ -318,10 +343,11 @@ namespace VideoPlayer
             get { return _timePos; }
             set
             {
-                if (value <Duration)
+                if (value < Duration)
                 {
-                    string cmd = string.Format("pausing_keep_force seek {0} 2", value.ToString("F2"));
+                    string cmd = string.Format("pausing_keep_force seek {0}", (value - _timePos).ToString("F2"));
                     _mplayerIn.WriteLine(cmd);
+                    _mplayerIn.WriteLine("get_time_pos");
                 }
             }
         }
@@ -344,13 +370,13 @@ namespace VideoPlayer
 
         public bool MediaOpened
         {
-            get { return (_mplayerProcess != null && !_mplayerProcess.HasExited); }
+            get { return (_mplayerProcess != null && !_mplayerProcess.HasExited) && _mediaOpened; }
         }
 
         public bool CanStep { get { return true; } }
 
         private double _duration;
-        private bool _durRead = false;
+        private bool _durRead;
         public double Duration
         {
             get
