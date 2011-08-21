@@ -156,10 +156,6 @@
             // 
             this.comboPlayer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboPlayer.FormattingEnabled = true;
-            this.comboPlayer.Items.AddRange(new object[] {
-            "DShow 播放器",
-            "MDX 播放器",
-            "WMP 播放器"});
             this.comboPlayer.Location = new System.Drawing.Point(381, 27);
             this.comboPlayer.Name = "comboPlayer";
             this.comboPlayer.Size = new System.Drawing.Size(115, 20);
