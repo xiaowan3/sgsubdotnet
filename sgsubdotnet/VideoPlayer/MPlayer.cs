@@ -19,7 +19,7 @@ namespace VideoPlayer
 
 
         private readonly Image _trackleft = Resources.PANEL_Left;
-        private readonly Image _trackright = Resources.PANEL_Right;
+        private readonly Image _trackright = Resources.PANEL_MPRight;
         private readonly Image _trackmiddle = Resources.PANEL_Fill;
         private readonly Image _trackthumb = Resources.TRACK_Thumb;
         private readonly Image _soundthumb = Resources.SOUND_Thumb;
@@ -234,7 +234,7 @@ namespace VideoPlayer
                 _mplayerController = new Thread(ts);
                 string arg =
                     string.Format(
-                        @"-nomouseinput -colorkey 0x010101 -noquiet -nofs -slave -vo directx -ao dsound -priority abovenormal -framedrop -wid {0} {1} -loop 0",
+                        "-nomouseinput -colorkey 0x010101 -noquiet -nofs -slave -vo directx -ao dsound -priority abovenormal -framedrop -wid {0} \"{1}\" -loop 0",
                         screen.Handle.ToInt32(), filename);
                 _mplayerProcess = new Process
                                       {
@@ -271,7 +271,7 @@ namespace VideoPlayer
 
         private void mpctThread()
         {
-            while (!_mplayerProcess.HasExited)
+            while (_mplayerProcess != null && !_mplayerProcess.HasExited)
             {
                 string str = _mplayerOut.ReadLine();
                 if (str == null) continue;
@@ -279,7 +279,7 @@ namespace VideoPlayer
                 int segv = str.IndexOf("V:");
                 if (sega == 0)
                 {
-                    _timePos = Double.Parse(str.Substring( 2, segv - 2));
+                    _timePos = Double.Parse(str.Substring(2, segv - 2));
                     if (_waitStart) _waitStartEvent.Set();
 
                 }

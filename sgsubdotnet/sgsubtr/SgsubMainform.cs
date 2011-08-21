@@ -22,6 +22,7 @@ namespace sgsubtr
             SGSConfig.DefaultCfgPath = _startUpPath + @"\config\";
             SGSConfig.AutosavePath = _appFolderPath + @"\autosave\";
             SGSConfig.ConfigPath = _appFolderPath + @"\config\";
+            SGSConfig.MPlayerPath = _startUpPath + @"\mplayer.exe";
 
 
             if (!System.IO.Directory.Exists(_appFolderPath))
@@ -33,6 +34,7 @@ namespace sgsubtr
                 System.IO.Directory.CreateDirectory(_appFolderPath + @"\config");
             }
             var defaultcfg = SGSConfig.FromFile(Application.StartupPath + @"\config\config.xml");
+            SGSConfig.WithMPlayer = defaultcfg.WithMPlayerSetting;
 
             if (!System.IO.File.Exists(_appFolderPath + @"\config\config.xml"))
             {
@@ -58,11 +60,17 @@ namespace sgsubtr
                     break;
                 case PlayerType.WMPlayer:
                     _playerControl = new WMPlayer();
-                    //{
-                    //    var mplayer = new MPlayer();
-                    //    mplayer.MPlayerPath = @"D:\MPlayer\bin\mplayer.exe";
-                    //    _playerControl = mplayer;
-                    //}
+
+                    break;
+                case PlayerType.MPlayer:
+                    if (SGSConfig.WithMPlayer)
+                    {
+                        var mplayer = new MPlayer();
+                        mplayer.MPlayerPath = SGSConfig.MPlayerPath;
+                        _playerControl = mplayer;
+                    }
+                    else
+                        _playerControl = new WMPlayer();
                     break;
             }
             _player = (ISGSPlayer)_playerControl;

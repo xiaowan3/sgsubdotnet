@@ -14,6 +14,8 @@ namespace SGSDatatype
         public static string AutosavePath;
         public static string ConfigPath;
         public static string DefaultCfgPath;
+        public static string MPlayerPath;
+        public static bool WithMPlayer;
 
         [DataMember]
         private string Version { get; set; }
@@ -118,6 +120,12 @@ namespace SGSDatatype
         /// </summary>
         [DataMember]
         public PlayerType Player { get; set; }
+
+        /// <summary>
+        /// 激活MPlayer
+        /// </summary>
+        [DataMember]
+        public bool WithMPlayerSetting { get; set; }
 
         /// <summary>
         /// 起始时间点相对于按键时刻的偏移量（负为提前）（秒）
@@ -270,6 +278,14 @@ namespace SGSDatatype
             reader.Close();
             fs.Close();
             sgsCfgObject._filename = filename;
+
+
+            if (!WithMPlayer && sgsCfgObject.Player == PlayerType.MPlayer)
+            {
+                sgsCfgObject.Player = PlayerType.WMPlayer;
+            }
+
+
             return sgsCfgObject;
         }
 
@@ -290,5 +306,6 @@ namespace SGSDatatype
         }
         
     }
-    public enum PlayerType { DShowPlayer = 0, MDXPlayer = 1, WMPlayer = 2 }
+    public enum PlayerType { DShowPlayer = 0, MDXPlayer = 1, WMPlayer = 2, MPlayer = 3 }
+
 }

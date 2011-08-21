@@ -21,6 +21,28 @@ namespace sgsubtr
             _config = config;
             InitializeComponent();
 
+            if (SGSConfig.WithMPlayer)
+            {
+                comboPlayer.Items.Clear();
+                comboPlayer.Items.AddRange(new object[]
+                                               {
+                                                   "DShow 播放器",
+                                                   "MDX 播放器",
+                                                   "WMP 播放器",
+                                                   "MPlayer 播放器"
+                                               });
+            }
+            else
+            {
+                comboPlayer.Items.Clear();
+                comboPlayer.Items.AddRange(new object[]
+                                               {
+                                                   "DShow 播放器",
+                                                   "MDX 播放器",
+                                                   "WMP 播放器"
+                                               });
+            }
+
             if (!Directory.Exists(SGSConfig.DefaultCfgPath)) throw new Exception("Directory not exist.");
             var files = Directory.GetFiles(SGSConfig.DefaultCfgPath, @"*.layout");
             if (files.Count() == 0) throw new Exception(("No layout found"));

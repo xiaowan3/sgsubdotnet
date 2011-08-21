@@ -17,7 +17,7 @@ namespace VideoPlayer
 
         private bool _mediaOpened;
         private readonly Image _trackleft = Resources.PANEL_Left;
-        private readonly Image _trackright = Resources.PANEL_Right;
+        private readonly Image _trackright = Resources.PANEL_MDXRight;
         private readonly Image _trackmiddle = Resources.PANEL_Fill;
         private readonly Image _trackthumb = Resources.TRACK_Thumb;
         private readonly Image _soundthumb = Resources.SOUND_Thumb;
