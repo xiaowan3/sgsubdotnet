@@ -38,4 +38,15 @@ SGSUB.Net支持多种设置开始和结束时间的方式，如果你不喜上�
  * O：选中单元格的时间提前200ms。
  * P：选中单元格的时间推迟200ms。
  
+= 用频谱打轴 =
+按下<img src="http://sgsubdotnet.googlecode.com/svn/wiki/imgs/initfft.png"/>可以读取音频频谱，读取频谱的时间有点长，请耐心等一会儿。用频谱辅助打轴，不仅能提高，也能提高效率。
+
+== 认识频谱 ==
+<img src="http://sgsubdotnet.googlecode.com/svn/wiki/imgs/timing02.png"/>
+频谱图是音频信号经过离散余弦变换得到的，横轴是时间，纵轴是频率，颜色越亮表示信号越强。图中的那条红线指示当前播放的位置，频谱图随着视频的播放而滚动。当人物说话时，在频谱图上就会以曲线形式表示出来。通常人声和背景的声音频率多少会有一些差异，所以可以通过观察频谱图，把人声和背景声音区分出来。
+
+从下面的这个图中就可以看出，人声的频谱的一些曲线，而背景声音相对更不规则一些。再多多观察和练习，就可以通过频谱图找出人声了。
+<img src="http://sgsubdotnet.googlecode.com/svn/wiki/imgs/timing03.png"/>
+
+
  
