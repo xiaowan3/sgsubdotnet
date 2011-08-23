@@ -8,13 +8,19 @@ SGSUB.Net 时间轴教程
 = 开始打轴 =
 
 点击 文件->打开视频 打开片源，用 文件->打开翻译文本 打开你的TXT文件。
-<img src=""/>
+<img src="http://sgsubdotnet.googlecode.com/svn/wiki/imgs/timing00.png"/>
 
 现在你就可以开始打轴了。选中第一行的某个单元格，一边播放视频一边用耳朵听。开始说话时按下A键，说完了松开A键。按下A键盘时，插入这一行的开始时间，松开时插入结束时间。插入结束时间之后选中的单元格会自动移到下一行的开始时间上，于是可以接着设置第二行的开始和结束时间。
 
+= 播放快捷键 =
+
+在播放时，你可以使用这些快捷键来控制播放器。如果不习惯默认按键，可以在按键设置中修改。
+
+ * Q 后退3秒
+ * W 前进3秒
+ * E 跳至当前行的开始时间
+ * R 跳至上一行的开始时间
+ * 空格 暂停/播放
 
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+
