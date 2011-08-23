@@ -1,2 +1,3 @@
   * [about 关于SGSUB.Net]
   * [HelpRR 界面说明]
+  * [TimingTutorial 时间轴教程]
