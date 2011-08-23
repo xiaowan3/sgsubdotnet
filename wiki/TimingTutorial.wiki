@@ -1,4 +1,5 @@
 #summary SGSUB.Net 时间轴教程
+#labels Featured
 
 = 准备工作 =
 
