@@ -122,12 +122,6 @@ namespace SGSDatatype
         public PlayerType Player { get; set; }
 
         /// <summary>
-        /// 激活MPlayer
-        /// </summary>
-        [DataMember]
-        public bool WithMPlayerSetting { get; set; }
-
-        /// <summary>
         /// 起始时间点相对于按键时刻的偏移量（负为提前）（秒）
         /// </summary>
         [DataMember]
@@ -251,10 +245,6 @@ namespace SGSDatatype
         public Keys SetEndTime { get; set; }
 
         #endregion
-
-        public SGSConfig()
-        {
-        }
 
         /// <summary>
         /// Check weather the configuration object is compatible with this version.

@@ -24,6 +24,7 @@ namespace sgsubtr
             SGSConfig.ConfigPath = _appFolderPath + @"\config\";
             SGSConfig.MPlayerPath = _startUpPath + @"\mplayer.exe";
 
+            SGSConfig.WithMPlayer = System.IO.File.Exists(SGSConfig.MPlayerPath);
 
             if (!System.IO.Directory.Exists(_appFolderPath))
             {
@@ -34,7 +35,6 @@ namespace sgsubtr
                 System.IO.Directory.CreateDirectory(_appFolderPath + @"\config");
             }
             var defaultcfg = SGSConfig.FromFile(Application.StartupPath + @"\config\config.xml");
-            SGSConfig.WithMPlayer = defaultcfg.WithMPlayerSetting;
 
             if (!System.IO.File.Exists(_appFolderPath + @"\config\config.xml"))
             {
