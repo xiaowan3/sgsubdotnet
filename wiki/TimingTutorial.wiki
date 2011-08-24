@@ -60,4 +60,24 @@ SGSUB.Net支持多种设置开始和结束时间的方式，如果你不喜上�
 
 <img src="http://sgsubdotnet.googlecode.com/svn/wiki/imgs/timing04.png"/>
 
- 
+= 时间轴调整 =
+
+包括微调时间轴和时间平移。
+
+== 微调时间轴 ==
+
+按O键和P键可以让当前单元格的时间提前或推迟0.2s。
+
+== 时间平衡 ==
+
+选中要平移的单元格，单击<img src="http://sgsubdotnet.googlecode.com/svn/wiki/imgs/markcell.png"/>对单元格进行标记。标记之后的单元格景色会变成淡蓝色。
+
+<img src="http://sgsubdotnet.googlecode.com/svn/wiki/imgs/timing05.png"/>
+
+点击<img src="http://sgsubdotnet.googlecode.com/svn/wiki/imgs/timeoffset.png"/>，并在对话框中输入平移的量。
+
+<img src="http://sgsubdotnet.googlecode.com/svn/wiki/imgs/timing06.png"/>
+
+点击OK，就好了，然后点击<img src="http://sgsubdotnet.googlecode.com/svn/wiki/imgs/unmarkall.png"/>清除标记。
+
+<img src="http://sgsubdotnet.googlecode.com/svn/wiki/imgs/timing07.png"/>
