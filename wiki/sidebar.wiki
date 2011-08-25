@@ -1,3 +1,4 @@
   * [TimingTutorial 时间轴教程]
+  * [TranslationTutorial 翻译模式教程]
   * [HelpRR 界面说明]
   * [about 关于SGSUB.Net]
