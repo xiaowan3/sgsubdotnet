@@ -144,6 +144,8 @@ namespace SGSControls
                 _filename = null;
             }
         }
+
+        public bool Edited { get { return !syntaxHighlightingTextBox1.Saved; } }
         #endregion
 
         #region Events
