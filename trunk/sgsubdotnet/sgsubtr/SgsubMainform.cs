@@ -407,6 +407,7 @@ namespace sgsubtr
         private void SetTranslationMode()
         {
             if (!AskSave()) return;
+            _workMode = WorkMode.TranslationMode;
             _currentSub = null;
             SetCurrentSub();
             _subEditerContainer.Clear();
@@ -441,6 +442,7 @@ namespace sgsubtr
         }
         private void SetTimingMode()
         {
+            _workMode = WorkMode.TimingMode;
             _subEditerContainer.Clear();
             _subEditerContainer.Add(subEditor);
             translationEditor.Dock = DockStyle.Fill;
@@ -807,6 +809,8 @@ namespace sgsubtr
         };
 
         private int _messageMode;
+
+        private WorkMode _workMode = WorkMode.TimingMode;
         #endregion
 
         void exit_Click(object sender, EventArgs e)
@@ -905,24 +909,52 @@ namespace sgsubtr
         /// <returns>true:继续, false:取消操作</returns>
         private bool AskSave()
         {
-            if (subEditor.Edited)
+            switch (_workMode)
             {
-                DialogResult result = MessageBox.Show(string.Format("当前字幕己修改{0}想保存文件吗", Environment.NewLine),
-                    @"SGSUB.Net", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                switch (result)
-                {
-                    case DialogResult.Yes:
-                        return SaveAssSub();
-                    case DialogResult.No:
-                        return true;
-                    case DialogResult.Cancel:
-                        return false;
-                    default:
-                        return false;
-                }
+                case WorkMode.TimingMode:
+
+                    if (subEditor.Edited)
+                    {
+                        DialogResult result = MessageBox.Show(string.Format("当前字幕己修改{0}想保存文件吗", Environment.NewLine),
+                                                              @"SGSUB.Net", MessageBoxButtons.YesNoCancel,
+                                                              MessageBoxIcon.Warning);
+                        switch (result)
+                        {
+                            case DialogResult.Yes:
+                                return SaveAssSub();
+                            case DialogResult.No:
+                                return true;
+                            case DialogResult.Cancel:
+                                return false;
+                            default:
+                                return false;
+                        }
+                    }
+                    return true;
+                case WorkMode.TranslationMode:
+                    if (translationEditor.Edited)
+                    {
+                        DialogResult result = MessageBox.Show(string.Format("当前内容己修改{0}想保存文件吗", Environment.NewLine),
+                                                              @"SGSUB.Net", MessageBoxButtons.YesNoCancel,
+                                                              MessageBoxIcon.Warning);
+                        switch (result)
+                        {
+                            case DialogResult.Yes:
+                                return translationEditor.Save();
+                            case DialogResult.No:
+                                return true;
+                            case DialogResult.Cancel:
+                                return false;
+                            default:
+                                return false;
+                        }
+                    }
+                    return true;
             }
             return true;
         }
+
+
 
         private bool SaveAssSub()
         {
@@ -981,3 +1013,5 @@ namespace sgsubtr
 
     }
 }
+
+enum WorkMode { TimingMode, TranslationMode }
