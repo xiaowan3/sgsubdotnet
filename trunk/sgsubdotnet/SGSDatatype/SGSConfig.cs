@@ -200,6 +200,12 @@ namespace SGSDatatype
         public char UncertainRightMark { get; set; }
 
         /// <summary>
+        /// 字面标志
+        /// </summary>
+        [DataMember]
+        public char LiteralLineMark { get; set; }
+
+        /// <summary>
         /// 每行字数检查
         /// </summary>
         [DataMember]

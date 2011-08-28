@@ -91,6 +91,7 @@ namespace sgsubtr
             textCommentChar.Text = _config.CommentMark.ToString();
             textUncertainLeft.Text = _config.UncertainLeftMark.ToString();
             textUncertainRight.Text = _config.UncertainRightMark.ToString();
+            textLiteralChar.Text = _config.LiteralLineMark.ToString();
             comboPlayer.SelectedIndex = (int) _config.Player;
         }
 
@@ -117,7 +118,8 @@ namespace sgsubtr
                 _config.UncertainLeftMark = textUncertainLeft.Text[0];
             if (textUncertainRight.Text.Length > 0)
                 _config.UncertainRightMark = textUncertainRight.Text[0];
-
+            if (textLiteralChar.Text.Length > 0)
+                _config.LiteralLineMark = textLiteralChar.Text[0];
             _config.Save();
             Close();
         }
