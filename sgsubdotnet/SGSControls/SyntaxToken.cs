@@ -35,6 +35,9 @@ namespace SGSControls
                 case TokenType.TimeTag:
                     Length = 0;
                     break;
+                case TokenType.Literal:
+                    Length = text.Length - 1;
+                    break;
             }
         }
 
@@ -89,7 +92,7 @@ namespace SGSControls
         }
 
     }
-    enum TokenType{Text,Hole,Uncertain,Comment,TimeTag}
+    enum TokenType { Text, Hole, Uncertain, Comment, TimeTag, Literal }
 
     class TimeTag
     {

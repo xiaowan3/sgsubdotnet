@@ -35,6 +35,7 @@
             this.pictureLayout = new System.Windows.Forms.PictureBox();
             this.listLayout = new System.Windows.Forms.ListBox();
             this.parameterConfig = new System.Windows.Forms.TabPage();
+            this.label12 = new System.Windows.Forms.Label();
             this.comboPlayer = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.textUncertainRight = new System.Windows.Forms.TextBox();
@@ -57,7 +58,8 @@
             this.btnConfirm = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label12 = new System.Windows.Forms.Label();
+            this.textLiteralChar = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.layoutConfig.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -125,6 +127,8 @@
             // parameterConfig
             // 
             this.parameterConfig.BackColor = System.Drawing.SystemColors.Control;
+            this.parameterConfig.Controls.Add(this.label13);
+            this.parameterConfig.Controls.Add(this.textLiteralChar);
             this.parameterConfig.Controls.Add(this.label12);
             this.parameterConfig.Controls.Add(this.comboPlayer);
             this.parameterConfig.Controls.Add(this.label11);
@@ -151,6 +155,15 @@
             this.parameterConfig.Size = new System.Drawing.Size(625, 353);
             this.parameterConfig.TabIndex = 1;
             this.parameterConfig.Text = "参数设定";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(506, 31);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(113, 12);
+            this.label12.TabIndex = 19;
+            this.label12.Text = "更改后请重启此程序";
             // 
             // comboPlayer
             // 
@@ -352,14 +365,22 @@
             this.splitContainer1.SplitterDistance = 378;
             this.splitContainer1.TabIndex = 1;
             // 
-            // label12
+            // textLiteralChar
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(506, 31);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(113, 12);
-            this.label12.TabIndex = 19;
-            this.label12.Text = "更改后请重启此程序";
+            this.textLiteralChar.Location = new System.Drawing.Point(136, 293);
+            this.textLiteralChar.MaxLength = 1;
+            this.textLiteralChar.Name = "textLiteralChar";
+            this.textLiteralChar.Size = new System.Drawing.Size(100, 21);
+            this.textLiteralChar.TabIndex = 20;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(38, 296);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(77, 12);
+            this.label13.TabIndex = 21;
+            this.label13.Text = "直接输入标记";
             // 
             // ConfigForm
             // 
@@ -420,5 +441,7 @@
         private System.Windows.Forms.ComboBox comboPlayer;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textLiteralChar;
     }
 }

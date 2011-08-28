@@ -44,6 +44,7 @@ namespace SGSControls
         private HighlightType _hlToolong;
         private HighlightType _hlUncertain;
         private HighlightType _hlTimeTag;
+        private HighlightType _hlLiteralLine;
 
         private bool _saved = true;
 
@@ -67,12 +68,14 @@ namespace SGSControls
             HighlightTypes.Add(_hlHole);
             _hlComment = new HighlightType("Text", Color.Gray, null);
             HighlightTypes.Add(_hlComment);
-            _hlUncertain = new HighlightType("Text", Color.Blue, null);
+            _hlUncertain = new HighlightType("Text", Color.DarkRed, null);
             HighlightTypes.Add(_hlUncertain);
-            _hlToolong = new HighlightType("Text", Color.DarkRed, null);
+            _hlToolong = new HighlightType("Text", Color.Pink, null);
             HighlightTypes.Add(_hlToolong);
             _hlTimeTag = new HighlightType("Text", Color.Green, null);
             HighlightTypes.Add(_hlTimeTag);
+            _hlLiteralLine = new HighlightType("Text", Color.DarkBlue, null);
+            HighlightTypes.Add(_hlLiteralLine);
         }
 
         public void RefreshConfig()
@@ -116,20 +119,28 @@ namespace SGSControls
             string[] lines = Text.Split('\n');
             foreach (string line in lines)
             {
-                var currentline = line;
-                int c = line.IndexOf(_config.CommentMark);
-                int mark;
-                if (c != -1) currentline = line.Substring(0, c);
-                while ((mark = currentline.IndexOf(_config.UncertainLeftMark)) != -1)
+                string currentline;
+                if (line.Length > 0 && line[0] == _config.LiteralLineMark)
                 {
-                    currentline = currentline.Remove(mark, 1);
+                    currentline = line.Substring(1);
                 }
-                while ((mark = currentline.IndexOf(_config.UncertainRightMark)) != -1)
+                else
                 {
-                    currentline = currentline.Remove(mark, 1);
+                    currentline = line;
+                    int c = line.IndexOf(_config.CommentMark);
+                    int mark;
+                    if (c != -1) currentline = line.Substring(0, c);
+                    while ((mark = currentline.IndexOf(_config.UncertainLeftMark)) != -1)
+                    {
+                        currentline = currentline.Remove(mark, 1);
+                    }
+                    while ((mark = currentline.IndexOf(_config.UncertainRightMark)) != -1)
+                    {
+                        currentline = currentline.Remove(mark, 1);
+                    }
                 }
                 writer.WriteLine(currentline);
-    
+
             }
             writer.Flush();
             file.Flush();
@@ -265,6 +276,13 @@ namespace SGSControls
                 while (charIndex < lines[lineIndex].Length)
                 {
                     int segStart;
+                    if (lines[lineIndex][0]==_config.LiteralLineMark)
+                    {
+                        var token = new SyntaxToken(TokenType.Literal, lines[lineIndex]);
+                        tokens.Add(token);
+                        lineLen = lines[lineIndex].Length - 1;
+                        break;
+                    }
                     if (lines[lineIndex][charIndex] == _config.HolePlaceholder) //Window
                     {
                         segStart = charIndex;
@@ -360,6 +378,17 @@ namespace SGSControls
                             break;
                         case TokenType.TimeTag:
                             SetHighlightTypeSettings(sb, _hlTimeTag, colors, fonts);
+                            break;
+                        case TokenType.Literal:
+                            if (lineLen <= _config.LineLength)
+                            {
+                                SetHighlightTypeSettings(sb, _hlLiteralLine, colors, fonts);
+                            }
+                            else
+                            {
+                                SetHighlightTypeSettings(sb, _hlToolong, colors, fonts);
+                                toolong = true;
+                            }
                             break;
                     }
                     sb.Append(syntaxToken.Rtf);
@@ -785,6 +814,7 @@ namespace SGSControls
             int linestart, linelen;
 
             string line = FindCurrentLine(out linestart, out linelen);
+            if (line.Length > 0 && line[0] == _config.LiteralLineMark) return;
             var tag = FindTimeTag(line);
             if (tag != null && SeekPlayer != null)
             {
@@ -797,6 +827,7 @@ namespace SGSControls
             if (_config == null) return;
             int linebegin, linelen;
             string line = FindCurrentLine(out linebegin, out linelen);
+            if (line.Length > 0 && line[0] == _config.LiteralLineMark) return;
             int pos = SelectionStart;
             LockScrollPos();
             var timeEditEventArgs = new TimeEditEventArgs(TimeType.BeginTime, 0, true);

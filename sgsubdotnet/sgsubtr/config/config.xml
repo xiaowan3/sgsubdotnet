@@ -17,6 +17,7 @@
   <InsertTag2>F5</InsertTag2>
   <LayoutName>Classical</LayoutName>
   <LineLength>20</LineLength>
+  <LiteralLineMark>96</LiteralLineMark>
   <MiniTrimMinus>O</MiniTrimMinus>
   <MiniTrimPlus>P</MiniTrimPlus>
   <MinitrimStep>0.2</MinitrimStep>
@@ -40,5 +41,5 @@
   <TemplateName i:nil="true"/>
   <UncertainLeftMark>91</UncertainLeftMark>
   <UncertainRightMark>93</UncertainRightMark>
-  <Version>2.0.0.228</Version>
+  <Version>2.0.0.258</Version>
 </SGSConfig>
