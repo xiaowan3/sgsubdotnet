@@ -245,6 +245,9 @@ namespace VideoPlayer
                                                   CreateNoWindow = true,
                                                   RedirectStandardOutput = true,
                                                   RedirectStandardInput = true,
+#if DEBUG
+                                                  RedirectStandardError = true,
+#endif
                                                   UseShellExecute = false,
                                                   WorkingDirectory = _mplayerWorkingDir
                                               },
@@ -259,7 +262,7 @@ namespace VideoPlayer
             else
             {
                 string fn = filename.Replace('\\', '/');
-                string cmd = string.Format("loadfile {0} 0", fn);
+                string cmd = string.Format("loadfile \"{0}\" 0", fn);
                 _mplayerIn.WriteLine(cmd);
             }
             _mediaOpened = true;
@@ -277,11 +280,22 @@ namespace VideoPlayer
                 if (str == null) continue;
                 int sega = str.IndexOf("A:");
                 int segv = str.IndexOf("V:");
-                if (sega == 0)
+                if (sega == 0 || segv == 0)
                 {
-                    _timePos = Double.Parse(str.Substring(2, segv - 2));
+                    int numst = 2;
+                    int numed;
+                    while (!char.IsDigit(str, numst) && str[numst] != '.') 
+                    {
+                        numst++;
+                    }
+                    numed = numst;
+                    while (char.IsDigit(str, numed) || str[numed] == '.')
+                    {
+                        numed++;
+                    }
+                    _timePos = Double.Parse(str.Substring(numst, numed - numst));
                     if (_waitStart) _waitStartEvent.Set();
-
+                    continue;
                 }
                 int eq = str.IndexOf('=');
                 if (eq > 3 && str.Substring(0, 3) == "ANS")
@@ -310,7 +324,13 @@ namespace VideoPlayer
         private void mplayerProcess_Exited(object sender, EventArgs e)
         {
             _mediaOpened = false;
+#if DEBUG
+            string str = _mplayerProcess.StandardError.ReadToEnd();
+            Debug.Write(str);
+#endif
             _mplayerProcess = null;
+            _readDurEvent.Set();
+            _readPauseEvent.Set();
             playTimer.Stop();
         }
 
