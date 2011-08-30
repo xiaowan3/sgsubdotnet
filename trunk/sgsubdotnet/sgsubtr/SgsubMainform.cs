@@ -319,7 +319,7 @@ namespace sgsubtr
             _menuItemSaveTrnAs.Click += new EventHandler(saveTranslationas_Click);
             _menuItemSaveSub.Click += new EventHandler(saveSub_Click);
             _menuItemSaveSubAs.Click += new EventHandler(saveSubAs_Click);
-            _menuItemAutoSaveRecord.Click += new EventHandler(autoSaveRecord_Click);
+            _menuItemAutoSaveRecord.Click += new EventHandler(_menuItemAutoSaveRecord_Click);
             _menuItemTrnAutoSave.Click += new EventHandler(_menuItemTrnAutoSave_Click);
             _menuItemExit.Click += new EventHandler(exit_Click);
 
@@ -331,78 +331,14 @@ namespace sgsubtr
             _menuItemCutTrn.Click += new EventHandler(_menuItemCutTrn_Click);
             _menuItemPasteTrn.Click += new EventHandler(_menuItemPasteTrn_Click);
 
-            _menuItemKeyConfig.Click += new EventHandler(KeyConfig_Click);
-            _menuItemCustomize.Click += new EventHandler(Customize_Click);
-            _menuItemTranslationMode.Click += new EventHandler(TranslationMode_Click);
-            _menuItemTimingMode.Click += new EventHandler(TimingMode_Click);
-            _menuItemAboutSGSUBTR.Click += new EventHandler(AboutSGSUBTR_Click);
+            _menuItemKeyConfig.Click += new EventHandler(_menuItemKeyConfig_Click);
+            _menuItemCustomize.Click += new EventHandler(_menuItemCustomize_Click);
+            _menuItemTranslationMode.Click += new EventHandler(_menuItemTranslationMode_Click);
+            _menuItemTimingMode.Click += new EventHandler(_menuItemTimingMode_Click);
+            _menuItemAboutSGSUBTR.Click += new EventHandler(_menuItemAboutSGSUBTR_Click);
 
         }
 
-        void _menuItemTrnAutoSave_Click(object sender, EventArgs e)
-        {
-            translationEditor.ShowAutosaveDlg();
-        }
-
-        void _menuItemPasteTrn_Click(object sender, EventArgs e)
-        {
-            translationEditor.Paste();
-        }
-
-        void _menuItemCutTrn_Click(object sender, EventArgs e)
-        {
-            translationEditor.Cut();
-        }
-
-        void _menuItemCopyTrn_Click(object sender, EventArgs e)
-        {
-            translationEditor.Copy();
-        }
-
-        void _menuItemUndoTrn_Click(object sender, EventArgs e)
-        {
-            translationEditor.Undo();
-        }
-
-        void _menuItemPasteSub_Click(object sender, EventArgs e)
-        {
-            subEditor.Paste();
-        }
-
-        void _menuItemCopySub_Click(object sender, EventArgs e)
-        {
-            subEditor.Copy();
-        }
-
-        void _menuItemUndoSub_Click(object sender, EventArgs e)
-        {
-            subEditor.Undo();
-        }
-
-        void saveTranslationas_Click(object sender, EventArgs e)
-        {
-            translationEditor.SaveAs();
-        }
-
-        void TimingMode_Click(object sender, EventArgs e)
-        {
-            SetTimingMode();
-        }
-
-        void saveTranslation_Click(object sender, EventArgs e)
-        {
-            translationEditor.Save();
-        }
-
-        void exportTranslation_Click(object sender, EventArgs e)
-        {
-            translationEditor.ExportPlainScript();
-        }
-
-        void openTranslationScript_Click(object sender, EventArgs e)
-        {
-            translationEditor.Open();
-        }
 
         private void SetTranslationMode()
         {
@@ -595,6 +531,191 @@ namespace sgsubtr
 
         }
 
+        #region Menu Event Handlers
+
+        void _menuItemTrnAutoSave_Click(object sender, EventArgs e)
+        {
+            translationEditor.ShowAutosaveDlg();
+        }
+
+        void _menuItemPasteTrn_Click(object sender, EventArgs e)
+        {
+            translationEditor.Paste();
+        }
+
+        void _menuItemCutTrn_Click(object sender, EventArgs e)
+        {
+            translationEditor.Cut();
+        }
+
+        void _menuItemCopyTrn_Click(object sender, EventArgs e)
+        {
+            translationEditor.Copy();
+        }
+
+        void _menuItemUndoTrn_Click(object sender, EventArgs e)
+        {
+            translationEditor.Undo();
+        }
+
+        void _menuItemPasteSub_Click(object sender, EventArgs e)
+        {
+            subEditor.Paste();
+        }
+
+        void _menuItemCopySub_Click(object sender, EventArgs e)
+        {
+            subEditor.Copy();
+        }
+
+        void _menuItemUndoSub_Click(object sender, EventArgs e)
+        {
+            subEditor.Undo();
+        }
+
+        void _menuItemTimingMode_Click(object sender, EventArgs e)
+        {
+            SetTimingMode();
+        }
+
+        void _menuItemTranslationMode_Click(object sender, EventArgs e)
+        {
+
+            SetTranslationMode();
+        }
+
+        void _menuItemCustomize_Click(object sender, EventArgs e)
+        {
+            var cfgform = new ConfigForm(_config);
+            cfgform.ShowDialog();
+            updateConfig();
+        }
+
+        void _menuItemAboutSGSUBTR_Click(object sender, EventArgs e)
+        {
+            var aboutBox = new AboutBox();
+            aboutBox.Show();
+        }
+
+
+        void _menuItemKeyConfig_Click(object sender, EventArgs e)
+        {
+            var keycfg = new KeyConfigForm(_config);
+            if (keycfg.ShowDialog() == DialogResult.OK)
+            {
+                _config.Save();
+                updateConfig();
+            }
+        }
+
+        void _menuItemAutoSaveRecord_Click(object sender, EventArgs e)
+        {
+            var saveDlg = new AutoSaveForm(_autosave);
+            if (saveDlg.ShowDialog() == DialogResult.OK)
+            {
+                _currentSub = saveDlg.Sub;
+                _subFilename = null;
+                subEditor.Edited = false;
+                SetCurrentSub();
+            }
+        }
+
+        #endregion
+
+        #region File Event Handlers
+
+        void exit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        void saveSubAs_Click(object sender, EventArgs e)
+        {
+            if (_currentSub == null) return;
+            var dlg = new SaveFileDialog
+            {
+                AddExtension = true,
+                DefaultExt = "ass",
+                Filter = @"ASS Subtitle (*.ass)|*.ass||"
+            };
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                _subFilename = dlg.FileName;
+                _currentSub.Save(_subFilename, Encoding.Unicode);
+                subEditor.Edited = false;
+            }
+
+        }
+
+        void saveSub_Click(object sender, EventArgs e)
+        {
+            SaveAssSub();
+        }
+
+        void openMedia_Click(object sender, EventArgs e)
+        {
+            var dlg = new OpenFileDialog
+            {
+                Filter =
+                    @"Video File (*.mp4;*.mkv;*.avi;*.mpg)|*.mp4;*.mkv;*.avi;*.mpg|All files (*.*)|*.*||"
+            };
+            if (dlg.ShowDialog() == DialogResult.OK)
+                OpenVideo(dlg.FileName);
+        }
+
+
+        void openTXT_Click(object sender, EventArgs e)
+        {
+            var dlg = new OpenFileDialog { Filter = @"Text File (*.txt)|*.txt||" };
+
+            if (AskSave() && dlg.ShowDialog() == DialogResult.OK)
+                OpenTxt(dlg.FileName);
+        }
+        void openSub_Click(object sender, EventArgs e)
+        {
+            var dlg = new OpenFileDialog { Filter = @"ASS Subtitle (*.ass)|*.ass||" };
+            if (AskSave() && dlg.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    OpenAss(dlg.FileName);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK);
+                    _currentSub = null;
+                    _subFilename = null;
+                    SetCurrentSub();
+                }
+            }
+        }
+
+        void saveTranslationas_Click(object sender, EventArgs e)
+        {
+            translationEditor.SaveAs();
+        }
+
+
+
+        void saveTranslation_Click(object sender, EventArgs e)
+        {
+            translationEditor.Save();
+        }
+
+        void exportTranslation_Click(object sender, EventArgs e)
+        {
+            translationEditor.ExportPlainScript();
+        }
+
+        void openTranslationScript_Click(object sender, EventArgs e)
+        {
+            translationEditor.Open();
+        }
+
+        #endregion
+
+        #region WaveViewer Event Handlers
+
         void waveViewer_MouseEnter(object sender, EventArgs e)
         {
             statusLabel.Text = StatusMessages[1];
@@ -605,43 +726,90 @@ namespace sgsubtr
             statusLabel.Text = StatusMessages[_messageMode];
         }
 
-        void TranslationMode_Click(object sender, EventArgs e)
+        void waveViewer_WaveFormMouseDown(object sender, WaveReader.WFMouseEventArgs e)
         {
-
-            SetTranslationMode();
+            if (_player.MediaOpened)
+            {
+                switch (e.Button)
+                {
+                    case MouseButtons.Left:
+                        subEditor.EditStartTime(subEditor.CurrentRowIndex, e.Time);
+                        break;
+                    case MouseButtons.Right:
+                        subEditor.EditEndTime(subEditor.CurrentRowIndex, e.Time);
+                        subEditor.CurrentRowIndex++;
+                        break;
+                }
+                waveViewer.RefreshDisplay();
+            }
+            subEditor.Focus();
         }
+
+
+        #endregion
+
+        #region SubEditor Event Handlers
 
         void subEditor_AutosaveEvent(object sender, EventArgs e)
         {
             if (_currentSub != null) _autosave.SaveHistory(_currentSub, _subFilename);
         }
 
-        void autoSaveRecord_Click(object sender, EventArgs e)
+        void subEditor_Seek(object sender, SeekEventArgs e)
         {
-            var saveDlg = new AutoSaveForm(_autosave);
-            if(saveDlg.ShowDialog()== DialogResult.OK)
+            switch (e.SeekDirection)
             {
-                _currentSub = saveDlg.Sub;
-                _subFilename = null;
-                subEditor.Edited = false;
-                SetCurrentSub();
+                case SeekDir.Begin:
+                    _player.CurrentPosition = e.SeekOffset;
+                    break;
+                case SeekDir.CurrentPos:
+                    _player.CurrentPosition += e.SeekOffset;
+                    break;
             }
         }
 
-        void Customize_Click(object sender, EventArgs e)
+        void subEditor_CurrentRowChanged(object sender, CurrentRowChangeEventArgs e)
         {
-            var cfgform = new ConfigForm(_config);
-            cfgform.ShowDialog();
-            updateConfig();
+            waveViewer.CurrentLineIndex = e.CurrentRowIndex;
         }
 
-        void AboutSGSUBTR_Click(object sender, EventArgs e)
+        void subEditor_TimeEdit(object sender, TimeEditEventArgs e)
         {
-            var aboutBox = new AboutBox();
-            aboutBox.Show();
+            if (_player.MediaOpened)
+            {
+                e.TimeValue = _player.CurrentPosition;
+                e.CancelEvent = false;
+                e.Paused = _player.Paused;
+            }
+        }
+
+        #endregion
+
+        #region Player Event Handler
+
+        void PlayerControlEventHandler(object sender, PlayerControlEventArgs e)
+        {
+            switch (e.ControlCMD)
+            {
+                case PlayerCommand.Pause:
+                    _player.Pause();
+                    break;
+                case PlayerCommand.Play:
+                    _player.Play();
+                    break;
+                case PlayerCommand.Toggle:
+                    _player.TogglePause();
+                    break;
+                case PlayerCommand.Step:
+                    _player.Step();
+                    break;
+            }
         }
 
 
+        #endregion
+
+        #region Other
         void SgsubMainform_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!AskSave()) e.Cancel = true;
@@ -698,83 +866,6 @@ namespace sgsubtr
             }
         }
 
-        void KeyConfig_Click(object sender, EventArgs e)
-        {
-            var keycfg = new KeyConfigForm(_config);
-            if (keycfg.ShowDialog() == DialogResult.OK)
-            {
-                _config.Save();
-                updateConfig();
-            }
-        }
-
-        void subEditor_Seek(object sender, SeekEventArgs e)
-        {
-            switch (e.SeekDirection)
-            {
-                case SeekDir.Begin:
-                    _player.CurrentPosition = e.SeekOffset;
-                    break;
-                case SeekDir.CurrentPos:
-                    _player.CurrentPosition += e.SeekOffset;
-                    break;
-            }
-        }
-
-
-        void PlayerControlEventHandler(object sender, PlayerControlEventArgs e)
-        {
-            switch (e.ControlCMD)
-            {
-                case PlayerCommand.Pause:
-                    _player.Pause();
-                    break;
-                case PlayerCommand.Play:
-                    _player.Play();
-                    break;
-                case PlayerCommand.Toggle:
-                    _player.TogglePause();
-                    break;
-                case PlayerCommand.Step:
-                    _player.Step();
-                    break;
-            }
-        }
-
-        void subEditor_CurrentRowChanged(object sender, CurrentRowChangeEventArgs e)
-        {
-            waveViewer.CurrentLineIndex = e.CurrentRowIndex;
-        }
-
-        void waveViewer_WaveFormMouseDown(object sender, WaveReader.WFMouseEventArgs e)
-        {
-            if (_player.MediaOpened)
-            {
-                switch (e.Button)
-                {
-                    case MouseButtons.Left:
-                        subEditor.EditStartTime(subEditor.CurrentRowIndex, e.Time);
-                        break;
-                    case MouseButtons.Right:
-                        subEditor.EditEndTime(subEditor.CurrentRowIndex, e.Time);
-                        subEditor.CurrentRowIndex++;
-                        break;
-                }
-                waveViewer.RefreshDisplay();
-            }
-            subEditor.Focus();
-        }
-
-
-        void subEditor_TimeEdit(object sender, TimeEditEventArgs e)
-        {
-            if (_player.MediaOpened)
-            {
-                e.TimeValue = _player.CurrentPosition;
-                e.CancelEvent = false;
-                e.Paused = _player.Paused;
-            }
-        }
 
         /// <summary>
         /// 每个定时器周期刷新字幕的显示
@@ -787,6 +878,14 @@ namespace sgsubtr
                 waveViewer.CurrentPosition = _player.CurrentPosition;
             }
         }
+
+
+
+
+
+
+        #endregion
+
 
         #region Private Members
 
@@ -813,71 +912,7 @@ namespace sgsubtr
         private WorkMode _workMode = WorkMode.TimingMode;
         #endregion
 
-        void exit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        void saveSubAs_Click(object sender, EventArgs e)
-        {
-            if (_currentSub == null) return;
-            var dlg = new SaveFileDialog
-                          {
-                              AddExtension = true,
-                              DefaultExt = "ass",
-                              Filter = @"ASS Subtitle (*.ass)|*.ass||"
-                          };
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                _subFilename = dlg.FileName;
-                _currentSub.Save(_subFilename, Encoding.Unicode);
-                subEditor.Edited = false;
-            }
-
-        }
-
-        void saveSub_Click(object sender, EventArgs e)
-        {
-            SaveAssSub();
-        }
-
-        void openMedia_Click(object sender, EventArgs e)
-        {
-            var dlg = new OpenFileDialog
-                          {
-                              Filter =
-                                  @"Video File (*.mp4;*.mkv;*.avi;*.mpg)|*.mp4;*.mkv;*.avi;*.mpg|All files (*.*)|*.*||"
-                          };
-            if (dlg.ShowDialog() == DialogResult.OK)
-                OpenVideo(dlg.FileName);
-        }
-
-
-        void openTXT_Click(object sender, EventArgs e)
-        {
-            var dlg = new OpenFileDialog {Filter = @"Text File (*.txt)|*.txt||"};
-
-            if (AskSave() && dlg.ShowDialog() == DialogResult.OK)
-                OpenTxt(dlg.FileName);
-        }
-        void openSub_Click(object sender, EventArgs e)
-        {
-            var dlg = new OpenFileDialog {Filter = @"ASS Subtitle (*.ass)|*.ass||"};
-            if (AskSave() && dlg.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    OpenAss(dlg.FileName);
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK);
-                    _currentSub = null;
-                    _subFilename = null;
-                    SetCurrentSub();
-                }
-            }
-        }
+        
 
         #region File Operation
 
@@ -1010,6 +1045,7 @@ namespace sgsubtr
         }
 
         #endregion
+
 
     }
 }

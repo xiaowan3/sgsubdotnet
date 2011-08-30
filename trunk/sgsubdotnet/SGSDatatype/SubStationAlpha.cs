@@ -123,6 +123,7 @@ namespace SGSDatatype
             EventsSection.WriteTo(writer);
             writer.Flush();
             stream.Flush();
+            stream.Close();
         }
 
         public static SubStationAlpha FromXml(Stream filestream)
