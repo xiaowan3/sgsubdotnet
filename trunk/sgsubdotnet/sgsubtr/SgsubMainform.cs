@@ -874,6 +874,11 @@ namespace sgsubtr
         {
             if (_player.MediaOpened)
             {
+                if(Math.Abs(_player.Duration - _lastDuration)>0.01)
+                {
+                    subEditor.VideoLength = _player.Duration;
+                    _lastDuration = _player.Duration;
+                }
                 subEditor.DisplayTime(_player.CurrentPosition);
                 waveViewer.CurrentPosition = _player.CurrentPosition;
             }
@@ -910,6 +915,8 @@ namespace sgsubtr
         private int _messageMode;
 
         private WorkMode _workMode = WorkMode.TimingMode;
+
+        private double _lastDuration = 0;
         #endregion
 
         
