@@ -126,10 +126,24 @@ namespace SGSDatatype
         public SSAInt Layer { get; set; }
 
         [DataMember]
-        public SSATime Start { get; set; }
+        public SSATime Start
+        {
+            get { return _start; }
+            set
+            {
+                _start = value ?? new SSATime();
+            }
+        }
 
         [DataMember]
-        public SSATime End { get; set; }
+        public SSATime End
+        {
+            get { return _end; }
+            set
+            {
+                _end = value ?? new SSATime();
+            }
+        }
 
         [DataMember]
         public SSAString Style { get; set; }
@@ -153,7 +167,17 @@ namespace SGSDatatype
         public SSAString Effect { get; set; }
 
         [DataMember]
-        public SSAString Text { get; set; }
+        public SSAString Text
+        {
+            get { return _text; }
+            set {
+                _text = value ?? new SSAString();
+            }
+        }
+
+        private SSAString _text = new SSAString();
+        private SSATime _start = new SSATime();
+        private SSATime _end = new SSATime();
 
         public V4Event()
         {
