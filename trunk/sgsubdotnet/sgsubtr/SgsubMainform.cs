@@ -214,8 +214,8 @@ namespace sgsubtr
         #region Controls
         SubEditor subEditor = new SubEditor();
         WaveFormViewer waveViewer = new WaveFormViewer();
-      //  SubItemEditor subItemEditor = new SubItemEditor();
-       // VideoPlayer.PlayerControl dxVideoPlayer = new VideoPlayer.DXVideoPlayer();
+        //  SubItemEditor subItemEditor = new SubItemEditor();
+        // VideoPlayer.PlayerControl dxVideoPlayer = new VideoPlayer.DXVideoPlayer();
         private Control _playerControl;
         private ISGSPlayer _player;
         private TranslationEditor translationEditor = new TranslationEditor();
@@ -320,22 +320,38 @@ namespace sgsubtr
             _menuItemSaveSub.Click += new EventHandler(saveSub_Click);
             _menuItemSaveSubAs.Click += new EventHandler(saveSubAs_Click);
             _menuItemAutoSaveRecord.Click += new EventHandler(_menuItemAutoSaveRecord_Click);
-            _menuItemTrnAutoSave.Click += new EventHandler(_menuItemTrnAutoSave_Click);
+            _menuItemTrnAutoSave.Click += new EventHandler(
+                (sender, e) => translationEditor.ShowAutosaveDlg());
             _menuItemExit.Click += new EventHandler(exit_Click);
 
-            _menuItemUndoSub.Click += new EventHandler(_menuItemUndoSub_Click);
-            _menuItemCopySub.Click += new EventHandler(_menuItemCopySub_Click);
-            _menuItemPasteSub.Click += new EventHandler(_menuItemPasteSub_Click);
-            _menuItemUndoTrn.Click += new EventHandler(_menuItemUndoTrn_Click);
-            _menuItemCopyTrn.Click += new EventHandler(_menuItemCopyTrn_Click);
-            _menuItemCutTrn.Click += new EventHandler(_menuItemCutTrn_Click);
-            _menuItemPasteTrn.Click += new EventHandler(_menuItemPasteTrn_Click);
+            _menuItemUndoSub.Click += new EventHandler((s, e) => subEditor.Undo());
+            _menuItemCopySub.Click += new EventHandler((s, e) => subEditor.Copy());
+            _menuItemPasteSub.Click += new EventHandler((s, e) => subEditor.Paste());
+            _menuItemUndoTrn.Click += new EventHandler((s, e) => translationEditor.Undo());
+            _menuItemCopyTrn.Click += new EventHandler((s, e) => translationEditor.Copy());
+            _menuItemCutTrn.Click += new EventHandler((s, e) => translationEditor.Cut());
+            _menuItemPasteTrn.Click += new EventHandler((s, e) => translationEditor.Paste());
 
-            _menuItemKeyConfig.Click += new EventHandler(_menuItemKeyConfig_Click);
-            _menuItemCustomize.Click += new EventHandler(_menuItemCustomize_Click);
-            _menuItemTranslationMode.Click += new EventHandler(_menuItemTranslationMode_Click);
-            _menuItemTimingMode.Click += new EventHandler(_menuItemTimingMode_Click);
-            _menuItemAboutSGSUBTR.Click += new EventHandler(_menuItemAboutSGSUBTR_Click);
+            _menuItemKeyConfig.Click += new EventHandler(
+                (s, e) =>
+                    {
+                        var keycfg = new KeyConfigForm(_config);
+                        if (keycfg.ShowDialog() == DialogResult.OK)
+                        {
+                            _config.Save();
+                            updateConfig();
+                        }
+                    });
+            _menuItemCustomize.Click += new EventHandler(
+                (s, e) =>
+                    {
+                        var cfgform = new ConfigForm(_config);
+                        cfgform.ShowDialog();
+                        updateConfig();
+                    });
+            _menuItemTranslationMode.Click += new EventHandler((s, e) => SetTranslationMode());
+            _menuItemTimingMode.Click += new EventHandler((s, e) => SetTimingMode());
+            _menuItemAboutSGSUBTR.Click += new EventHandler((s,e)=>(new AboutBox()).Show());
 
         }
 
@@ -420,12 +436,12 @@ namespace sgsubtr
             AllowDrop = true;
             statusLabel.Text = StatusMessages[_messageMode];
 
-            XmlTextReader layoutReader; 
+            XmlTextReader layoutReader;
             var xmldoc = new XmlDocument();
-            
+
 
             #region Load Config
-            
+
             //Load Layout
             var layoutfilename = string.Format(@"{0}\config\{1}.layout", _startUpPath, _config.LayoutName);
             if (!System.IO.File.Exists(layoutfilename))
@@ -458,7 +474,7 @@ namespace sgsubtr
 
             if (root == null)
             {
-                MessageBox.Show(@"无法读取布局文件，使用默认布局", @"错误",MessageBoxButtons.OK);
+                MessageBox.Show(@"无法读取布局文件，使用默认布局", @"错误", MessageBoxButtons.OK);
                 var defaultReader = new XmlTextReader(_startUpPath + @"\config\layout.xml");
                 xmldoc.Load(defaultReader);
                 root = xmldoc.ChildNodes[0];
@@ -510,17 +526,46 @@ namespace sgsubtr
             waveViewer.BTNOpenMedia += new EventHandler(openMedia_Click);
             waveViewer.BTNOpenTxt += new EventHandler(openTXT_Click);
             waveViewer.BTNSaveAss += new EventHandler(saveSub_Click);
-            waveViewer.WaveFormMouseDown += new EventHandler<WaveReader.WFMouseEventArgs>(waveViewer_WaveFormMouseDown);
+            waveViewer.WaveFormMouseDown += new EventHandler<WaveReader.WFMouseEventArgs>(
+                (sender, e) =>
+                {
+                    if (_player.MediaOpened)
+                    {
+                        switch (e.Button)
+                        {
+                            case MouseButtons.Left:
+                                subEditor.EditStartTime(subEditor.CurrentRowIndex, e.Time);
+                                break;
+                            case MouseButtons.Right:
+                                subEditor.EditEndTime(subEditor.CurrentRowIndex, e.Time);
+                                subEditor.CurrentRowIndex++;
+                                break;
+                        }
+                        waveViewer.RefreshDisplay();
+                    }
+                    subEditor.Focus();
+                });
             waveViewer.PlayerControl += new EventHandler<PlayerControlEventArgs>(PlayerControlEventHandler);
-            waveViewer.MouseLeave += new EventHandler(waveViewer_MouseLeave);
-            waveViewer.MouseEnter += new EventHandler(waveViewer_MouseEnter);
+            
+            waveViewer.MouseLeave += new EventHandler(
+                (sender, e) => statusLabel.Text = StatusMessages[_messageMode]);
+            waveViewer.MouseEnter += new EventHandler(
+                (sender, e) => statusLabel.Text = StatusMessages[1]);
 
-            subEditor.TimeEdit += new EventHandler<TimeEditEventArgs>(subEditor_TimeEdit);
-            subEditor.CurrentRowChanged += new EventHandler<CurrentRowChangeEventArgs>(subEditor_CurrentRowChanged);
             subEditor.PlayerControl += new EventHandler<PlayerControlEventArgs>(PlayerControlEventHandler);
             subEditor.Seek += new EventHandler<SeekEventArgs>(subEditor_Seek);
             subEditor.KeySaveAss += new EventHandler(saveSub_Click);
-            subEditor.AutosaveEvent += new EventHandler(subEditor_AutosaveEvent);
+            subEditor.TimeEdit += new EventHandler<TimeEditEventArgs>(subEditor_TimeEdit);
+
+            subEditor.CurrentRowChanged += new EventHandler<CurrentRowChangeEventArgs>(
+                (sender, e) => waveViewer.CurrentLineIndex = e.CurrentRowIndex);
+
+            subEditor.AutosaveEvent += new EventHandler(
+                (sender, e) =>
+                {
+                    if (_currentSub != null)
+                        _autosave.SaveHistory(_currentSub, _subFilename);
+                });
 
             translationEditor.SeekPlayer += new EventHandler<SeekEventArgs>(subEditor_Seek);
             translationEditor.TimeEdit += new EventHandler<TimeEditEventArgs>(subEditor_TimeEdit);
@@ -533,82 +578,7 @@ namespace sgsubtr
 
         #region Menu Event Handlers
 
-        void _menuItemTrnAutoSave_Click(object sender, EventArgs e)
-        {
-            translationEditor.ShowAutosaveDlg();
-        }
-
-        void _menuItemPasteTrn_Click(object sender, EventArgs e)
-        {
-            translationEditor.Paste();
-        }
-
-        void _menuItemCutTrn_Click(object sender, EventArgs e)
-        {
-            translationEditor.Cut();
-        }
-
-        void _menuItemCopyTrn_Click(object sender, EventArgs e)
-        {
-            translationEditor.Copy();
-        }
-
-        void _menuItemUndoTrn_Click(object sender, EventArgs e)
-        {
-            translationEditor.Undo();
-        }
-
-        void _menuItemPasteSub_Click(object sender, EventArgs e)
-        {
-            subEditor.Paste();
-        }
-
-        void _menuItemCopySub_Click(object sender, EventArgs e)
-        {
-            subEditor.Copy();
-        }
-
-        void _menuItemUndoSub_Click(object sender, EventArgs e)
-        {
-            subEditor.Undo();
-        }
-
-        void _menuItemTimingMode_Click(object sender, EventArgs e)
-        {
-            SetTimingMode();
-        }
-
-        void _menuItemTranslationMode_Click(object sender, EventArgs e)
-        {
-
-            SetTranslationMode();
-        }
-
-        void _menuItemCustomize_Click(object sender, EventArgs e)
-        {
-            var cfgform = new ConfigForm(_config);
-            cfgform.ShowDialog();
-            updateConfig();
-        }
-
-        void _menuItemAboutSGSUBTR_Click(object sender, EventArgs e)
-        {
-            var aboutBox = new AboutBox();
-            aboutBox.Show();
-        }
-
-
-        void _menuItemKeyConfig_Click(object sender, EventArgs e)
-        {
-            var keycfg = new KeyConfigForm(_config);
-            if (keycfg.ShowDialog() == DialogResult.OK)
-            {
-                _config.Save();
-                updateConfig();
-            }
-        }
-
-        void _menuItemAutoSaveRecord_Click(object sender, EventArgs e)
+         void _menuItemAutoSaveRecord_Click(object sender, EventArgs e)
         {
             var saveDlg = new AutoSaveForm(_autosave);
             if (saveDlg.ShowDialog() == DialogResult.OK)
@@ -714,46 +684,8 @@ namespace sgsubtr
 
         #endregion
 
-        #region WaveViewer Event Handlers
-
-        void waveViewer_MouseEnter(object sender, EventArgs e)
-        {
-            statusLabel.Text = StatusMessages[1];
-        }
-
-        void waveViewer_MouseLeave(object sender, EventArgs e)
-        {
-            statusLabel.Text = StatusMessages[_messageMode];
-        }
-
-        void waveViewer_WaveFormMouseDown(object sender, WaveReader.WFMouseEventArgs e)
-        {
-            if (_player.MediaOpened)
-            {
-                switch (e.Button)
-                {
-                    case MouseButtons.Left:
-                        subEditor.EditStartTime(subEditor.CurrentRowIndex, e.Time);
-                        break;
-                    case MouseButtons.Right:
-                        subEditor.EditEndTime(subEditor.CurrentRowIndex, e.Time);
-                        subEditor.CurrentRowIndex++;
-                        break;
-                }
-                waveViewer.RefreshDisplay();
-            }
-            subEditor.Focus();
-        }
-
-
-        #endregion
-
         #region SubEditor Event Handlers
 
-        void subEditor_AutosaveEvent(object sender, EventArgs e)
-        {
-            if (_currentSub != null) _autosave.SaveHistory(_currentSub, _subFilename);
-        }
 
         void subEditor_Seek(object sender, SeekEventArgs e)
         {
@@ -768,10 +700,6 @@ namespace sgsubtr
             }
         }
 
-        void subEditor_CurrentRowChanged(object sender, CurrentRowChangeEventArgs e)
-        {
-            waveViewer.CurrentLineIndex = e.CurrentRowIndex;
-        }
 
         void subEditor_TimeEdit(object sender, TimeEditEventArgs e)
         {
@@ -874,7 +802,7 @@ namespace sgsubtr
         {
             if (_player.MediaOpened)
             {
-                if(Math.Abs(_player.Duration - _lastDuration)>0.01)
+                if (Math.Abs(_player.Duration - _lastDuration) > 0.01)
                 {
                     subEditor.VideoLength = _player.Duration;
                     _lastDuration = _player.Duration;
@@ -883,10 +811,6 @@ namespace sgsubtr
                 waveViewer.CurrentPosition = _player.CurrentPosition;
             }
         }
-
-
-
-
 
 
         #endregion
@@ -916,10 +840,10 @@ namespace sgsubtr
 
         private WorkMode _workMode = WorkMode.TimingMode;
 
-        private double _lastDuration = 0;
+        private double _lastDuration;
         #endregion
 
-        
+
 
         #region File Operation
 
