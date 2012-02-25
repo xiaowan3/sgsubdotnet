@@ -1,12 +1,12 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaveReader", "WaveReader\WaveReader.csproj", "{66428FAC-8E3C-4BFF-8268-069398389696}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BA8976D3-5768-4DA0-9446-04110DC73DD8} = {BA8976D3-5768-4DA0-9446-04110DC73DD8}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fftsupport", "fftsupport\fftsupport.vcproj", "{BA8976D3-5768-4DA0-9446-04110DC73DD8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fftsupport", "fftsupport\fftsupport.vcxproj", "{BA8976D3-5768-4DA0-9446-04110DC73DD8}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SGSUBInstall", "SGSUBInstall\SGSUBInstall.vdproj", "{2FB0A15E-CD4D-4C47-890A-99C160F914B4}"
 EndProject
@@ -24,11 +24,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sgsubtr", "sgsubtr\sgsubtr.csproj", "{1634A5E2-705C-43B5-8F6A-F0FED8C598C9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wsolalib", "wsolalib\wsolalib.vcproj", "{00973297-A474-4389-BC88-014EBBAB9D2A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wsolalib", "wsolalib\wsolalib.vcxproj", "{00973297-A474-4389-BC88-014EBBAB9D2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGSDatatype", "SGSDatatype\SGSDatatype.csproj", "{76586FC3-5D8E-40EB-8662-32B4F2950C5F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dshowplayer", "dshowplayer\dshowplayer.vcproj", "{C498ACB5-61D2-489B-ACB6-11DE2233C965}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dshowplayer", "dshowplayer\dshowplayer.vcxproj", "{C498ACB5-61D2-489B-ACB6-11DE2233C965}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SGSUBWithMPlayer", "SGSUBWithMPlayer\SGSUBWithMPlayer.vdproj", "{FBA84AAC-FA57-4A73-AA7E-88E315C1B681}"
 EndProject
