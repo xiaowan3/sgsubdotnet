@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 
-namespace WaveReader
+namespace SGS.WaveReader
 {
     public class WFMouseEventArgs : MouseEventArgs
     {

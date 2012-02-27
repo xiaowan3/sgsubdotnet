@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SGSControls.Properties {
+namespace SGS.Controls.Properties {
     using System;
     
     

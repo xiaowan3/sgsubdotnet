@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using WMPLib;
 
-namespace VideoPlayer
+namespace SGS.VideoPlayer
 {
     public class WMPlayer : AxWMPLib.AxWindowsMediaPlayer, ISGSPlayer
     {

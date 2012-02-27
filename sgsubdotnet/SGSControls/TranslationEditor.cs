@@ -6,9 +6,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SGSDatatype;
+using SGS.Datatype;
 
-namespace SGSControls
+namespace SGS.Controls
 {
     public partial class TranslationEditor : UserControl
     {
@@ -19,13 +19,13 @@ namespace SGSControls
         #region members
 
         private string _filename = "";
-        private SGSDatatype.SGSConfig _config = null;
-        private SGSDatatype.SGSTrnAutosave _autosave;
+        private Datatype.SGSConfig _config = null;
+        private Datatype.SGSTrnAutosave _autosave;
 
         #endregion
 
         #region public methods
-        public void SetConfig(SGSDatatype.SGSConfig config)
+        public void SetConfig(Datatype.SGSConfig config)
         {
             syntaxHighlightingTextBox1.SetConfig(config);
             _config = config;

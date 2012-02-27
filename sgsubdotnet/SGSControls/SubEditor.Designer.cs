@@ -1,4 +1,4 @@
-﻿namespace SGSControls
+﻿namespace SGS.Controls
 {
     partial class SubEditor
     {
@@ -159,7 +159,7 @@
             // tsbtnPause
             // 
             this.tsbtnPause.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnPause.Image = global::SGSControls.Properties.Resources.pause;
+            this.tsbtnPause.Image = global::SGS.Controls.Properties.Resources.pause;
             this.tsbtnPause.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnPause.Name = "tsbtnPause";
             this.tsbtnPause.Size = new System.Drawing.Size(23, 22);
@@ -169,7 +169,7 @@
             // tsbtnPlay
             // 
             this.tsbtnPlay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnPlay.Image = global::SGSControls.Properties.Resources.run;
+            this.tsbtnPlay.Image = global::SGS.Controls.Properties.Resources.run;
             this.tsbtnPlay.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnPlay.Name = "tsbtnPlay";
             this.tsbtnPlay.Size = new System.Drawing.Size(23, 22);
@@ -179,7 +179,7 @@
             // tsbtnStep
             // 
             this.tsbtnStep.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnStep.Image = global::SGSControls.Properties.Resources.step;
+            this.tsbtnStep.Image = global::SGS.Controls.Properties.Resources.step;
             this.tsbtnStep.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnStep.Name = "tsbtnStep";
             this.tsbtnStep.Size = new System.Drawing.Size(23, 22);
@@ -189,7 +189,7 @@
             // tsbtnJumpto
             // 
             this.tsbtnJumpto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnJumpto.Image = global::SGSControls.Properties.Resources.jumpto;
+            this.tsbtnJumpto.Image = global::SGS.Controls.Properties.Resources.jumpto;
             this.tsbtnJumpto.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnJumpto.Name = "tsbtnJumpto";
             this.tsbtnJumpto.Size = new System.Drawing.Size(23, 22);
@@ -204,7 +204,7 @@
             // tsbtnDuplicate
             // 
             this.tsbtnDuplicate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnDuplicate.Image = global::SGSControls.Properties.Resources.copy;
+            this.tsbtnDuplicate.Image = global::SGS.Controls.Properties.Resources.copy;
             this.tsbtnDuplicate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnDuplicate.Name = "tsbtnDuplicate";
             this.tsbtnDuplicate.Size = new System.Drawing.Size(23, 22);
@@ -214,7 +214,7 @@
             // tsbtnDelete
             // 
             this.tsbtnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnDelete.Image = global::SGSControls.Properties.Resources.delete;
+            this.tsbtnDelete.Image = global::SGS.Controls.Properties.Resources.delete;
             this.tsbtnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnDelete.Name = "tsbtnDelete";
             this.tsbtnDelete.Size = new System.Drawing.Size(23, 22);
@@ -224,7 +224,7 @@
             // tsbtnInsAfter
             // 
             this.tsbtnInsAfter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnInsAfter.Image = global::SGSControls.Properties.Resources.insertafter;
+            this.tsbtnInsAfter.Image = global::SGS.Controls.Properties.Resources.insertafter;
             this.tsbtnInsAfter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnInsAfter.Name = "tsbtnInsAfter";
             this.tsbtnInsAfter.Size = new System.Drawing.Size(23, 22);
@@ -234,7 +234,7 @@
             // tsbtnInsBefore
             // 
             this.tsbtnInsBefore.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnInsBefore.Image = global::SGSControls.Properties.Resources.insertbefore;
+            this.tsbtnInsBefore.Image = global::SGS.Controls.Properties.Resources.insertbefore;
             this.tsbtnInsBefore.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnInsBefore.Name = "tsbtnInsBefore";
             this.tsbtnInsBefore.Size = new System.Drawing.Size(23, 22);
@@ -249,7 +249,7 @@
             // tsbtnTimeLineScan
             // 
             this.tsbtnTimeLineScan.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnTimeLineScan.Image = global::SGSControls.Properties.Resources.olscan;
+            this.tsbtnTimeLineScan.Image = global::SGS.Controls.Properties.Resources.olscan;
             this.tsbtnTimeLineScan.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnTimeLineScan.Name = "tsbtnTimeLineScan";
             this.tsbtnTimeLineScan.Size = new System.Drawing.Size(23, 22);
@@ -259,7 +259,7 @@
             // tsbtnUndo
             // 
             this.tsbtnUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnUndo.Image = global::SGSControls.Properties.Resources.undo;
+            this.tsbtnUndo.Image = global::SGS.Controls.Properties.Resources.undo;
             this.tsbtnUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnUndo.Name = "tsbtnUndo";
             this.tsbtnUndo.Size = new System.Drawing.Size(23, 22);
@@ -269,7 +269,7 @@
             // tsbtnMarkCells
             // 
             this.tsbtnMarkCells.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnMarkCells.Image = global::SGSControls.Properties.Resources.mark;
+            this.tsbtnMarkCells.Image = global::SGS.Controls.Properties.Resources.mark;
             this.tsbtnMarkCells.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnMarkCells.Name = "tsbtnMarkCells";
             this.tsbtnMarkCells.Size = new System.Drawing.Size(23, 22);
@@ -279,7 +279,7 @@
             // tsbtnUnmarkAll
             // 
             this.tsbtnUnmarkAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnUnmarkAll.Image = global::SGSControls.Properties.Resources.unmark;
+            this.tsbtnUnmarkAll.Image = global::SGS.Controls.Properties.Resources.unmark;
             this.tsbtnUnmarkAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnUnmarkAll.Name = "tsbtnUnmarkAll";
             this.tsbtnUnmarkAll.Size = new System.Drawing.Size(23, 22);
@@ -289,7 +289,7 @@
             // tsbtnTimeOffset
             // 
             this.tsbtnTimeOffset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnTimeOffset.Image = global::SGSControls.Properties.Resources.timeoffset;
+            this.tsbtnTimeOffset.Image = global::SGS.Controls.Properties.Resources.timeoffset;
             this.tsbtnTimeOffset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnTimeOffset.Name = "tsbtnTimeOffset";
             this.tsbtnTimeOffset.Size = new System.Drawing.Size(23, 22);
@@ -309,7 +309,7 @@
             // tsbtnExportClip
             // 
             this.tsbtnExportClip.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnExportClip.Image = global::SGSControls.Properties.Resources.exportclip;
+            this.tsbtnExportClip.Image = global::SGS.Controls.Properties.Resources.exportclip;
             this.tsbtnExportClip.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnExportClip.Name = "tsbtnExportClip";
             this.tsbtnExportClip.Size = new System.Drawing.Size(23, 22);

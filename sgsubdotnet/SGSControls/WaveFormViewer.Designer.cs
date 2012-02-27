@@ -1,4 +1,4 @@
-﻿namespace SGSControls
+﻿namespace SGS.Controls
 {
     partial class WaveFormViewer
     {
@@ -201,7 +201,7 @@
             // tsbtnOpenAss
             // 
             this.tsbtnOpenAss.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnOpenAss.Image = global::SGSControls.Properties.Resources.openass;
+            this.tsbtnOpenAss.Image = global::SGS.Controls.Properties.Resources.openass;
             this.tsbtnOpenAss.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnOpenAss.Name = "tsbtnOpenAss";
             this.tsbtnOpenAss.Size = new System.Drawing.Size(23, 22);
@@ -210,7 +210,7 @@
             // tsbtnOpenTxt
             // 
             this.tsbtnOpenTxt.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnOpenTxt.Image = global::SGSControls.Properties.Resources.opentxt;
+            this.tsbtnOpenTxt.Image = global::SGS.Controls.Properties.Resources.opentxt;
             this.tsbtnOpenTxt.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnOpenTxt.Name = "tsbtnOpenTxt";
             this.tsbtnOpenTxt.Size = new System.Drawing.Size(23, 22);
@@ -219,7 +219,7 @@
             // tsbtnOpenMedia
             // 
             this.tsbtnOpenMedia.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnOpenMedia.Image = global::SGSControls.Properties.Resources.openvideo;
+            this.tsbtnOpenMedia.Image = global::SGS.Controls.Properties.Resources.openvideo;
             this.tsbtnOpenMedia.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnOpenMedia.Name = "tsbtnOpenMedia";
             this.tsbtnOpenMedia.Size = new System.Drawing.Size(23, 22);
@@ -233,7 +233,7 @@
             // tsbtnSaveASS
             // 
             this.tsbtnSaveASS.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnSaveASS.Image = global::SGSControls.Properties.Resources.save;
+            this.tsbtnSaveASS.Image = global::SGS.Controls.Properties.Resources.save;
             this.tsbtnSaveASS.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnSaveASS.Name = "tsbtnSaveASS";
             this.tsbtnSaveASS.Size = new System.Drawing.Size(23, 22);
@@ -247,7 +247,7 @@
             // tsbtnFFT
             // 
             this.tsbtnFFT.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnFFT.Image = global::SGSControls.Properties.Resources.fft;
+            this.tsbtnFFT.Image = global::SGS.Controls.Properties.Resources.fft;
             this.tsbtnFFT.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnFFT.Name = "tsbtnFFT";
             this.tsbtnFFT.Size = new System.Drawing.Size(23, 22);

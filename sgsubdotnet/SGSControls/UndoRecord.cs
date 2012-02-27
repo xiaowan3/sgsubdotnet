@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using SGSDatatype;
-namespace SGSControls
+using SGS.Datatype;
+namespace SGS.Controls
 {
     class UndoRecord
     {

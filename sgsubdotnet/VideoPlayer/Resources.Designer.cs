@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VideoPlayer {
+namespace SGS.VideoPlayer {
     using System;
     
     

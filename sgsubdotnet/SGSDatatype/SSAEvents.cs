@@ -7,7 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Runtime.Serialization;
 
-namespace SGSDatatype
+namespace SGS.Datatype
 {
     [DataContract(Name = "SSAEvents", Namespace = "SGSDatatype")]
     [KnownType(typeof(V4Event))]

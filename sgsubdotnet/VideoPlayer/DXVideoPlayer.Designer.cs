@@ -1,4 +1,4 @@
-﻿namespace VideoPlayer
+﻿namespace SGS.VideoPlayer
 {
     partial class DXVideoPlayer
     {

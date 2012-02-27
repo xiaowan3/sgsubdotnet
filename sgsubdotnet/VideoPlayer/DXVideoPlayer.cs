@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.DirectX.AudioVideoPlayback;
 
-namespace VideoPlayer
+namespace SGS.VideoPlayer
 {
     public partial class DXVideoPlayer :UserControl,ISGSPlayer
     {

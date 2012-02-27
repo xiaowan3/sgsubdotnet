@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace SGSDatatype
+namespace SGS.Datatype
 {
     public class SGSTrnAutosave
     {

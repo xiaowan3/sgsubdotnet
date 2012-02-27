@@ -35,7 +35,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.syntaxHighlightingTextBox1 = new SGSControls.SyntaxHighlightingTextBox();
+            this.syntaxHighlightingTextBox1 = new SGS.Controls.SyntaxHighlightingTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -147,6 +147,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
-        private SGSControls.SyntaxHighlightingTextBox syntaxHighlightingTextBox1;
+        private SGS.Controls.SyntaxHighlightingTextBox syntaxHighlightingTextBox1;
     }
 }

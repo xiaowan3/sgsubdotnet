@@ -9,9 +9,9 @@ using System.Security.AccessControl;
 using System.Windows.Forms;
 using System.Text;
 using System.Runtime.InteropServices;
-using SGSDatatype;
+using SGS.Datatype;
 
-namespace SGSControls
+namespace SGS.Controls
 {
     /// <summary>
     /// A textbox the does syntax highlighting.

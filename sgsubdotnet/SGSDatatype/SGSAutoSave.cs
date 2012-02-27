@@ -7,7 +7,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Runtime.Serialization;
 
-namespace SGSDatatype
+namespace SGS.Datatype
 {
     public class SGSAutoSave
     {

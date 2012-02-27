@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace SGSDatatype
+namespace SGS.Datatype
 {
     [DataContract(Name = "SSAScriptInfo", Namespace = "SGSDatatype")]
     public class SSAScriptInfo : ISection

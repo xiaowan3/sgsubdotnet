@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 using HWND = System.IntPtr;
 
-namespace SGSControls
+namespace SGS.Controls
 {
 	/// <summary>
 	/// Summary description for Win32.

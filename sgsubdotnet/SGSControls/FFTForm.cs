@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace SGSControls
+namespace SGS.Controls
 {
     public partial class FFTForm : Form
     {
@@ -28,7 +28,7 @@ namespace SGSControls
         }
         private void WaveExtractFunction()
         {
-            WaveReader.WaveForm.FFmpegpath = SGSDatatype.SGSConfig.FFMpegPath;
+            WaveReader.WaveForm.FFmpegpath = Datatype.SGSConfig.FFMpegPath;
             Waveform = WaveReader.WaveForm.ExtractWave(_filename);
             EnableOk();
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VideoPlayer
+namespace SGS.VideoPlayer
 {
     public interface ISGSPlayer
     {
