@@ -1,4 +1,4 @@
-﻿namespace WaveReader
+﻿namespace SGS.WaveReader
 {
     partial class WaveScope
     {

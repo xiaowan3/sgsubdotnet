@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.IO;
 
-namespace SGSControls
+namespace SGS.Controls
 {
     class WSOLA
     {
@@ -28,7 +28,7 @@ namespace SGSControls
         public WSOLA(System.Windows.Forms.Control owner,string mediafile)
         {
             _mediaFile = mediafile;
-            AudioFileIO.FFmpegpath = SGSDatatype.SGSConfig.FFMpegPath;
+            AudioFileIO.FFmpegpath = Datatype.SGSConfig.FFMpegPath;
             dev.SetCooperativeLevel(owner, Microsoft.DirectX.DirectSound.CooperativeLevel.Normal);
         }
 

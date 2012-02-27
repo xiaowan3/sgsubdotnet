@@ -1,4 +1,4 @@
-﻿namespace SGSControls
+﻿namespace SGS.Controls
 {
     partial class FFTForm
     {

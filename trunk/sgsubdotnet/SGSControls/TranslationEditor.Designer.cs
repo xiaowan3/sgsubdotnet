@@ -1,4 +1,4 @@
-﻿namespace SGSControls
+﻿namespace SGS.Controls
 {
     partial class TranslationEditor
     {
@@ -43,7 +43,7 @@
             this.labelUncertain = new System.Windows.Forms.Label();
             this.labelWindows = new System.Windows.Forms.Label();
             this.labelLines = new System.Windows.Forms.Label();
-            this.syntaxHighlightingTextBox1 = new SGSControls.SyntaxHighlightingTextBox();
+            this.syntaxHighlightingTextBox1 = new SyntaxHighlightingTextBox();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -89,7 +89,7 @@
             // 
             // btnFF
             // 
-            this.btnFF.Image = global::SGSControls.Properties.Resources.ff;
+            this.btnFF.Image = global::SGS.Controls.Properties.Resources.ff;
             this.btnFF.Location = new System.Drawing.Point(123, 134);
             this.btnFF.Name = "btnFF";
             this.btnFF.Size = new System.Drawing.Size(25, 23);
@@ -99,7 +99,7 @@
             // 
             // btnToggle
             // 
-            this.btnToggle.Image = global::SGSControls.Properties.Resources.toggle;
+            this.btnToggle.Image = global::SGS.Controls.Properties.Resources.toggle;
             this.btnToggle.Location = new System.Drawing.Point(39, 134);
             this.btnToggle.Name = "btnToggle";
             this.btnToggle.Size = new System.Drawing.Size(25, 23);
@@ -218,7 +218,7 @@
             this.syntaxHighlightingTextBox1.TabIndex = 0;
             this.syntaxHighlightingTextBox1.Text = "";
             this.syntaxHighlightingTextBox1.CheckAutosave += new System.EventHandler(this.syntaxHighlightingTextBox1_CheckAutosave);
-            this.syntaxHighlightingTextBox1.RefreshSummary += new System.EventHandler<SGSControls.SummaryEventArgs>(this.syntaxHighlightingTextBox1_RefreshSummary);
+            this.syntaxHighlightingTextBox1.RefreshSummary += new System.EventHandler<SummaryEventArgs>(this.syntaxHighlightingTextBox1_RefreshSummary);
             // 
             // TranslationEditor
             // 

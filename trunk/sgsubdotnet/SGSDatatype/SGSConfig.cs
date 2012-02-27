@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
 
-namespace SGSDatatype
+namespace SGS.Datatype
 {
     [DataContract(Name = "SGSConfig", Namespace = "SGSDatatype")]
     public class SGSConfig

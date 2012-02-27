@@ -7,7 +7,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace WaveReader
+namespace SGS.WaveReader
 {
     public class WaveForm
     {

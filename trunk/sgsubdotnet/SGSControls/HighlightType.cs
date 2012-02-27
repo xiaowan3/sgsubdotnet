@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
-namespace SGSControls
+namespace SGS.Controls
 {
     public class HighlightType
     {

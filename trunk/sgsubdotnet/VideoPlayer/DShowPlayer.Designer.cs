@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace VideoPlayer
+namespace SGS.VideoPlayer
 {
     partial class DShowPlayer
     {

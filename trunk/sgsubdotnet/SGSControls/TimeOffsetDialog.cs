@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace SGSControls
+namespace SGS.Controls
 {
     public partial class TimeOffsetDialog : Form
     {

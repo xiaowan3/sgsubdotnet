@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Windows.Forms;
-using SGSControls;
-using SGSDatatype;
-using VideoPlayer;
+using SGS.Controls;
+using SGS.Datatype;
+using SGS.VideoPlayer;
 
 namespace sgsubtr
 {
@@ -526,7 +526,7 @@ namespace sgsubtr
             waveViewer.BTNOpenMedia += new EventHandler(openMedia_Click);
             waveViewer.BTNOpenTxt += new EventHandler(openTXT_Click);
             waveViewer.BTNSaveAss += new EventHandler(saveSub_Click);
-            waveViewer.WaveFormMouseDown += new EventHandler<WaveReader.WFMouseEventArgs>(
+            waveViewer.WaveFormMouseDown += new EventHandler<SGS.WaveReader.WFMouseEventArgs>(
                 (sender, e) =>
                 {
                     if (_player.MediaOpened)

@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace VideoPlayer
+namespace SGS.VideoPlayer
 {
     public partial class DShowPlayer : UserControl, ISGSPlayer
     {

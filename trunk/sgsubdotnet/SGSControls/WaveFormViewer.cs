@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using SGSDatatype;
-namespace SGSControls
+using SGS.Datatype;
+namespace SGS.Controls
 {
     public partial class WaveFormViewer : UserControl
     {
@@ -16,7 +16,7 @@ namespace SGSControls
         #endregion
 
         #region Public Events
-        public event EventHandler<WaveReader.WFMouseEventArgs> WaveFormMouseDown
+        public event EventHandler<SGS.WaveReader.WFMouseEventArgs> WaveFormMouseDown
         {
             add { waveScope.WSMouseDown += value; }
             remove { waveScope.WSMouseDown -= value; }

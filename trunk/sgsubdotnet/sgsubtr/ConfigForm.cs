@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Xml;
-using SGSDatatype;
+using SGS.Datatype;
 // ReSharper disable PossibleLossOfFraction
 namespace sgsubtr
 {

@@ -4,9 +4,9 @@ using System.Drawing;
 using System.Linq;
 using System.IO;
 using System.Windows.Forms;
-using SGSDatatype;
+using SGS.Datatype;
 
-namespace SGSControls
+namespace SGS.Controls
 {
     public partial class SubEditor : UserControl
     {

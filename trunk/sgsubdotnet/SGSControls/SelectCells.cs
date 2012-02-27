@@ -5,9 +5,9 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Drawing;
-using SGSDatatype;
+using SGS.Datatype;
 
-namespace SGSControls
+namespace SGS.Controls
 {
     class SelectCells
     {

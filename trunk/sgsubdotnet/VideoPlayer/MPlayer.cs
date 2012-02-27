@@ -7,7 +7,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Threading.Timer;
 
-namespace VideoPlayer
+namespace SGS.VideoPlayer
 {
     public partial class MPlayer : UserControl, ISGSPlayer
     {

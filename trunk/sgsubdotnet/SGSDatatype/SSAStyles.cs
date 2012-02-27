@@ -7,7 +7,7 @@ using System.Text;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace SGSDatatype
+namespace SGS.Datatype
 {
     [DataContract(Name = "SSAStyles", Namespace = "SGSDatatype")]
     [KnownType(typeof(Style))]
