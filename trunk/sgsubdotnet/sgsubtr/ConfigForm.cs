@@ -10,7 +10,7 @@ using System.IO;
 using System.Xml;
 using SGS.Datatype;
 // ReSharper disable PossibleLossOfFraction
-namespace sgsubtr
+namespace SgsubTR
 {
     public partial class ConfigForm : Form
     {
