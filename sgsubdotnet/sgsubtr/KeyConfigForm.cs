@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using SGS.Datatype;
 
-namespace sgsubtr
+namespace SgsubTR
 {
     public partial class KeyConfigForm : Form
     {

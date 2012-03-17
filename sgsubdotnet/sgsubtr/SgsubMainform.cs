@@ -9,7 +9,7 @@ using SGS.Controls;
 using SGS.Datatype;
 using SGS.VideoPlayer;
 
-namespace sgsubtr
+namespace SgsubTR
 {
     class SgsubMainform : Form
     {

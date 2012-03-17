@@ -1,4 +1,4 @@
-﻿namespace sgsubtr
+﻿namespace SgsubTR
 {
     partial class KeyConfigForm
     {
@@ -63,31 +63,31 @@
             this.numMTS = new System.Windows.Forms.NumericUpDown();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.textTSaveAss = new sgsubtr.KeyConfigTextBox();
-            this.textTMTPlus = new sgsubtr.KeyConfigTextBox();
-            this.textTMTMinus = new sgsubtr.KeyConfigTextBox();
-            this.textTAddEndTime = new sgsubtr.KeyConfigTextBox();
-            this.textTAddStartTime = new sgsubtr.KeyConfigTextBox();
-            this.textTEnterEdit = new sgsubtr.KeyConfigTextBox();
-            this.textTAddContTime = new sgsubtr.KeyConfigTextBox();
-            this.textTAddCellTime = new sgsubtr.KeyConfigTextBox();
-            this.textTAddTime = new sgsubtr.KeyConfigTextBox();
-            this.textTSeekPre = new sgsubtr.KeyConfigTextBox();
-            this.textTSeekTo = new sgsubtr.KeyConfigTextBox();
-            this.textTPause = new sgsubtr.KeyConfigTextBox();
-            this.textTFF = new sgsubtr.KeyConfigTextBox();
-            this.textTRW = new sgsubtr.KeyConfigTextBox();
+            this.textTSaveAss = new SgsubTR.KeyConfigTextBox();
+            this.textTMTPlus = new SgsubTR.KeyConfigTextBox();
+            this.textTMTMinus = new SgsubTR.KeyConfigTextBox();
+            this.textTAddEndTime = new SgsubTR.KeyConfigTextBox();
+            this.textTAddStartTime = new SgsubTR.KeyConfigTextBox();
+            this.textTEnterEdit = new SgsubTR.KeyConfigTextBox();
+            this.textTAddContTime = new SgsubTR.KeyConfigTextBox();
+            this.textTAddCellTime = new SgsubTR.KeyConfigTextBox();
+            this.textTAddTime = new SgsubTR.KeyConfigTextBox();
+            this.textTSeekPre = new SgsubTR.KeyConfigTextBox();
+            this.textTSeekTo = new SgsubTR.KeyConfigTextBox();
+            this.textTPause = new SgsubTR.KeyConfigTextBox();
+            this.textTFF = new SgsubTR.KeyConfigTextBox();
+            this.textTRW = new SgsubTR.KeyConfigTextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.textKeyTimetag2 = new sgsubtr.KeyConfigTextBox();
-            this.textKeySeek2 = new sgsubtr.KeyConfigTextBox();
-            this.textKeyToggle2 = new sgsubtr.KeyConfigTextBox();
-            this.textKeyRW2 = new sgsubtr.KeyConfigTextBox();
-            this.textKeyFF2 = new sgsubtr.KeyConfigTextBox();
-            this.textKeyTimetag1 = new sgsubtr.KeyConfigTextBox();
-            this.textKeySeek1 = new sgsubtr.KeyConfigTextBox();
-            this.textKeyToggle1 = new sgsubtr.KeyConfigTextBox();
-            this.textKeyRW1 = new sgsubtr.KeyConfigTextBox();
-            this.textKeyFF1 = new sgsubtr.KeyConfigTextBox();
+            this.textKeyTimetag2 = new SgsubTR.KeyConfigTextBox();
+            this.textKeySeek2 = new SgsubTR.KeyConfigTextBox();
+            this.textKeyToggle2 = new SgsubTR.KeyConfigTextBox();
+            this.textKeyRW2 = new SgsubTR.KeyConfigTextBox();
+            this.textKeyFF2 = new SgsubTR.KeyConfigTextBox();
+            this.textKeyTimetag1 = new SgsubTR.KeyConfigTextBox();
+            this.textKeySeek1 = new SgsubTR.KeyConfigTextBox();
+            this.textKeyToggle1 = new SgsubTR.KeyConfigTextBox();
+            this.textKeyRW1 = new SgsubTR.KeyConfigTextBox();
+            this.textKeyFF1 = new SgsubTR.KeyConfigTextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
@@ -1000,16 +1000,16 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label29;
-        private sgsubtr.KeyConfigTextBox textKeyFF1;
-        private sgsubtr.KeyConfigTextBox textKeyTimetag1;
-        private sgsubtr.KeyConfigTextBox textKeySeek1;
-        private sgsubtr.KeyConfigTextBox textKeyToggle1;
-        private sgsubtr.KeyConfigTextBox textKeyRW1;
-        private sgsubtr.KeyConfigTextBox textKeyTimetag2;
-        private sgsubtr.KeyConfigTextBox textKeySeek2;
-        private sgsubtr.KeyConfigTextBox textKeyToggle2;
-        private sgsubtr.KeyConfigTextBox textKeyRW2;
-        private sgsubtr.KeyConfigTextBox textKeyFF2;
+        private SgsubTR.KeyConfigTextBox textKeyFF1;
+        private SgsubTR.KeyConfigTextBox textKeyTimetag1;
+        private SgsubTR.KeyConfigTextBox textKeySeek1;
+        private SgsubTR.KeyConfigTextBox textKeyToggle1;
+        private SgsubTR.KeyConfigTextBox textKeyRW1;
+        private SgsubTR.KeyConfigTextBox textKeyTimetag2;
+        private SgsubTR.KeyConfigTextBox textKeySeek2;
+        private SgsubTR.KeyConfigTextBox textKeyToggle2;
+        private SgsubTR.KeyConfigTextBox textKeyRW2;
+        private SgsubTR.KeyConfigTextBox textKeyFF2;
         private KeyConfigTextBox textTPause;
         private KeyConfigTextBox textTFF;
         private KeyConfigTextBox textTRW;

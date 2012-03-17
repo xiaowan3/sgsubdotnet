@@ -1,4 +1,4 @@
-﻿namespace sgsubtr
+﻿namespace SgsubTR
 {
     partial class AutoSaveForm
     {

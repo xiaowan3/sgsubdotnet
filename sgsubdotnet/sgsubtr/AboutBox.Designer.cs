@@ -1,4 +1,4 @@
-﻿namespace sgsubtr
+﻿namespace SgsubTR
 {
     partial class AboutBox
     {
@@ -68,8 +68,8 @@
             // logoPictureBox
             // 
             this.logoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logoPictureBox.Image = global::sgsubtr.Properties.Resources.titarussell;
-            this.logoPictureBox.InitialImage = global::sgsubtr.Properties.Resources.titarussell;
+            this.logoPictureBox.Image = global::SgsubTR.Properties.Resources.titarussell;
+            this.logoPictureBox.InitialImage = global::SgsubTR.Properties.Resources.titarussell;
             this.logoPictureBox.Location = new System.Drawing.Point(3, 2);
             this.logoPictureBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.logoPictureBox.Name = "logoPictureBox";
