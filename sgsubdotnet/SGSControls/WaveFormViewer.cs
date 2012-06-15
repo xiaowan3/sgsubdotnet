@@ -143,11 +143,15 @@ namespace SGS.Controls
                     time.Value = item.End.Value - item.Start.Value;
                     labelNextLine.Text = item.Text.ToString();
                     labelNextDuration.Text = (time.Value >= 0) ? time.ToString() : "?:??:??.??";
+                    waveScope.NextStart = item.Start.Value;
+                    waveScope.NextEnd = item.End.Value;
                 }
                 else
                 {
                     labelNextLine.Text = "";
                     labelNextDuration.Text = @"-:--:--.--";
+                    waveScope.NextStart = 0;
+                    waveScope.NextEnd = 0;
                 }
                 waveScope.Redraw();
             }

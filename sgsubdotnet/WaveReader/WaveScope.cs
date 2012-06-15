@@ -36,6 +36,8 @@ namespace SGS.WaveReader
         }
         public double LastStart = 0;
         public double LastEnd = 0;
+        public double NextStart = 0;
+        public double NextEnd = 0;
         public double Start = 0;
         public double End = 0;
         private Pen bgPen = new Pen(Color.Black);
@@ -43,6 +45,7 @@ namespace SGS.WaveReader
         private Pen hLinePen = new Pen(Color.DarkGray);
         private Pen linePen = new Pen(Color.Blue);
         private Pen lastPen = new Pen(Color.DarkGray);
+        private Pen nextPen = new Pen(Color.Gray);
         private Pen lastPenT = new Pen(Color.FromArgb(60, 60, 110), 11);
         private Pen curPen = new Pen(Color.Green);
         private Pen curPenT = new Pen(Color.Green, 6);
@@ -110,6 +113,8 @@ namespace SGS.WaveReader
                 g.DrawImage(img, 0, 0);
                 int lasts = (int)((LastStart - CurrentPosition) / Wave.DeltaT) + startpos;
                 int laste = (int)((LastEnd - CurrentPosition) / Wave.DeltaT) + startpos;
+                int nexts = (int)((NextStart - CurrentPosition) / Wave.DeltaT) + startpos;
+                int nexte = (int)((NextEnd - CurrentPosition) / Wave.DeltaT) + startpos;
                 int st = (int)((Start - CurrentPosition) / Wave.DeltaT) + startpos;
                 int ed = (int)((End - CurrentPosition) / Wave.DeltaT) + startpos;
                 g.DrawLine(hLinePen, 0, 100, Width, 100);
@@ -139,6 +144,15 @@ namespace SGS.WaveReader
                         g.DrawLine(curPenT, st, 110, st + 10, 110);
                     }
 
+                }
+                if (nexts < Width || nexte > 0)
+                {
+                    g.DrawLine(nextPen, nexts, 0, nexts, Height);
+                    if (ed > st)
+                    {
+                        g.DrawLine(nextPen, nexts, 110, nexte, 110);
+                        g.DrawLine(nextPen, nexte, 0, nexte, Height);
+                    }
                 }
                 g.DrawLine(gridPen, startpos, 0, startpos, Height);
             }
