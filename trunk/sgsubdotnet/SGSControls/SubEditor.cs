@@ -94,13 +94,13 @@ namespace SGS.Controls
         {
             set
             {
-                _wsola = new WSOLA(this, value)
-                {
-                    Hanning_Duration = 0.09,
-                    Hanning_Overlap = 0.4,
-                    Delta_Divisor = 18,
-                    SlowCoef = 1.7,
-                };
+                //_wsola = new WSOLA(this, value)
+                //{
+                //    Hanning_Duration = 0.09,
+                //    Hanning_Overlap = 0.4,
+                //    Delta_Divisor = 18,
+                //    SlowCoef = 1.7,
+                //};
                 _mediaFile = value;
             }
         }
